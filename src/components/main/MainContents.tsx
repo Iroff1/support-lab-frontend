@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 const MainContentsBlock = styled(Responsive)`
   padding: 0;
+  margin-top: 64px;
 `;
 
 const MainContents = () => {
