@@ -14,7 +14,14 @@ const ButtonBlock = styled.button`
   cursor: pointer;
 `;
 
-const Button: React.FC<any> = ({ children, ...props }) => {
+interface IButtonProps {
+  children?: React.ReactNode | string;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  className?: string;
+  [key: string]: any; // 나머지 props은 string 키와 any 타입의 값으로 받을 수 있도록 허용 (선택 사항)
+}
+
+const Button: React.FC<IButtonProps> = ({ children, ...props }) => {
   return <ButtonBlock {...props}>{children}</ButtonBlock>;
 };
 
