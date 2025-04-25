@@ -1,12 +1,15 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Responsive from './Responsive';
 import { Link } from 'react-router';
 import Button from './Button';
+import palette from '@colors/index';
+import tranlateFontSize from '@hooks/tranlateFontSize';
 
 const HeaderBlock = styled.div`
   width: 100%;
   height: 64px;
-  background-color: white;
+  background-color: ${palette.black.white};
+  border: 1px solid ${palette.black.B50};
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
   padding: 12px 10px;
   position: fixed;
@@ -20,44 +23,38 @@ const HeaderResponsiveBlock = styled(Responsive)`
   display: flex;
   justify-content: space-between;
   align-items: center;
+`;
 
-  & > div:nth-child(1) {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+const HeaderLogoBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
 
-  & > div:nth-child(2) {
+const HeaderNavBox = styled.div`
+  height: 100%;
+  display: flex;
+  align-items: center;
+  & > ul {
     height: 100%;
     display: flex;
-    align-items: center;
-    & > ul {
+    & > li {
+      width: 140px;
       height: 100%;
+      flex: 1;
       display: flex;
-      & > li {
-        width: 140px;
-        height: 100%;
-        flex: 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-wrap: nowrap;
-        font-weight: 600;
-        transition: 0.2s ease background-color;
-        &:hover {
-          background-color: #eee;
-        }
-      }
+      justify-content: center;
+      align-items: center;
+      text-wrap: nowrap;
+      color: ${palette.black.B700};
+      ${css(tranlateFontSize('B_14'))};
     }
-  }
-  & > div:nth-child(3) {
   }
 `;
 
 const ConsultButton = styled(Button)`
-  background-color: dodgerblue;
-  font-size: 1.25rem;
-  color: white;
+  background-color: ${palette.system.blue};
+  color: ${palette.black.white};
   border: none;
 `;
 
@@ -65,8 +62,9 @@ const Header = () => {
   return (
     <HeaderBlock>
       <HeaderResponsiveBlock>
-        <div>logo</div>
-        <div>
+        <HeaderLogoBox>logo</HeaderLogoBox>
+
+        <HeaderNavBox>
           <ul>
             <li>
               <Link to={'/'}>사업 계획서 작성</Link>
@@ -81,10 +79,9 @@ const Header = () => {
               <ConsultButton>무료 상담</ConsultButton>
             </li>
           </ul>
-        </div>
-        <Button>
-          <strong>로그인</strong>
-        </Button>
+        </HeaderNavBox>
+
+        <Button>로그인</Button>
       </HeaderResponsiveBlock>
     </HeaderBlock>
   );

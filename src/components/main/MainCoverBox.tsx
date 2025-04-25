@@ -1,5 +1,7 @@
+import palette from '@colors/index';
 import Button from '@components/common/Button';
-import styled from 'styled-components';
+import tranlateFontSize from '@hooks/tranlateFontSize';
+import styled, { css } from 'styled-components';
 
 const MainCoverBoxBlock = styled.div`
   width: 100%;
@@ -16,21 +18,24 @@ const MainCoverBoxBlock = styled.div`
     margin: 0;
     margin-bottom: 10px;
     &:nth-child(1) {
-      font-weight: 700;
+      ${css(tranlateFontSize('B_48'))}
     }
     &:nth-child(2) {
-      font-weight: 400;
+      ${css(tranlateFontSize('R_48'))}
     }
   }
   p {
-    font-size: 1.4rem;
+    ${css(tranlateFontSize('R_22'))}
   }
 `;
 
 const ConsultButton = styled(Button)`
   border: 0;
-  background-color: dodgerblue;
-  color: white;
+  width: 169px;
+  height: 48px;
+  background-color: ${palette.system.blue};
+  color: ${palette.black.white};
+  ${css(tranlateFontSize('B_20'))}
 `;
 
 const MainCoverBox = () => {
