@@ -35,6 +35,8 @@ const MainBriefingBox = () => {
         <MainMessageBox>
           <h1>도움받으면 뭐가 다를까요?</h1>
         </MainMessageBox>
+
+        <MainResultBox />
       </div>
     </MainBriefingBoxBlock>
   );
