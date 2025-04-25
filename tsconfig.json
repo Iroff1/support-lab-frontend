@@ -17,6 +17,8 @@
     "noEmit": false,
     "baseUrl": "./src",
     "paths": {
+      "@colors/*": ["colors/*"],
+      "@hooks/*": ["hooks/*"],
       "@components/*": ["components/*"],
       "@containers/*": ["containers/*"],
       "@types/*": ["types/*"],
