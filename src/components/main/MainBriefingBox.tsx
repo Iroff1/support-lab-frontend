@@ -2,6 +2,7 @@ import tranlateFontSize from '@hooks/tranlateFontSize';
 import styled, { css } from 'styled-components';
 import MainMessageBox from './MainMessageBox';
 import MainResultBox from './MainResultBox';
+import MainAnalyzeBox from './MainAnalyzeBox';
 
 const MainBriefingBoxBlock = styled.div`
   width: 100%;
@@ -37,6 +38,7 @@ const MainBriefingBox = () => {
         </MainMessageBox>
 
         <MainResultBox />
+        <MainAnalyzeBox />
       </div>
     </MainBriefingBoxBlock>
   );
