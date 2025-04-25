@@ -6,17 +6,15 @@ import styled, { css } from 'styled-components';
 const MainCoverBoxBlock = styled.div`
   width: 100%;
   height: calc(100vh - 64px);
-  background-color: #191970;
+  background-color: ${palette.main.main};
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   color: white;
+  gap: 20px;
 
   h2 {
-    font-size: 3rem;
-    margin: 0;
-    margin-bottom: 10px;
     &:nth-child(1) {
       ${css(tranlateFontSize('B_48'))}
     }
