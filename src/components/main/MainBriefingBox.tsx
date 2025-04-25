@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import MainMessageBox from './MainMessageBox';
 import MainResultBox from './MainResultBox';
 import MainAnalyzeBox from './MainAnalyzeBox';
+import MainExampleBox from './MainExampleBox';
 
 const MainBriefingBoxBlock = styled.div`
   width: 100%;
@@ -39,6 +40,8 @@ const MainBriefingBox = () => {
 
         <MainResultBox />
         <MainAnalyzeBox />
+        <MainExampleBox />
+        <></>
       </div>
     </MainBriefingBoxBlock>
   );
