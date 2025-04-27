@@ -6,10 +6,8 @@
   "author": "sungohki <sokim1201@naver.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "webpack-dev-server --config webpack.config.js --open --hot",
-    "watch": "webpack --watch",
     "start": "webpack serve",
-    "build": "webpack --mode=production"
+    "build": "rm -rf ./dist && webpack --mode=production"
   },
   "dependencies": {
     "path": "^0.12.7",
