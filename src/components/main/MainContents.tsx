@@ -2,6 +2,7 @@ import Responsive from '@components/common/Responsive';
 import styled from 'styled-components';
 import MainCoverBox from './MainCoverBox';
 import MainBriefingBox from './MainBriefingBox';
+import Floating from '@components/common/Floating';
 
 const MainContentsBlock = styled(Responsive)`
   padding: 0;
@@ -10,10 +11,13 @@ const MainContentsBlock = styled(Responsive)`
 
 const MainContents = () => {
   return (
-    <MainContentsBlock>
-      <MainCoverBox />
-      <MainBriefingBox />
-    </MainContentsBlock>
+    <>
+      <MainContentsBlock>
+        <MainCoverBox />
+        <MainBriefingBox />
+      </MainContentsBlock>
+      <Floating />
+    </>
   );
 };
 
