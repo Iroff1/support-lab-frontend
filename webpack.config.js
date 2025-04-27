@@ -5,9 +5,18 @@ module.exports = {
   mode: 'development',
   entry: './src/index.tsx',
   output: {
-    filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js',
+    publicPath: '/',
     clean: true,
+    assetModuleFilename: (pathData) => {
+      const filepath = path
+        .dirname(pathData.filename)
+        .split('/')
+        .slice(1)
+        .join('/');
+      return `${filepath}/[name].[hash][ext][query]`;
+    },
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
@@ -19,6 +28,7 @@ module.exports = {
       '@types': path.resolve(__dirname, 'src/types/'),
       '@api': path.resolve(__dirname, 'src/api/'),
       '@pages': path.resolve(__dirname, 'src/pages/'),
+      '@images': path.resolve(__dirname, 'src/images/'),
     },
   },
   module: {
@@ -33,6 +43,13 @@ module.exports = {
       {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif|mp4|webp)$/i,
+        type: 'asset/resource',
+        generator: {
+          filename: 'static/[name][ext]',
+        },
       },
     ],
   },

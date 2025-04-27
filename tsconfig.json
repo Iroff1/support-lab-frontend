@@ -23,7 +23,8 @@
       "@containers/*": ["containers/*"],
       "@types/*": ["types/*"],
       "@api/*": ["api/*"],
-      "@pages/*": ["pages/*"]
+      "@pages/*": ["pages/*"],
+      "@images/*": ["images/*"]
     },
     "outDir": "./dist"
   },
