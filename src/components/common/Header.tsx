@@ -11,24 +11,30 @@ const HeaderBlock = styled.div`
   background-color: ${palette.black.white};
   border: 1px solid ${palette.black.B50};
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
-  padding: 12px 10px;
+  padding: 0 10px;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 100;
+  display: flex;
+  align-items: center;
 `;
 
 const HeaderResponsiveBlock = styled(Responsive)`
-  height: 100%;
+  height: 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
 
 const HeaderLogoBox = styled.div`
+  height: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  img {
+    width: 128px;
+  }
 `;
 
 const HeaderNavBox = styled.div`
@@ -67,7 +73,9 @@ const Header = () => {
   return (
     <HeaderBlock>
       <HeaderResponsiveBlock>
-        <HeaderLogoBox>logo</HeaderLogoBox>
+        <HeaderLogoBox>
+          <img src={require('@images/header_logo_pc.png')} alt="" />
+        </HeaderLogoBox>
 
         <HeaderNavBox>
           <ul>
