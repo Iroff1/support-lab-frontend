@@ -47,15 +47,20 @@ const HeaderNavBox = styled.div`
       align-items: center;
       text-wrap: nowrap;
       color: ${palette.black.B700};
-      ${css(tranlateFontSize('B_14'))};
+      ${css(tranlateFontSize('B_18'))};
     }
   }
 `;
 
 const ConsultButton = styled(Button)`
+  ${css(tranlateFontSize('B_18'))};
   background-color: ${palette.system.blue};
   color: ${palette.black.white};
   border: none;
+`;
+
+const AuthButton = styled(Button)`
+  ${css(tranlateFontSize('B_18'))};
 `;
 
 const Header = () => {
@@ -81,7 +86,7 @@ const Header = () => {
           </ul>
         </HeaderNavBox>
 
-        <Button>로그인</Button>
+        <AuthButton>로그인</AuthButton>
       </HeaderResponsiveBlock>
     </HeaderBlock>
   );
