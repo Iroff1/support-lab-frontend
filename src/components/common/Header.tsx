@@ -41,20 +41,22 @@ const HeaderNavBox = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
-  & > ul {
-    height: 100%;
-    display: flex;
-    & > li {
-      width: 140px;
-      height: 100%;
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-wrap: nowrap;
-      color: ${palette.black.B700};
-      ${css(tranlateFontSize('B_18'))};
-    }
+`;
+
+const CategoryBox = styled.div`
+  width: 140px;
+  height: 100%;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-wrap: nowrap;
+  color: ${palette.black.B700};
+  ${css(tranlateFontSize('B_18'))};
+  transition: 0.2s ease color, 0.2s ease height;
+
+  :hover {
+    color: white;
   }
 `;
 
@@ -78,20 +80,18 @@ const Header = () => {
         </HeaderLogoBox>
 
         <HeaderNavBox>
-          <ul>
-            <li>
-              <Link to={'/'}>사업 계획서 작성</Link>
-            </li>
-            <li>
-              <Link to={'/'}>요금제</Link>
-            </li>
-            <li>
-              <Link to={'/'}>고객센터</Link>
-            </li>
-            <li>
-              <ConsultButton>무료 상담</ConsultButton>
-            </li>
-          </ul>
+          <CategoryBox>
+            <Link to={'/'}>사업 계획서 작성</Link>
+          </CategoryBox>
+          <CategoryBox>
+            <Link to={'/'}>요금제</Link>
+          </CategoryBox>
+          <CategoryBox>
+            <Link to={'/'}>고객센터</Link>
+          </CategoryBox>
+          <CategoryBox>
+            <ConsultButton>무료 상담</ConsultButton>
+          </CategoryBox>
         </HeaderNavBox>
 
         <AuthButton>로그인</AuthButton>
