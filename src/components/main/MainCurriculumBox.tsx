@@ -3,14 +3,14 @@ import MainMessageBox from './MainMessageBox';
 import tranlateFontSize from '@hooks/tranlateFontSize';
 import palette from '@colors/index';
 
-const MainCurriculamBoxBlock = styled.div`
+const MainCurriculumBoxBlock = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
 `;
 
-const CurriculamList = styled.div`
+const CurriculumList = styled.div`
   width: 952px;
   height: 195px;
   display: flex;
@@ -18,7 +18,7 @@ const CurriculamList = styled.div`
   align-items: center;
 `;
 
-const CurriculamItem = styled.div`
+const CurriculumItem = styled.div`
   width: 220px;
   height: 195px;
   padding: 20px;
@@ -59,15 +59,15 @@ const RightArrow = () => {
   );
 };
 
-const MainCurriculamBox = () => {
+const MainCurriculumBox = () => {
   return (
-    <MainCurriculamBoxBlock>
+    <MainCurriculumBoxBlock>
       <MainMessageBox>
         <h2>이렇게 작성합니다.</h2>
       </MainMessageBox>
 
-      <CurriculamList>
-        <CurriculamItem>
+      <CurriculumList>
+        <CurriculumItem>
           <img src={require('@images/curriculam_1.png')} alt="icon1" />
           <div>
             <p>무료 전화 상담</p>
@@ -77,9 +77,9 @@ const MainCurriculamBox = () => {
               질문해주세요.
             </p>
           </div>
-        </CurriculamItem>
+        </CurriculumItem>
         <RightArrow />
-        <CurriculamItem>
+        <CurriculumItem>
           <img src={require('@images/curriculam_2.png')} alt="icon2" />
           <div>
             <p>솔루션 결제</p>
@@ -89,9 +89,9 @@ const MainCurriculamBox = () => {
               솔루션을 결제해주세요.
             </p>
           </div>
-        </CurriculamItem>
+        </CurriculumItem>
         <RightArrow />
-        <CurriculamItem>
+        <CurriculumItem>
           <img src={require('@images/curriculam_3.png')} alt="icon3" />
           <div>
             <p>멘토링</p>
@@ -101,9 +101,9 @@ const MainCurriculamBox = () => {
               아이템 정보를 전달해주세요.
             </p>
           </div>
-        </CurriculamItem>
+        </CurriculumItem>
         <RightArrow />
-        <CurriculamItem>
+        <CurriculumItem>
           <img src={require('@images/curriculam_4.png')} alt="icon4" />
           <div>
             <p>사업계획서 초안 받기</p>
@@ -112,10 +112,10 @@ const MainCurriculamBox = () => {
               결과물을 드립니다.
             </p>
           </div>
-        </CurriculamItem>
-      </CurriculamList>
-    </MainCurriculamBoxBlock>
+        </CurriculumItem>
+      </CurriculumList>
+    </MainCurriculumBoxBlock>
   );
 };
 
-export default MainCurriculamBox;
+export default MainCurriculumBox;
