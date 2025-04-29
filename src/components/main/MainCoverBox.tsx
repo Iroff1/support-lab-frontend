@@ -27,7 +27,7 @@ const MainCoverBoxBlock = styled.div`
   }
 `;
 
-const ConsultButton = styled(Button)`
+export const ConsultButton = styled(Button)`
   border: 0;
   width: 169px;
   height: 48px;
