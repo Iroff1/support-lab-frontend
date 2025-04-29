@@ -7,10 +7,9 @@ import MainResultBox from './MainResultBox';
 import MainAnalyzeBox from './MainAnalyzeBox';
 import MainExampleBox from './MainExampleBox';
 import MainCurriculumBox from './MainCurriculumBox';
-import MainMessageBox from './MainMessageBox';
 import tranlateFontSize from '@hooks/tranlateFontSize';
 import MainMeritBox from './MainMeritBox';
-import MainRecommandBox from './MainRecommandBox';
+import MainRecommendBox from './MainRecommendBox';
 import MainLastCoverBox from './MainLastCoverBox';
 import MainSolutionBox from './MainSolutionBox';
 
@@ -40,6 +39,7 @@ const MainContentsBlock = styled(Responsive)`
     width: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 100px;
     position: relative;
 
@@ -74,7 +74,7 @@ const MainContents = () => {
           {/* main merit box */}
           <MainMeritBox />
           {/* main recommend box */}
-          <MainRecommandBox />
+          <MainRecommendBox />
           {/* main solution box */}
           <MainSolutionBox />
           {/* main last box */}
