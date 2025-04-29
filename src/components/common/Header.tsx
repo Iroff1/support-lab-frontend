@@ -20,20 +20,21 @@ const HeaderBlock = styled.div`
   align-items: center;
 `;
 
-const HeaderResponsiveBlock = styled(Responsive)`
+const HeaderResponsiveBox = styled(Responsive)`
+  width: 100%;
   height: 40px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
 `;
 
 const HeaderLogoBox = styled.div`
+  width: 128px;
   height: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   img {
-    width: 128px;
+    width: 100%;
   }
 `;
 
@@ -46,35 +47,99 @@ const HeaderNavBox = styled.div`
 const CategoryBox = styled.div`
   width: 140px;
   height: 100%;
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   text-wrap: nowrap;
   color: ${palette.black.B700};
-  ${css(tranlateFontSize('B_18'))};
-  transition: 0.2s ease color, 0.2s ease height;
+  ${css(tranlateFontSize('R_18'))};
 
-  :hover {
-    color: white;
+  & > a {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.2s ease text-shadow;
+    &:hover {
+      text-shadow: 0 0 0.8px #333;
+    }
+  }
+  & > button {
+    margin: 0 auto;
+  }
+
+  & > .dropDown {
+    width: 100%;
+    height: 0px;
+    overflow: hidden;
+    transition: 0.2s ease height;
+    position: relative;
+    top: 12px;
+    & > ul {
+      width: 100%;
+      background-color: ${palette.black.white};
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      padding: 15px 0px;
+      box-sizing: content-box;
+      & > li {
+        width: 100%;
+        height: 32px;
+        & > a {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          &:hover > span::before {
+            transform: scaleX(1);
+          }
+          & > span {
+            position: relative;
+            &::before {
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              content: '';
+              height: 1px;
+              width: 100%;
+              transform: scaleX(0);
+              background-color: #333;
+              transition: 0.2s ease transform;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &:hover {
+    & > .dropDown {
+      height: 126px;
+    }
   }
 `;
 
 const ConsultButton = styled(Button)`
-  ${css(tranlateFontSize('B_18'))};
   background-color: ${palette.system.blue};
   color: ${palette.black.white};
   border: none;
 `;
 
-const AuthButton = styled(Button)`
-  ${css(tranlateFontSize('B_18'))};
+const AuthBox = styled(CategoryBox)`
+  width: 174px;
+
+  &:hover > .dropDown {
+    height: 156px;
+  }
 `;
+
+const AuthButton = styled(Button)``;
 
 const Header = () => {
   return (
     <HeaderBlock>
-      <HeaderResponsiveBlock>
+      <HeaderResponsiveBox>
         <HeaderLogoBox>
           <img src={require('@images/header_logo_pc.png')} alt="" />
         </HeaderLogoBox>
@@ -88,14 +153,59 @@ const Header = () => {
           </CategoryBox>
           <CategoryBox>
             <Link to={'/'}>고객센터</Link>
+            <div className="dropDown">
+              <ul>
+                <li>
+                  <Link to={'/'}>
+                    <span>지원사업 정보</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to={'/'}>
+                    <span>자주하는 질문</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to={'/'}>
+                    <span>문의하기</span>
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </CategoryBox>
           <CategoryBox>
             <ConsultButton>무료 상담</ConsultButton>
           </CategoryBox>
         </HeaderNavBox>
 
-        <AuthButton>로그인</AuthButton>
-      </HeaderResponsiveBlock>
+        <AuthBox>
+          <AuthButton>로그인</AuthButton>
+          <div className="dropDown">
+            <ul>
+              <li>
+                <Link to={'/'}>
+                  <span>사업계획서 관리</span>
+                </Link>
+              </li>
+              <li>
+                <Link to={'/'}>
+                  <span>구매내역</span>
+                </Link>
+              </li>
+              <li>
+                <Link to={'/'}>
+                  <span>개인정보 수정</span>
+                </Link>
+              </li>
+              <li>
+                <Link to={'/'}>
+                  <span>로그아웃</span>
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </AuthBox>
+      </HeaderResponsiveBox>
     </HeaderBlock>
   );
 };
