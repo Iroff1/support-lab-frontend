@@ -1,4 +1,3 @@
-import React from 'react';
 import styled, { css } from 'styled-components';
 import MainMessageBox from './MainMessageBox';
 import tranlateFontSize from '@hooks/tranlateFontSize';
@@ -6,6 +5,7 @@ import tranlateFontSize from '@hooks/tranlateFontSize';
 const MainResultBoxBlock = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 20px;
 `;
 
