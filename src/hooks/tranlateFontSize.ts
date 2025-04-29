@@ -14,13 +14,14 @@ const tranlateFontSize = (item: string) => {
       'font-size': 14 + 'px',
     };
 
+  const upperWeight = weight.toUpperCase();
   return {
     'font-weight':
-      weight === 'B'
+      upperWeight === 'B'
         ? fontWeight.Bold
-        : weight === 'SB'
+        : upperWeight === 'SB'
         ? fontWeight.SemiBold
-        : weight === 'R'
+        : upperWeight === 'R'
         ? fontWeight.Regular
         : fontWeight.ExtraLight,
     'font-size': size + 'px',

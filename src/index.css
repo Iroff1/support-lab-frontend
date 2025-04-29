@@ -48,8 +48,11 @@ h6,
 span,
 p,
 div,
+ul,
+li,
 button {
   line-height: 140%;
   letter-spacing: -0.25px;
   margin: 0;
+  padding: 0;
 }

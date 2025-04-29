@@ -13,7 +13,7 @@ const ButtonBlock = styled.button`
   align-items: center;
   background-color: transparent;
   cursor: pointer;
-  ${css(tranlateFontSize('B_14'))}
+  ${css(tranlateFontSize('B_18'))}
 `;
 
 interface IButtonProps {
