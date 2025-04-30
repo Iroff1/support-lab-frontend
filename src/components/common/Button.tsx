@@ -23,7 +23,11 @@ interface IButtonProps {
 }
 
 const Button: React.FC<IButtonProps> = ({ children, onClick, ...props }) => {
-  return <ButtonBlock {...props}>{children}</ButtonBlock>;
+  return (
+    <ButtonBlock onClick={onClick} {...props}>
+      {children}
+    </ButtonBlock>
+  );
 };
 
 export default Button;

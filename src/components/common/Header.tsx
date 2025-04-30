@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import Button from './Button';
 import palette from '@colors/index';
 import tranlateFontSize from '@hooks/tranlateFontSize';
+import React from 'react';
 
 const HeaderBlock = styled.div`
   width: 100%;
@@ -136,7 +137,11 @@ const AuthBox = styled(CategoryBox)`
 
 const AuthButton = styled(Button)``;
 
-const Header = () => {
+interface IHeaderProps {
+  showModal?: () => void;
+}
+
+const Header: React.FC<IHeaderProps> = ({ showModal }) => {
   return (
     <HeaderBlock>
       <HeaderResponsiveBox>
@@ -174,7 +179,7 @@ const Header = () => {
             </div>
           </CategoryBox>
           <CategoryBox>
-            <ConsultButton>무료 상담</ConsultButton>
+            <ConsultButton onClick={showModal}>무료 상담</ConsultButton>
           </CategoryBox>
         </HeaderNavBox>
 

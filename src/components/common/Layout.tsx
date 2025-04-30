@@ -2,6 +2,8 @@ import { Outlet } from 'react-router';
 import Header from './Header';
 import Footer from './Footer';
 import styled from 'styled-components';
+import { useState } from 'react';
+import Modal from './Modal';
 
 const MainBlock = styled.div`
   width: 100%;
@@ -9,13 +11,26 @@ const MainBlock = styled.div`
 `;
 
 const Layout = () => {
+  const [toggleModal, setToggleModal] = useState(false);
+
+  const showModal = () => {
+    console.log('hi');
+    setToggleModal(true);
+  };
+  const hideModal = () => {
+    setToggleModal(false);
+  };
+
   return (
     <>
-      <Header />
+      <Header showModal={showModal} />
       <MainBlock>
         <Outlet />
       </MainBlock>
       <Footer />
+
+      {/* <Modal /> */}
+      {toggleModal && <Modal hideModal={hideModal} />}
     </>
   );
 };

@@ -15,10 +15,9 @@ const ImageBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #999;
 
   img {
-    object-fit: contain;
+    width: 100%;
   }
 `;
 
@@ -44,7 +43,7 @@ const MainResultBox = () => {
       </MainMessageBox>
 
       <ImageBox>
-        <img src="" alt="결과 예시 이미지" />
+        <img src={require('@images/result_1.png')} alt="결과 예시 이미지" />
       </ImageBox>
 
       <ImageFooter>
