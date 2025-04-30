@@ -71,13 +71,9 @@ const MainContents = () => {
 
         <div className="wrapper2">
           <h2>지원사업연구소가 자신 있는 이유입니다.</h2>
-          {/* main merit box */}
           <MainMeritBox />
-          {/* main recommend box */}
           <MainRecommendBox />
-          {/* main solution box */}
           <MainSolutionBox />
-          {/* main last box */}
           <MainLastCoverBox />
         </div>
       </MainContentsBlock>
