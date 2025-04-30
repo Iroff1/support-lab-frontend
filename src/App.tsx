@@ -1,4 +1,5 @@
 import Layout from '@components/common/Layout';
+import AuthLoginPage from '@pages/auth/AuthLoginPage';
 import MainPage from '@pages/MainPage';
 import { Route, Routes } from 'react-router-dom';
 
@@ -7,6 +8,9 @@ const App = () => {
     <Routes>
       <Route element={<Layout />}>
         <Route path="/" element={<MainPage />} />
+      </Route>
+      <Route path="/auth">
+        <Route index element={<AuthLoginPage />} />
       </Route>
     </Routes>
   );
