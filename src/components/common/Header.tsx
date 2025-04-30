@@ -1,10 +1,11 @@
 import styled, { css } from 'styled-components';
 import Responsive from './Responsive';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import Button from './Button';
 import palette from '@colors/index';
 import tranlateFontSize from '@hooks/tranlateFontSize';
 import React from 'react';
+const headerLogo = require('@images/header_logo_pc.png');
 
 const HeaderBlock = styled.div`
   width: 100%;
@@ -22,7 +23,6 @@ const HeaderBlock = styled.div`
 `;
 
 const HeaderResponsiveBox = styled(Responsive)`
-  width: 100%;
   height: 40px;
   display: flex;
   justify-content: space-between;
@@ -34,6 +34,7 @@ const HeaderLogoBox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: url(${headerLogo}) center/cover no-repeat;
   img {
     width: 100%;
   }
@@ -67,13 +68,18 @@ const CategoryBox = styled.div`
     margin: 0 auto;
   }
 
+  & > .blank {
+    width: 100%;
+    height: 12px;
+    background-color: transparent;
+  }
+
   & > .dropDown {
     width: 100%;
     height: 0px;
     overflow: hidden;
     transition: 0.2s ease height;
-    position: relative;
-    top: 12px;
+
     & > ul {
       width: 100%;
       background-color: ${palette.black.white};
@@ -142,12 +148,12 @@ interface IHeaderProps {
 }
 
 const Header: React.FC<IHeaderProps> = ({ showModal }) => {
+  const navigate = useNavigate();
+
   return (
     <HeaderBlock>
       <HeaderResponsiveBox>
-        <HeaderLogoBox>
-          <img src={require('@images/header_logo_pc.png')} alt="" />
-        </HeaderLogoBox>
+        <HeaderLogoBox></HeaderLogoBox>
 
         <HeaderNavBox>
           <CategoryBox>
@@ -158,6 +164,7 @@ const Header: React.FC<IHeaderProps> = ({ showModal }) => {
           </CategoryBox>
           <CategoryBox>
             <Link to={'/'}>고객센터</Link>
+            <div className="blank" />
             <div className="dropDown">
               <ul>
                 <li>
@@ -184,7 +191,8 @@ const Header: React.FC<IHeaderProps> = ({ showModal }) => {
         </HeaderNavBox>
 
         <AuthBox>
-          <AuthButton>로그인</AuthButton>
+          <AuthButton onClick={() => navigate('/auth')}>로그인</AuthButton>
+          <div className="blank" />
           <div className="dropDown">
             <ul>
               <li>

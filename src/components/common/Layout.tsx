@@ -29,7 +29,6 @@ const Layout = () => {
       </MainBlock>
       <Footer />
 
-      {/* <Modal /> */}
       {toggleModal && <Modal hideModal={hideModal} />}
     </>
   );
