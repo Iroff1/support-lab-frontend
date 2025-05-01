@@ -22,7 +22,7 @@ const SubmitButtonBlock = styled.button`
 
 interface ISubmitButton {
   children: string;
-  ref: React.RefObject<HTMLButtonElement | null>;
+  ref?: React.RefObject<HTMLButtonElement | null>;
 }
 
 const SubmitButton: React.FC<ISubmitButton> = ({ children, ref }) => {

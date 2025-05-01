@@ -31,7 +31,7 @@ const ToggleVisible = styled.div<{ isVisible: boolean }>`
 `;
 
 interface IAuthInputPassword {
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const AuthInputPassword: React.FC<IAuthInputPassword> = ({ onChange }) => {
