@@ -3,6 +3,8 @@ import tranlateFontSize from '@hooks/tranlateFontSize';
 import React from 'react';
 import styled, { css, keyframes } from 'styled-components';
 
+const MODAL_EXIT = require('@images/common/modal_exit.png');
+
 const ModalBlock = styled.div`
   position: fixed;
   top: 0;
@@ -86,7 +88,7 @@ const Modal: React.FC<IModalProps> = ({ hideModal }) => {
     <ModalBlock>
       <ModalPop>
         <ModalExit onClick={hideModal}>
-          <img src={require('@images/modal_exit.png')} alt="exit" />
+          <img src={MODAL_EXIT} alt="exit" />
         </ModalExit>
         <ModalHeader>
           IROFF 고객센터에서

@@ -3,6 +3,12 @@ import MainMessageBox from './MainMessageBox';
 import tranlateFontSize from '@hooks/tranlateFontSize';
 import palette from '@colors/index';
 
+const RIGHT_ARROW = require('@images/common/icon_rightArrow.png');
+const CURRICULAM_1 = require('@images/main/curriculam_1.png');
+const CURRICULAM_2 = require('@images/main/curriculam_2.png');
+const CURRICULAM_3 = require('@images/main/curriculam_3.png');
+const CURRICULAM_4 = require('@images/main/curriculam_4.png');
+
 const MainCurriculumBoxBlock = styled.div`
   display: flex;
   flex-direction: column;
@@ -53,7 +59,7 @@ const RightArrow = () => {
   return (
     <img
       style={{ width: '24px', height: '24px' }}
-      src={require('@images/icon_rightArrow.png')}
+      src={RIGHT_ARROW}
       alt="rightArrow"
     />
   );
@@ -68,7 +74,7 @@ const MainCurriculumBox = () => {
 
       <CurriculumList>
         <CurriculumItem>
-          <img src={require('@images/curriculam_1.png')} alt="icon1" />
+          <img src={CURRICULAM_1} alt="icon1" />
           <div>
             <p>무료 전화 상담</p>
             <p>
@@ -80,7 +86,7 @@ const MainCurriculumBox = () => {
         </CurriculumItem>
         <RightArrow />
         <CurriculumItem>
-          <img src={require('@images/curriculam_2.png')} alt="icon2" />
+          <img src={CURRICULAM_2} alt="icon2" />
           <div>
             <p>솔루션 결제</p>
             <p>
@@ -92,7 +98,7 @@ const MainCurriculumBox = () => {
         </CurriculumItem>
         <RightArrow />
         <CurriculumItem>
-          <img src={require('@images/curriculam_3.png')} alt="icon3" />
+          <img src={CURRICULAM_3} alt="icon3" />
           <div>
             <p>멘토링</p>
             <p>
@@ -104,7 +110,7 @@ const MainCurriculumBox = () => {
         </CurriculumItem>
         <RightArrow />
         <CurriculumItem>
-          <img src={require('@images/curriculam_4.png')} alt="icon4" />
+          <img src={CURRICULAM_4} alt="icon4" />
           <div>
             <p>사업계획서 초안 받기</p>
             <p>

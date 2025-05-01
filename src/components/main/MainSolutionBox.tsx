@@ -2,6 +2,10 @@ import palette from '@colors/index';
 import tranlateFontSize from '@hooks/tranlateFontSize';
 import styled, { css } from 'styled-components';
 
+const SOLUTION_1 = require('@images/main/solution_1.png');
+const SOLUTION_2 = require('@images/main/solution_2.png');
+const SOLUTION_3 = require('@images/main/solution_3.png');
+
 const MainSolutionBoxBlock = styled.div`
   width: 100%;
   display: flex;
@@ -78,7 +82,7 @@ const MainSolutionBox = () => {
       <SolutionBoxBody>
         <SolutionItem>
           <div>
-            <img src={require('@images/solution_1.png')} alt="solution_1" />
+            <img src={SOLUTION_1} alt="solution_1" />
             <h3>작성 솔루션</h3>
             <p>
               사업계획서 작성 솔루션 1회 및<br /> 전문가 전화 상담 30분
@@ -88,7 +92,7 @@ const MainSolutionBox = () => {
         </SolutionItem>
         <SolutionItem>
           <div>
-            <img src={require('@images/solution_2.png')} alt="solution_2" />
+            <img src={SOLUTION_2} alt="solution_2" />
             <h3>첨삭 솔루션</h3>
             <p>
               사업계획서 작성 전문가가 보완
@@ -100,7 +104,7 @@ const MainSolutionBox = () => {
         </SolutionItem>
         <SolutionItem>
           <div>
-            <img src={require('@images/solution_3.png')} alt="solution_3" />
+            <img src={SOLUTION_3} alt="solution_3" />
             <h3>디자인 솔루션</h3>
             <p>전문 IR 디자이너가 제작한 이미지 제공</p>
           </div>

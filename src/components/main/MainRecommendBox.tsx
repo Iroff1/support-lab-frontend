@@ -1,6 +1,7 @@
 import tranlateFontSize from '@hooks/tranlateFontSize';
 import styled, { css } from 'styled-components';
-const checkIcon = require('@images/icon_check.png');
+
+const CHECK_ICON = require('@images/common/icon_check.png');
 
 const MainRecommendBoxBlock = styled.div`
   width: 453;
@@ -47,23 +48,23 @@ const MainRecommendBox = () => {
       </RecommendBoxHeader>
       <RecommendBoxBody>
         <p>
-          <img src={checkIcon} alt="check" />
+          <img src={CHECK_ICON} alt="check" />
           <span>사업계획서 작성해야 하는데 문서 작업이 어려운 분</span>
         </p>
         <p>
-          <img src={checkIcon} alt="check" />
+          <img src={CHECK_ICON} alt="check" />
           <span>창업 지원사업 한 번도 안 받아본 분</span>
         </p>
         <p>
-          <img src={checkIcon} alt="check" />
+          <img src={CHECK_ICON} alt="check" />
           <span>내가 쓴 사업계획서가 잘 쓴 사업계획서인지 모르겠는 분</span>
         </p>
         <p>
-          <img src={checkIcon} alt="check" />
+          <img src={CHECK_ICON} alt="check" />
           <span>창업 지원사업 꼭 받고 싶은 분</span>
         </p>
         <p>
-          <img src={checkIcon} alt="check" />
+          <img src={CHECK_ICON} alt="check" />
           <span>어떤 컨설팅 업체의 도움을 받아야 할지 모르겠는 분</span>
         </p>
       </RecommendBoxBody>

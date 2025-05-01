@@ -5,7 +5,8 @@ import Button from './Button';
 import palette from '@colors/index';
 import tranlateFontSize from '@hooks/tranlateFontSize';
 import React from 'react';
-const headerLogo = require('@images/header_logo_pc.png');
+
+const LOGO_HEADER = require('@images/common/header_logo_pc.png');
 
 const HeaderBlock = styled.div`
   width: 100%;
@@ -34,7 +35,7 @@ const HeaderLogoBox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: url(${headerLogo}) center/cover no-repeat;
+  background: url(${LOGO_HEADER}) center/cover no-repeat;
   img {
     width: 100%;
   }

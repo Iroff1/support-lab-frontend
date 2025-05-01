@@ -1,6 +1,12 @@
 import palette from '@colors/index';
 import styled from 'styled-components';
 
+const [FLOATING_CALL, FLOATING_KAKAO, FLOATING_UPPER] = [
+  require('@images/common/floating_call.png'),
+  require('@images/common/floating_kakao.png'),
+  require('@images/common/floating_upper.png'),
+];
+
 const FloatingBlock = styled.div`
   position: fixed;
   bottom: 40px;
@@ -40,16 +46,16 @@ const Floating = () => {
   return (
     <FloatingBlock>
       <ActionButton style={{ backgroundColor: palette.system.green }}>
-        <img src={require('@images/floating_call.png')} alt="" />
+        <img src={FLOATING_CALL} alt="" />
       </ActionButton>
       <ActionButton style={{ backgroundColor: '#FAE300' }}>
-        <img src={require('@images/floating_kakao.png')} alt="" />
+        <img src={FLOATING_KAKAO} alt="" />
       </ActionButton>
       <ActionButton
         style={{ backgroundColor: palette.black.white }}
         onClick={handleScrollToTop}
       >
-        <img src={require('@images/floating_upper.png')} alt="" />
+        <img src={FLOATING_UPPER} alt="" />
       </ActionButton>
     </FloatingBlock>
   );

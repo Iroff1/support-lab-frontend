@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import AuthInputPassword from './AuthInputPassword';
 
-const LOGO = require('@images/login_logo_pc.png');
+const LOGO = require('@images/auth/login_logo_pc.png');
 
 const AuthLoginFormBlock = styled.div`
   width: 360px;

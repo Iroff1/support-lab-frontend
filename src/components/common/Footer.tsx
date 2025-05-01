@@ -3,6 +3,12 @@ import Responsive from './Responsive';
 import tranlateFontSize from '@hooks/tranlateFontSize';
 import palette from '@colors/index';
 
+const [ICON_BLOG, ICON_INSTA, ICON_YOUTUBE] = [
+  require('@images/common/icon_blog.png'),
+  require('@images/common/icon_blog.png'),
+  require('@images/common/icon_blog.png'),
+];
+
 const FooterBlock = styled.div`
   width: 100%;
   height: 200px;
@@ -77,13 +83,13 @@ const Footer = () => {
 
         <SocialDirectBlock>
           <div>
-            <img src={require('@images/icon_blog.png')} alt="" />
+            <img src={ICON_BLOG} alt="" />
           </div>
           <div>
-            <img src={require('@images/icon_insta.png')} alt="" />
+            <img src={ICON_INSTA} alt="" />
           </div>
           <div>
-            <img src={require('@images/icon_youtube.png')} alt="" />
+            <img src={ICON_YOUTUBE} alt="" />
           </div>
         </SocialDirectBlock>
       </FooterResponsiveBlock>
