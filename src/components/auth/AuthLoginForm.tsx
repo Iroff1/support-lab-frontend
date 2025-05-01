@@ -150,7 +150,7 @@ const AuthLoginForm = () => {
       </LoginBody>
 
       <LoginFooter>
-        <Link to={'/register'}>회원가입</Link>
+        <Link to={'register'}>회원가입</Link>
         <Link to={'/'}>비밀번호 찾기</Link>
         <Link to={'/'}>아이디 찾기</Link>
       </LoginFooter>
