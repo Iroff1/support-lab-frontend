@@ -5,12 +5,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import AuthInputPassword from './AuthInputPassword';
+import AuthCheckItem from './AuthCheckItem';
+import SubmitButton from '@components/common/SubmitButton';
+import Caution from '@components/common/Caution';
 
 const LOGO = require('@images/auth/login_logo_pc.png');
 
 const AuthLoginFormBlock = styled.div`
   width: 360px;
-  height: 446px;
   position: fixed;
   top: 80px;
   left: 50%;
@@ -18,7 +20,6 @@ const AuthLoginFormBlock = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 40px;
 `;
 
 const LoginHeader = styled.div`
@@ -30,6 +31,7 @@ const LoginHeader = styled.div`
 
 const LoginBody = styled.div`
   width: 100%;
+  margin-top: 40px;
 `;
 
 const LoginForm = styled.form`
@@ -37,23 +39,7 @@ const LoginForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  & > button {
-    width: 100%;
-    height: 48px;
-    margin-top: 20px;
-    border-radius: 8px;
-    padding: 12px 10px;
-    border: 0;
-    ${css(tranlateFontSize('SB_18'))};
-    background-color: ${palette.main.B75};
-    color: ${palette.black.white};
-    transition: 0.2s ease background-color;
-
-    &.on {
-      background-color: ${palette.main.main};
-    }
-  }
+  gap: 20px;
 `;
 
 const InputSection = styled.div`
@@ -62,60 +48,9 @@ const InputSection = styled.div`
   flex-direction: column;
   align-items: start;
   gap: 12px;
-
-  & > label {
-    display: flex;
-    gap: 8px;
-
-    &:hover {
-      & > .checkbox {
-        border: 2px solid #444444;
-      }
-      & > span {
-        color: ${palette.black.B700};
-      }
-    }
-
-    & > input[type='checkbox'] {
-      display: none;
-
-      &:checked + .checkbox {
-        background-color: ${palette.main.main};
-        fill: ${palette.black.white};
-        border: 0px;
-        & + span {
-          color: ${palette.black.B700};
-        }
-      }
-    }
-
-    & > .checkbox {
-      width: 18px;
-      height: 18px;
-      background-color: ${palette.black.white};
-      border: 2px solid #dedede;
-      border-radius: 4px;
-      transition: 0.2s ease border, 0.2s ease background-color, 0.2s ease fill;
-      fill: transparent;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      & > svg {
-        fill: ${palette.black.white};
-        width: 80%;
-        height: 80%;
-      }
-    }
-
-    & > span {
-      color: ${palette.black.B100};
-      transition: 0.2s ease color;
-    }
-  }
 `;
 
-const AuthOtherService = styled.div`
+const LoginFooter = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -158,10 +93,14 @@ const AuthOtherService = styled.div`
 const AuthLoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loginError, setLoginError] = useState('');
 
   const submitBtn = useRef<HTMLButtonElement>(null);
   const navigate = useNavigate();
 
+  const handleLogo = () => {
+    navigate('/');
+  };
   const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
@@ -169,7 +108,17 @@ const AuthLoginForm = () => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {};
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // console.log(e);
+    if (!email.length) {
+      setLoginError('이메일을 작성해주세요.');
+    } else if (!password.length) {
+      setLoginError('비밀번호를 작성해주세요.');
+    } else {
+      setLoginError('');
+    }
+  };
 
   useEffect(() => {
     if (email.length && password.length) {
@@ -181,13 +130,10 @@ const AuthLoginForm = () => {
 
   return (
     <AuthLoginFormBlock>
-      <LoginHeader
-        onClick={() => {
-          navigate('/');
-        }}
-      />
+      <LoginHeader onClick={handleLogo} />
+
       <LoginBody>
-        <LoginForm>
+        <LoginForm onSubmit={handleSubmit}>
           <InputSection>
             <AuthInput
               type="email"
@@ -195,25 +141,19 @@ const AuthLoginForm = () => {
               onChange={handleEmail}
             />
             <AuthInputPassword onChange={handlePassword} />
-
-            <label>
-              <input type="checkbox" />
-              <div className="checkbox">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                  <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
-                </svg>
-              </div>
-              <span>로그인 상태 유지</span>
-            </label>
+            <AuthCheckItem>로그인 상태 유지</AuthCheckItem>
           </InputSection>
-          <button ref={submitBtn}>로그인</button>
+
+          {loginError.length ? <Caution>{loginError}</Caution> : null}
+          <SubmitButton ref={submitBtn}>로그인</SubmitButton>
         </LoginForm>
-        <AuthOtherService>
-          <Link to={'/register'}>회원가입</Link>
-          <Link to={'/'}>비밀번호 찾기</Link>
-          <Link to={'/'}>아이디 찾기</Link>
-        </AuthOtherService>
       </LoginBody>
+
+      <LoginFooter>
+        <Link to={'/register'}>회원가입</Link>
+        <Link to={'/'}>비밀번호 찾기</Link>
+        <Link to={'/'}>아이디 찾기</Link>
+      </LoginFooter>
     </AuthLoginFormBlock>
   );
 };
