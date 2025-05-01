@@ -5,6 +5,7 @@ import Button from './Button';
 import palette from '@colors/index';
 import tranlateFontSize from '@hooks/tranlateFontSize';
 import React from 'react';
+import Blank from './Blank';
 
 const LOGO_HEADER = require('@images/common/header_logo_pc.png');
 
@@ -67,12 +68,6 @@ const CategoryBox = styled.div`
   }
   & > button {
     margin: 0 auto;
-  }
-
-  & > .blank {
-    width: 100%;
-    height: 12px;
-    background-color: transparent;
   }
 
   & > .dropDown {
@@ -165,7 +160,7 @@ const Header: React.FC<IHeaderProps> = ({ showModal }) => {
           </CategoryBox>
           <CategoryBox>
             <Link to={'/'}>고객센터</Link>
-            <div className="blank" />
+            <Blank height="12px" />
             <div className="dropDown">
               <ul>
                 <li>
@@ -193,7 +188,7 @@ const Header: React.FC<IHeaderProps> = ({ showModal }) => {
 
         <AuthBox>
           <AuthButton onClick={() => navigate('/auth')}>로그인</AuthButton>
-          <div className="blank" />
+          <Blank height="12px" />
           <div className="dropDown">
             <ul>
               <li>
