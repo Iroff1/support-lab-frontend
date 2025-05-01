@@ -18,13 +18,9 @@ body {
   box-sizing: border-box;
   width: 100%;
   height: 100%;
-  background-color: #eee;
 }
+html,
 #root {
-  min-width: 100%;
-  min-height: 100%;
-}
-html {
   width: 100%;
   height: 100%;
 }
