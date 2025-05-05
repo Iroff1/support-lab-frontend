@@ -71,7 +71,7 @@ const CategoryBox = styled.div`
   }
 
   & > .dropDown {
-    width: 100%;
+    width: 158px;
     height: 0px;
     overflow: hidden;
     transition: 0.2s ease height;
@@ -82,16 +82,18 @@ const CategoryBox = styled.div`
       margin: 0;
       display: flex;
       flex-direction: column;
-      padding: 15px 0px;
+      padding: 15px 30px;
       box-sizing: content-box;
+      li + li {
+        margin-top: 14px;
+      }
       & > li {
+        box-sizing: border-box;
         width: 100%;
-        height: 32px;
+        height: 25px;
         & > a {
-          width: 100%;
           height: 100%;
           display: flex;
-          justify-content: center;
           align-items: center;
 
           &:hover > span::before {
@@ -99,6 +101,7 @@ const CategoryBox = styled.div`
           }
           & > span {
             position: relative;
+            ${css(tranlateFontSize('R_18'))};
             &::before {
               position: absolute;
               bottom: 0;
@@ -118,7 +121,7 @@ const CategoryBox = styled.div`
 
   &:hover {
     & > .dropDown {
-      height: 126px;
+      height: 133px;
     }
   }
 `;
@@ -133,7 +136,8 @@ const AuthBox = styled(CategoryBox)`
   width: 174px;
 
   &:hover > .dropDown {
-    height: 156px;
+    width: 174px;
+    height: 172px;
   }
 `;
 
