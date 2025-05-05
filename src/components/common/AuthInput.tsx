@@ -30,9 +30,10 @@ interface IAuthInput {
   placeholder?: string;
   autoComplete?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  required?: boolean;
 }
 
-const AuthInput: React.FC<IAuthInput> = ({ ...props }) => {
-  return <AuthInputBlock {...props} />;
+const AuthInput: React.FC<IAuthInput> = ({ required = true, ...props }) => {
+  return <AuthInputBlock required={required} {...props} />;
 };
 export default AuthInput;

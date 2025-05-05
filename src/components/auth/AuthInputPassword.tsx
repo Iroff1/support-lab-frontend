@@ -47,6 +47,7 @@ const AuthInputPassword: React.FC<IAuthInputPassword> = ({ onChange }) => {
         placeholder="비밀번호"
         autoComplete="off"
         onChange={onChange}
+        required
       />
       <ToggleVisible onClick={handleIsVisible} isVisible={isVisible} />
     </AuthInputPasswordBlock>
