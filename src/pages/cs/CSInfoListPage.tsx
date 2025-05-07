@@ -1,6 +1,6 @@
-import CSInfoList from '@components/cs/CSInfoList';
+import CsInfoList from '@components/cs/CSInfoList';
 
-const CSInfoListPage = () => {
-  return <CSInfoList />;
+const CsInfoListPage = () => {
+  return <CsInfoList />;
 };
-export default CSInfoListPage;
+export default CsInfoListPage;

@@ -133,7 +133,7 @@ const InfoItem = styled.div`
   }
 `;
 
-const CSInfoList = () => {
+const CsInfoList = () => {
   const exList: string[] = Array.from(
     { length: 9 },
     () => '제목입니다. 글이 길어지면 점이 생깁니다.',
@@ -188,4 +188,4 @@ const CSInfoList = () => {
     </>
   );
 };
-export default CSInfoList;
+export default CsInfoList;

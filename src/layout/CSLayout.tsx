@@ -8,11 +8,11 @@ const CSLayoutBlock = styled.div`
   align-items: center;
 `;
 
-const CSLayout = () => {
+const CsLayout = () => {
   return (
     <CSLayoutBlock>
       <Outlet />
     </CSLayoutBlock>
   );
 };
-export default CSLayout;
+export default CsLayout;
