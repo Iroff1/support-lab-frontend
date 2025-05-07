@@ -1,6 +1,6 @@
-import AuthFindEmailForm from '@components/auth/AuthFindEmailForm';
+import AuthFindForm from '@components/auth/AuthFindForm';
 
 const AuthFindEmailPage = () => {
-  return <AuthFindEmailForm />;
+  return <AuthFindForm />;
 };
 export default AuthFindEmailPage;
