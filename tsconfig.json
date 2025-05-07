@@ -24,7 +24,8 @@
       "@types/*": ["types/*"],
       "@api/*": ["api/*"],
       "@pages/*": ["pages/*"],
-      "@images/*": ["images/*"]
+      "@assets/*": ["assets/*"],
+      "@layout/*": ["layout/*"]
     },
     "outDir": "./dist"
   },

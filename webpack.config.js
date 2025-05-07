@@ -28,7 +28,8 @@ module.exports = {
       '@types': path.resolve(__dirname, 'src/types/'),
       '@api': path.resolve(__dirname, 'src/api/'),
       '@pages': path.resolve(__dirname, 'src/pages/'),
-      '@images': path.resolve(__dirname, 'src/images/'),
+      '@assets': path.resolve(__dirname, 'src/assets/'),
+      '@layout': path.resolve(__dirname, 'src/layout/'),
     },
   },
   module: {
