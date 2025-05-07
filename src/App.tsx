@@ -1,9 +1,11 @@
 import AuthLayout from '@layout/AuthLayout';
+import CSLayout from '@layout/CSLayout';
 import MainLayout from '@layout/MainLayout';
 import AuthFindEmailPage from '@pages/auth/AuthFindEmailPage';
 import AuthFindPasswordPage from '@pages/auth/AuthFindPasswordPage';
 import AuthLoginPage from '@pages/auth/AuthLoginPage';
 import AuthRegisterPage from '@pages/auth/AuthRegisterPage';
+import CSInfoListPage from '@pages/cs/CSInfoListPage';
 import MainPage from '@pages/MainPage';
 import { Route, Routes } from 'react-router-dom';
 
@@ -18,6 +20,9 @@ const App = () => {
         <Route path="register" element={<AuthRegisterPage />} />
         <Route path="find/email" element={<AuthFindEmailPage />} />
         <Route path="find/password" element={<AuthFindPasswordPage />} />
+      </Route>
+      <Route path="/customerService" element={<CSLayout />}>
+        <Route path="supportBusinesses" element={<CSInfoListPage />} />
       </Route>
       <Route path="*" element={<>Not Found</>} />
     </Routes>
