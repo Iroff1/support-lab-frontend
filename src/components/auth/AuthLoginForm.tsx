@@ -11,17 +11,6 @@ import Caution from '@components/common/Caution';
 
 const LOGO = require('@assets/images/auth/login_logo_pc.png');
 
-const AuthLoginFormBlock = styled.div`
-  width: 360px;
-  position: fixed;
-  top: 80px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
 const LoginHeader = styled.div`
   width: 174px;
   height: 140px;
@@ -131,7 +120,7 @@ const AuthLoginForm = () => {
   }, [email, password]);
 
   return (
-    <AuthLoginFormBlock>
+    <>
       <LoginHeader onClick={handleLogo} />
 
       <LoginBody>
@@ -156,7 +145,7 @@ const AuthLoginForm = () => {
         <Link to={'/'}>비밀번호 찾기</Link>
         <Link to={'/'}>아이디 찾기</Link>
       </LoginFooter>
-    </AuthLoginFormBlock>
+    </>
   );
 };
 

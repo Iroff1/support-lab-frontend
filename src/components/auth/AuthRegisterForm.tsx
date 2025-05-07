@@ -5,23 +5,12 @@ import AuthInputPassword from './AuthInputPassword';
 import AuthCheckItem from './AuthCheckItem';
 import AuthInputWithCheck from './AuthInputWithCheck';
 
-const AuthRegisterFormBlock = styled.form`
-  width: 360px;
-  position: fixed;
-  top: 80px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 30px;
-`;
-
 const RegisterForm = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
+  margin-bottom: 30px;
 `;
 
 const RegisterOption = styled.div`
@@ -40,7 +29,7 @@ const RegisterSubmit = styled.div`
 
 const AuthRegisterForm = () => {
   return (
-    <AuthRegisterFormBlock>
+    <>
       {/* 입력 공간, 인풋 6개 */}
       <RegisterForm>
         <AuthInputWithCheck type="email" placeholder="이메일" />
@@ -62,7 +51,7 @@ const AuthRegisterForm = () => {
         {/* 버튼 공간 */}
         <SubmitButton>가입하기</SubmitButton>
       </RegisterSubmit>
-    </AuthRegisterFormBlock>
+    </>
   );
 };
 export default AuthRegisterForm;
