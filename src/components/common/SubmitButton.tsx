@@ -13,10 +13,11 @@ const SubmitButtonBlock = styled.button`
   background-color: ${palette.main.B75};
   color: ${palette.black.white};
   transition: 0.2s ease background-color;
-  cursor: pointer;
+  cursor: not-allowed;
 
   &.on {
     background-color: ${palette.main.main};
+    cursor: pointer;
   }
 `;
 
