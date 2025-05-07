@@ -37,7 +37,7 @@ const AuthRegisterForm = () => {
         <AuthInputPassword />
         <AuthInput type="text" placeholder="이름" />
         <AuthInputWithCheck type="tel" placeholder="휴대폰번호" forAuth />
-        <AuthInputWithCheck type="number" placeholder="인증번호" />
+        <AuthInputWithCheck type="text" placeholder="인증번호" />
       </RegisterForm>
 
       {/* 제출 공간 */}

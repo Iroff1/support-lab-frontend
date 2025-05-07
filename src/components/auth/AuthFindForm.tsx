@@ -30,7 +30,7 @@ const AuthFindForm: React.FC<IAuthFindForm> = ({ isPasswordForm = false }) => {
         ) : null}
         <AuthInput type="text" placeholder="이름" />
         <AuthInputWithCheck type="tel" placeholder="휴대폰번호" forAuth />
-        <AuthInputWithCheck type="number" placeholder="인증번호" />
+        <AuthInputWithCheck type="text" placeholder="인증번호" />
       </FindForm>
 
       <FindSubmit>
