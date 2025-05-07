@@ -1,4 +1,4 @@
-import palette from '@colors/index';
+import palette from '@assets/colors/index';
 import Button from '@components/common/Button';
 import tranlateFontSize from '@utils/tranlateFontSize';
 import styled, { css } from 'styled-components';

@@ -1,4 +1,4 @@
-import palette from '@colors/index';
+import palette from '@assets/colors/index';
 import React from 'react';
 import styled from 'styled-components';
 

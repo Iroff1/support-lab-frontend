@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import Responsive from './Responsive';
 import tranlateFontSize from '@utils/tranlateFontSize';
-import palette from '@colors/index';
+import palette from '@assets/colors/index';
 
 const [ICON_BLOG, ICON_INSTA, ICON_YOUTUBE] = [
   require('@assets/images/common/icon_blog.png'),

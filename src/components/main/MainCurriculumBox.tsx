@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import MainMessageBox from './MainMessageBox';
 import tranlateFontSize from '@utils/tranlateFontSize';
-import palette from '@colors/index';
+import palette from '@assets/colors/index';
 
 const RIGHT_ARROW = require('@assets/images/common/icon_rightArrow.png');
 const CURRICULAM_1 = require('@assets/images/main/curriculam_1.png');

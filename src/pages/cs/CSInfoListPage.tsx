@@ -1,4 +1,4 @@
-import CsInfoList from '@components/cs/CSInfoList';
+import CsInfoList from '@components/cs/CsInfoList';
 
 const CsInfoListPage = () => {
   return <CsInfoList />;

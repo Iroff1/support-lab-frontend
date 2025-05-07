@@ -1,4 +1,4 @@
-import palette from '@colors/index';
+import palette from '@assets/colors/index';
 import AuthInput from '@components/common/AuthInput';
 import tranlateFontSize from '@utils/tranlateFontSize';
 import React from 'react';

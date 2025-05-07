@@ -1,4 +1,4 @@
-import palette from '@colors/index';
+import palette from '@assets/colors/index';
 import styled from 'styled-components';
 
 const [FLOATING_CALL, FLOATING_KAKAO, FLOATING_UPPER] = [

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import MainMessageBox from './MainMessageBox';
-import palette from '@colors/index';
+import palette from '@assets/colors/index';
 import tranlateFontSize from '@utils/tranlateFontSize';
 
 const MainExampleBoxBlock = styled.div`

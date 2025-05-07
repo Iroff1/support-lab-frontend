@@ -1,4 +1,4 @@
-import palette from '@colors/index';
+import palette from '@assets/colors/index';
 import Floating from '@components/common/Floating';
 import tranlateFontSize from '@utils/tranlateFontSize';
 import React from 'react';
