@@ -1,6 +1,5 @@
 import AuthInput from '@components/common/AuthInput';
 import SubmitButton from '@components/common/SubmitButton';
-import React, { useRef } from 'react';
 import styled from 'styled-components';
 import AuthInputPassword from './AuthInputPassword';
 import AuthCheckItem from './AuthCheckItem';
@@ -47,7 +46,7 @@ const AuthRegisterForm = () => {
         <AuthInputWithCheck type="email" placeholder="이메일" />
         <AuthInputPassword />
         <AuthInputPassword />
-        <AuthInputWithCheck type="text" placeholder="이름" />
+        <AuthInput type="text" placeholder="이름" />
         <AuthInputWithCheck type="tel" placeholder="휴대폰번호" forAuth />
         <AuthInputWithCheck type="number" placeholder="인증번호" />
       </RegisterForm>

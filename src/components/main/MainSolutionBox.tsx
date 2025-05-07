@@ -2,9 +2,9 @@ import palette from '@colors/index';
 import tranlateFontSize from '@hooks/tranlateFontSize';
 import styled, { css } from 'styled-components';
 
-const SOLUTION_1 = require('@images/main/solution_1.png');
-const SOLUTION_2 = require('@images/main/solution_2.png');
-const SOLUTION_3 = require('@images/main/solution_3.png');
+const SOLUTION_1 = require('@assets/images/main/solution_1.png');
+const SOLUTION_2 = require('@assets/images/main/solution_2.png');
+const SOLUTION_3 = require('@assets/images/main/solution_3.png');
 
 const MainSolutionBoxBlock = styled.div`
   width: 100%;

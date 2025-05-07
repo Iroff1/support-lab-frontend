@@ -1,7 +1,7 @@
 import tranlateFontSize from '@hooks/tranlateFontSize';
 import styled, { css } from 'styled-components';
 
-const CHECK_ICON = require('@images/common/icon_check.png');
+const CHECK_ICON = require('@assets/images/common/icon_check.png');
 
 const MainRecommendBoxBlock = styled.div`
   width: 453;

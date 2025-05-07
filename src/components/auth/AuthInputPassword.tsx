@@ -2,8 +2,8 @@ import AuthInput from '@components/common/AuthInput';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-const pw_hide = require('@images/auth/login_pw_hide.png');
-const pw_show = require('@images/auth/login_pw_show.png');
+const pw_hide = require('@assets/images/auth/login_pw_hide.png');
+const pw_show = require('@assets/images/auth/login_pw_show.png');
 
 const AuthInputPasswordBlock = styled.div`
   position: relative;

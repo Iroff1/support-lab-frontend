@@ -3,11 +3,11 @@ import MainMessageBox from './MainMessageBox';
 import tranlateFontSize from '@hooks/tranlateFontSize';
 import palette from '@colors/index';
 
-const RIGHT_ARROW = require('@images/common/icon_rightArrow.png');
-const CURRICULAM_1 = require('@images/main/curriculam_1.png');
-const CURRICULAM_2 = require('@images/main/curriculam_2.png');
-const CURRICULAM_3 = require('@images/main/curriculam_3.png');
-const CURRICULAM_4 = require('@images/main/curriculam_4.png');
+const RIGHT_ARROW = require('@assets/images/common/icon_rightArrow.png');
+const CURRICULAM_1 = require('@assets/images/main/curriculam_1.png');
+const CURRICULAM_2 = require('@assets/images/main/curriculam_2.png');
+const CURRICULAM_3 = require('@assets/images/main/curriculam_3.png');
+const CURRICULAM_4 = require('@assets/images/main/curriculam_4.png');
 
 const MainCurriculumBoxBlock = styled.div`
   display: flex;

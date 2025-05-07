@@ -7,7 +7,7 @@ import tranlateFontSize from '@hooks/tranlateFontSize';
 import React from 'react';
 import Blank from './Blank';
 
-const LOGO_HEADER = require('@images/common/header_logo_pc.png');
+const LOGO_HEADER = require('@assets/images/common/header_logo_pc.png');
 
 const HeaderBlock = styled.div`
   width: 100%;

@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import MainMessageBox from './MainMessageBox';
 import tranlateFontSize from '@hooks/tranlateFontSize';
 
-const RESULT_1 = require('@images/main/result_1.png');
+const RESULT_1 = require('@assets/images/main/result_1.png');
 
 const MainResultBoxBlock = styled.div`
   display: flex;

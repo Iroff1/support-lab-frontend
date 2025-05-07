@@ -4,9 +4,9 @@ import tranlateFontSize from '@hooks/tranlateFontSize';
 import palette from '@colors/index';
 
 const [ICON_BLOG, ICON_INSTA, ICON_YOUTUBE] = [
-  require('@images/common/icon_blog.png'),
-  require('@images/common/icon_blog.png'),
-  require('@images/common/icon_blog.png'),
+  require('@assets/images/common/icon_blog.png'),
+  require('@assets/images/common/icon_blog.png'),
+  require('@assets/images/common/icon_blog.png'),
 ];
 
 const FooterBlock = styled.div`

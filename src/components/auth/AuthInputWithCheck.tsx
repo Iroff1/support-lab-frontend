@@ -25,6 +25,13 @@ const AuthInputCheckButton = styled.button`
   color: ${palette.main.B200};
   ${css(tranlateFontSize('SB_17'))};
   border: 0px;
+  transition: 0.2s ease color, 0.2s ease background-color;
+  cursor: pointer;
+
+  &:hover {
+    color: ${palette.main.B50};
+    background-color: ${palette.main.B200};
+  }
 `;
 
 const AuthInputWithCheck: React.FC<IAuthCheckItem> = ({
@@ -32,10 +39,23 @@ const AuthInputWithCheck: React.FC<IAuthCheckItem> = ({
   forAuth = false,
   placeholder,
 }) => {
+  const handleCheck = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    // console.log(e);
+
+    if (forAuth) {
+      // reg 확인 용도일 경우
+    } else {
+      // 본인인증 요청인 경우
+    }
+  };
+
   return (
     <AuthInputWithCheckBlock>
       <AuthInput type={type} placeholder={placeholder} />
-      <AuthInputCheckButton>{forAuth ? '인증' : '확인'}</AuthInputCheckButton>
+      <AuthInputCheckButton onClick={handleCheck}>
+        {forAuth ? '인증' : '확인'}
+      </AuthInputCheckButton>
     </AuthInputWithCheckBlock>
   );
 };

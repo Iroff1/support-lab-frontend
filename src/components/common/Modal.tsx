@@ -3,7 +3,7 @@ import tranlateFontSize from '@hooks/tranlateFontSize';
 import React from 'react';
 import styled, { css, keyframes } from 'styled-components';
 
-const MODAL_EXIT = require('@images/common/modal_exit.png');
+const MODAL_EXIT = require('@assets/images/common/modal_exit.png');
 
 const ModalBlock = styled.div`
   position: fixed;

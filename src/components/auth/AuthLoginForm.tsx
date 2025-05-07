@@ -9,7 +9,7 @@ import AuthCheckItem from './AuthCheckItem';
 import SubmitButton from '@components/common/SubmitButton';
 import Caution from '@components/common/Caution';
 
-const LOGO = require('@images/auth/login_logo_pc.png');
+const LOGO = require('@assets/images/auth/login_logo_pc.png');
 
 const AuthLoginFormBlock = styled.div`
   width: 360px;
@@ -109,8 +109,10 @@ const AuthLoginForm = () => {
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
     // console.log(e);
+    e.preventDefault();
+
+    // TODO) POST /auth/user 요청 추가
     if (!email.length) {
       setLoginError('이메일을 작성해주세요.');
     } else if (!password.length) {

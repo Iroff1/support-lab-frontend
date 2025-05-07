@@ -2,9 +2,9 @@ import palette from '@colors/index';
 import styled from 'styled-components';
 
 const [FLOATING_CALL, FLOATING_KAKAO, FLOATING_UPPER] = [
-  require('@images/common/floating_call.png'),
-  require('@images/common/floating_kakao.png'),
-  require('@images/common/floating_upper.png'),
+  require('@assets/images/common/floating_call.png'),
+  require('@assets/images/common/floating_kakao.png'),
+  require('@assets/images/common/floating_upper.png'),
 ];
 
 const FloatingBlock = styled.div`
