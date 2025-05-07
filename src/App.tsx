@@ -1,11 +1,13 @@
 import AuthLayout from '@layout/AuthLayout';
-import CSLayout from '@layout/CSLayout';
+import CsLayout from '@layout/CSLayout';
 import MainLayout from '@layout/MainLayout';
 import AuthFindEmailPage from '@pages/auth/AuthFindEmailPage';
 import AuthFindPasswordPage from '@pages/auth/AuthFindPasswordPage';
 import AuthLoginPage from '@pages/auth/AuthLoginPage';
 import AuthRegisterPage from '@pages/auth/AuthRegisterPage';
-import CSInfoListPage from '@pages/cs/CSInfoListPage';
+import CsInfoListPage from '@pages/cs/CSInfoListPage';
+import CsInquirementPage from '@pages/cs/CsInquirementPage';
+import CsQuestionsPage from '@pages/cs/CsQuestionsPage';
 import MainPage from '@pages/MainPage';
 import { Route, Routes } from 'react-router-dom';
 
@@ -21,10 +23,12 @@ const App = () => {
         <Route path="find/email" element={<AuthFindEmailPage />} />
         <Route path="find/password" element={<AuthFindPasswordPage />} />
       </Route>
-      <Route path="/customerService" element={<CSLayout />}>
-        <Route path="supportBusinesses" element={<CSInfoListPage />} />
+      <Route path="/customerService" element={<CsLayout />}>
+        <Route path="supportBusinesses" element={<CsInfoListPage />} />
+        <Route path="questions" element={<CsQuestionsPage />} />
+        <Route path="inquirement" element={<CsInquirementPage />} />
       </Route>
-      <Route path="*" element={<>Not Found</>} />
+      <Route path="*" element={<>Page Not Found</>} />
     </Routes>
   );
 };

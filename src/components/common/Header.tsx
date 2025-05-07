@@ -168,17 +168,17 @@ const Header: React.FC<IHeaderProps> = ({ showModal }) => {
             <div className="dropDown">
               <ul>
                 <li>
-                  <Link to={'/'}>
+                  <Link to={'/customerService/supportBusinesses'}>
                     <span>지원사업 정보</span>
                   </Link>
                 </li>
                 <li>
-                  <Link to={'/'}>
+                  <Link to={'/customerService/questions'}>
                     <span>자주하는 질문</span>
                   </Link>
                 </li>
                 <li>
-                  <Link to={'/'}>
+                  <Link to={'/customerService/inquire'}>
                     <span>문의하기</span>
                   </Link>
                 </li>
