@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import MainMessageBox from './MainMessageBox';
-import tranlateFontSize from '@hooks/tranlateFontSize';
+import tranlateFontSize from '@utils/tranlateFontSize';
 
 const RESULT_1 = require('@assets/images/main/result_1.png');
 

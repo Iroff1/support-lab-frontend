@@ -1,4 +1,4 @@
-import tranlateFontSize from '@hooks/tranlateFontSize';
+import tranlateFontSize from '@utils/tranlateFontSize';
 import React from 'react';
 import styled, { css } from 'styled-components';
 

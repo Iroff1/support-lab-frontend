@@ -23,6 +23,7 @@ module.exports = {
     alias: {
       '@colors': path.resolve(__dirname, 'src/colors/'),
       '@hooks': path.resolve(__dirname, 'src/hooks/'),
+      '@utils': path.resolve(__dirname, 'src/utils/'),
       '@components': path.resolve(__dirname, 'src/components/'),
       '@containers': path.resolve(__dirname, 'src/containers/'),
       '@types': path.resolve(__dirname, 'src/types/'),

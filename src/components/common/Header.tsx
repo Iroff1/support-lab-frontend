@@ -3,7 +3,7 @@ import Responsive from './Responsive';
 import { Link, useNavigate } from 'react-router';
 import Button from './Button';
 import palette from '@colors/index';
-import tranlateFontSize from '@hooks/tranlateFontSize';
+import tranlateFontSize from '@utils/tranlateFontSize';
 import React from 'react';
 import Blank from './Blank';
 

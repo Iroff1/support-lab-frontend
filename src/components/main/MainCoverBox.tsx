@@ -1,6 +1,6 @@
 import palette from '@colors/index';
 import Button from '@components/common/Button';
-import tranlateFontSize from '@hooks/tranlateFontSize';
+import tranlateFontSize from '@utils/tranlateFontSize';
 import styled, { css } from 'styled-components';
 
 const MainCoverBoxBlock = styled.div`

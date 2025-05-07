@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import Responsive from './Responsive';
-import tranlateFontSize from '@hooks/tranlateFontSize';
+import tranlateFontSize from '@utils/tranlateFontSize';
 import palette from '@colors/index';
 
 const [ICON_BLOG, ICON_INSTA, ICON_YOUTUBE] = [

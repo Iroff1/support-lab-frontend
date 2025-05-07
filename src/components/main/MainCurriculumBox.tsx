@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import MainMessageBox from './MainMessageBox';
-import tranlateFontSize from '@hooks/tranlateFontSize';
+import tranlateFontSize from '@utils/tranlateFontSize';
 import palette from '@colors/index';
 
 const RIGHT_ARROW = require('@assets/images/common/icon_rightArrow.png');

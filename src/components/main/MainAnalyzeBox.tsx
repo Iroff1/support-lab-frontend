@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import MainMessageBox from './MainMessageBox';
-import tranlateFontSize from '@hooks/tranlateFontSize';
+import tranlateFontSize from '@utils/tranlateFontSize';
 
 const MainAnalyzeBoxBlock = styled.div`
   display: flex;

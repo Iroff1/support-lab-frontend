@@ -1,5 +1,5 @@
 import palette from '@colors/index';
-import tranlateFontSize from '@hooks/tranlateFontSize';
+import tranlateFontSize from '@utils/tranlateFontSize';
 import styled, { css } from 'styled-components';
 
 const MainMeritBoxBlock = styled.div`

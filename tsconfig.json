@@ -19,6 +19,7 @@
     "paths": {
       "@colors/*": ["colors/*"],
       "@hooks/*": ["hooks/*"],
+      "@utils/*": ["utils/*"],
       "@components/*": ["components/*"],
       "@containers/*": ["containers/*"],
       "@types/*": ["types/*"],

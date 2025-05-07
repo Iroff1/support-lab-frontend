@@ -1,4 +1,4 @@
-import tranlateFontSize from '@hooks/tranlateFontSize';
+import tranlateFontSize from '@utils/tranlateFontSize';
 import styled, { css } from 'styled-components';
 
 const CHECK_ICON = require('@assets/images/common/icon_check.png');

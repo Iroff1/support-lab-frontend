@@ -7,7 +7,7 @@ import MainResultBox from './MainResultBox';
 import MainAnalyzeBox from './MainAnalyzeBox';
 import MainExampleBox from './MainExampleBox';
 import MainCurriculumBox from './MainCurriculumBox';
-import tranlateFontSize from '@hooks/tranlateFontSize';
+import tranlateFontSize from '@utils/tranlateFontSize';
 import MainMeritBox from './MainMeritBox';
 import MainRecommendBox from './MainRecommendBox';
 import MainLastCoverBox from './MainLastCoverBox';

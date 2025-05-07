@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import { ConsultButton } from './MainCoverBox';
-import tranlateFontSize from '@hooks/tranlateFontSize';
+import tranlateFontSize from '@utils/tranlateFontSize';
 
 const MainLastCoverBoxBlock = styled.div`
   width: 100%;
