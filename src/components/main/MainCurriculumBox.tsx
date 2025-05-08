@@ -3,7 +3,7 @@ import MainMessageBox from './MainMessageBox';
 import tranlateFontSize from '@utils/tranlateFontSize';
 import palette from '@assets/colors/index';
 
-const RIGHT_ARROW = require('@assets/images/common/icon_rightArrow.png');
+const RIGHT_ARROW = require('@assets/images/common/icon_arrow_right.png');
 const CURRICULAM_1 = require('@assets/images/main/curriculam_1.png');
 const CURRICULAM_2 = require('@assets/images/main/curriculam_2.png');
 const CURRICULAM_3 = require('@assets/images/main/curriculam_3.png');
