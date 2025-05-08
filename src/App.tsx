@@ -26,7 +26,7 @@ const App = () => {
       <Route path="/customerService" element={<CsLayout />}>
         <Route path="supportBusinesses" element={<CsInfoListPage />} />
         <Route path="questions" element={<CsQuestionsPage />} />
-        <Route path="inquirement" element={<CsInquirementPage />} />
+        <Route path="inquire" element={<CsInquirementPage />} />
       </Route>
       <Route path="*" element={<>Page Not Found</>} />
     </Routes>
