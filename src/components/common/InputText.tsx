@@ -25,7 +25,7 @@ const AuthInputBlock = styled.input`
   }
 `;
 
-interface IAuthInput {
+interface IInput {
   type: string;
   placeholder?: string;
   autoComplete?: string;
@@ -33,7 +33,11 @@ interface IAuthInput {
   required?: boolean;
 }
 
-const AuthInput: React.FC<IAuthInput> = ({ required = true, ...props }) => {
-  return <AuthInputBlock required={required} {...props} />;
+const InputText: React.FC<IInput> = ({
+  type = 'text',
+  required = true,
+  ...props
+}) => {
+  return <AuthInputBlock type={type} required={required} {...props} />;
 };
-export default AuthInput;
+export default InputText;

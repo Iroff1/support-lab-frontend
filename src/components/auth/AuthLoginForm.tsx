@@ -1,10 +1,10 @@
 import palette from '@assets/colors/index';
-import AuthInput from '@components/common/AuthInput';
+import InputText from '@components/common/InputText';
 import tranlateFontSize from '@utils/tranlateFontSize';
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
-import AuthInputPassword from './AuthInputPassword';
+import InputPassword from '../common/InputPassword';
 import AuthCheckItem from './AuthCheckItem';
 import SubmitButton from '@components/common/SubmitButton';
 import Caution from '@components/common/Caution';
@@ -126,12 +126,12 @@ const AuthLoginForm = () => {
       <LoginBody>
         <LoginForm onSubmit={handleSubmit}>
           <InputSection>
-            <AuthInput
+            <InputText
               type="email"
               placeholder="이메일"
               onChange={handleEmail}
             />
-            <AuthInputPassword onChange={handlePassword} />
+            <InputPassword onChange={handlePassword} />
             <AuthCheckItem>로그인 상태 유지</AuthCheckItem>
           </InputSection>
 

@@ -1,9 +1,9 @@
-import AuthInput from '@components/common/AuthInput';
+import InputText from '@components/common/InputText';
 import SubmitButton from '@components/common/SubmitButton';
 import styled from 'styled-components';
-import AuthInputPassword from './AuthInputPassword';
+import InputPassword from '../common/InputPassword';
 import AuthCheckItem from './AuthCheckItem';
-import AuthInputWithCheck from './AuthInputWithCheck';
+import InputWithCheck from '../common/InputWithCheck';
 
 const RegisterForm = styled.div`
   width: 100%;
@@ -32,12 +32,12 @@ const AuthRegisterForm = () => {
     <>
       {/* 입력 공간, 인풋 6개 */}
       <RegisterForm>
-        <AuthInputWithCheck type="email" placeholder="이메일" />
-        <AuthInputPassword />
-        <AuthInputPassword />
-        <AuthInput type="text" placeholder="이름" />
-        <AuthInputWithCheck type="tel" placeholder="휴대폰번호" forAuth />
-        <AuthInputWithCheck type="text" placeholder="인증번호" />
+        <InputWithCheck type="email" placeholder="이메일" />
+        <InputPassword />
+        <InputPassword />
+        <InputText type="text" placeholder="이름" />
+        <InputWithCheck type="tel" placeholder="휴대폰번호" forAuth />
+        <InputWithCheck type="text" placeholder="인증번호" />
       </RegisterForm>
 
       {/* 제출 공간 */}

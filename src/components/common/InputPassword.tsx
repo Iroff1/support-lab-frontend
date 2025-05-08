@@ -1,16 +1,16 @@
-import AuthInput from '@components/common/AuthInput';
+import InputText from '@components/common/InputText';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-const pw_hide = require('@assets/images/auth/login_pw_hide.png');
-const pw_show = require('@assets/images/auth/login_pw_show.png');
+const pw_hide = require('@assets/images/common/icon_hide.png');
+const pw_show = require('@assets/images/common/icon_show.png');
 
-const AuthInputPasswordBlock = styled.div`
+const InputPasswordBlock = styled.div`
   position: relative;
   width: 100%;
 `;
 
-const AuthInputPw = styled(AuthInput)`
+const InputPw = styled(InputText)`
   padding-right: 44px;
 `;
 
@@ -30,19 +30,19 @@ const ToggleVisible = styled.div<{ isVisible: boolean }>`
   }
 `;
 
-interface IAuthInputPassword {
+interface IInputPassword {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const AuthInputPassword: React.FC<IAuthInputPassword> = ({ onChange }) => {
+const InputPassword: React.FC<IInputPassword> = ({ onChange }) => {
   const [isVisible, setIsVisible] = useState(false);
   const handleIsVisible = (e: React.MouseEvent<HTMLDivElement>) => {
     setIsVisible((value) => !value);
   };
 
   return (
-    <AuthInputPasswordBlock>
-      <AuthInputPw
+    <InputPasswordBlock>
+      <InputPw
         type={isVisible ? 'text' : 'password'}
         placeholder="비밀번호"
         autoComplete="off"
@@ -50,8 +50,8 @@ const AuthInputPassword: React.FC<IAuthInputPassword> = ({ onChange }) => {
         required
       />
       <ToggleVisible onClick={handleIsVisible} isVisible={isVisible} />
-    </AuthInputPasswordBlock>
+    </InputPasswordBlock>
   );
 };
 
-export default AuthInputPassword;
+export default InputPassword;

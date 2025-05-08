@@ -1,23 +1,23 @@
 import palette from '@assets/colors/index';
-import AuthInput from '@components/common/AuthInput';
+import InputText from '@components/common/InputText';
 import tranlateFontSize from '@utils/tranlateFontSize';
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-interface IAuthCheckItem {
+interface ICheckItem {
   type: string;
   forAuth?: boolean;
   placeholder: string;
 }
 
-const AuthInputWithCheckBlock = styled.div`
+const InputWithCheckBlock = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
   gap: 10px;
 `;
 
-const AuthInputCheckButton = styled.button`
+const InputCheckButton = styled.button`
   width: 100px;
   height: 52px;
   border-radius: 10px;
@@ -34,7 +34,7 @@ const AuthInputCheckButton = styled.button`
   }
 `;
 
-const AuthInputWithCheck: React.FC<IAuthCheckItem> = ({
+const InputWithCheck: React.FC<ICheckItem> = ({
   type,
   forAuth = false,
   placeholder,
@@ -51,12 +51,12 @@ const AuthInputWithCheck: React.FC<IAuthCheckItem> = ({
   };
 
   return (
-    <AuthInputWithCheckBlock>
-      <AuthInput type={type} placeholder={placeholder} />
-      <AuthInputCheckButton onClick={handleCheck}>
+    <InputWithCheckBlock>
+      <InputText type={type} placeholder={placeholder} />
+      <InputCheckButton onClick={handleCheck}>
         {forAuth ? '인증' : '확인'}
-      </AuthInputCheckButton>
-    </AuthInputWithCheckBlock>
+      </InputCheckButton>
+    </InputWithCheckBlock>
   );
 };
-export default AuthInputWithCheck;
+export default InputWithCheck;
