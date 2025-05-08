@@ -32,12 +32,17 @@ const AuthRegisterForm = () => {
     <>
       {/* 입력 공간, 인풋 6개 */}
       <RegisterForm>
-        <InputWithCheck type="email" placeholder="이메일" />
-        <InputPassword />
-        <InputPassword />
-        <InputText type="text" placeholder="이름" />
-        <InputWithCheck type="tel" placeholder="휴대폰번호" forAuth />
-        <InputWithCheck type="text" placeholder="인증번호" />
+        <InputWithCheck name="email" type="email" placeholder="이메일" />
+        <InputPassword name="password" />
+        <InputPassword name="passwordCheck" />
+        <InputText name="username" type="text" placeholder="이름" />
+        <InputWithCheck
+          name="contact"
+          type="tel"
+          placeholder="휴대폰번호"
+          forAuth
+        />
+        <InputWithCheck name="contactAuth" type="text" placeholder="인증번호" />
       </RegisterForm>
 
       {/* 제출 공간 */}

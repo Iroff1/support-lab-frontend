@@ -1,6 +1,6 @@
 import palette from '@assets/colors/index';
 import InputText from '@components/common/InputText';
-import tranlateFontSize from '@utils/tranlateFontSize';
+import translateFontSize from '@utils/translateFontSize';
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
@@ -48,12 +48,12 @@ const LoginFooter = styled.div`
 
   & > a {
     flex: 1;
-    ${css(tranlateFontSize('R_17'))};
+    ${css(translateFontSize('R_17'))};
     color: ${palette.black.B80};
     text-align: center;
     transition: 0.2s ease color;
     &:hover {
-      color: ${palette.black.Black};
+      color: ${palette.black.black};
     }
   }
 
@@ -127,11 +127,12 @@ const AuthLoginForm = () => {
         <LoginForm onSubmit={handleSubmit}>
           <InputSection>
             <InputText
+              name="email"
               type="email"
               placeholder="이메일"
               onChange={handleEmail}
             />
-            <InputPassword onChange={handlePassword} />
+            <InputPassword name="password" onChange={handlePassword} />
             <AuthCheckItem>로그인 상태 유지</AuthCheckItem>
           </InputSection>
 

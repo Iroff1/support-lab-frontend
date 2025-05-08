@@ -1,11 +1,12 @@
 import palette from '@assets/colors/index';
-import InputText from '@components/common/InputText';
-import tranlateFontSize from '@utils/tranlateFontSize';
+import translateFontSize from '@utils/translateFontSize';
 import React from 'react';
 import styled, { css } from 'styled-components';
+import InputText from './InputText';
 
 interface ICheckItem {
   type: string;
+  name: string;
   forAuth?: boolean;
   placeholder: string;
 }
@@ -23,7 +24,7 @@ const InputCheckButton = styled.button`
   border-radius: 10px;
   background-color: ${palette.main.B50};
   color: ${palette.main.B200};
-  ${css(tranlateFontSize('SB_17'))};
+  ${css(translateFontSize('SB_17'))};
   border: 0px;
   transition: 0.2s ease color, 0.2s ease background-color;
   cursor: pointer;
@@ -36,6 +37,7 @@ const InputCheckButton = styled.button`
 
 const InputWithCheck: React.FC<ICheckItem> = ({
   type,
+  name,
   forAuth = false,
   placeholder,
 }) => {
@@ -52,7 +54,7 @@ const InputWithCheck: React.FC<ICheckItem> = ({
 
   return (
     <InputWithCheckBlock>
-      <InputText type={type} placeholder={placeholder} />
+      <InputText name={name} type={type} placeholder={placeholder} />
       <InputCheckButton onClick={handleCheck}>
         {forAuth ? '인증' : '확인'}
       </InputCheckButton>

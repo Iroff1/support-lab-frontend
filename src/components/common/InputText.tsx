@@ -1,5 +1,5 @@
 import palette from '@assets/colors/index';
-import tranlateFontSize from '@utils/tranlateFontSize';
+import translateFontSize from '@utils/translateFontSize';
 import React from 'react';
 import styled, { css } from 'styled-components';
 
@@ -11,12 +11,12 @@ const AuthInputBlock = styled.input`
   border-radius: 10px;
   border: 1px solid ${palette.black.B50};
   padding: 14px 10px;
-  ${css(tranlateFontSize('R_17'))};
+  ${css(translateFontSize('R_17'))};
   color: ${palette.black.B700};
   transition: 0.2s ease border;
 
   &::placeholder {
-    ${css(tranlateFontSize('R_17'))};
+    ${css(translateFontSize('R_17'))};
     color: ${palette.black.B90};
   }
 
@@ -25,8 +25,9 @@ const AuthInputBlock = styled.input`
   }
 `;
 
-interface IInput {
-  type: string;
+export interface IInput {
+  type?: string;
+  name: string;
   placeholder?: string;
   autoComplete?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;

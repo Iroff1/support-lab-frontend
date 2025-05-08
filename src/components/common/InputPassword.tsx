@@ -1,4 +1,4 @@
-import InputText from '@components/common/InputText';
+import InputText, { IInput } from '@components/common/InputText';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
@@ -30,11 +30,7 @@ const ToggleVisible = styled.div<{ isVisible: boolean }>`
   }
 `;
 
-interface IInputPassword {
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
-
-const InputPassword: React.FC<IInputPassword> = ({ onChange }) => {
+const InputPassword: React.FC<IInput> = ({ name, onChange }) => {
   const [isVisible, setIsVisible] = useState(false);
   const handleIsVisible = (e: React.MouseEvent<HTMLDivElement>) => {
     setIsVisible((value) => !value);
@@ -43,6 +39,7 @@ const InputPassword: React.FC<IInputPassword> = ({ onChange }) => {
   return (
     <InputPasswordBlock>
       <InputPw
+        name={name}
         type={isVisible ? 'text' : 'password'}
         placeholder="비밀번호"
         autoComplete="off"

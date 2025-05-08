@@ -26,11 +26,16 @@ const AuthFindForm: React.FC<IAuthFindForm> = ({ isPasswordForm = false }) => {
       {/* 입력 공간 3개 */}
       <FindForm>
         {isPasswordForm ? (
-          <InputWithCheck type="email" placeholder="이메일" />
+          <InputWithCheck name="email" type="email" placeholder="이메일" />
         ) : null}
-        <InputText type="text" placeholder="이름" />
-        <InputWithCheck type="tel" placeholder="휴대폰번호" forAuth />
-        <InputWithCheck type="text" placeholder="인증번호" />
+        <InputText name="username" type="text" placeholder="이름" />
+        <InputWithCheck
+          name="contact"
+          type="tel"
+          placeholder="휴대폰번호"
+          forAuth
+        />
+        <InputWithCheck name="contactAuth" type="text" placeholder="인증번호" />
       </FindForm>
 
       <FindSubmit>
