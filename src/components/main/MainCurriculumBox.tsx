@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import MainMessageBox from './MainMessageBox';
-import tranlateFontSize from '@utils/tranlateFontSize';
+import translateFontSize from '@utils/translateFontSize';
 import palette from '@assets/colors/index';
 
 const RIGHT_ARROW = require('@assets/images/common/icon_arrow_right.png');
@@ -46,11 +46,11 @@ const CurriculumItem = styled.div`
 
   div {
     & > p:nth-child(1) {
-      ${css(tranlateFontSize('B_21'))}
+      ${css(translateFontSize('B_21'))}
     }
     & > p:nth-child(2) {
       margin-top: 10px;
-      ${css(tranlateFontSize('R_17'))}
+      ${css(translateFontSize('R_17'))}
     }
   }
 `;

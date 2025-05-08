@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import MainMessageBox from './MainMessageBox';
-import tranlateFontSize from '@utils/tranlateFontSize';
+import translateFontSize from '@utils/translateFontSize';
 
 const RESULT_1 = require('@assets/images/main/result_1.png');
 
@@ -25,7 +25,7 @@ const ImageBox = styled.div`
 
 const ImageFooter = styled.p`
   text-align: center;
-  ${css(tranlateFontSize('R_12'))};
+  ${css(translateFontSize('R_12'))};
 `;
 
 const MainResultBox = () => {

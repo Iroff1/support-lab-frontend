@@ -1,5 +1,5 @@
 import palette from '@assets/colors/index';
-import tranlateFontSize from '@utils/tranlateFontSize';
+import translateFontSize from '@utils/translateFontSize';
 import styled, { css } from 'styled-components';
 
 const MainMeritBoxBlock = styled.div`
@@ -31,11 +31,11 @@ const BoxItem = styled.div`
   & > div {
     width: 496px;
     h2 {
-      ${css(tranlateFontSize('B_29'))}
+      ${css(translateFontSize('B_29'))}
     }
     p {
       margin-top: 20px;
-      ${css(tranlateFontSize('R_17'))}
+      ${css(translateFontSize('R_17'))}
     }
   }
 `;

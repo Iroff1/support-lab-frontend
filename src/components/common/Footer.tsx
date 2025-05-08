@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import Responsive from './Responsive';
-import tranlateFontSize from '@utils/tranlateFontSize';
+import translateFontSize from '@utils/translateFontSize';
 import palette from '@assets/colors/index';
 
 const [ICON_BLOG, ICON_INSTA, ICON_YOUTUBE] = [
@@ -27,7 +27,7 @@ const CompanyInfoBlock = styled.div`
     color: ${palette.black.B80};
     margin: 0 auto;
     text-align: center;
-    ${css(tranlateFontSize('R_13'))}
+    ${css(translateFontSize('R_13'))}
   }
 `;
 
@@ -37,7 +37,7 @@ const CopyrightBlock = styled.div`
     color: ${palette.black.B80};
     margin: 0 auto;
     text-align: center;
-    ${css(tranlateFontSize('R_13'))}
+    ${css(translateFontSize('R_13'))}
   }
 `;
 

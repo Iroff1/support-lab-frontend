@@ -1,6 +1,6 @@
 import palette from '@assets/colors/index';
 import Floating from '@components/common/Floating';
-import tranlateFontSize from '@utils/tranlateFontSize';
+import translateFontSize from '@utils/translateFontSize';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
@@ -24,7 +24,7 @@ const InfoListHeader = styled.div`
   gap: 40px;
 
   h1 {
-    ${css(tranlateFontSize('B_38'))};
+    ${css(translateFontSize('B_38'))};
   }
 `;
 
@@ -49,7 +49,7 @@ const InfoListSearchForm = styled.form`
     align-items: center;
     border-radius: 40px;
     border: 1px solid ${palette.main.main};
-    ${css(tranlateFontSize('SB_18'))};
+    ${css(translateFontSize('SB_18'))};
     outline: 0px;
   }
 
@@ -80,7 +80,7 @@ const FilterTag = styled.div`
   border-radius: 30px;
   color: ${palette.black.B700};
   background-color: ${palette.black.B20};
-  ${css(tranlateFontSize('SB_18'))};
+  ${css(translateFontSize('SB_18'))};
   transition: 0.2s ease color, 0.2s ease background-color;
 
   &:hover {
@@ -129,7 +129,7 @@ const InfoItem = styled.div`
     overflow: hidden;
     text-wrap: nowrap;
     text-overflow: ellipsis;
-    ${css(tranlateFontSize('B_20'))}
+    ${css(translateFontSize('B_20'))}
   }
 `;
 

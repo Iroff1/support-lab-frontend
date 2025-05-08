@@ -5,7 +5,7 @@ const fontWeight = {
   ExtraLight: '200',
 };
 
-const tranlateFontSize = (item: string) => {
+const translateFontSize = (item: string) => {
   const [weight, size] = item.split('_', 2);
 
   if (!weight || !size)
@@ -28,4 +28,4 @@ const tranlateFontSize = (item: string) => {
   };
 };
 
-export default tranlateFontSize;
+export default translateFontSize;

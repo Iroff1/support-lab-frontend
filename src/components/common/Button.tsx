@@ -1,5 +1,5 @@
 import palette from '@assets/colors/index';
-import tranlateFontSize from '@utils/tranlateFontSize';
+import translateFontSize from '@utils/translateFontSize';
 import React from 'react';
 import styled, { css } from 'styled-components';
 
@@ -13,7 +13,7 @@ const ButtonBlock = styled.button`
   align-items: center;
   background-color: transparent;
   cursor: pointer;
-  ${css(tranlateFontSize('B_18'))}
+  ${css(translateFontSize('B_18'))}
 `;
 
 interface IButtonProps {

@@ -1,4 +1,4 @@
-import tranlateFontSize from '@utils/tranlateFontSize';
+import translateFontSize from '@utils/translateFontSize';
 import React from 'react';
 import styled, { css } from 'styled-components';
 
@@ -10,13 +10,13 @@ const MainMessageBoxBlock = styled.div`
   align-items: center;
   text-align: center;
   h1 {
-    ${css(tranlateFontSize('B_48'))}
+    ${css(translateFontSize('B_48'))}
   }
   h2 {
-    ${css(tranlateFontSize('B_29'))}
+    ${css(translateFontSize('B_29'))}
   }
   p {
-    ${css(tranlateFontSize('R_17'))}
+    ${css(translateFontSize('R_17'))}
     margin-top: 10px;
   }
 `;

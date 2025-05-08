@@ -7,7 +7,7 @@ import MainResultBox from './MainResultBox';
 import MainAnalyzeBox from './MainAnalyzeBox';
 import MainExampleBox from './MainExampleBox';
 import MainCurriculumBox from './MainCurriculumBox';
-import tranlateFontSize from '@utils/tranlateFontSize';
+import translateFontSize from '@utils/translateFontSize';
 import MainMeritBox from './MainMeritBox';
 import MainRecommendBox from './MainRecommendBox';
 import MainLastCoverBox from './MainLastCoverBox';
@@ -49,7 +49,7 @@ const MainContentsBlock = styled(Responsive)`
       top: -61px;
       left: 50%;
       transform: translateX(-50%);
-      ${css(tranlateFontSize('B_29'))};
+      ${css(translateFontSize('B_29'))};
     }
   }
 `;

@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import MainMessageBox from './MainMessageBox';
 import palette from '@assets/colors/index';
-import tranlateFontSize from '@utils/tranlateFontSize';
+import translateFontSize from '@utils/translateFontSize';
 
 const MainExampleBoxBlock = styled.div`
   display: flex;
@@ -27,7 +27,7 @@ const ImageList = styled.div`
     justify-content: center;
     align-items: center;
     text-align: center;
-    ${css(tranlateFontSize('B_30'))};
+    ${css(translateFontSize('B_30'))};
   }
 `;
 

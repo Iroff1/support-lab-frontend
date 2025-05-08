@@ -3,7 +3,7 @@ import Responsive from './Responsive';
 import { Link, useNavigate } from 'react-router';
 import Button from './Button';
 import palette from '@assets/colors/index';
-import tranlateFontSize from '@utils/tranlateFontSize';
+import translateFontSize from '@utils/translateFontSize';
 import React from 'react';
 import Blank from './Blank';
 
@@ -53,7 +53,7 @@ const CategoryBox = styled.div`
   height: 100%;
   text-wrap: nowrap;
   color: ${palette.black.B700};
-  ${css(tranlateFontSize('R_18'))};
+  ${css(translateFontSize('R_18'))};
 
   & > a {
     width: 100%;
@@ -101,7 +101,7 @@ const CategoryBox = styled.div`
           }
           & > span {
             position: relative;
-            ${css(tranlateFontSize('R_18'))};
+            ${css(translateFontSize('R_18'))};
             &::before {
               position: absolute;
               bottom: 0;

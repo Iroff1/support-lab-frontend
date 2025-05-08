@@ -1,5 +1,5 @@
 import palette from '@assets/colors/index';
-import tranlateFontSize from '@utils/tranlateFontSize';
+import translateFontSize from '@utils/translateFontSize';
 import React from 'react';
 import styled, { css } from 'styled-components';
 
@@ -14,7 +14,7 @@ const CautionBlock = styled.p<ICaution>`
   color: ${({ isCaution }) =>
     isCaution ? palette.system.red : palette.system.blue};
   margin-top: ${({ marginTop }) => marginTop};
-  ${css(tranlateFontSize('R_17'))};
+  ${css(translateFontSize('R_17'))};
 `;
 const Caution: React.FC<ICaution> = ({
   children,

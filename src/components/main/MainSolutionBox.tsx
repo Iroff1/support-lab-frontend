@@ -1,5 +1,5 @@
 import palette from '@assets/colors/index';
-import tranlateFontSize from '@utils/tranlateFontSize';
+import translateFontSize from '@utils/translateFontSize';
 import styled, { css } from 'styled-components';
 
 const SOLUTION_1 = require('@assets/images/main/solution_1.png');
@@ -16,7 +16,7 @@ const MainSolutionBoxBlock = styled.div`
 `;
 const SolutionBoxHeader = styled.div`
   h2 {
-    ${css(tranlateFontSize('B_29'))}
+    ${css(translateFontSize('B_29'))}
   }
 `;
 
@@ -52,10 +52,10 @@ const SolutionItem = styled.div`
       height: 48px;
     }
     h3 {
-      ${css(tranlateFontSize('B_21'))};
+      ${css(translateFontSize('B_21'))};
     }
     p {
-      ${css(tranlateFontSize('R_17'))};
+      ${css(translateFontSize('R_17'))};
     }
   }
 `;
@@ -69,7 +69,7 @@ const SolutionButton = styled.button`
   border: 2px solid ${palette.black.B700};
   color: ${palette.black.B700};
   background-color: transparent;
-  ${css(tranlateFontSize('sb_18'))};
+  ${css(translateFontSize('sb_18'))};
 `;
 
 const MainSolutionBox = () => {

@@ -1,5 +1,5 @@
 import palette from '@assets/colors/index';
-import tranlateFontSize from '@utils/tranlateFontSize';
+import translateFontSize from '@utils/translateFontSize';
 import React from 'react';
 import styled, { css, keyframes } from 'styled-components';
 
@@ -43,7 +43,7 @@ const ModalPop = styled.div`
 `;
 
 const ModalHeader = styled.h1`
-  ${css(tranlateFontSize('B_29'))}
+  ${css(translateFontSize('B_29'))}
 `;
 
 const ModalBody = styled.div`
@@ -52,10 +52,10 @@ const ModalBody = styled.div`
 
   & > div {
     & > p:nth-child(1) {
-      ${css(tranlateFontSize('R_19'))}
+      ${css(translateFontSize('R_19'))}
     }
     & > p:nth-child(2) {
-      ${css(tranlateFontSize('B_19'))}
+      ${css(translateFontSize('B_19'))}
     }
   }
 `;

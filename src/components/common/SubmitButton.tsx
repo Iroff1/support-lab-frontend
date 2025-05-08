@@ -1,5 +1,5 @@
 import palette from '@assets/colors/index';
-import tranlateFontSize from '@utils/tranlateFontSize';
+import translateFontSize from '@utils/translateFontSize';
 import React from 'react';
 import styled, { css } from 'styled-components';
 
@@ -9,7 +9,7 @@ const SubmitButtonBlock = styled.button`
   border-radius: 8px;
   padding: 12px 10px;
   border: 0;
-  ${css(tranlateFontSize('SB_18'))};
+  ${css(translateFontSize('SB_18'))};
   background-color: ${palette.main.B75};
   color: ${palette.black.white};
   transition: 0.2s ease background-color;

@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import MainMessageBox from './MainMessageBox';
-import tranlateFontSize from '@utils/tranlateFontSize';
+import translateFontSize from '@utils/translateFontSize';
 
 const MainAnalyzeBoxBlock = styled.div`
   display: flex;
@@ -38,10 +38,10 @@ const Card = styled.div`
     height: 48px;
   }
   h3 {
-    ${css(tranlateFontSize('B_21'))}
+    ${css(translateFontSize('B_21'))}
   }
   p {
-    ${css(tranlateFontSize('R_17'))}
+    ${css(translateFontSize('R_17'))}
   }
 `;
 

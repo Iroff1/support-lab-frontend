@@ -1,5 +1,5 @@
 import palette from '@assets/colors';
-import tranlateFontSize from '@utils/tranlateFontSize';
+import translateFontSize from '@utils/translateFontSize';
 import styled, { css, keyframes } from 'styled-components';
 
 const ARROW = require('@assets/images/common/icon_arrow_below.png');
@@ -15,7 +15,7 @@ const Header = styled.div`
   margin-bottom: 40px;
   h1 {
     text-align: center;
-    ${css(tranlateFontSize('B_38'))};
+    ${css(translateFontSize('B_38'))};
   }
 `;
 
@@ -47,7 +47,7 @@ const QuestionItem = styled.li`
         transform: rotate(180deg);
       }
       & > span {
-        ${css(tranlateFontSize('B_19'))};
+        ${css(translateFontSize('B_19'))};
       }
     }
   }
@@ -72,7 +72,7 @@ const QuestionTitle = styled.div`
     transition: 0.2s ease transform;
   }
   & > span {
-    ${css(tranlateFontSize('R_19'))};
+    ${css(translateFontSize('R_19'))};
     transition: 0.2s ease font-weight;
   }
 `;

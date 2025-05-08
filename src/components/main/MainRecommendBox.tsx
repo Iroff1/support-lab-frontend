@@ -1,4 +1,4 @@
-import tranlateFontSize from '@utils/tranlateFontSize';
+import translateFontSize from '@utils/translateFontSize';
 import styled, { css } from 'styled-components';
 
 const CHECK_ICON = require('@assets/images/common/icon_check.png');
@@ -15,10 +15,10 @@ const MainRecommendBoxBlock = styled.div`
 const RecommendBoxHeader = styled.div`
   text-align: center;
   h2 {
-    ${css(tranlateFontSize('B_29'))}
+    ${css(translateFontSize('B_29'))}
   }
   p {
-    ${css(tranlateFontSize('R_17'))}
+    ${css(translateFontSize('R_17'))}
   }
 `;
 
@@ -27,7 +27,7 @@ const RecommendBoxBody = styled.div`
   flex-direction: column;
   gap: 10px;
   & > p {
-    ${css(tranlateFontSize('B_19'))}
+    ${css(translateFontSize('B_19'))}
     display: flex;
     gap: 6px;
     align-items: center;

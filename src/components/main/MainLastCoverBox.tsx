@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import { ConsultButton } from './MainCoverBox';
-import tranlateFontSize from '@utils/tranlateFontSize';
+import translateFontSize from '@utils/translateFontSize';
 
 const MainLastCoverBoxBlock = styled.div`
   width: 100%;
@@ -32,10 +32,10 @@ const CoverContentBox = styled.div`
     gap: 20px;
 
     h2 {
-      ${css(tranlateFontSize('B_48'))}
+      ${css(translateFontSize('B_48'))}
     }
     p {
-      ${css(tranlateFontSize('R_22'))}
+      ${css(translateFontSize('R_22'))}
     }
   }
 `;
