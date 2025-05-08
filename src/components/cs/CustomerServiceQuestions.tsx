@@ -4,7 +4,7 @@ import styled, { css, keyframes } from 'styled-components';
 
 const ARROW = require('@assets/images/common/icon_arrow_below.png');
 
-const CsQuestionsBlock = styled.div`
+const CustomerServiceQuestionsBlock = styled.div`
   width: 726px;
   display: flex;
   flex-direction: column;
@@ -86,7 +86,7 @@ interface IQuestion {
   content: string;
 }
 
-const CsQuestions = () => {
+const CustomerServiceQuestions = () => {
   const questions: Array<IQuestion> = [
     {
       title: '지원 사업에 대해 하나도 모릅니다. 컨설팅 받는데 돈이 드나요?',
@@ -120,7 +120,7 @@ const CsQuestions = () => {
   ];
 
   return (
-    <CsQuestionsBlock>
+    <CustomerServiceQuestionsBlock>
       {/* 헤더 */}
       <Header>
         <h1>자주하는 질문</h1>
@@ -147,7 +147,7 @@ const CsQuestions = () => {
           ))}
         </QuestionList>
       </Body>
-    </CsQuestionsBlock>
+    </CustomerServiceQuestionsBlock>
   );
 };
-export default CsQuestions;
+export default CustomerServiceQuestions;

@@ -132,7 +132,7 @@ const Textarea = styled.textarea`
   }
 `;
 
-const CsInquirement = () => {
+const CustomerServiceInquirement = () => {
   const [inqType, setInqType] = useState('');
 
   const toggleSelectBox = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -190,4 +190,4 @@ const CsInquirement = () => {
     </CsInquirementBlock>
   );
 };
-export default CsInquirement;
+export default CustomerServiceInquirement;
