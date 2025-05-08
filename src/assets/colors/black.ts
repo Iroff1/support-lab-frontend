@@ -17,7 +17,7 @@ const black = {
   B600: '#2E2E2E',
   B700: '#1C1C1C',
   B800: '#0D0D0D',
-  Black: '#000000',
+  black: '#000000',
 };
 
 export default black;
