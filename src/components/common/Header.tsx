@@ -1,11 +1,11 @@
 import styled, { css } from 'styled-components';
 import Responsive from './Responsive';
 import { Link, useNavigate } from 'react-router';
-import Button from './Button';
 import palette from '@assets/colors/index';
 import translateFontSize from '@utils/translateFontSize';
 import React from 'react';
 import Blank from './Blank';
+import ConsultButton from './ConsultButton';
 
 const LOGO_HEADER = require('@assets/images/common/header_logo_pc.png');
 
@@ -128,12 +128,6 @@ const CategoryBox = styled.div`
   }
 `;
 
-const ConsultButton = styled(Button)`
-  background-color: ${palette.system.blue};
-  color: ${palette.black.white};
-  border: none;
-`;
-
 const AuthBox = styled(CategoryBox)`
   width: 174px;
   & > .dropDown {
@@ -141,7 +135,18 @@ const AuthBox = styled(CategoryBox)`
   }
 `;
 
-const AuthButton = styled(Button)``;
+const AuthButton = styled.div`
+  width: 117px;
+  height: 40px;
+  border-radius: 40px;
+  border: 1px solid ${palette.black.B50};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  cursor: pointer;
+  ${css(translateFontSize('B_18'))}
+`;
 
 interface IHeaderProps {
   showModal?: () => void;
