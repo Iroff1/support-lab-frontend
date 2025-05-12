@@ -5,8 +5,8 @@ import palette from '@assets/colors/index';
 
 const [ICON_BLOG, ICON_INSTA, ICON_YOUTUBE] = [
   require('@assets/images/common/icon_blog.png'),
-  require('@assets/images/common/icon_blog.png'),
-  require('@assets/images/common/icon_blog.png'),
+  require('@assets/images/common/icon_insta.png'),
+  require('@assets/images/common/icon_youtube.png'),
 ];
 
 const FooterBlock = styled.div`
@@ -21,6 +21,7 @@ const FooterResponsiveBlock = styled(Responsive)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 10px;
 `;
 const CompanyInfoBlock = styled.div`
   & > p {
@@ -28,11 +29,18 @@ const CompanyInfoBlock = styled.div`
     margin: 0 auto;
     text-align: center;
     ${css(translateFontSize('R_13'))}
+
+    &>span {
+      cursor: pointer;
+      transition: 0.2s ease color;
+      &:hover {
+        color: ${palette.black.B400};
+      }
+    }
   }
 `;
 
 const CopyrightBlock = styled.div`
-  margin: 20px 0;
   & > p {
     color: ${palette.black.B80};
     margin: 0 auto;
@@ -44,6 +52,7 @@ const CopyrightBlock = styled.div`
 const SocialDirectBlock = styled.div`
   display: flex;
   gap: 20px;
+
   & > div {
     width: 32px;
     height: 32px;
@@ -54,6 +63,12 @@ const SocialDirectBlock = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
+    transition: 0.2s ease background-color;
+    &:hover {
+      background-color: ${palette.black.B400};
+    }
+
     & > img {
       width: 28px;
       height: 28px;
@@ -67,13 +82,14 @@ const Footer = () => {
       <FooterResponsiveBlock>
         <CompanyInfoBlock>
           <p>
-            사업자등록번호: 680-09-02976 | 대표: 김민상 | 통신판매업신고번호: 제
-            2025-경기김포-33호 | 주소: 경기도 김포시 양촌읍 양곡로 495, 6층
-            605-EC38호
-          </p>
-          <p>
-            고객센터: 0507-1402-3531 | 이메일: official@iroff.kr |
-            개인정보처리방침 | 이용약관 | 고객센터
+            상호: 지원사업연구소 | 사업자등록번호: 680-09-02976 | 대표: 김민상 |
+            통신판매번호: 제 2025-경기김포-33호
+            <br />
+            주소: 경기도 김포시 양촌읍 양곡로 495, 6층 | 고객센터:
+            0507-1402-3531 | 이메일: official@iroff.kr
+            <br />
+            <span> 개인정보처리방침 </span>|<span> 이용약관 </span>|
+            <span> 고객센터 </span>
           </p>
         </CompanyInfoBlock>
 
