@@ -91,7 +91,7 @@ const Modal: React.FC<IModalProps> = ({ hideModal }) => {
           <img src={MODAL_EXIT} alt="exit" />
         </ModalExit>
         <ModalHeader>
-          IROFF 고객센터에서
+          지원사업연구소 고객센터에서
           <br />
           무료로 상담받을 수 있어요
         </ModalHeader>
