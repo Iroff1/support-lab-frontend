@@ -57,6 +57,10 @@ const MainRecommendBox = () => {
         </p>
         <p>
           <img src={CHECK_ICON} alt="check" />
+          <span>지원사업 서류평가에서 탈락해 본 경험이 있는 분</span>
+        </p>
+        <p>
+          <img src={CHECK_ICON} alt="check" />
           <span>내가 쓴 사업계획서가 잘 쓴 사업계획서인지 모르겠는 분</span>
         </p>
         <p>
