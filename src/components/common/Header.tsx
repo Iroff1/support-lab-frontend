@@ -37,9 +37,7 @@ const HeaderLogoBox = styled.div`
   justify-content: space-between;
   align-items: center;
   background: url(${LOGO_HEADER}) center/cover no-repeat;
-  img {
-    width: 100%;
-  }
+  cursor: pointer;
 `;
 
 const HeaderNavBox = styled.div`
@@ -155,7 +153,11 @@ const Header: React.FC<IHeaderProps> = ({ showModal }) => {
   return (
     <HeaderBlock>
       <HeaderResponsiveBox>
-        <HeaderLogoBox></HeaderLogoBox>
+        <HeaderLogoBox
+          onClick={() => {
+            navigate('/');
+          }}
+        />
 
         <HeaderNavBox>
           <CategoryBox>
