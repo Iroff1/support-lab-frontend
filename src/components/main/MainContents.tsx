@@ -44,11 +44,11 @@ const MainContentsBlock = styled(Responsive)`
     position: relative;
 
     & > h2 {
+      width: 100%;
       height: 41px;
       position: absolute;
       top: -61px;
-      left: 50%;
-      transform: translateX(-50%);
+      text-align: center;
       ${css(translateFontSize('B_29'))};
     }
   }
