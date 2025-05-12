@@ -7,7 +7,7 @@ import styled, { css } from 'styled-components';
 
 const searchBtn = require('@assets/images/common/icon_search.png');
 
-const CSInfoListBlock = styled.div`
+const CustomerServiceInfoListBlock = styled.div`
   max-width: 1076px;
   width: 100%;
   display: flex;
@@ -133,7 +133,7 @@ const InfoItem = styled.div`
   }
 `;
 
-const CsInfoList = () => {
+const CustomerServiceInfoList = () => {
   const exList: string[] = Array.from(
     { length: 9 },
     () => '제목입니다. 글이 길어지면 점이 생깁니다.',
@@ -145,7 +145,7 @@ const CsInfoList = () => {
 
   return (
     <>
-      <CSInfoListBlock>
+      <CustomerServiceInfoListBlock>
         {/* 헤더 */}
         <InfoListHeader>
           {/* 제목 */}
@@ -183,9 +183,9 @@ const CsInfoList = () => {
             ))}
           </InfoItemWrapper>
         </InfoListBody>
-      </CSInfoListBlock>
+      </CustomerServiceInfoListBlock>
       <Floating />
     </>
   );
 };
-export default CsInfoList;
+export default CustomerServiceInfoList;

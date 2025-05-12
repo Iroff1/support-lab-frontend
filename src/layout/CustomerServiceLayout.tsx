@@ -2,21 +2,21 @@ import Header from '@components/common/Header';
 import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 
-const CSLayoutBlock = styled.div`
+const CustomerServiceLayoutBlock = styled.div`
   display: flex;
   padding-top: 104px;
   flex-direction: column;
   align-items: center;
 `;
 
-const CsLayout = () => {
+const CustomerServiceLayout = () => {
   return (
     <>
       <Header />
-      <CSLayoutBlock>
+      <CustomerServiceLayoutBlock>
         <Outlet />
-      </CSLayoutBlock>
+      </CustomerServiceLayoutBlock>
     </>
   );
 };
-export default CsLayout;
+export default CustomerServiceLayout;
