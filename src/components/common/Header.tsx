@@ -31,7 +31,7 @@ const HeaderResponsiveBox = styled(Responsive)`
 `;
 
 const HeaderLogoBox = styled.div`
-  width: 128px;
+  min-width: 128px;
   height: 100%;
   display: flex;
   justify-content: space-between;
@@ -49,14 +49,14 @@ const HeaderNavBox = styled.div`
 `;
 
 const CategoryBox = styled.div`
-  width: 140px;
   height: 100%;
+  padding: 0 25px;
   text-wrap: nowrap;
   color: ${palette.black.B700};
   ${css(translateFontSize('R_18'))};
+  position: relative;
 
   & > a {
-    width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -71,10 +71,16 @@ const CategoryBox = styled.div`
   }
 
   & > .dropDown {
+    position: absolute;
+    left: -5px;
+    top: 52px;
+    z-index: 1;
+
     width: 158px;
-    height: 0px;
+    max-height: 0px;
     overflow: hidden;
-    transition: 0.2s ease height;
+    transition: 0.4s ease max-height;
+    box-shadow: 0px 4px 10px 0px #00000040;
 
     & > ul {
       width: 100%;
@@ -82,15 +88,13 @@ const CategoryBox = styled.div`
       margin: 0;
       display: flex;
       flex-direction: column;
+      gap: 14px;
       padding: 15px 30px;
-      box-sizing: content-box;
-      li + li {
-        margin-top: 14px;
-      }
+
       & > li {
-        box-sizing: border-box;
         width: 100%;
         height: 25px;
+
         & > a {
           height: 100%;
           display: flex;
@@ -121,7 +125,7 @@ const CategoryBox = styled.div`
 
   &:hover {
     & > .dropDown {
-      height: 133px;
+      max-height: 300px;
     }
   }
 `;
@@ -134,10 +138,8 @@ const ConsultButton = styled(Button)`
 
 const AuthBox = styled(CategoryBox)`
   width: 174px;
-
-  &:hover > .dropDown {
-    width: 174px;
-    height: 172px;
+  & > .dropDown {
+    width: 100%;
   }
 `;
 
@@ -164,7 +166,7 @@ const Header: React.FC<IHeaderProps> = ({ showModal }) => {
           </CategoryBox>
           <CategoryBox>
             <Link to={'/'}>고객센터</Link>
-            <Blank height="12px" />
+            <Blank width="100%" height="12px" />
             <div className="dropDown">
               <ul>
                 <li>
@@ -185,6 +187,7 @@ const Header: React.FC<IHeaderProps> = ({ showModal }) => {
               </ul>
             </div>
           </CategoryBox>
+
           <CategoryBox>
             <ConsultButton onClick={showModal}>무료 상담</ConsultButton>
           </CategoryBox>
@@ -192,7 +195,7 @@ const Header: React.FC<IHeaderProps> = ({ showModal }) => {
 
         <AuthBox>
           <AuthButton onClick={() => navigate('/auth')}>로그인</AuthButton>
-          <Blank height="12px" />
+          <Blank width="100%" height="12px" />
           <div className="dropDown">
             <ul>
               <li>
@@ -208,6 +211,11 @@ const Header: React.FC<IHeaderProps> = ({ showModal }) => {
               <li>
                 <Link to={'/'}>
                   <span>개인정보 수정</span>
+                </Link>
+              </li>
+              <li>
+                <Link to={'/'}>
+                  <span>문의 내역</span>
                 </Link>
               </li>
               <li>
