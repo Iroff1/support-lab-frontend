@@ -4,10 +4,12 @@ import translateFontSize from '@utils/translateFontSize';
 import palette from '@assets/colors/index';
 
 const RIGHT_ARROW = require('@assets/images/common/icon_arrow_right.png');
-const CURRICULAM_1 = require('@assets/images/main/curriculam_1.png');
-const CURRICULAM_2 = require('@assets/images/main/curriculam_2.png');
-const CURRICULAM_3 = require('@assets/images/main/curriculam_3.png');
-const CURRICULAM_4 = require('@assets/images/main/curriculam_4.png');
+const [CURRICULAM_1, CURRICULAM_2, CURRICULAM_3, CURRICULAM_4] = [
+  require('@assets/images/common/curriculam_1.png'),
+  require('@assets/images/common/curriculam_2.png'),
+  require('@assets/images/common/curriculam_3.png'),
+  require('@assets/images/common/curriculam_4.png'),
+];
 
 const MainCurriculumBoxBlock = styled.div`
   display: flex;
