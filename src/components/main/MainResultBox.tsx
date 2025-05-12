@@ -25,7 +25,7 @@ const ImageBox = styled.div`
 
 const ImageFooter = styled.p`
   text-align: center;
-  ${css(translateFontSize('R_12'))};
+  ${css(translateFontSize('R_17'))};
 `;
 
 const MainResultBox = () => {
