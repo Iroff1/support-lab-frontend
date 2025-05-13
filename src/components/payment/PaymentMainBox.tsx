@@ -1,4 +1,4 @@
-import AuthCheckItem from '@components/auth/AuthCheckItem';
+import InputWithCheck from '@components/common/InputWithCheck';
 import SubmitButton from '@components/common/SubmitButton';
 import styled from 'styled-components';
 
@@ -20,10 +20,10 @@ const PaymentMainBox = () => {
           <div></div>
 
           {/* 개인정보 동의 */}
-          <AuthCheckItem name="paymentAgree">
+          <InputWithCheck name="paymentAgree">
             위 주문 내용을 확인하였으며, 회원 본인은 개인정보 이용 및 제공 및
             결제에 동의합니다.
-          </AuthCheckItem>
+          </InputWithCheck>
         </form>
 
         {/* 결제 버튼 */}
