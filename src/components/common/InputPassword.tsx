@@ -1,4 +1,5 @@
-import InputText, { IInput } from '@components/common/InputText';
+import InputText from '@components/common/InputText';
+import { IInput } from '@models/input.model';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 

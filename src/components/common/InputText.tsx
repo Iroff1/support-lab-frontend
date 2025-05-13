@@ -1,9 +1,10 @@
 import palette from '@assets/colors/index';
+import { IInput } from '@models/input.model';
 import translateFontSize from '@utils/translateFontSize';
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-const AuthInputBlock = styled.input`
+const InputTextBlock = styled.input`
   width: 100%;
   height: 52px;
   outline: 0px;
@@ -25,16 +26,6 @@ const AuthInputBlock = styled.input`
   }
 `;
 
-export interface IInput {
-  type?: string;
-  name: string;
-  placeholder?: string;
-  autoComplete?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  required?: boolean;
-  ref?: React.RefObject<HTMLInputElement | null>;
-}
-
 const InputText: React.FC<IInput> = ({
   type = 'text',
   required = true,
@@ -42,7 +33,7 @@ const InputText: React.FC<IInput> = ({
   ...props
 }) => {
   return (
-    <AuthInputBlock type={type} required={required} ref={ref} {...props} />
+    <InputTextBlock type={type} required={required} ref={ref} {...props} />
   );
 };
 export default InputText;

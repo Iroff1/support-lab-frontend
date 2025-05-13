@@ -1,77 +1,108 @@
 import palette from '@assets/colors/index';
-import translateFontSize from '@utils/translateFontSize';
-import React, { useRef } from 'react';
-import styled, { css } from 'styled-components';
-import InputText from './InputText';
+import { IInputWithCheck } from '@models/input.model';
+import React from 'react';
+import styled from 'styled-components';
 
-interface ICheckItem {
-  type: string;
-  name: string;
-  useFor?: 'validation' | 'auth';
-  placeholder: string;
-  handler?: (userInput: string) => boolean;
-}
+const RIGHT_ARROW = require('@assets/images/common/icon_arrow_right.png');
 
-const InputWithCheckBlock = styled.div`
-  width: 100%;
+const InputWithCheckBlock = styled.label`
+  height: 26px;
   display: flex;
   justify-content: space-between;
-  gap: 10px;
+  align-items: center;
 `;
 
-const InputCheckButton = styled.button`
-  width: 100px;
-  height: 52px;
-  border-radius: 10px;
-  background-color: ${palette.main.B50};
-  color: ${palette.main.B200};
-  ${css(translateFontSize('SB_17'))};
-  border: 0px;
-  transition: 0.2s ease color, 0.2s ease background-color;
-  cursor: pointer;
+const Wrapper = styled.div`
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 
   &:hover {
-    color: ${palette.main.B50};
-    background-color: ${palette.main.B200};
+    & > div {
+      border: 2px solid #444444;
+    }
+    & > span {
+      color: ${palette.black.B700};
+    }
+  }
+
+  & > input[type='checkbox'] {
+    display: none;
+
+    &:checked + div {
+      background-color: ${palette.main.main};
+      fill: ${palette.black.white};
+      border: 0px;
+      & + span {
+        color: ${palette.black.B700};
+      }
+    }
+  }
+
+  & > span {
+    color: ${palette.black.B100};
+    transition: 0.2s ease color;
   }
 `;
 
-const InputWithCheck: React.FC<ICheckItem> = ({
-  type,
+const CheckBox = styled.div`
+  width: 18px;
+  height: 18px;
+  background-color: ${palette.black.white};
+  border: 2px solid #dedede;
+  border-radius: 4px;
+  transition: 0.2s ease border, 0.2s ease background-color, 0.2s ease fill;
+  fill: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & > svg {
+    fill: ${palette.black.white};
+    width: 80%;
+    height: 80%;
+  }
+`;
+
+const DirectSection = styled.div`
+  height: 100%;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  & > img {
+    width: 16px;
+    height: 16px;
+    transtion: 0.2s ease filter;
+  }
+`;
+
+const InputWithCheck: React.FC<IInputWithCheck> = ({
   name,
-  useFor = 'validation',
-  placeholder,
-  handler,
+  useFor = 'option',
+  children,
+  onClick,
+  required,
 }) => {
-  const userInput = useRef<HTMLInputElement>(null);
-
-  const handleCheck = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    // console.log(e);
-
-    if (useFor === 'validation') {
-      // 유효성 검사 용도일 경우
-      const inputValue = userInput.current?.value;
-      if (inputValue && handler) handler(inputValue);
-    } else {
-      // 본인인증 요청인 경우
-    }
-  };
-
   return (
-    <>
-      <InputWithCheckBlock>
-        <InputText
-          name={name}
-          type={type}
-          placeholder={placeholder}
-          ref={userInput}
-        />
-        <InputCheckButton onClick={handleCheck}>
-          {useFor === 'validation' ? '확인' : '인증'}
-        </InputCheckButton>
-      </InputWithCheckBlock>
-    </>
+    <InputWithCheckBlock>
+      <Wrapper>
+        <input type="checkbox" name={name} required={required} />
+        <CheckBox>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+            <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
+          </svg>
+        </CheckBox>
+        <span>{children}</span>
+      </Wrapper>
+
+      {useFor === 'auth' ? (
+        <DirectSection onClick={onClick}>
+          <img src={RIGHT_ARROW} />
+        </DirectSection>
+      ) : null}
+    </InputWithCheckBlock>
   );
 };
 export default InputWithCheck;
