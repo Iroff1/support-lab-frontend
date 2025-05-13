@@ -9,6 +9,8 @@
 
 * {
   font-family: 'Pretendard-Regular', 'Noto Sans KR', 'Noto Serif Kr', sans-serif;
+  font-size: 17px;
+  font-weight: 400;
   box-sizing: inherit;
 }
 
@@ -47,8 +49,8 @@ div,
 ul,
 li,
 button {
-  line-height: 140%;
-  letter-spacing: -0.25px;
+  line-height: 150%;
+  letter-spacing: -0.025em;
   margin: 0;
   padding: 0;
 }
