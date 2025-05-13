@@ -12,6 +12,8 @@ const initialState: IAccount = {
     password: '',
     passwordConfirm: '',
     contact: '',
+    personalInfoAgreement: false,
+    marketingAgreement: false,
   },
 };
 
@@ -29,6 +31,14 @@ export const accountSlice = createSlice({
       }: PayloadAction<{ form: keyof IAccount; key: string; value: string }>,
     ) => {
       state[form][key] = value;
+    },
+    toggleField: (
+      state,
+      {
+        payload: { form, key },
+      }: PayloadAction<{ form: keyof IAccount; key: string }>,
+    ) => {
+      state[form][key] = !state[form][key];
     },
   },
 });
