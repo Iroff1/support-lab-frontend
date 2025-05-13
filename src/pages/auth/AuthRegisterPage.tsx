@@ -1,7 +1,7 @@
-import AuthRegisterForm from '@components/auth/AuthRegisterForm';
+import AuthRegisterFormContainer from '@containers/auth/AuthRegisterFormContainer';
 
 const AuthRegisterPage = () => {
-  return <AuthRegisterForm />;
+  return <AuthRegisterFormContainer />;
 };
 
 export default AuthRegisterPage;
