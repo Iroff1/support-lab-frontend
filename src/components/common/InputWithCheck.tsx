@@ -1,14 +1,15 @@
 import palette from '@assets/colors/index';
 import translateFontSize from '@utils/translateFontSize';
-import React from 'react';
+import React, { useRef } from 'react';
 import styled, { css } from 'styled-components';
 import InputText from './InputText';
 
 interface ICheckItem {
   type: string;
   name: string;
-  forAuth?: boolean;
+  useFor?: 'validation' | 'auth';
   placeholder: string;
+  handler?: (userInput: string) => boolean;
 }
 
 const InputWithCheckBlock = styled.div`
@@ -38,27 +39,39 @@ const InputCheckButton = styled.button`
 const InputWithCheck: React.FC<ICheckItem> = ({
   type,
   name,
-  forAuth = false,
+  useFor = 'validation',
   placeholder,
+  handler,
 }) => {
+  const userInput = useRef<HTMLInputElement>(null);
+
   const handleCheck = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     // console.log(e);
 
-    if (forAuth) {
-      // reg 확인 용도일 경우
+    if (useFor === 'validation') {
+      // 유효성 검사 용도일 경우
+      const inputValue = userInput.current?.value;
+      if (inputValue && handler) handler(inputValue);
     } else {
       // 본인인증 요청인 경우
     }
   };
 
   return (
-    <InputWithCheckBlock>
-      <InputText name={name} type={type} placeholder={placeholder} />
-      <InputCheckButton onClick={handleCheck}>
-        {forAuth ? '인증' : '확인'}
-      </InputCheckButton>
-    </InputWithCheckBlock>
+    <>
+      <InputWithCheckBlock>
+        <InputText
+          name={name}
+          type={type}
+          placeholder={placeholder}
+          ref={userInput}
+        />
+        <InputCheckButton onClick={handleCheck}>
+          {useFor === 'validation' ? '확인' : '인증'}
+        </InputCheckButton>
+      </InputWithCheckBlock>
+    </>
   );
 };
 export default InputWithCheck;
