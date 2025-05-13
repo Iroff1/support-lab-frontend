@@ -26,11 +26,12 @@ module.exports = {
       '@utils': path.resolve(__dirname, 'src/utils/'),
       '@components': path.resolve(__dirname, 'src/components/'),
       '@containers': path.resolve(__dirname, 'src/containers/'),
-      '@types': path.resolve(__dirname, 'src/types/'),
+      '@models': path.resolve(__dirname, 'src/models/'),
       '@api': path.resolve(__dirname, 'src/api/'),
       '@pages': path.resolve(__dirname, 'src/pages/'),
       '@assets': path.resolve(__dirname, 'src/assets/'),
       '@layout': path.resolve(__dirname, 'src/layout/'),
+      '@modules': path.resolve(__dirname, 'src/modules/'),
     },
   },
   module: {

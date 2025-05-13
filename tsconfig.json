@@ -22,11 +22,12 @@
       "@utils/*": ["utils/*"],
       "@components/*": ["components/*"],
       "@containers/*": ["containers/*"],
-      "@types/*": ["types/*"],
+      "@models/*": ["models/*"],
       "@api/*": ["api/*"],
       "@pages/*": ["pages/*"],
       "@assets/*": ["assets/*"],
-      "@layout/*": ["layout/*"]
+      "@layout/*": ["layout/*"],
+      "@modules/*": ["modules/*"]
     },
     "outDir": "./dist"
   },
