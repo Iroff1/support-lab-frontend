@@ -32,13 +32,17 @@ export interface IInput {
   autoComplete?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
+  ref?: React.RefObject<HTMLInputElement | null>;
 }
 
 const InputText: React.FC<IInput> = ({
   type = 'text',
   required = true,
+  ref,
   ...props
 }) => {
-  return <AuthInputBlock type={type} required={required} {...props} />;
+  return (
+    <AuthInputBlock type={type} required={required} ref={ref} {...props} />
+  );
 };
 export default InputText;
