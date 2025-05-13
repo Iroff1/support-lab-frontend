@@ -2,10 +2,12 @@ import { configureStore } from '@reduxjs/toolkit';
 import loadingReducer from './loading';
 import { TypedUseSelectorHook, useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import accountReducer from './account';
 
 const store = configureStore({
   reducer: {
     loading: loadingReducer,
+    account: accountReducer,
   },
 });
 
