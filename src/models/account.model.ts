@@ -16,4 +16,6 @@ export interface IRegister {
   password: string;
   passwordConfirm: string;
   contact: string;
+  personalInfoAgreement: boolean;
+  marketingAgreement: boolean;
 }

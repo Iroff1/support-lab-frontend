@@ -11,7 +11,7 @@ export interface IInput {
 export interface IInputWithCheck extends IInput {
   useFor?: 'option' | 'auth';
   children: string | React.ReactNode;
-  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
+  onClick?: (e: React.MouseEvent<HTMLInputElement>) => void;
 }
 
 export interface IInputWithConfirm extends IInput {
