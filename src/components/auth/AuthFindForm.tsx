@@ -1,6 +1,6 @@
 import InputText from '@components/common/InputText';
 import styled from 'styled-components';
-import InputWithCheck from '../common/InputWithCheck';
+import InputWithConfirm from '../common/InputWithConfirm';
 import SubmitButton from '@components/common/SubmitButton';
 import React from 'react';
 
@@ -26,16 +26,20 @@ const AuthFindForm: React.FC<IAuthFindForm> = ({ isPasswordForm = false }) => {
       {/* 입력 공간 3개 */}
       <FindForm>
         {isPasswordForm ? (
-          <InputWithCheck name="email" type="email" placeholder="이메일" />
+          <InputWithConfirm name="email" type="email" placeholder="이메일" />
         ) : null}
         <InputText name="username" type="text" placeholder="이름" />
-        <InputWithCheck
+        <InputWithConfirm
           name="contact"
           type="tel"
           placeholder="휴대폰번호"
           useFor="auth"
         />
-        <InputWithCheck name="contactAuth" type="text" placeholder="인증번호" />
+        <InputWithConfirm
+          name="contactAuth"
+          type="text"
+          placeholder="인증번호"
+        />
       </FindForm>
 
       <FindSubmit>

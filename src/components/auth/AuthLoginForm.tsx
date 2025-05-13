@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import InputPassword from '../common/InputPassword';
-import AuthCheckItem from './AuthCheckItem';
+import InputWithCheck from '../common/InputWithCheck';
 import SubmitButton from '@components/common/SubmitButton';
 import Caution from '@components/common/Caution';
 
@@ -133,7 +133,9 @@ const AuthLoginForm = () => {
               onChange={handleEmail}
             />
             <InputPassword name="password" onChange={handlePassword} />
-            <AuthCheckItem name="loginMaintain">로그인 상태 유지</AuthCheckItem>
+            <InputWithCheck name="loginMaintain">
+              로그인 상태 유지
+            </InputWithCheck>
           </InputSection>
 
           {loginError.length ? <Caution>{loginError}</Caution> : null}
