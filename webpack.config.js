@@ -31,7 +31,7 @@ module.exports = {
       '@pages': path.resolve(__dirname, 'src/pages/'),
       '@assets': path.resolve(__dirname, 'src/assets/'),
       '@layout': path.resolve(__dirname, 'src/layout/'),
-      '@modules': path.resolve(__dirname, 'src/modules/'),
+      '@store': path.resolve(__dirname, 'src/store/'),
     },
   },
   module: {

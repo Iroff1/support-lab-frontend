@@ -27,7 +27,7 @@
       "@pages/*": ["pages/*"],
       "@assets/*": ["assets/*"],
       "@layout/*": ["layout/*"],
-      "@modules/*": ["modules/*"]
+      "@store/*": ["store/*"]
     },
     "outDir": "./dist"
   },
