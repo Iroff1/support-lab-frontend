@@ -31,9 +31,13 @@ const RegisterSubmit = styled.div`
 
 interface IAuthRegisterForm {
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleToggle: (e: React.MouseEvent<HTMLInputElement>) => void;
 }
 
-const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({ handleChange }) => {
+const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
+  handleChange,
+  handleToggle,
+}) => {
   return (
     <>
       {/* 입력 공간, 인풋 6개 */}
@@ -45,14 +49,20 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({ handleChange }) => {
           handler={checkEmailValidation}
           onChange={handleChange}
         />
-        <InputPassword name="password" />
-        <InputPassword name="passwordConfirm" />
-        <InputText name="username" type="text" placeholder="이름" />
+        <InputPassword name="password" onChange={handleChange} />
+        <InputPassword name="passwordConfirm" onChange={handleChange} />
+        <InputText
+          name="username"
+          type="text"
+          placeholder="이름"
+          onChange={handleChange}
+        />
         <InputWithConfirm
           name="contact"
           type="tel"
           placeholder="휴대폰번호"
           useFor="auth"
+          onChange={handleChange}
         />
         <InputWithConfirm
           name="contactAuth"
@@ -69,10 +79,15 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({ handleChange }) => {
             useFor="auth"
             name="personalInfoAgreement"
             required={true}
+            onClick={handleToggle}
           >
             [필수] 개인정보 수집 및 이용 동의
           </InputWithCheck>
-          <InputWithCheck useFor="auth" name="marketingAgreement">
+          <InputWithCheck
+            useFor="auth"
+            name="marketingAgreement"
+            onClick={handleToggle}
+          >
             [선택] 마케팅 수신 동의
           </InputWithCheck>
         </RegisterOption>
