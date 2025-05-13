@@ -10,11 +10,11 @@ export const loadingSlice = createSlice({
   name: 'loading',
   initialState,
   reducers: {
-    start: (state, action: PayloadAction<string>) => {
-      state[action.payload] = true;
+    start: (state, { payload }: PayloadAction<string>) => {
+      state[payload] = true;
     },
-    finish: (state, action: PayloadAction<string>) => {
-      state[action.payload] = false;
+    finish: (state, { payload }: PayloadAction<string>) => {
+      state[payload] = false;
     },
   },
 });
