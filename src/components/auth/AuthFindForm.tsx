@@ -33,7 +33,7 @@ const AuthFindForm: React.FC<IAuthFindForm> = ({ isPasswordForm = false }) => {
           name="contact"
           type="tel"
           placeholder="휴대폰번호"
-          forAuth
+          useFor="auth"
         />
         <InputWithCheck name="contactAuth" type="text" placeholder="인증번호" />
       </FindForm>

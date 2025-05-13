@@ -133,7 +133,7 @@ const AuthLoginForm = () => {
               onChange={handleEmail}
             />
             <InputPassword name="password" onChange={handlePassword} />
-            <AuthCheckItem>로그인 상태 유지</AuthCheckItem>
+            <AuthCheckItem name="loginMaintain">로그인 상태 유지</AuthCheckItem>
           </InputSection>
 
           {loginError.length ? <Caution>{loginError}</Caution> : null}
