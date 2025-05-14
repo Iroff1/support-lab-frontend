@@ -7,7 +7,7 @@ const AuthRegisterFormContainer = () => {
   const dispatch = useAppDispatch();
   const { changeField, toggleField } = accountActions;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeField = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(
       changeField({
         form: 'register',
@@ -17,8 +17,7 @@ const AuthRegisterFormContainer = () => {
     );
   };
 
-  const handleToggle = (e: React.MouseEvent<HTMLInputElement>) => {
-    console.log(e);
+  const handleToggleField = (e: React.MouseEvent<HTMLInputElement>) => {
     const temp = e.target as HTMLInputElement;
     dispatch(
       toggleField({
@@ -29,7 +28,10 @@ const AuthRegisterFormContainer = () => {
   };
 
   return (
-    <AuthRegisterForm handleChange={handleChange} handleToggle={handleToggle} />
+    <AuthRegisterForm
+      handleChange={handleChangeField}
+      handleToggle={handleToggleField}
+    />
   );
 };
 
