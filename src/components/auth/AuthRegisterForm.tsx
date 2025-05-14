@@ -7,7 +7,11 @@ import InputWithConfirm from '../common/InputWithConfirm';
 import checkEmailValidation from '@utils/checkEmailValidation';
 import React, { useState } from 'react';
 
-const RegisterForm = styled.div`
+const AuthRegisterFormBlock = styled.form`
+  width: 100%;
+`;
+
+const InputSection = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -15,14 +19,14 @@ const RegisterForm = styled.div`
   margin-bottom: 30px;
 `;
 
-const RegisterOption = styled.div`
+const OptionSection = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 10px;
 `;
 
-const RegisterSubmit = styled.div`
+const SubmitSection = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -39,9 +43,9 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
   handleToggle,
 }) => {
   return (
-    <>
+    <AuthRegisterFormBlock>
       {/* 입력 공간, 인풋 6개 */}
-      <RegisterForm>
+      <InputSection>
         <InputWithConfirm
           name="email"
           type="email"
@@ -69,12 +73,12 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
           type="text"
           placeholder="인증번호"
         />
-      </RegisterForm>
+      </InputSection>
 
       {/* 제출 공간 */}
-      <RegisterSubmit>
+      <SubmitSection>
         {/* 옵션 공간 */}
-        <RegisterOption>
+        <OptionSection>
           <InputWithCheck
             useFor="auth"
             name="personalInfoAgreement"
@@ -90,12 +94,12 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
           >
             [선택] 마케팅 수신 동의
           </InputWithCheck>
-        </RegisterOption>
+        </OptionSection>
 
         {/* 버튼 공간 */}
         <SubmitButton>가입하기</SubmitButton>
-      </RegisterSubmit>
-    </>
+      </SubmitSection>
+    </AuthRegisterFormBlock>
   );
 };
 
