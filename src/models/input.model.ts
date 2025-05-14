@@ -8,6 +8,7 @@ export interface IInput {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
   ref?: React.RefObject<HTMLInputElement | null>;
+  caution?: React.ReactNode;
 }
 
 export interface IInputWithCheck extends IInput {
@@ -20,6 +21,8 @@ export interface IInputWithConfirm extends IInput {
   useFor?: 'validation' | 'auth';
   handler?: (userInput: string) => boolean;
 }
+
+export type TChecker = (userInput: string) => string;
 
 export type TChangeEventHandler<T> = (e: React.ChangeEvent<T>) => void;
 export type TMouseEventHandler<T> = (e: React.MouseEvent<T>) => void;
