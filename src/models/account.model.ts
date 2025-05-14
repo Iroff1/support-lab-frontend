@@ -1,8 +1,6 @@
 export interface IAccount {
   login: ILogin;
   register: IRegister;
-  auth?: any;
-  authError?: any;
 }
 
 export interface ILogin {

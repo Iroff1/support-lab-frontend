@@ -22,7 +22,9 @@ export const accountSlice = createSlice({
   initialState,
   reducers: {
     initializeForm: (state, { payload }: PayloadAction<keyof IAccount>) => {
-      state[payload] = initialState[payload];
+      Object.entries(initialState[payload]).forEach(([key, value]) => {
+        Object.assign(state[payload], { [key]: value });
+      });
     },
     changeField: (
       state,
@@ -30,15 +32,15 @@ export const accountSlice = createSlice({
         payload: { form, key, value },
       }: PayloadAction<{ form: keyof IAccount; key: string; value: string }>,
     ) => {
-      state[form][key] = value;
+      Object.assign(state[form], { [key]: value });
     },
     toggleField: (
       state,
       {
-        payload: { form, key },
-      }: PayloadAction<{ form: keyof IAccount; key: string }>,
+        payload: { form, key, value },
+      }: PayloadAction<{ form: keyof IAccount; key: string; value: boolean }>,
     ) => {
-      state[form][key] = !state[form][key];
+      Object.assign(state[form], { [key]: value });
     },
   },
 });
