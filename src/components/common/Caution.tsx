@@ -5,24 +5,24 @@ import styled, { css } from 'styled-components';
 
 interface ICaution {
   children: string;
-  isCaution?: boolean;
+  isCorrect?: boolean;
   marginTop?: string;
 }
 
 const CautionBlock = styled.p<ICaution>`
   width: 100%;
-  color: ${({ isCaution }) =>
-    isCaution ? palette.system.red : palette.system.blue};
+  color: ${({ isCorrect }) =>
+    isCorrect ? palette.system.blue : palette.system.red};
   margin-top: ${({ marginTop }) => marginTop};
   ${css(translateFontSize('R_17'))};
 `;
 const Caution: React.FC<ICaution> = ({
   children,
-  isCaution = true,
+  isCorrect = true,
   marginTop,
 }) => {
   return (
-    <CautionBlock isCaution={isCaution} marginTop={marginTop}>
+    <CautionBlock isCorrect={isCorrect} marginTop={marginTop}>
       {children}
     </CautionBlock>
   );
