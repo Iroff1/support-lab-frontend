@@ -4,7 +4,6 @@ import React, { useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import InputText from './InputText';
 import { IInputWithConfirm } from '@models/input.model';
-import Caution from './Caution';
 
 const InputWithConfirmBlock = styled.div`
   width: 100%;
@@ -41,8 +40,8 @@ const InputWithConfirm: React.FC<IInputWithConfirm> = ({
   placeholder,
   onChange,
   handler,
+  caution,
 }) => {
-  const [confirmResult, setConfirmResult] = useState<boolean | null>(null);
   const userInput = useRef<HTMLInputElement>(null);
 
   const handleCheck = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -52,7 +51,6 @@ const InputWithConfirm: React.FC<IInputWithConfirm> = ({
       // 유효성 검사 용도일 경우
       const inputValue = userInput.current?.value;
       if (inputValue && handler) {
-        setConfirmResult(handler(inputValue));
       }
     } else {
       // 본인인증 요청인 경우
@@ -68,16 +66,12 @@ const InputWithConfirm: React.FC<IInputWithConfirm> = ({
           placeholder={placeholder}
           ref={userInput}
           onChange={onChange}
+          caution={caution}
         />
         <InputConfirmButton onClick={handleCheck}>
           {useFor === 'validation' ? '확인' : '인증'}
         </InputConfirmButton>
       </Wrapper>
-      {confirmResult !== null ? (
-        <Caution isCorrect={confirmResult} marginTop="4px">
-          {confirmResult + ''}
-        </Caution>
-      ) : null}
     </InputWithConfirmBlock>
   );
 };

@@ -31,7 +31,7 @@ const ToggleVisible = styled.div<{ isVisible: boolean }>`
   }
 `;
 
-const InputPassword: React.FC<IInput> = ({ name, onChange }) => {
+const InputPassword: React.FC<IInput> = ({ name, onChange, caution }) => {
   const [isVisible, setIsVisible] = useState(false);
   const handleIsVisible = () => {
     setIsVisible((value) => !value);
@@ -45,6 +45,7 @@ const InputPassword: React.FC<IInput> = ({ name, onChange }) => {
         placeholder={name === 'password' ? '비밀번호' : '비밀번호 확인'}
         autoComplete="off"
         onChange={onChange}
+        caution={caution}
         required
       />
       <ToggleVisible onClick={handleIsVisible} isVisible={isVisible} />
