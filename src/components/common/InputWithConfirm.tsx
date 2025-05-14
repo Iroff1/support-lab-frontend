@@ -1,11 +1,16 @@
 import palette from '@assets/colors/index';
 import translateFontSize from '@utils/translateFontSize';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import InputText from './InputText';
 import { IInputWithConfirm } from '@models/input.model';
+import Caution from './Caution';
 
 const InputWithConfirmBlock = styled.div`
+  width: 100%;
+`;
+
+const Wrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -37,6 +42,7 @@ const InputWithConfirm: React.FC<IInputWithConfirm> = ({
   onChange,
   handler,
 }) => {
+  const [confirmResult, setConfirmResult] = useState<boolean | null>(null);
   const userInput = useRef<HTMLInputElement>(null);
 
   const handleCheck = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -45,15 +51,17 @@ const InputWithConfirm: React.FC<IInputWithConfirm> = ({
     if (useFor === 'validation') {
       // 유효성 검사 용도일 경우
       const inputValue = userInput.current?.value;
-      if (inputValue && handler) handler(inputValue);
+      if (inputValue && handler) {
+        setConfirmResult(handler(inputValue));
+      }
     } else {
       // 본인인증 요청인 경우
     }
   };
 
   return (
-    <>
-      <InputWithConfirmBlock>
+    <InputWithConfirmBlock>
+      <Wrapper>
         <InputText
           name={name}
           type={type}
@@ -64,8 +72,13 @@ const InputWithConfirm: React.FC<IInputWithConfirm> = ({
         <InputConfirmButton onClick={handleCheck}>
           {useFor === 'validation' ? '확인' : '인증'}
         </InputConfirmButton>
-      </InputWithConfirmBlock>
-    </>
+      </Wrapper>
+      {confirmResult !== null ? (
+        <Caution isCorrect={confirmResult} marginTop="4px">
+          {confirmResult + ''}
+        </Caution>
+      ) : null}
+    </InputWithConfirmBlock>
   );
 };
 export default InputWithConfirm;
