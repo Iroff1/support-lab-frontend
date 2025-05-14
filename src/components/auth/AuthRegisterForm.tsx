@@ -6,6 +6,7 @@ import InputWithCheck from '../common/InputWithCheck';
 import InputWithConfirm from '../common/InputWithConfirm';
 import checkEmailValidation from '@utils/checkEmailValidation';
 import React, { useState } from 'react';
+import { TChangeEventHandler, TMouseEventHandler } from '@models/input.model';
 
 const AuthRegisterFormBlock = styled.form`
   width: 100%;
@@ -34,8 +35,8 @@ const SubmitSection = styled.div`
 `;
 
 interface IAuthRegisterForm {
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleToggle: (e: React.MouseEvent<HTMLInputElement>) => void;
+  handleChange: TChangeEventHandler<HTMLInputElement>;
+  handleToggle: TMouseEventHandler<HTMLInputElement>;
 }
 
 const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({

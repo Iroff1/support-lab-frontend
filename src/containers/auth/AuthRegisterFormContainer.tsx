@@ -1,4 +1,5 @@
 import AuthRegisterForm from '@components/auth/AuthRegisterForm';
+import { TChangeEventHandler, TMouseEventHandler } from '@models/input.model';
 import { accountActions } from '@store/account';
 import { useAppDispatch } from '@store/index';
 import React from 'react';
@@ -7,7 +8,7 @@ const AuthRegisterFormContainer = () => {
   const dispatch = useAppDispatch();
   const { changeField, toggleField } = accountActions;
 
-  const handleChangeField = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeField: TChangeEventHandler<HTMLInputElement> = (e) => {
     dispatch(
       changeField({
         form: 'register',
@@ -17,7 +18,7 @@ const AuthRegisterFormContainer = () => {
     );
   };
 
-  const handleToggleField = (e: React.MouseEvent<HTMLInputElement>) => {
+  const handleToggleField: TMouseEventHandler<HTMLInputElement> = (e) => {
     const temp = e.target as HTMLInputElement;
     dispatch(
       toggleField({

@@ -1,3 +1,5 @@
+import React from 'react';
+
 export interface IInput {
   type?: string;
   name: string;
@@ -18,3 +20,6 @@ export interface IInputWithConfirm extends IInput {
   useFor?: 'validation' | 'auth';
   handler?: (userInput: string) => boolean;
 }
+
+export type TChangeEventHandler<T> = (e: React.ChangeEvent<T>) => void;
+export type TMouseEventHandler<T> = (e: React.MouseEvent<T>) => void;
