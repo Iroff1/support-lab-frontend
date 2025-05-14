@@ -4,6 +4,10 @@ import translateFontSize from '@utils/translateFontSize';
 import React from 'react';
 import styled, { css } from 'styled-components';
 
+const Wrapper = styled.div`
+  width: 100%;
+`;
+
 const InputTextBlock = styled.input`
   width: 100%;
   height: 52px;
@@ -30,10 +34,16 @@ const InputText: React.FC<IInput> = ({
   type = 'text',
   required = true,
   ref,
+  caution,
   ...props
 }) => {
-  return (
+  return caution === null ? (
     <InputTextBlock type={type} required={required} ref={ref} {...props} />
+  ) : (
+    <Wrapper>
+      <InputTextBlock type={type} required={required} ref={ref} {...props} />
+      {caution}
+    </Wrapper>
   );
 };
 export default InputText;
