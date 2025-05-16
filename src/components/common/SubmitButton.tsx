@@ -10,24 +10,29 @@ const SubmitButtonBlock = styled.button`
   padding: 12px 10px;
   border: 0;
   ${css(translateFontSize('SB_18'))};
-  background-color: ${palette.main.B75};
   color: ${palette.black.white};
   transition: 0.2s ease background-color;
-  cursor: not-allowed;
+  background-color: ${palette.main.main};
+  cursor: pointer;
 
-  &.on {
-    background-color: ${palette.main.main};
-    cursor: pointer;
+  &:disabled {
+    background-color: ${palette.main.B75};
+    cursor: not-allowed;
   }
 `;
 
 interface ISubmitButton {
   children: string;
+  disabled?: boolean;
   ref?: React.RefObject<HTMLButtonElement | null>;
 }
 
-const SubmitButton: React.FC<ISubmitButton> = ({ children, ref }) => {
-  return <SubmitButtonBlock ref={ref}>{children}</SubmitButtonBlock>;
+const SubmitButton: React.FC<ISubmitButton> = ({ children, ref, disabled }) => {
+  return (
+    <SubmitButtonBlock ref={ref} disabled={disabled}>
+      {children}
+    </SubmitButtonBlock>
+  );
 };
 
 export default SubmitButton;
