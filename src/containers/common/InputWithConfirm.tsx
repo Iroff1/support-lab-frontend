@@ -15,6 +15,9 @@ const InputWithConfirmBlock = styled.div`
 const InputConfirmButton = styled.button`
   width: 100px;
   height: 52px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 10px;
   background-color: ${palette.main.B50};
   color: ${palette.main.B200};
@@ -30,53 +33,30 @@ const InputConfirmButton = styled.button`
 `;
 
 const InputWithConfirm: React.FC<IInputWithConfirm> = ({
+  ref,
   type,
   name,
   useFor = 'validation',
   placeholder,
   onChange,
-  validChecker,
+  onClick,
+  cautionText,
+  isValid,
+  value,
 }) => {
-  const userInput = useRef<HTMLInputElement>(null);
-  const [cautionText, setCautionText] = useState<string>('');
-  const [init, setInit] = useState(false);
-  const [isValid, setIsValid] = useState(false);
-
-  /** 확인|인증 버튼 이벤트 핸들러 */
-  const handleCheck: TMouseEventHandler<HTMLButtonElement> = (e) => {
-    e.preventDefault();
-    const inputValue = userInput.current?.value;
-
-    if (useFor === 'validation') {
-      // 유효성 검사 용도일 경우
-      if (validChecker && inputValue && inputValue.length) {
-        const temp = validChecker(inputValue);
-        if (temp.length === 0) {
-          setCautionText('사용 가능합니다.');
-          setIsValid(true);
-        } else {
-          setCautionText(temp);
-          setIsValid(false);
-        }
-        !init && setInit(true);
-      }
-    } else {
-      // 본인인증 요청인 경우
-    }
-  };
-
   return (
     <InputWithConfirmBlock>
       <InputText
         name={name}
         type={type}
         placeholder={placeholder}
-        ref={userInput}
+        ref={ref}
         onChange={onChange}
         cautionText={cautionText}
         isValid={isValid}
+        value={value}
       />
-      <InputConfirmButton onClick={handleCheck}>
+      <InputConfirmButton onClick={onClick}>
         {useFor === 'validation' ? '확인' : '인증'}
       </InputConfirmButton>
     </InputWithConfirmBlock>
