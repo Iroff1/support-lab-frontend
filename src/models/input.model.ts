@@ -7,8 +7,8 @@ export interface IInput {
   autoComplete?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
+  validChecker?: TChecker;
   ref?: React.RefObject<HTMLInputElement | null>;
-  caution?: React.ReactNode;
 }
 
 export interface IInputWithCheck extends IInput {
