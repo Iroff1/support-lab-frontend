@@ -2,14 +2,10 @@ import palette from '@assets/colors/index';
 import translateFontSize from '@utils/translateFontSize';
 import React, { useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
-import InputText from './InputText';
-import { IInputWithConfirm } from '@models/input.model';
+import InputText from '../../components/common/InputText';
+import { IInputWithConfirm, TMouseEventHandler } from '@models/input.model';
 
 const InputWithConfirmBlock = styled.div`
-  width: 100%;
-`;
-
-const Wrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -39,18 +35,30 @@ const InputWithConfirm: React.FC<IInputWithConfirm> = ({
   useFor = 'validation',
   placeholder,
   onChange,
-  handler,
-  caution,
+  validChecker,
 }) => {
   const userInput = useRef<HTMLInputElement>(null);
+  const [cautionText, setCautionText] = useState<string>('');
+  const [init, setInit] = useState(false);
+  const [isValid, setIsValid] = useState(false);
 
-  const handleCheck = (e: React.MouseEvent<HTMLButtonElement>) => {
+  /** 확인|인증 버튼 이벤트 핸들러 */
+  const handleCheck: TMouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
+    const inputValue = userInput.current?.value;
 
     if (useFor === 'validation') {
       // 유효성 검사 용도일 경우
-      const inputValue = userInput.current?.value;
-      if (inputValue && handler) {
+      if (validChecker && inputValue && inputValue.length) {
+        const temp = validChecker(inputValue);
+        if (temp.length === 0) {
+          setCautionText('사용 가능합니다.');
+          setIsValid(true);
+        } else {
+          setCautionText(temp);
+          setIsValid(false);
+        }
+        !init && setInit(true);
       }
     } else {
       // 본인인증 요청인 경우
@@ -59,19 +67,18 @@ const InputWithConfirm: React.FC<IInputWithConfirm> = ({
 
   return (
     <InputWithConfirmBlock>
-      <Wrapper>
-        <InputText
-          name={name}
-          type={type}
-          placeholder={placeholder}
-          ref={userInput}
-          onChange={onChange}
-          caution={caution}
-        />
-        <InputConfirmButton onClick={handleCheck}>
-          {useFor === 'validation' ? '확인' : '인증'}
-        </InputConfirmButton>
-      </Wrapper>
+      <InputText
+        name={name}
+        type={type}
+        placeholder={placeholder}
+        ref={userInput}
+        onChange={onChange}
+        cautionText={cautionText}
+        isValid={isValid}
+      />
+      <InputConfirmButton onClick={handleCheck}>
+        {useFor === 'validation' ? '확인' : '인증'}
+      </InputConfirmButton>
     </InputWithConfirmBlock>
   );
 };
