@@ -9,6 +9,7 @@ const initialState: IRegister = {
   contact: '',
   personalInfoAgreement: false,
   marketingAgreement: false,
+  error: {},
 };
 
 export const registerSlice = createSlice({
