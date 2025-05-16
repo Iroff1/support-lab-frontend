@@ -5,8 +5,6 @@ const checkEmailValidation: TChecker = (userInput) => {
   const emailReg = /^[A-Za-z0-9_\.\-]+@[a-z0-9\-]+\.[a-z0-9\-]+/;
   const validationResult = emailReg.test(userInput);
 
-  console.log(validationResult);
-
   if (validationResult) {
     // 유효성 검사 성공
     // TODO) 2. 아이디 중복 체크 (비동기 처리)
