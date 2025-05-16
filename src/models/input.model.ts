@@ -5,10 +5,15 @@ export interface IInput {
   name: string;
   placeholder?: string;
   autoComplete?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: TChangeEventHandler<HTMLInputElement>;
   required?: boolean;
+  isValid?: boolean;
   validChecker?: TChecker;
   ref?: React.RefObject<HTMLInputElement | null>;
+  inputValue?: string;
+  cautionText?: string;
+  disabled?: boolean;
+  [key: string]: any;
 }
 
 export interface IInputWithCheck extends IInput {
@@ -19,7 +24,6 @@ export interface IInputWithCheck extends IInput {
 
 export interface IInputWithConfirm extends IInput {
   useFor?: 'validation' | 'auth';
-  handler?: (userInput: string) => boolean;
 }
 
 export type TChecker = (userInput: string) => string;
