@@ -4,7 +4,7 @@ import translateFontSize from '@utils/translateFontSize';
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
-import InputPassword from '../common/InputPassword';
+import InputPassword from '../../containers/common/InputPassword';
 import InputWithCheck from '../common/InputWithCheck';
 import SubmitButton from '@components/common/SubmitButton';
 import Caution from '@components/common/Caution';
@@ -111,14 +111,6 @@ const AuthLoginForm = () => {
     }
   };
 
-  useEffect(() => {
-    if (email.length && password.length) {
-      submitBtn.current?.classList.add('on');
-    } else {
-      submitBtn.current?.classList.remove('on');
-    }
-  }, [email, password]);
-
   return (
     <>
       <LoginHeader onClick={handleLogo} />
@@ -139,7 +131,9 @@ const AuthLoginForm = () => {
           </InputSection>
 
           {loginError.length ? <Caution>{loginError}</Caution> : null}
-          <SubmitButton ref={submitBtn}>로그인</SubmitButton>
+          <SubmitButton disabled={email.length === 0 || password.length === 0}>
+            로그인
+          </SubmitButton>
         </LoginForm>
       </LoginBody>
 

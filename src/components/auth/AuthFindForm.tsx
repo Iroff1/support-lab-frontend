@@ -1,6 +1,6 @@
 import InputText from '@components/common/InputText';
 import styled from 'styled-components';
-import InputWithConfirm from '../common/InputWithConfirm';
+import InputWithConfirm from '../../containers/common/InputWithConfirm';
 import SubmitButton from '@components/common/SubmitButton';
 import React from 'react';
 

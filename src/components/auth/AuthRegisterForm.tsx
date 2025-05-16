@@ -1,12 +1,14 @@
 import InputText from '@components/common/InputText';
 import SubmitButton from '@components/common/SubmitButton';
 import styled from 'styled-components';
-import InputPassword from '../common/InputPassword';
+import InputPassword from '../../containers/common/InputPassword';
 import InputWithCheck from '../common/InputWithCheck';
-import InputWithConfirm from '../common/InputWithConfirm';
-import checkEmailValidation from '@utils/checkEmailValidation';
-import React, { useState } from 'react';
+import InputWithConfirm from '../../containers/common/InputWithConfirm';
+import React from 'react';
 import { TChangeEventHandler, TMouseEventHandler } from '@models/input.model';
+import { IRegister } from '@models/account.model';
+import checkEmailValidation from '@utils/checkEmailValidation';
+import checkPasswordValidation from '@utils/checkPasswordValidation';
 
 const AuthRegisterFormBlock = styled.form`
   width: 100%;
@@ -37,11 +39,13 @@ const SubmitSection = styled.div`
 interface IAuthRegisterForm {
   handleChange: TChangeEventHandler<HTMLInputElement>;
   handleToggle: TMouseEventHandler<HTMLInputElement>;
+  info: IRegister;
 }
 
 const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
   handleChange,
   handleToggle,
+  info,
 }) => {
   return (
     <AuthRegisterFormBlock>
@@ -51,17 +55,37 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
           name="email"
           type="email"
           placeholder="이메일"
-          handler={checkEmailValidation}
           onChange={handleChange}
+          validChecker={checkEmailValidation}
         />
-        <InputPassword name="password" onChange={handleChange} />
-        <InputPassword name="passwordConfirm" onChange={handleChange} />
+
+        <InputPassword
+          name="password"
+          onChange={handleChange}
+          validChecker={checkPasswordValidation}
+        />
+        <InputPassword
+          name="passwordConfirm"
+          onChange={handleChange}
+          validChecker={(userInput: string) => {
+            if (userInput === info.password) return '';
+            return '비밀번호가 일치하지 않습니다.';
+          }}
+          disabled={
+            info.password.length === 0
+              ? true
+              : info.password.length !== 0 &&
+                checkPasswordValidation(info.password).length !== 0
+          }
+        />
+
         <InputText
           name="username"
           type="text"
           placeholder="이름"
           onChange={handleChange}
         />
+
         <InputWithConfirm
           name="contact"
           type="tel"
