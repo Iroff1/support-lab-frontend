@@ -6,23 +6,19 @@ import styled, { css } from 'styled-components';
 interface ICaution {
   children: string;
   isCorrect?: boolean;
-  marginTop?: string;
+  mt?: string;
 }
 
 const CautionBlock = styled.p<ICaution>`
   width: 100%;
   color: ${({ isCorrect }) =>
     isCorrect ? palette.system.blue : palette.system.red};
-  margin-top: ${({ marginTop }) => marginTop};
+  margin-top: ${({ mt }) => mt};
   ${css(translateFontSize('R_17'))};
 `;
-const Caution: React.FC<ICaution> = ({
-  children,
-  isCorrect = true,
-  marginTop,
-}) => {
+const Caution: React.FC<ICaution> = ({ children, isCorrect = true, mt }) => {
   return (
-    <CautionBlock isCorrect={isCorrect} marginTop={marginTop}>
+    <CautionBlock isCorrect={isCorrect} mt={mt}>
       {children}
     </CautionBlock>
   );
