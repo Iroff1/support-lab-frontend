@@ -3,12 +3,13 @@ import SubmitButton from '@components/common/SubmitButton';
 import styled from 'styled-components';
 import InputPassword from '../../containers/common/InputPassword';
 import InputWithCheck from '../common/InputWithCheck';
-import InputWithConfirm from '../../containers/common/InputWithConfirm';
 import React from 'react';
 import { TChangeEventHandler, TMouseEventHandler } from '@models/input.model';
-import { IRegister } from '@models/account.model';
-import checkEmailValidation from '@utils/checkEmailValidation';
-import checkPasswordValidation from '@utils/checkPasswordValidation';
+import { IRegisterForm } from '@models/account.model';
+import InputForValidation from '@containers/common/InputForValidation';
+import InputForAuthorization from '@containers/common/InputForAuthorization';
+import checkValidation from '@utils/checkValidation';
+import { regObj } from '@consts/reg';
 
 const AuthRegisterFormBlock = styled.form`
   width: 100%;
@@ -39,43 +40,42 @@ const SubmitSection = styled.div`
 interface IAuthRegisterForm {
   handleChange: TChangeEventHandler<HTMLInputElement>;
   handleToggle: TMouseEventHandler<HTMLInputElement>;
-  info: IRegister;
+  info: IRegisterForm;
+  disabled: boolean;
 }
 
 const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
   handleChange,
   handleToggle,
   info,
+  disabled,
 }) => {
   return (
     <AuthRegisterFormBlock>
       {/* 입력 공간, 인풋 6개 */}
       <InputSection>
-        <InputWithConfirm
+        <InputForValidation
           name="email"
           type="email"
           placeholder="이메일"
           onChange={handleChange}
-          validChecker={checkEmailValidation}
+          reg={regObj.email}
+          cautionText="사용 가능합니다."
         />
 
         <InputPassword
           name="password"
           onChange={handleChange}
-          validChecker={checkPasswordValidation}
+          reg={regObj.password}
         />
         <InputPassword
           name="passwordConfirm"
           onChange={handleChange}
-          validChecker={(userInput: string) => {
-            if (userInput === info.password) return '';
-            return '비밀번호가 일치하지 않습니다.';
-          }}
           disabled={
             info.password.length === 0
               ? true
               : info.password.length !== 0 &&
-                checkPasswordValidation(info.password).length !== 0
+                checkValidation(info.password, regObj.password) === false
           }
         />
 
@@ -86,17 +86,19 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
           onChange={handleChange}
         />
 
-        <InputWithConfirm
+        <InputForAuthorization
           name="contact"
           type="tel"
           placeholder="휴대폰번호"
           useFor="auth"
+          value={info.contact}
           onChange={handleChange}
         />
-        <InputWithConfirm
+        <InputForValidation
           name="contactAuth"
           type="text"
           placeholder="인증번호"
+          cautionText="인증되었습니다."
         />
       </InputSection>
 
@@ -122,7 +124,7 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
         </OptionSection>
 
         {/* 버튼 공간 */}
-        <SubmitButton>가입하기</SubmitButton>
+        <SubmitButton disabled={disabled}>가입하기</SubmitButton>
       </SubmitSection>
     </AuthRegisterFormBlock>
   );

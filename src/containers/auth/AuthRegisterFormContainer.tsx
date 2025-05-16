@@ -1,6 +1,10 @@
 import AuthRegisterForm from '@components/auth/AuthRegisterForm';
-import { IRegister } from '@models/account.model';
-import { TChangeEventHandler, TMouseEventHandler } from '@models/input.model';
+import { IRegisterForm } from '@models/account.model';
+import {
+  TAsyncReq,
+  TChangeEventHandler,
+  TMouseEventHandler,
+} from '@models/input.model';
 import { useAppDispatch, useAppSelector } from '@store/index';
 import { registerActions } from '@store/register';
 import React from 'react';
@@ -10,9 +14,13 @@ const AuthRegisterFormContainer = () => {
   const { changeField } = registerActions;
   const registerInfo = useAppSelector(({ register }) => register);
 
-  const handleChangeField: TChangeEventHandler<HTMLInputElement> = (e) => {
-    const userInputKey = e.target.name as keyof IRegister;
-    const userInputValue = e.target.value;
+  const handleChangeField: TChangeEventHandler<HTMLInputElement> = (e, reg) => {
+    const userInputKey = e.target.name as keyof IRegisterForm;
+    const userInputValue = !reg
+      ? e.target.value
+      : e.target.value.replace(reg, '').length <= 11
+      ? e.target.value.replace(reg, '')
+      : e.target.value.replace(reg, '').slice(0, 11);
 
     dispatch(
       changeField({
@@ -36,6 +44,7 @@ const AuthRegisterFormContainer = () => {
       handleChange={handleChangeField}
       handleToggle={handleToggleField}
       info={registerInfo}
+      disabled={true}
     />
   );
 };

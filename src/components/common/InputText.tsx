@@ -37,20 +37,21 @@ const InputText: React.FC<IInput> = ({
   ref,
   onChange,
   isValid,
-  validChecker,
   cautionText = '',
   disabled,
+  value,
   ...props
 }) => {
   return (
     <InputTextBlock>
       <InputOfUser
+        {...props}
         type={type}
         required={required}
         ref={ref}
         onChange={onChange}
         disabled={disabled}
-        {...props}
+        value={value}
       />
       {cautionText ? (
         <Caution isCorrect={isValid} mt="4px">

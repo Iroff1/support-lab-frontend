@@ -1,12 +1,13 @@
-import { IRegister } from '@models/account.model';
+import { IRegisterForm } from '@models/account.model';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState: IRegister = {
+const initialState: IRegisterForm = {
   email: '',
   username: '',
   password: '',
   passwordConfirm: '',
   contact: '',
+  contactAuth: false,
   personalInfoAgreement: false,
   marketingAgreement: false,
   error: {},
