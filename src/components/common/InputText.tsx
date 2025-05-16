@@ -3,8 +3,13 @@ import { IInput } from '@models/input.model';
 import translateFontSize from '@utils/translateFontSize';
 import React from 'react';
 import styled, { css } from 'styled-components';
+import Caution from './Caution';
 
-const InputTextBlock = styled.input`
+const InputTextBlock = styled.div`
+  width: 100%;
+`;
+
+const InputOfUser = styled.input`
   width: 100%;
   height: 52px;
   outline: 0px;
@@ -30,10 +35,29 @@ const InputText: React.FC<IInput> = ({
   type = 'text',
   required = true,
   ref,
+  onChange,
+  isValid,
+  validChecker,
+  cautionText = '',
+  disabled,
   ...props
 }) => {
   return (
-    <InputTextBlock type={type} required={required} ref={ref} {...props} />
+    <InputTextBlock>
+      <InputOfUser
+        type={type}
+        required={required}
+        ref={ref}
+        onChange={onChange}
+        disabled={disabled}
+        {...props}
+      />
+      {cautionText ? (
+        <Caution isCorrect={isValid} mt="4px">
+          {cautionText}
+        </Caution>
+      ) : null}
+    </InputTextBlock>
   );
 };
 export default InputText;
