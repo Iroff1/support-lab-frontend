@@ -33,5 +33,6 @@ export type TAsyncReq<T, R> = (req: T) => Promise<R>;
 export type TChangeEventHandler<T> = (
   e: React.ChangeEvent<T>,
   value?: RegExp,
+  max?: number,
 ) => void;
 export type TMouseEventHandler<T> = (e: React.MouseEvent<T>) => void;
