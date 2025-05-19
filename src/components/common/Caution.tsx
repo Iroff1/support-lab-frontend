@@ -4,7 +4,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 
 interface ICaution {
-  children: string;
+  children: string | React.ReactNode;
   isCorrect?: boolean;
   mt?: string;
 }
