@@ -1,11 +1,10 @@
-export interface IAuthError {
-  [key: string]: string;
-}
+export type IAuthChecker<T> = {
+  [K in keyof T]: boolean;
+};
 
 export interface ILogin {
   email: string;
   password: string;
-  error: IAuthError;
 }
 
 export interface IRegisterReq extends ILogin {
@@ -18,5 +17,4 @@ export interface IRegisterReq extends ILogin {
 export interface IRegisterForm extends IRegisterReq {
   passwordConfirm: string;
   contactAuth: boolean;
-  error: IAuthError;
 }

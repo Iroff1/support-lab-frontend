@@ -10,7 +10,6 @@ const initialState: IRegisterForm = {
   contactAuth: false,
   personalInfoAgreement: false,
   marketingAgreement: false,
-  error: {},
 };
 
 export const registerSlice = createSlice({
