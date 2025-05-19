@@ -42,13 +42,17 @@ const SubmitSection = styled.div`
 interface IAuthRegisterForm {
   handleChange: TChangeEventHandler<HTMLInputElement>;
   handleToggle: TMouseEventHandler<HTMLInputElement>;
+  handleAuthorization: TMouseEventHandler<HTMLButtonElement>;
   info: IRegisterForm;
+  timer: number;
   disabled: boolean;
 }
 
 const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
   handleChange,
   handleToggle,
+  timer,
+  handleAuthorization,
   info,
   disabled,
 }) => {
@@ -64,10 +68,11 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
             type="email"
             placeholder="이메일"
             onChange={handleChange}
-            value={info.email}
             isValid={checkValidation(info.email, regObj.email)}
             cautionText={
-              checkValidation(info.email, regObj.email)
+              info.email.length === 0
+                ? ''
+                : checkValidation(info.email, regObj.email)
                 ? '사용가능합니다.'
                 : '올바른 이메일을 입력해 주세요.'
             }
@@ -90,6 +95,14 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
             name="passwordConfirm"
             placeholder="비밀번호 확인"
             onChange={handleChange}
+            isValid={info.password === info.passwordConfirm}
+            cautionText={
+              info.passwordConfirm.length === 0
+                ? ''
+                : info.password === info.passwordConfirm
+                ? ''
+                : '비밀번호가 일치하지 않습니다.'
+            }
             disabled={
               info.password.length === 0
                 ? true
@@ -115,8 +128,14 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
             useFor="auth"
             value={info.contact}
             onChange={(e) => {
-              handleChange && handleChange(e, regObj.onlyNum);
+              handleChange && handleChange(e, regObj.onlyNum, 11);
             }}
+            onClick={handleAuthorization}
+            cautionText={`남은 시간 ${Math.floor(timer / 60)}분 ${(
+              (timer % 60) +
+              ''
+            ).padStart(2, '0')}초
+문자가 오지 않으면 스팸함을 확인해 주세요.`}
           />
           <InputForValidation
             name="contactAuth"

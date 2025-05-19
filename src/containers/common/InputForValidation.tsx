@@ -12,7 +12,8 @@ const InputForValidation: React.FC<IInputWithConfirm> = ({
 
   const handleValidation: TMouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
-    setText(cautionText ? cautionText : isValid + '');
+
+    setText(cautionText ? cautionText : '');
     setValid(isValid ? true : false);
   };
 
