@@ -36,6 +36,7 @@ const InputText: React.FC<IInput> = ({
   required = true,
   cautionText = '',
   isValid,
+  reg,
   ...props
 }) => {
   return (

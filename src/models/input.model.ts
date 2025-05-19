@@ -5,15 +5,14 @@ export interface IInput {
   name: string;
   placeholder?: string;
   autoComplete?: string;
-  onChange?: TChangeEventHandler<HTMLInputElement>;
   required?: boolean;
   isValid?: boolean;
   ref?: React.RefObject<HTMLInputElement | null>;
-  inputValue?: string;
   cautionText?: string;
   disabled?: boolean;
   value?: string;
   reg?: RegExp;
+  onChange?: TChangeEventHandler<HTMLInputElement>;
 }
 
 export interface IInputWithCheck extends IInput {

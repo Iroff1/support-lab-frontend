@@ -59,8 +59,13 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
           type="email"
           placeholder="이메일"
           onChange={handleChange}
-          reg={regObj.email}
-          cautionText="사용 가능합니다."
+          value={info.email}
+          isValid={checkValidation(info.email, regObj.email)}
+          cautionText={
+            checkValidation(info.email, regObj.email)
+              ? '사용가능합니다.'
+              : '올바른 이메일을 입력해 주세요.'
+          }
         />
 
         <InputPassword
