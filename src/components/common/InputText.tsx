@@ -34,25 +34,13 @@ const InputOfUser = styled.input`
 const InputText: React.FC<IInput> = ({
   type = 'text',
   required = true,
-  ref,
-  onChange,
-  isValid,
   cautionText = '',
-  disabled,
-  value,
+  isValid,
   ...props
 }) => {
   return (
     <InputTextBlock>
-      <InputOfUser
-        {...props}
-        type={type}
-        required={required}
-        ref={ref}
-        onChange={onChange}
-        disabled={disabled}
-        value={value}
-      />
+      <InputOfUser {...props} type={type} required={required} />
       {cautionText ? (
         <Caution isCorrect={isValid} mt="4px">
           {cautionText}

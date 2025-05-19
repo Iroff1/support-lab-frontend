@@ -33,29 +33,13 @@ const InputConfirmButton = styled.button`
 `;
 
 const InputWithConfirm: React.FC<IInputWithConfirm> = ({
-  ref,
-  type,
-  name,
-  useFor = 'validation',
-  placeholder,
-  onChange,
   onClick,
-  cautionText,
-  isValid,
-  value,
+  useFor = 'validation',
+  ...props
 }) => {
   return (
     <InputWithConfirmBlock>
-      <InputText
-        name={name}
-        type={type}
-        placeholder={placeholder}
-        ref={ref}
-        onChange={onChange}
-        cautionText={cautionText}
-        isValid={isValid}
-        value={value}
-      />
+      <InputText {...props} />
       <InputConfirmButton onClick={onClick}>
         {useFor === 'validation' ? '확인' : '인증'}
       </InputConfirmButton>
