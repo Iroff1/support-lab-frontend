@@ -1,8 +1,4 @@
-import {
-  IInputWithConfirm,
-  TChangeEventHandler,
-  TMouseEventHandler,
-} from '@models/input.model';
+import { IInputWithConfirm, TMouseEventHandler } from '@models/input.model';
 import React, { useRef, useState } from 'react';
 import InputWithConfirm from './InputWithConfirm';
 import translateContact from '@utils/translateContact';
@@ -19,16 +15,13 @@ const InputForAuthorization: React.FC<IInputWithConfirm> = (props) => {
     const reg = regObj.contact;
     const phoneNumValidation = reg.test(value!);
 
+    console.log('유효성 결과 :' + phoneNumValidation);
+
     if (phoneNumValidation) {
       // 휴대폰 번호 유효성 검증 성공
     } else {
       // 실패
     }
-  };
-
-  const handleChange: TChangeEventHandler<HTMLInputElement> = (e) => {
-    const reg = /[^0-9]/g;
-    onChange && onChange(e, reg);
   };
 
   return (
@@ -38,7 +31,7 @@ const InputForAuthorization: React.FC<IInputWithConfirm> = (props) => {
       isValid={isValid}
       cautionText={cautionText}
       onClick={handleAuthorization}
-      onChange={handleChange}
+      onChange={onChange}
       useFor="auth"
       value={value && translateContact(value)}
     />
