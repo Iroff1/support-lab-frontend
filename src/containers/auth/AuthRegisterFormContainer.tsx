@@ -1,22 +1,18 @@
 import AuthRegisterForm from '@components/auth/AuthRegisterForm';
 import { regObj } from '@consts/reg';
-import { IAuthChecker, IRegisterForm } from '@models/account.model';
-import {
-  TAsyncReq,
-  TChangeEventHandler,
-  TMouseEventHandler,
-} from '@models/input.model';
+import { IRegisterForm } from '@models/account.model';
+import { TChangeEventHandler, TMouseEventHandler } from '@models/input.model';
 import { useAppDispatch, useAppSelector } from '@store/index';
-import { registerActions } from '@store/register';
+import { registerActions, requestRegisterAuth } from '@store/register';
+import checkValidation from '@utils/checkValidation';
 import React, { useEffect, useRef, useState } from 'react';
-
-const AUTHORIZATION_TIMER = 5;
 
 const AuthRegisterFormContainer = () => {
   const dispatch = useAppDispatch();
-  const { changeField } = registerActions;
   const registerInfo = useAppSelector(({ register }) => register);
-  const [timer, setTimer] = useState(AUTHORIZATION_TIMER);
+  const { changeField, initialize } = registerActions;
+
+  const [timer, setTimer] = useState(5);
   const timerEvent = useRef<NodeJS.Timeout>(null);
 
   const handleChangeField: TChangeEventHandler<HTMLInputElement> = (
@@ -44,7 +40,7 @@ const AuthRegisterFormContainer = () => {
   const handleToggleField: TMouseEventHandler<HTMLInputElement> = (e) => {
     dispatch(
       changeField({
-        key: e.currentTarget.name,
+        key: e.currentTarget.name as keyof IRegisterForm,
         value: e.currentTarget.checked,
       }),
     );
@@ -53,33 +49,37 @@ const AuthRegisterFormContainer = () => {
   /** 사용자 인증용 핸들러 함수 */
   const handleAuthorization: TMouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
-    const reg = regObj.contact;
-    const phoneNumValidation = reg.test(registerInfo.contact);
+    // 타이머 진행 중인 경우 미 실행
+    if (timerEvent.current) return;
 
-    if (timerEvent.current) {
-      console.log('인증이 진행 중입니다.');
-      return;
-    }
-    if (!phoneNumValidation) {
-      console.log('맞지 않은 양식입니다.');
-      return;
-    }
+    // 유효성 검증 실패 시 미 실행
+    const validationResult = checkValidation(
+      registerInfo.contact,
+      regObj.contact,
+    );
+    if (!validationResult) return;
 
+    // 타이머 이벤트 할당
+    if (timer <= 0) setTimer(5);
     timerEvent.current = setInterval(() => {
       setTimer((prev) => prev - 1);
     }, 1000);
-    console.log(
-      '유효성 결과 ' + registerInfo.contact + ': ' + phoneNumValidation,
-    );
+
+    // TODO) 비동기 요청 보내기
+    dispatch(requestRegisterAuth(registerInfo.contact));
   };
 
-  if (timerEvent.current && timer <= 0) {
+  // 타이머 종료 시
+  if (timerEvent.current && timer < 0) {
+    // 타이머 이벤트 해체
     clearInterval(timerEvent.current);
     timerEvent.current = null;
-    setTimer(AUTHORIZATION_TIMER);
+    // 인증 번호 초기화
+    dispatch(changeField({ key: 'authRes', value: '' }));
   }
 
   useEffect(() => {
+    dispatch(initialize(null));
     return () => {
       timerEvent.current && clearInterval(timerEvent.current);
     };

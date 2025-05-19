@@ -12,6 +12,7 @@ import checkValidation from '@utils/checkValidation';
 import { regObj } from '@consts/reg';
 import AuthHeaderLogo from './AuthHeaderLogo';
 import AuthTitleBox from './AuthTitleBox';
+import palette from '@assets/colors';
 
 const AuthRegisterFormBlock = styled.form`
   width: 100%;
@@ -130,18 +131,43 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
             onChange={(e) => {
               handleChange && handleChange(e, regObj.onlyNum, 11);
             }}
+            isValid={
+              checkValidation(info.contact, regObj.contact) && timer >= 0
+            }
             onClick={handleAuthorization}
-            cautionText={`남은 시간 ${Math.floor(timer / 60)}분 ${(
-              (timer % 60) +
-              ''
-            ).padStart(2, '0')}초
-문자가 오지 않으면 스팸함을 확인해 주세요.`}
+            cautionText={
+              !checkValidation(info.contact, regObj.contact) ? (
+                ''
+              ) : timer >= 0 ? (
+                <span style={{ color: palette.system.blue }}>
+                  남은 시간 {Math.floor(timer / 60)}분
+                  {String(timer % 60).padStart(2, '0')}초<br />
+                  문자가 오지 않으면 스팸함을 확인해 주세요.
+                </span>
+              ) : (
+                <span>
+                  인증 시간이 만료되었습니다.
+                  <br />
+                  다시 인증해 주세요.
+                </span>
+              )
+            }
           />
           <InputForValidation
-            name="contactAuth"
+            name="authConfirm"
             type="text"
             placeholder="인증번호"
-            cautionText="인증되었습니다."
+            onChange={handleChange}
+            isValid={
+              info.authConfirm.length === 6 && info.authConfirm === info.authRes
+            }
+            cautionText={
+              info.authConfirm.length < 6
+                ? ''
+                : info.authConfirm === info.authRes
+                ? '인증되었습니다.'
+                : '인증번호가 일치하지 않습니다.'
+            }
           />
         </InputSection>
 
