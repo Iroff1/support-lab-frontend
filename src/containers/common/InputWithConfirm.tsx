@@ -30,17 +30,24 @@ const InputConfirmButton = styled.button`
     color: ${palette.main.B50};
     background-color: ${palette.main.B200};
   }
+
+  &:disabled {
+    color: ${palette.main.B75};
+    background-color: ${palette.main.B50};
+    cursor: not-allowed;
+  }
 `;
 
 const InputWithConfirm: React.FC<IInputWithConfirm> = ({
   onClick,
   useFor = 'validation',
+  isValid,
   ...props
 }) => {
   return (
     <InputWithConfirmBlock>
-      <InputText {...props} />
-      <InputConfirmButton onClick={onClick}>
+      <InputText {...props} disabled={isValid} />
+      <InputConfirmButton onClick={onClick} disabled={isValid}>
         {useFor === 'validation' ? '확인' : '인증'}
       </InputConfirmButton>
     </InputWithConfirmBlock>
