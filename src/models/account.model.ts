@@ -1,3 +1,5 @@
+import { SerializedError } from '@reduxjs/toolkit';
+
 export type IAuthChecker<T> = {
   [K in keyof T]: boolean;
 };
@@ -5,6 +7,7 @@ export type IAuthChecker<T> = {
 export interface ILogin {
   email: string;
   password: string;
+  error: SerializedError | null;
 }
 
 export interface IRegisterReq extends ILogin {
@@ -16,5 +19,7 @@ export interface IRegisterReq extends ILogin {
 
 export interface IRegisterForm extends IRegisterReq {
   passwordConfirm: string;
-  contactAuth: boolean;
+  authRes: string;
+  authConfirm: string;
+  authStatus: boolean;
 }

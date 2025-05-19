@@ -4,6 +4,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 const initialState: ILogin = {
   email: '',
   password: '',
+  error: null,
 };
 
 const loginSlice = createSlice({
