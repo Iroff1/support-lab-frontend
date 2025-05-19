@@ -46,7 +46,7 @@ const InputWithConfirm: React.FC<IInputWithConfirm> = ({
 }) => {
   return (
     <InputWithConfirmBlock>
-      <InputText {...props} disabled={isValid} />
+      <InputText {...props} isValid={isValid} disabled={isValid} />
       <InputConfirmButton onClick={onClick} disabled={isValid}>
         {useFor === 'validation' ? '확인' : '인증'}
       </InputConfirmButton>
