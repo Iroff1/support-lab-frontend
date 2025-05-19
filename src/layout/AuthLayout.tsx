@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 
 const AuthLayoutBlock = styled.div`
-  padding-top: 80px;
+  padding: 80px 0;
   margin: 0 auto;
   width: 360px;
   display: flex;
