@@ -12,7 +12,7 @@ interface ICaution {
 const CautionBlock = styled.p<ICaution>`
   width: 100%;
   color: ${({ isCorrect }) =>
-    isCorrect ? palette.system.blue : palette.system.red};
+    isCorrect ? palette.system.green : palette.system.red};
   margin-top: ${({ mt }) => mt};
   ${css(translateFontSize('R_17'))};
 `;
