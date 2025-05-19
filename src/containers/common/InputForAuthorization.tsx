@@ -3,27 +3,31 @@ import React, { useRef, useState } from 'react';
 import InputWithConfirm from './InputWithConfirm';
 import translateContact from '@utils/translateContact';
 
-const InputForAuthorization: React.FC<IInputWithConfirm> = ({
-  cautionText,
+interface IInputForAuthorization extends IInputWithConfirm {}
+
+const InputForAuthorization: React.FC<IInputForAuthorization> = ({
   value,
   onClick,
-  onChange,
+  isValid,
+  cautionText,
   ...props
 }) => {
-  const ref = useRef<HTMLInputElement>(null);
-  const [newCautionText, setNewCautionText] = useState<string>('');
-  const [isValid, setIsValid] = useState(false);
+  const [isInit, setIsInit] = useState(false);
+
+  const handleRequest: TMouseEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault();
+    onClick && onClick(e);
+    !isInit && setIsInit(true);
+  };
 
   return (
     <InputWithConfirm
       {...props}
-      ref={ref}
       isValid={isValid}
-      cautionText={cautionText}
-      onClick={onClick}
-      onChange={onChange}
-      useFor="auth"
+      onClick={handleRequest}
+      cautionText={isInit ? cautionText : ''}
       value={value && translateContact(value)}
+      useFor="auth"
     />
   );
 };

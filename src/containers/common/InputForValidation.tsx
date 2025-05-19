@@ -7,21 +7,23 @@ const InputForValidation: React.FC<IInputWithConfirm> = ({
   isValid,
   ...props
 }) => {
-  const [text, setText] = useState<string>('');
-  const [valid, setValid] = useState<boolean>(false);
+  const [isInit, setIsInit] = useState(false);
+  const [valid, setValid] = useState(false);
+  const [result, setResult] = useState<string | React.ReactNode>('');
 
   const handleValidation: TMouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
 
-    setText(cautionText ? cautionText : '');
-    setValid(isValid ? true : false);
+    isValid != null && setValid(isValid);
+    cautionText && setResult(cautionText);
+    !isInit && setIsInit(true);
   };
 
   return (
     <InputWithConfirm
       {...props}
       isValid={valid}
-      cautionText={text}
+      cautionText={isInit ? result : ''}
       onClick={handleValidation}
       useFor="validation"
     />
