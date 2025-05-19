@@ -18,9 +18,9 @@ const AuthRegisterFormContainer = () => {
     const userInputKey = e.target.name as keyof IRegisterForm;
     const userInputValue = !reg
       ? e.target.value
-      : e.target.value.replace(reg, '').length <= 11
-      ? e.target.value.replace(reg, '')
-      : e.target.value.replace(reg, '').slice(0, 11);
+      : e.target.value.replace(reg, '');
+
+    // console.log(userInputKey, userInputValue, reg, reg?.test(e.target.value));
 
     dispatch(
       changeField({

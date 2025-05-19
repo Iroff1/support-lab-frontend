@@ -83,7 +83,10 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
           name="username"
           type="text"
           placeholder="이름"
-          onChange={handleChange}
+          value={info.username}
+          onChange={(e) => {
+            handleChange && handleChange(e, regObj.korOrEng);
+          }}
         />
 
         <InputForAuthorization
@@ -92,7 +95,9 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
           placeholder="휴대폰번호"
           useFor="auth"
           value={info.contact}
-          onChange={handleChange}
+          onChange={(e) => {
+            handleChange && handleChange(e, regObj.onlyNum);
+          }}
         />
         <InputForValidation
           name="contactAuth"
