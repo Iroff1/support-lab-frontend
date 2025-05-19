@@ -2,25 +2,16 @@ import palette from '@assets/colors/index';
 import InputText from '@components/common/InputText';
 import translateFontSize from '@utils/translateFontSize';
 import React, { useEffect, useRef, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import InputPassword from '../../containers/common/InputPassword';
 import InputWithCheck from '../common/InputWithCheck';
 import SubmitButton from '@components/common/SubmitButton';
 import Caution from '@components/common/Caution';
-
-const LOGO = require('@assets/images/auth/login_logo_pc.png');
-
-const LoginHeader = styled.div`
-  width: 174px;
-  height: 140px;
-  background: url(${LOGO}) center/contain no-repeat;
-  cursor: pointer;
-`;
+import AuthHeaderLogo from './AuthHeaderLogo';
 
 const LoginBody = styled.div`
   width: 100%;
-  margin-top: 40px;
 `;
 
 const LoginForm = styled.form`
@@ -85,11 +76,7 @@ const AuthLoginForm = () => {
   const [loginError, setLoginError] = useState('');
 
   const submitBtn = useRef<HTMLButtonElement>(null);
-  const navigate = useNavigate();
 
-  const handleLogo = () => {
-    navigate('/');
-  };
   const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
@@ -113,7 +100,7 @@ const AuthLoginForm = () => {
 
   return (
     <>
-      <LoginHeader onClick={handleLogo} />
+      <AuthHeaderLogo />
 
       <LoginBody>
         <LoginForm onSubmit={handleSubmit}>
@@ -124,7 +111,11 @@ const AuthLoginForm = () => {
               placeholder="이메일"
               onChange={handleEmail}
             />
-            <InputPassword name="password" onChange={handlePassword} />
+            <InputPassword
+              name="password"
+              placeholder="비밀번호"
+              onChange={handlePassword}
+            />
             <InputWithCheck name="loginMaintain">
               로그인 상태 유지
             </InputWithCheck>

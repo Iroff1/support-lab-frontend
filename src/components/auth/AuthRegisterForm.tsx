@@ -10,6 +10,8 @@ import InputForValidation from '@containers/common/InputForValidation';
 import InputForAuthorization from '@containers/common/InputForAuthorization';
 import checkValidation from '@utils/checkValidation';
 import { regObj } from '@consts/reg';
+import AuthHeaderLogo from './AuthHeaderLogo';
+import AuthTitleBox from './AuthTitleBox';
 
 const AuthRegisterFormBlock = styled.form`
   width: 100%;
@@ -51,92 +53,105 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
   disabled,
 }) => {
   return (
-    <AuthRegisterFormBlock>
-      {/* 입력 공간, 인풋 6개 */}
-      <InputSection>
-        <InputForValidation
-          name="email"
-          type="email"
-          placeholder="이메일"
-          onChange={handleChange}
-          value={info.email}
-          isValid={checkValidation(info.email, regObj.email)}
-          cautionText={
-            checkValidation(info.email, regObj.email)
-              ? '사용가능합니다.'
-              : '올바른 이메일을 입력해 주세요.'
-          }
-        />
+    <>
+      <AuthHeaderLogo />
+      <AuthTitleBox>회원가입</AuthTitleBox>
+      <AuthRegisterFormBlock>
+        {/* 입력 공간, 인풋 6개 */}
+        <InputSection>
+          <InputForValidation
+            name="email"
+            type="email"
+            placeholder="이메일"
+            onChange={handleChange}
+            value={info.email}
+            isValid={checkValidation(info.email, regObj.email)}
+            cautionText={
+              checkValidation(info.email, regObj.email)
+                ? '사용가능합니다.'
+                : '올바른 이메일을 입력해 주세요.'
+            }
+          />
 
-        <InputPassword
-          name="password"
-          onChange={handleChange}
-          reg={regObj.password}
-        />
-        <InputPassword
-          name="passwordConfirm"
-          onChange={handleChange}
-          disabled={
-            info.password.length === 0
-              ? true
-              : info.password.length !== 0 &&
-                checkValidation(info.password, regObj.password) === false
-          }
-        />
+          <InputPassword
+            name="password"
+            placeholder="비밀번호"
+            onChange={handleChange}
+            isValid={checkValidation(info.password, regObj.password)}
+            cautionText={
+              info.password.length === 0
+                ? ''
+                : checkValidation(info.password, regObj.password)
+                ? ''
+                : '8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해 주세요.'
+            }
+          />
+          <InputPassword
+            name="passwordConfirm"
+            placeholder="비밀번호 확인"
+            onChange={handleChange}
+            disabled={
+              info.password.length === 0
+                ? true
+                : info.password.length !== 0 &&
+                  checkValidation(info.password, regObj.password) === false
+            }
+          />
 
-        <InputText
-          name="username"
-          type="text"
-          placeholder="이름"
-          value={info.username}
-          onChange={(e) => {
-            handleChange && handleChange(e, regObj.korOrEng);
-          }}
-        />
+          <InputText
+            name="username"
+            type="text"
+            placeholder="이름"
+            value={info.username}
+            onChange={(e) => {
+              handleChange && handleChange(e, regObj.korOrEng);
+            }}
+          />
 
-        <InputForAuthorization
-          name="contact"
-          type="tel"
-          placeholder="휴대폰번호"
-          useFor="auth"
-          value={info.contact}
-          onChange={(e) => {
-            handleChange && handleChange(e, regObj.onlyNum);
-          }}
-        />
-        <InputForValidation
-          name="contactAuth"
-          type="text"
-          placeholder="인증번호"
-          cautionText="인증되었습니다."
-        />
-      </InputSection>
-
-      {/* 제출 공간 */}
-      <SubmitSection>
-        {/* 옵션 공간 */}
-        <OptionSection>
-          <InputWithCheck
+          <InputForAuthorization
+            name="contact"
+            type="tel"
+            placeholder="휴대폰번호"
             useFor="auth"
-            name="personalInfoAgreement"
-            required={true}
-            onClick={handleToggle}
-          >
-            [필수] 개인정보 수집 및 이용 동의
-          </InputWithCheck>
-          <InputWithCheck
-            useFor="auth"
-            name="marketingAgreement"
-            onClick={handleToggle}
-          >
-            [선택] 마케팅 수신 동의
-          </InputWithCheck>
-        </OptionSection>
+            value={info.contact}
+            onChange={(e) => {
+              handleChange && handleChange(e, regObj.onlyNum);
+            }}
+          />
+          <InputForValidation
+            name="contactAuth"
+            type="text"
+            placeholder="인증번호"
+            cautionText="인증되었습니다."
+          />
+        </InputSection>
 
-        {/* 버튼 공간 */}
-        <SubmitButton disabled={disabled}>가입하기</SubmitButton>
-      </SubmitSection>
-    </AuthRegisterFormBlock>
+        {/* 제출 공간 */}
+        <SubmitSection>
+          {/* 옵션 공간 */}
+          <OptionSection>
+            <InputWithCheck
+              useFor="auth"
+              name="personalInfoAgreement"
+              required={true}
+              onClick={handleToggle}
+            >
+              [필수] 개인정보 수집 및 이용 동의
+            </InputWithCheck>
+            <InputWithCheck
+              useFor="auth"
+              name="marketingAgreement"
+              onClick={handleToggle}
+            >
+              [선택] 마케팅 수신 동의
+            </InputWithCheck>
+          </OptionSection>
+
+          {/* 버튼 공간 */}
+          <SubmitButton disabled={disabled}>가입하기</SubmitButton>
+        </SubmitSection>
+      </AuthRegisterFormBlock>
+    </>
   );
 };
 

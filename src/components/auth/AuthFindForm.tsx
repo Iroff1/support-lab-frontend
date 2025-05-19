@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import InputWithConfirm from '../../containers/common/InputWithConfirm';
 import SubmitButton from '@components/common/SubmitButton';
 import React from 'react';
+import AuthTitleBox from './AuthTitleBox';
+import AuthHeaderLogo from './AuthHeaderLogo';
 
 interface IAuthFindForm {
   isPasswordForm?: boolean;
@@ -23,6 +25,10 @@ const FindSubmit = styled.div`
 const AuthFindForm: React.FC<IAuthFindForm> = ({ isPasswordForm = false }) => {
   return (
     <>
+      <AuthHeaderLogo />
+      <AuthTitleBox>
+        {isPasswordForm ? '비밀번호 찾기' : '아이디 찾기'}
+      </AuthTitleBox>
       {/* 입력 공간 3개 */}
       <FindForm>
         {isPasswordForm ? (

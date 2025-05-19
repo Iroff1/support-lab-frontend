@@ -36,12 +36,9 @@ const ToggleVisible = styled.div<{ isVisible: boolean }>`
   }
 `;
 
-const InputPassword: React.FC<IInput> = (props) => {
+const InputPassword: React.FC<IInput> = ({ name, onChange, ...props }) => {
   const ref = useRef<HTMLInputElement>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [isValid, setIsValid] = useState(false);
-  const [newCautionText, setNewCautionText] = useState('');
-  const { cautionText, name, onChange, reg } = props;
 
   /** 패스워드 인풋 <-> 텍스트 인풋 토글 이벤트 핸들러 함수 */
   const handleIsVisible = () => {
@@ -49,11 +46,6 @@ const InputPassword: React.FC<IInput> = (props) => {
   };
 
   const handleChange: TChangeEventHandler<HTMLInputElement> = (e) => {
-    if (reg && ref.current) {
-      const result = checkValidation(ref.current.value, reg);
-      setNewCautionText(result ? cautionText || '' : '실패');
-      setIsValid(result);
-    }
     onChange && onChange(e);
   };
 
@@ -62,12 +54,10 @@ const InputPassword: React.FC<IInput> = (props) => {
       <InputWrapper>
         <InputPw
           {...props}
+          name={name}
           type={isVisible ? 'text' : 'password'}
-          placeholder={name === 'password' ? '비밀번호' : '비밀번호 확인'}
           autoComplete="off"
           onChange={handleChange}
-          cautionText={newCautionText}
-          isValid={isValid}
           ref={ref}
           required
         />
