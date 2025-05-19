@@ -34,7 +34,7 @@ const InputOfUser = styled.input`
 const InputText: React.FC<IInput> = ({
   type = 'text',
   required = true,
-  cautionText = '',
+  cautionText,
   isValid,
   reg,
   ...props

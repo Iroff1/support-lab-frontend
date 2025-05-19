@@ -8,7 +8,7 @@ export interface IInput {
   required?: boolean;
   isValid?: boolean;
   ref?: React.RefObject<HTMLInputElement | null>;
-  cautionText?: string;
+  cautionText?: string | React.ReactNode;
   disabled?: boolean;
   value?: string;
   reg?: RegExp;

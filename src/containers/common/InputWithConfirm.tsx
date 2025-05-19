@@ -4,8 +4,13 @@ import React, { useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import InputText from '../../components/common/InputText';
 import { IInputWithConfirm, TMouseEventHandler } from '@models/input.model';
+import Caution from '@components/common/Caution';
 
 const InputWithConfirmBlock = styled.div`
+  width: 100%;
+`;
+
+const InputWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -16,6 +21,7 @@ const InputConfirmButton = styled.button`
   width: 100px;
   height: 52px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   border-radius: 10px;
@@ -42,14 +48,23 @@ const InputWithConfirm: React.FC<IInputWithConfirm> = ({
   onClick,
   useFor = 'validation',
   isValid,
+  disabled = false,
+  cautionText,
   ...props
 }) => {
   return (
     <InputWithConfirmBlock>
-      <InputText {...props} isValid={isValid} disabled={isValid} />
-      <InputConfirmButton onClick={onClick} disabled={isValid}>
-        {useFor === 'validation' ? '확인' : '인증'}
-      </InputConfirmButton>
+      <InputWrapper>
+        <InputText {...props} isValid={isValid} disabled={disabled} />
+        <InputConfirmButton onClick={onClick} disabled={disabled}>
+          {useFor === 'validation' ? '확인' : '인증'}
+        </InputConfirmButton>
+      </InputWrapper>
+      {cautionText ? (
+        <Caution isCorrect={isValid} mt="4px">
+          {cautionText}
+        </Caution>
+      ) : null}
     </InputWithConfirmBlock>
   );
 };
