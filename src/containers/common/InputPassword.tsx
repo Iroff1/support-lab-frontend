@@ -1,7 +1,6 @@
 import InputText from '@components/common/InputText';
 import { IInput, TChangeEventHandler } from '@models/input.model';
-import checkValidation from '@utils/checkValidation';
-import React, { use, useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const pw_hide = require('@assets/images/common/icon_hide.png');
@@ -36,8 +35,13 @@ const ToggleVisible = styled.div<{ isVisible: boolean }>`
   }
 `;
 
-const InputPassword: React.FC<IInput> = ({ name, onChange, ...props }) => {
-  const ref = useRef<HTMLInputElement>(null);
+const InputPassword: React.FC<IInput> = ({
+  onChange,
+  cautionText,
+  isValid,
+  value,
+  ...props
+}) => {
   const [isVisible, setIsVisible] = useState(false);
 
   /** 패스워드 인풋 <-> 텍스트 인풋 토글 이벤트 핸들러 함수 */
@@ -54,11 +58,13 @@ const InputPassword: React.FC<IInput> = ({ name, onChange, ...props }) => {
       <InputWrapper>
         <InputPw
           {...props}
-          name={name}
           type={isVisible ? 'text' : 'password'}
           autoComplete="off"
           onChange={handleChange}
-          ref={ref}
+          isValid={isValid}
+          cautionText={
+            !value ? '' : value.length === 0 ? '' : isValid ? '' : cautionText
+          }
           required
         />
         <ToggleVisible onClick={handleIsVisible} isVisible={isVisible} />

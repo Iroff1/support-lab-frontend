@@ -61,7 +61,7 @@ const InputWithConfirm: React.FC<IInputWithConfirm> = ({
         </InputConfirmButton>
       </InputWrapper>
       {cautionText ? (
-        <Caution isCorrect={isValid} mt="4px">
+        <Caution color={isValid ? 'green' : 'red'} mt="4px">
           {cautionText}
         </Caution>
       ) : null}

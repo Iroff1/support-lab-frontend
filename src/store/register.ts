@@ -1,4 +1,4 @@
-import { IRegister, IRegisterState } from '@models/account.model';
+import { IRegisterState } from '@models/account.model';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 
@@ -8,9 +8,8 @@ const initialState: IRegisterState = {
   password: '',
   passwordConfirm: '',
   contact: '',
-  authRes: '',
+  authCode: '',
   authConfirm: '',
-  authStatus: false,
   personalInfoAgreement: false,
   marketingAgreement: false,
   error: null,
@@ -48,11 +47,11 @@ export const registerSlice = createSlice({
       })
       .addCase(requestRegisterAuth.fulfilled, (state, { payload }) => {
         console.log('응답 완료');
-        if (payload.text) state.authRes = payload.text;
+        if (payload.text) state.authCode = payload.text;
       })
       .addCase(requestRegisterAuth.rejected, (state, { error }) => {
         console.log('응답 완료 ==> 오류 발생');
-        state.authRes = '111111';
+        state.authCode = '111111';
         state.error = error;
       });
   },

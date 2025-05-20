@@ -46,7 +46,7 @@ export type TAsyncReq<T, R> = (req: T) => Promise<R>;
  */
 export type TChangeEventHandler<T> = (
   e: React.ChangeEvent<T>,
-  value?: RegExp,
+  regForInput?: RegExp,
   max?: number,
 ) => void;
 /** 마우스 이벤트 핸들러 함수 타입

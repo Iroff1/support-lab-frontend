@@ -15,10 +15,13 @@ export interface ILoginState extends ILogin {
   error: SerializedError | null;
 }
 
-export interface IRegisterAuth extends IAuthChecker<IRegister> {}
+export interface IRegisterAuth extends IAuthChecker<IRegister> {
+  passwordConfirm: boolean;
+  authConfirm: boolean;
+}
 
 /** 서버에 전송할 register 데이터 인터페이스 */
-export interface IRegister extends ILoginState {
+export interface IRegister extends ILogin {
   username: string;
   contact: string;
   personalInfoAgreement: boolean;
@@ -28,8 +31,7 @@ export interface IRegister extends ILoginState {
 /** 유효성 검사를 위한 register 상태 데이터 인터페이스 */
 export interface IRegisterState extends IRegister {
   passwordConfirm: string;
-  authRes: string;
+  authCode: string;
   authConfirm: string;
-  authStatus: boolean;
   error: SerializedError | null;
 }

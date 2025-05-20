@@ -49,7 +49,7 @@ const InputText: React.FC<IInput> = ({
         disabled={disabled}
       />
       {cautionText ? (
-        <Caution isCorrect={isValid} mt="4px">
+        <Caution color={isValid ? 'green' : 'red'} mt="4px">
           {cautionText}
         </Caution>
       ) : null}

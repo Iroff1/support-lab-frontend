@@ -3,32 +3,36 @@ import React, { useState } from 'react';
 import InputWithConfirm from './InputWithConfirm';
 
 const InputForValidation: React.FC<IInputWithConfirm> = ({
-  cautionText,
-  isValid,
+  cautionText: prevCaution,
+  isValid: prevIsValid = false,
   onClick,
+  disabled,
   ...props
 }) => {
-  const [isInit, setIsInit] = useState(false);
-  const [valid, setValid] = useState(false);
-  const [result, setResult] = useState<string | React.ReactNode>('');
+  const [nextIsValid, setNextIsValid] = useState(false);
+  const [nextCaution, setNextCaution] = useState<string | React.ReactNode>('');
+  const [isDone, setIsDone] = useState(false);
 
-  const handleValidation: TMouseEventHandler<HTMLButtonElement> = (e) => {
+  const handleClick: TMouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
 
+    // 넘겨받은 클릭 이벤트
     onClick && onClick(e);
 
-    isValid != null && setValid(isValid);
-    cautionText && setResult(cautionText);
-    !isInit && setIsInit(true);
+    // 클릭 시에 속성으로 넘길 값들 갱신
+    setNextIsValid(prevIsValid);
+    setIsDone(prevIsValid);
+    prevCaution && setNextCaution(prevCaution);
   };
 
   return (
     <InputWithConfirm
       {...props}
-      isValid={valid}
-      cautionText={isInit ? result : ''}
-      onClick={handleValidation}
+      isValid={nextIsValid}
+      cautionText={nextCaution}
+      onClick={handleClick}
       useFor="validation"
+      disabled={disabled || isDone}
     />
   );
 };

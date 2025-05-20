@@ -7,16 +7,19 @@ interface IInputForAuthorization extends IInputWithConfirm {}
 
 const InputForAuthorization: React.FC<IInputForAuthorization> = ({
   value,
-  onClick,
   isValid,
   cautionText,
+  onClick,
   ...props
 }) => {
   const [isInit, setIsInit] = useState(false);
 
-  const handleRequest: TMouseEventHandler<HTMLButtonElement> = (e) => {
+  const handleClick: TMouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
+
+    // 넘겨받은 클릭 이벤트
     onClick && onClick(e);
+
     !isInit && setIsInit(true);
   };
 
@@ -24,7 +27,7 @@ const InputForAuthorization: React.FC<IInputForAuthorization> = ({
     <InputWithConfirm
       {...props}
       isValid={isValid}
-      onClick={handleRequest}
+      onClick={handleClick}
       cautionText={isInit ? cautionText : ''}
       value={value && translateContact(value)}
       useFor="auth"
