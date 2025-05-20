@@ -1,7 +1,7 @@
-import { ILogin } from '@models/account.model';
+import { ILoginState } from '@models/account.model';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState: ILogin = {
+const initialState: ILoginState = {
   email: '',
   password: '',
   error: null,

@@ -1,8 +1,8 @@
-import { IRegisterForm } from '@models/account.model';
+import { IRegister, IRegisterState } from '@models/account.model';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const initialState: IRegisterForm = {
+const initialState: IRegisterState = {
   email: '',
   username: '',
   password: '',
@@ -16,6 +16,7 @@ const initialState: IRegisterForm = {
   error: null,
 };
 
+/** Auth요청 용 Thunk 함수 ==> (액션 타입, 비동기 함수) */
 export const requestRegisterAuth = createAsyncThunk(
   'register/getRegisterAuth',
   async (userContact: string) => {
@@ -35,7 +36,7 @@ export const registerSlice = createSlice({
       state,
       {
         payload: { key, value },
-      }: PayloadAction<{ key: keyof IRegisterForm; value: string | boolean }>,
+      }: PayloadAction<{ key: keyof IRegisterState; value: string | boolean }>,
     ) => {
       Object.assign(state, { [key]: value });
     },
