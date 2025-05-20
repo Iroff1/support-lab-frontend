@@ -5,6 +5,7 @@ import InputWithConfirm from './InputWithConfirm';
 const InputForValidation: React.FC<IInputWithConfirm> = ({
   cautionText,
   isValid,
+  onClick,
   ...props
 }) => {
   const [isInit, setIsInit] = useState(false);
@@ -13,6 +14,8 @@ const InputForValidation: React.FC<IInputWithConfirm> = ({
 
   const handleValidation: TMouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
+
+    onClick && onClick(e);
 
     isValid != null && setValid(isValid);
     cautionText && setResult(cautionText);
