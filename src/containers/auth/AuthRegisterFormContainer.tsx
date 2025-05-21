@@ -133,12 +133,6 @@ const AuthRegisterFormContainer = () => {
     };
   }, []);
 
-  useEffect(() => {
-    if (authError) {
-      alert('회원가입 실패');
-    }
-  }, []);
-
   return (
     <AuthRegisterForm
       registerState={registerForm}
