@@ -5,7 +5,7 @@ import InputPassword from '../../containers/common/InputPassword';
 import InputWithCheck from '../common/InputWithCheck';
 import React from 'react';
 import { TChangeEventHandler, TMouseEventHandler } from '@models/input.model';
-import { IRegisterAuth, IRegisterState } from '@models/account.model';
+import { IAuthChecker, IRegister, IRegisterState } from '@models/account.model';
 import InputForValidation from '@containers/common/InputForValidation';
 import InputForAuthorization from '@containers/common/InputForAuthorization';
 import checkValidation from '@utils/checkValidation';
@@ -48,6 +48,11 @@ interface IAuthRegisterForm {
   handleChange: TChangeEventHandler<HTMLInputElement>;
   handleToggle: TMouseEventHandler<HTMLInputElement>;
   handleAuthorization: TMouseEventHandler<HTMLButtonElement>;
+  handleAuthCheck: TMouseEventHandler<HTMLButtonElement>;
+  handleValidation: (
+    key: keyof IAuthChecker<IRegister>,
+    value: boolean,
+  ) => void;
 }
 
 const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
@@ -57,6 +62,8 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
   handleChange,
   handleToggle,
   handleAuthorization,
+  handleAuthCheck,
+  handleValidation,
 }) => {
   return (
     <>
@@ -71,6 +78,12 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
             placeholder="이메일"
             value={registerState.email}
             onChange={handleChange}
+            onClick={(e) => {
+              handleValidation(
+                'email',
+                checkValidation(registerState.email, regObj.email),
+              );
+            }}
             isValid={checkValidation(registerState.email, regObj.email)}
             cautionText={
               registerState.email.length === 0
@@ -94,7 +107,13 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
           <InputPassword
             name="passwordConfirm"
             placeholder="비밀번호 확인"
-            onChange={handleChange}
+            onChange={(e) => {
+              handleChange && handleChange(e);
+              handleValidation(
+                'password',
+                registerState.password === e.target.value,
+              );
+            }}
             value={registerState.passwordConfirm}
             isValid={registerState.password === registerState.passwordConfirm}
             cautionText={'비밀번호가 일치하지 않습니다.'}
@@ -114,6 +133,10 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
             value={registerState.username}
             onChange={(e) => {
               handleChange && handleChange(e, regObj.korOrEng);
+              handleValidation(
+                'username',
+                checkValidation(registerState.username, regObj.username),
+              );
             }}
           />
 
@@ -123,7 +146,7 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
             placeholder="휴대폰번호"
             useFor="auth"
             value={registerState.contact}
-            disabled={timer >= 0}
+            disabled={timer >= 0 || registerState.isValid.contact}
             onChange={(e) => {
               handleChange && handleChange(e, regObj.onlyNum, 11);
             }}
@@ -141,6 +164,8 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
                   {String(timer % 60).padStart(2, '0')}초<br />
                   문자가 오지 않으면 스팸함을 확인해 주세요.
                 </span>
+              ) : registerState.isValid.contact ? (
+                ''
               ) : (
                 <span>
                   인증 시간이 만료되었습니다.
@@ -156,6 +181,7 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
             type="text"
             placeholder="인증번호"
             value={registerState.authConfirm}
+            onClick={handleAuthCheck}
             onChange={(e) => {
               handleChange && handleChange(e, regObj.onlyNum, 6);
             }}
