@@ -7,6 +7,7 @@ export type IAuthChecker<T> = {
 export interface IAuth {
   login: ILogin;
   register: IRegisterState;
+  auth: ILogin | IRegisterRequest | {};
   authError: SerializedError;
 }
 

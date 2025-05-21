@@ -4,8 +4,12 @@ import styled from 'styled-components';
 import InputPassword from '../../containers/common/InputPassword';
 import InputWithCheck from '../common/InputWithCheck';
 import React from 'react';
-import { TChangeEventHandler, TMouseEventHandler } from '@models/input.model';
-import { IAuthChecker, IRegister, IRegisterState } from '@models/account.model';
+import {
+  TChangeEventHandler,
+  TFormEventHandler,
+  TMouseEventHandler,
+} from '@models/input.model';
+import { IAuthChecker, IRegister, IRegisterState } from '@models/auth.model';
 import InputForValidation from '@containers/common/InputForValidation';
 import InputForAuthorization from '@containers/common/InputForAuthorization';
 import checkValidation from '@utils/checkValidation';
@@ -53,6 +57,7 @@ interface IAuthRegisterForm {
     key: keyof IAuthChecker<IRegister>,
     value: boolean,
   ) => void;
+  handleSubmit: TFormEventHandler;
 }
 
 const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
@@ -64,12 +69,13 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
   handleAuthorization,
   handleAuthCheck,
   handleValidation,
+  handleSubmit,
 }) => {
   return (
     <>
       <AuthHeaderLogo />
       <AuthTitleBox>회원가입</AuthTitleBox>
-      <AuthRegisterFormBlock>
+      <AuthRegisterFormBlock onSubmit={handleSubmit}>
         {/* 입력 공간, 인풋 6개 */}
         <InputSection>
           <InputForValidation
@@ -132,10 +138,10 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
             placeholder="이름"
             value={registerState.username}
             onChange={(e) => {
-              handleChange && handleChange(e, regObj.korOrEng);
+              handleChange && handleChange(e, regObj.korOrEng, 10);
               handleValidation(
                 'username',
-                checkValidation(registerState.username, regObj.username),
+                checkValidation(e.target.value, regObj.username),
               );
             }}
           />

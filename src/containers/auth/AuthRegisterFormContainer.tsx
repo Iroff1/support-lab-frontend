@@ -1,21 +1,44 @@
 import AuthRegisterForm from '@components/auth/AuthRegisterForm';
 import { regObj } from '@consts/reg';
-import { IAuthChecker, IRegister, IRegisterState } from '@models/account.model';
-import { TChangeEventHandler, TMouseEventHandler } from '@models/input.model';
+import useTimer from '@hooks/useTimer';
+import {
+  IAuthChecker,
+  IRegister,
+  IRegisterAgreement,
+  IRegisterState,
+} from '@models/auth.model';
+import {
+  TChangeEventHandler,
+  TFormEventHandler,
+  TMouseEventHandler,
+} from '@models/input.model';
+import {
+  authActions,
+  authGetCodeThunk,
+  authRegisterUserThunk,
+} from '@store/auth';
 import { useAppDispatch, useAppSelector } from '@store/index';
-import { registerActions, requestRegisterAuth } from '@store/register';
 import checkValidation from '@utils/checkValidation';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const TIMER_INIT = -1;
 const TIMER_LIMIT = 5;
 
 const AuthRegisterFormContainer = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const registerState = useAppSelector(({ register }) => register);
+  const { registerForm, auth, authError } = useAppSelector(({ auth }) => ({
+    registerForm: auth.register,
+    auth: auth.auth,
+    authError: auth.authError,
+  }));
+  const { changeField, initializeState, toggleRegisterValid } = authActions;
 
-  const [timer, setTimer] = useState(TIMER_INIT); // 인증 용 타이머
-  const timerEvent = useRef<NodeJS.Timeout>(null);
+  const { timer, timerEvent, timerStart, timerReset } = useTimer(
+    TIMER_INIT,
+    TIMER_LIMIT,
+  );
 
   /** 각 입력 컴포넌트의 onChange에 할당할 콜백 함수 */
   const handleChangeField: TChangeEventHandler<HTMLInputElement> = (
@@ -32,7 +55,8 @@ const AuthRegisterFormContainer = () => {
 
     // state에 적용
     dispatch(
-      registerActions.changeField({
+      changeField({
+        form: 'register',
         key: userInputKey,
         value: userInputValue,
       }),
@@ -41,93 +65,89 @@ const AuthRegisterFormContainer = () => {
 
   /** InputWithCheck 컴포넌트의 onClick에 할당할 콜백 함수 */
   const handleToggleField: TMouseEventHandler<HTMLInputElement> = (e) => {
-    const key = e.currentTarget.name as keyof IRegister;
-    const value = e.currentTarget.checked;
-
-    // state에 적용
     dispatch(
-      registerActions.changeField({
-        key: key,
-        value: value,
+      changeField({
+        form: 'register',
+        key: e.currentTarget.name as keyof IRegisterAgreement,
+        value: e.currentTarget.checked,
       }),
     );
   };
 
+  /** isValid 갱신용 핸들러 */
   const handleValidation = (
     key: keyof IAuthChecker<IRegister>,
     value: boolean,
   ) => {
-    dispatch(registerActions.toggleField({ key: key, value: value }));
+    dispatch(toggleRegisterValid({ key: key, value: value }));
   };
 
   /** InputForAuthorization 컴포넌트의 onClick에 할당할 인증용 핸들러 함수 */
   const handleAuthorization: TMouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
-    // 타이머 진행 중인 경우 미 실행
-    if (timerEvent.current) return;
-
-    // 유효성 검증 실패 시 미 실행
-    const validationResult = checkValidation(
-      registerState.contact,
-      regObj.contact,
-    );
-    if (!validationResult) return;
-
-    // 타이머 이벤트 할당
-    if (timer <= 0) setTimer(TIMER_LIMIT);
-    timerEvent.current = setInterval(() => {
-      setTimer((prev) => prev - 1);
-    }, 1000);
-
-    // TODO) 비동기 요청 보내기
-    dispatch(requestRegisterAuth(registerState.contact));
+    if (timerEvent.current) return; // 타이머 진행 중인 경우 미 실행
+    if (!checkValidation(registerForm.contact, regObj.contact)) return; // 유효성 검증 실패 시 미 실행
+    timerStart(); // 타이머 시작
+    dispatch(authGetCodeThunk(registerForm.contact)); // 인증 번호 요청
   };
 
   /** InputForValidation[name="authConfirm"] 컴포넌트의 onClick에 할당할 콜백 함수 */
   const handleAuthCheck: TMouseEventHandler<HTMLButtonElement> = (e) => {
-    /** 성공 시
-     * 1. 타이머 종료 -> clearInterval, 타이머 시간 = -1
-     * 2. 전화번호 기입란 잠금
-     */
     if (
-      registerState.authCode.length === 6 &&
-      registerState.authCode === registerState.authConfirm
+      registerForm.authCode.length === 6 &&
+      registerForm.authCode === registerForm.authConfirm
     ) {
-      timerEvent.current && clearInterval(timerEvent.current);
-      timerEvent.current = null;
-      setTimer(TIMER_INIT);
-      dispatch(registerActions.toggleField({ key: 'contact', value: true }));
+      timerReset(); // 타이머 초기화
+      dispatch(toggleRegisterValid({ key: 'contact', value: true }));
     }
   };
 
-  // 타이머 종료 시
+  /** register 입력 폼 submit 이벤트 핸들러 */
+  const handleSubmit: TFormEventHandler = (e) => {
+    e.preventDefault();
+    dispatch(authRegisterUserThunk(registerForm));
+    alert('회원가입 되었습니다.');
+    navigate('/auth');
+  };
+
+  // 타이머 만료 시
   if (timerEvent.current && timer < 0) {
-    // 타이머 이벤트 해체
-    clearInterval(timerEvent.current);
-    timerEvent.current = null;
+    timerReset(); // 타이머 초기화
     // 인증 번호 초기화
-    dispatch(registerActions.changeField({ key: 'authCode', value: '' }));
-    dispatch(registerActions.changeField({ key: 'authConfirm', value: '' }));
+    dispatch(changeField({ form: 'register', key: 'authCode', value: '' }));
+    dispatch(
+      changeField({
+        form: 'register',
+        key: 'authConfirm',
+        value: '',
+      }),
+    );
   }
 
   // 컴포넌트 렌더링 시작 시
   useEffect(() => {
-    dispatch(registerActions.initialize(null)); // register 상태 초기화
+    dispatch(initializeState({ form: 'register' })); // register 상태 초기화
     return () => {
       // 컴포넌트 렌더링 종료 시
-      timerEvent.current && clearInterval(timerEvent.current); // 타이머 이벤트 해제
+      timerReset();
     };
+  }, []);
+
+  useEffect(() => {
+    if (authError) {
+      alert('회원가입 실패');
+    }
   }, []);
 
   return (
     <AuthRegisterForm
-      registerState={registerState}
+      registerState={registerForm}
       timer={timer}
       disabled={
         !(
-          Object.values(registerState.isValid).every(
+          Object.values(registerForm.isValid).every(
             (value) => value === true,
-          ) && registerState.personalInfoAgreement
+          ) && registerForm.personalInfoAgreement
         )
       }
       handleChange={handleChangeField}
@@ -135,6 +155,7 @@ const AuthRegisterFormContainer = () => {
       handleAuthorization={handleAuthorization}
       handleAuthCheck={handleAuthCheck}
       handleValidation={handleValidation}
+      handleSubmit={handleSubmit}
     />
   );
 };
