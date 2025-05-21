@@ -2,14 +2,12 @@ import { configureStore } from '@reduxjs/toolkit';
 import loadingReducer from './loading';
 import { TypedUseSelectorHook, useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import registerReducer from './register';
-import loginReducer from './login';
+import authReducer from './auth';
 
 const store = configureStore({
   reducer: {
     loading: loadingReducer,
-    login: loginReducer,
-    register: registerReducer,
+    auth: authReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
