@@ -1,6 +1,6 @@
+import { registerGetAuth } from '@api/register';
 import { IAuthChecker, IRegister, IRegisterState } from '@models/account.model';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import axios from 'axios';
 
 const initialState: IRegisterState = {
   email: '',
@@ -25,7 +25,7 @@ const initialState: IRegisterState = {
 export const requestRegisterAuth = createAsyncThunk(
   'register/getRegisterAuth',
   async (userContact: string) => {
-    const res = await axios('', { data: userContact });
+    const res = await registerGetAuth(userContact);
     return res.data;
   },
 );
