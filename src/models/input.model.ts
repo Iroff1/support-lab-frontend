@@ -44,6 +44,7 @@ export type TAsyncReq<T, R> = (req: T) => Promise<R>;
  *
  * max?: 최대 문자열 길이 제한 값
  */
+export type TFormEventHandler = (e: React.FormEvent<HTMLFormElement>) => void;
 export type TChangeEventHandler<T> = (
   e: React.ChangeEvent<T>,
   regForInput?: RegExp,
