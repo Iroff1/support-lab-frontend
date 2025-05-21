@@ -1,5 +1,6 @@
 import AuthRegisterForm from '@components/auth/AuthRegisterForm';
 import { regObj } from '@consts/reg';
+import useInit from '@hooks/useInit';
 import useTimer from '@hooks/useTimer';
 import {
   IAuthChecker,
@@ -39,6 +40,7 @@ const AuthRegisterFormContainer = () => {
     TIMER_INIT,
     TIMER_LIMIT,
   );
+  const { isInit, initComponent } = useInit();
 
   /** 각 입력 컴포넌트의 onChange에 할당할 콜백 함수 */
   const handleChangeField: TChangeEventHandler<HTMLInputElement> = (
@@ -106,8 +108,6 @@ const AuthRegisterFormContainer = () => {
   const handleSubmit: TFormEventHandler = (e) => {
     e.preventDefault();
     dispatch(authRegisterUserThunk(registerForm));
-    alert('회원가입 되었습니다.');
-    navigate('/auth');
   };
 
   // 타이머 만료 시
@@ -127,11 +127,26 @@ const AuthRegisterFormContainer = () => {
   // 컴포넌트 렌더링 시작 시
   useEffect(() => {
     dispatch(initializeState({ form: 'register' })); // register 상태 초기화
+    initComponent();
     return () => {
       // 컴포넌트 렌더링 종료 시
       timerReset();
     };
   }, []);
+
+  // 초기 렌더링 이후
+  useEffect(() => {
+    if (!isInit) return;
+    if (Object.keys(authError).length) {
+      alert('회원가입 실패');
+      console.error(authError);
+      return;
+    }
+    if (Object.keys(auth).length) {
+      alert('회원가입 성공');
+      navigate('/auth');
+    }
+  }, [isInit, auth, authError]);
 
   return (
     <AuthRegisterForm
