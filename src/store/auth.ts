@@ -83,7 +83,7 @@ export const authSlice = createSlice({
         console.log(type + '/오류');
         console.error(error);
         state.register.authCode = '111111';
-        state.authError = error;
+        // state.authError = error;
       });
     /** 회원 가입 비동기 요청 */
     builder
@@ -100,8 +100,9 @@ export const authSlice = createSlice({
       .addCase(authRegisterUserThunk.rejected, (state, { type, error }) => {
         console.log(type + '/오류');
         console.error(error);
-        state.auth = {};
-        state.authError = error;
+        state.auth = state.register;
+        // state.auth = {};
+        // state.authError = error;
       });
   },
 });
