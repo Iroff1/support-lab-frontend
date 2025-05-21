@@ -9,6 +9,12 @@ import InputWithCheck from '../common/InputWithCheck';
 import SubmitButton from '@components/common/SubmitButton';
 import Caution from '@components/common/Caution';
 import AuthHeaderLogo from './AuthHeaderLogo';
+import { ILogin } from '@models/auth.model';
+import {
+  TChangeEventHandler,
+  TFormEventHandler,
+  TMouseEventHandler,
+} from '@models/input.model';
 
 const LoginBody = styled.div`
   width: 100%;
@@ -70,38 +76,24 @@ const LoginFooter = styled.div`
   }
 `;
 
-const AuthLoginForm = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [loginError, setLoginError] = useState('');
+interface IAuthLoginForm {
+  loginState: ILogin;
+  isMaintain: boolean;
+  handleChange: TChangeEventHandler<HTMLInputElement>;
+  handleSubmit: TFormEventHandler;
+  handleToggle: TMouseEventHandler<HTMLInputElement>;
+}
 
-  const submitBtn = useRef<HTMLButtonElement>(null);
-
-  const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
-  const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    // console.log(e);
-    e.preventDefault();
-
-    // TODO) POST /auth/user 요청 추가
-    if (!email.length) {
-      setLoginError('이메일을 작성해주세요.');
-    } else if (!password.length) {
-      setLoginError('비밀번호를 작성해주세요.');
-    } else {
-      setLoginError('');
-    }
-  };
-
+const AuthLoginForm: React.FC<IAuthLoginForm> = ({
+  loginState,
+  isMaintain,
+  handleChange,
+  handleSubmit,
+  handleToggle,
+}) => {
   return (
     <>
       <AuthHeaderLogo />
-
       <LoginBody>
         <LoginForm onSubmit={handleSubmit}>
           <InputSection>
@@ -109,20 +101,27 @@ const AuthLoginForm = () => {
               name="email"
               type="email"
               placeholder="이메일"
-              onChange={handleEmail}
+              onChange={(e) => {
+                handleChange && handleChange(e);
+              }}
             />
             <InputPassword
               name="password"
               placeholder="비밀번호"
-              onChange={handlePassword}
+              onChange={(e) => {
+                handleChange && handleChange(e);
+              }}
             />
-            <InputWithCheck name="loginMaintain">
+            <InputWithCheck name="loginMaintain" onClick={handleToggle}>
               로그인 상태 유지
             </InputWithCheck>
           </InputSection>
 
-          {loginError.length ? <Caution>{loginError}</Caution> : null}
-          <SubmitButton disabled={email.length === 0 || password.length === 0}>
+          <SubmitButton
+            disabled={
+              loginState.email.length === 0 || loginState.password.length === 0
+            }
+          >
             로그인
           </SubmitButton>
         </LoginForm>

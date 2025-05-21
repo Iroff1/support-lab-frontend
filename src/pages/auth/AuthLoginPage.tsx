@@ -1,7 +1,7 @@
-import AuthLoginForm from '@components/auth/AuthLoginForm';
+import AuthLoginFormContainer from '@containers/auth/AuthLoginFormContainer';
 
 const AuthLoginPage = () => {
-  return <AuthLoginForm />;
+  return <AuthLoginFormContainer />;
 };
 
 export default AuthLoginPage;

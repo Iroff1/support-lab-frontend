@@ -17,11 +17,6 @@ export interface ILogin {
   password: string;
 }
 
-/** 유효성 검사를 위한 login 상태 데이터 인터페이스 */
-export interface ILoginState extends ILogin {
-  error: SerializedError | null;
-}
-
 export interface IRegisterAuth extends IAuthChecker<IRegister> {
   passwordConfirm: boolean;
   authConfirm: boolean;
