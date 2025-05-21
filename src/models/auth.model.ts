@@ -4,6 +4,12 @@ export type IAuthChecker<T> = {
   [K in keyof T]: boolean;
 };
 
+export interface IAuth {
+  login: ILogin;
+  register: IRegisterState;
+  authError: SerializedError;
+}
+
 /** 서버에 전송할 login 데이터 인터페이스 */
 export interface ILogin {
   email: string;
