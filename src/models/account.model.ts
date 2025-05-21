@@ -20,18 +20,26 @@ export interface IRegisterAuth extends IAuthChecker<IRegister> {
   authConfirm: boolean;
 }
 
-/** 서버에 전송할 register 데이터 인터페이스 */
+/** register 입력 데이터 인터페이스 */
 export interface IRegister extends ILogin {
   username: string;
   contact: string;
-  personalInfoAgreement: boolean;
+}
+
+/** 서버에 전송할 register 선택 데이터 인터페이스 */
+export interface IRegisterAgreement {
+  personalInfoAgreement: boolean; // 필수 체크 항목
   marketingAgreement: boolean;
 }
 
-/** 유효성 검사를 위한 register 상태 데이터 인터페이스 */
-export interface IRegisterState extends IRegister {
+/** 서버에 전송할 register 데이터 인터페이스 */
+export interface IRegisterRequest extends IRegister, IRegisterAgreement {}
+
+/** 코드레벨에서 필요한 register 상태 데이터를 위한 인터페이스 */
+export interface IRegisterState extends IRegister, IRegisterAgreement {
   passwordConfirm: string;
   authCode: string;
   authConfirm: string;
   error: SerializedError | null;
+  isValid: IAuthChecker<IRegister>;
 }

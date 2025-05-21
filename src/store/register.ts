@@ -1,4 +1,4 @@
-import { IRegisterState } from '@models/account.model';
+import { IAuthChecker, IRegister, IRegisterState } from '@models/account.model';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 
@@ -13,6 +13,12 @@ const initialState: IRegisterState = {
   personalInfoAgreement: false,
   marketingAgreement: false,
   error: null,
+  isValid: {
+    email: false,
+    username: false,
+    password: false,
+    contact: false,
+  },
 };
 
 /** Auth요청 용 Thunk 함수 ==> (액션 타입, 비동기 함수) */
@@ -38,6 +44,14 @@ export const registerSlice = createSlice({
       }: PayloadAction<{ key: keyof IRegisterState; value: string | boolean }>,
     ) => {
       Object.assign(state, { [key]: value });
+    },
+    toggleField: (
+      state,
+      {
+        payload: { key, value },
+      }: PayloadAction<{ key: keyof IAuthChecker<IRegister>; value: boolean }>,
+    ) => {
+      Object.assign(state.isValid, { [key]: value });
     },
   },
   extraReducers: (builder) => {
