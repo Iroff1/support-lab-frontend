@@ -11,13 +11,14 @@ const MainMessageBoxBlock = styled.div`
   text-align: center;
   h1 {
     ${css(translateFontSize('B_48'))}
+    margin-bottom: 20px;
   }
   h2 {
     ${css(translateFontSize('B_29'))}
+    margin-bottom: 10px;
   }
   p {
     ${css(translateFontSize('R_17'))}
-    margin-top: 10px;
   }
 `;
 

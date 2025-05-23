@@ -35,7 +35,7 @@ const MainExampleBox = () => {
   return (
     <MainExampleBoxBlock>
       <MainMessageBox>
-        <h2>그래서 준비했습니다.</h2>
+        <h1>그래서 만들었습니다.</h1>
         <p>
           여러분의 아이템에 대한 생각을 말만 해주면
           <br />

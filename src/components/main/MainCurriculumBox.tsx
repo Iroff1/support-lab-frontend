@@ -5,10 +5,10 @@ import palette from '@assets/colors/index';
 
 const ICON_RIGHT_ARROW = require('@assets/images/common/icon_arrow_right.svg');
 const ICON_CURRICULAM = [
-  require('@assets/images/main/icon_curriculam_1.png'),
-  require('@assets/images/main/icon_curriculam_2.png'),
-  require('@assets/images/main/icon_curriculam_3.png'),
-  require('@assets/images/main/icon_curriculam_4.png'),
+  require('@assets/images/main/icon_curriculam_1.svg'),
+  require('@assets/images/main/icon_curriculam_2.svg'),
+  require('@assets/images/main/icon_curriculam_3.svg'),
+  require('@assets/images/main/icon_curriculam_4.svg'),
 ];
 
 const MainCurriculumBoxBlock = styled.div`
@@ -16,6 +16,8 @@ const MainCurriculumBoxBlock = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 20px;
+
+  color: ${palette.black.white};
 `;
 
 const CurriculumList = styled.div`
@@ -34,7 +36,8 @@ const CurriculumItem = styled.div`
   border-radius: 10px;
   background-color: #ffffff20;
   box-shadow: 0px 4px 10px 0px #00000040;
-  color: ${palette.black.B700};
+  color: ${palette.black.white};
+  fill: ${palette.black.white};
 
   display: flex;
   flex-direction: column;

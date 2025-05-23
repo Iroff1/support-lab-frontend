@@ -1,10 +1,9 @@
 import Responsive from '@components/common/Responsive';
 import styled, { css } from 'styled-components';
 import MainCoverBox from './MainCoverBox';
-import MainBriefingBox from './MainBriefingBox';
 import Floating from '@components/common/Floating';
-import MainResultBox from './MainResultBox';
-import MainAnalyzeBox from './MainAnalyzeBox';
+import MainBoxBriefing from './MainBoxBriefing';
+import MainBoxAnalyze from './MainBoxAnalyze';
 import MainExampleBox from './MainExampleBox';
 import MainCurriculumBox from './MainCurriculumBox';
 import translateFontSize from '@utils/translateFontSize';
@@ -18,8 +17,9 @@ const MainContentsBlock = styled(Responsive)`
   padding: 0;
   margin-top: 64px;
 
-  .wrapper1 {
+  & > .wrapper1 {
     width: 100%;
+
     background: linear-gradient(
       180deg,
       #fff 45.98%,
@@ -28,18 +28,18 @@ const MainContentsBlock = styled(Responsive)`
       #2647c8 69%,
       #191970 76.88%
     );
+  }
+  & > .wrapper1 > .responsive {
+    width: 100%;
+    max-width: 1032px;
+    padding-top: 100px;
+    padding-bottom: 161px;
+    margin: 0 auto;
+    margin-bottom: 79.53px;
 
-    & > div {
-      display: flex;
-      flex-direction: column;
-
-      max-width: 1032px;
-      width: 100%;
-      padding-top: 100px;
-      padding-bottom: 161px;
-      margin: 0 auto;
-      gap: 100px;
-    }
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
   }
 
   .wrapper2 {
@@ -67,10 +67,10 @@ const MainContents = () => {
       <MainContentsBlock>
         <MainCoverBox />
         <div className="wrapper1">
-          <div>
-            <MainBriefingBox />
-            <MainResultBox />
-            <MainAnalyzeBox />
+          {/* max width 1032px */}
+          <div className="responsive">
+            <MainBoxBriefing />
+            <MainBoxAnalyze />
             <MainExampleBox />
             <MainCurriculumBox />
           </div>
