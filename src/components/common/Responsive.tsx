@@ -22,8 +22,12 @@ const ResponsiveBlock = styled.div`
   }
 `;
 
-const Responsive: React.FC<any> = ({ children, ...restProps }) => {
-  return <ResponsiveBlock {...restProps}>{children}</ResponsiveBlock>;
+interface IResponsive {
+  children: React.ReactNode;
+}
+
+const Responsive: React.FC<IResponsive> = ({ children, ...props }) => {
+  return <ResponsiveBlock {...props}>{children}</ResponsiveBlock>;
 };
 
 export default Responsive;

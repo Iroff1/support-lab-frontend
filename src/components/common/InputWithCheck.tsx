@@ -3,7 +3,7 @@ import { IInputWithCheck } from '@models/input.model';
 import React from 'react';
 import styled from 'styled-components';
 
-const RIGHT_ARROW = require('@assets/images/common/icon_arrow_right.png');
+const RIGHT_ARROW = require('@assets/images/common/icon_arrow_right.svg');
 
 const InputWithCheckBlock = styled.label`
   height: 26px;
