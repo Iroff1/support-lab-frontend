@@ -3,12 +3,12 @@ import MainMessageBox from './MainMessageBox';
 import translateFontSize from '@utils/translateFontSize';
 import palette from '@assets/colors/index';
 
-const RIGHT_ARROW = require('@assets/images/common/icon_arrow_right.png');
-const [CURRICULAM_1, CURRICULAM_2, CURRICULAM_3, CURRICULAM_4] = [
-  require('@assets/images/common/curriculam_1.png'),
-  require('@assets/images/common/curriculam_2.png'),
-  require('@assets/images/common/curriculam_3.png'),
-  require('@assets/images/common/curriculam_4.png'),
+const ICON_RIGHT_ARROW = require('@assets/images/common/icon_arrow_right.svg');
+const ICON_CURRICULAM = [
+  require('@assets/images/main/icon_curriculam_1.png'),
+  require('@assets/images/main/icon_curriculam_2.png'),
+  require('@assets/images/main/icon_curriculam_3.png'),
+  require('@assets/images/main/icon_curriculam_4.png'),
 ];
 
 const MainCurriculumBoxBlock = styled.div`
@@ -61,7 +61,7 @@ const RightArrow = () => {
   return (
     <img
       style={{ width: '24px', height: '24px' }}
-      src={RIGHT_ARROW}
+      src={ICON_RIGHT_ARROW}
       alt="rightArrow"
     />
   );
@@ -76,7 +76,7 @@ const MainCurriculumBox = () => {
 
       <CurriculumList>
         <CurriculumItem>
-          <img src={CURRICULAM_1} alt="icon1" />
+          <img src={ICON_CURRICULAM[0]} alt="icon1" />
           <div>
             <p>무료 전화 상담</p>
             <p>
@@ -88,7 +88,7 @@ const MainCurriculumBox = () => {
         </CurriculumItem>
         <RightArrow />
         <CurriculumItem>
-          <img src={CURRICULAM_2} alt="icon2" />
+          <img src={ICON_CURRICULAM[1]} alt="icon2" />
           <div>
             <p>솔루션 결제</p>
             <p>
@@ -100,7 +100,7 @@ const MainCurriculumBox = () => {
         </CurriculumItem>
         <RightArrow />
         <CurriculumItem>
-          <img src={CURRICULAM_3} alt="icon3" />
+          <img src={ICON_CURRICULAM[2]} alt="icon3" />
           <div>
             <p>멘토링</p>
             <p>
@@ -112,7 +112,7 @@ const MainCurriculumBox = () => {
         </CurriculumItem>
         <RightArrow />
         <CurriculumItem>
-          <img src={CURRICULAM_4} alt="icon4" />
+          <img src={ICON_CURRICULAM[3]} alt="icon4" />
           <div>
             <p>사업계획서 초안 받기</p>
             <p>

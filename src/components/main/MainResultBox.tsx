@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import MainMessageBox from './MainMessageBox';
 import translateFontSize from '@utils/translateFontSize';
 
-const RESULT_1 = require('@assets/images/main/result_1.png');
+const IMAGE_EXAMPLES = require('@assets/images/main/image_examples.png');
 
 const MainResultBoxBlock = styled.div`
   display: flex;
@@ -45,7 +45,7 @@ const MainResultBox = () => {
       </MainMessageBox>
 
       <ImageBox>
-        <img src={RESULT_1} alt="결과 예시 이미지" />
+        <img src={IMAGE_EXAMPLES} alt="결과 예시 이미지" />
       </ImageBox>
 
       <ImageFooter>

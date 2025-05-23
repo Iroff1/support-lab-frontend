@@ -2,9 +2,11 @@ import palette from '@assets/colors/index';
 import translateFontSize from '@utils/translateFontSize';
 import styled, { css } from 'styled-components';
 
-const SOLUTION_1 = require('@assets/images/main/solution_1.png');
-const SOLUTION_2 = require('@assets/images/main/solution_2.png');
-const SOLUTION_3 = require('@assets/images/main/solution_3.png');
+const ICON_SOLUTION = [
+  require('@assets/images/main/icon_solution_1.png'),
+  require('@assets/images/main/icon_solution_2.png'),
+  require('@assets/images/main/icon_solution_3.png'),
+];
 
 const MainSolutionBoxBlock = styled.div`
   width: 100%;
@@ -105,7 +107,7 @@ const MainSolutionBox = () => {
       <SolutionBoxBody>
         <SolutionItem>
           <SolutionItemContent>
-            <img src={SOLUTION_1} alt="solution_1" />
+            <img src={ICON_SOLUTION[0]} alt="solution_1" />
             <h3>작성 솔루션</h3>
             <ul>
               <li>
@@ -122,7 +124,7 @@ const MainSolutionBox = () => {
         </SolutionItem>
         <SolutionItem>
           <SolutionItemContent>
-            <img src={SOLUTION_2} alt="solution_2" />
+            <img src={ICON_SOLUTION[1]} alt="solution_2" />
             <h3>사업계획서 첨삭 코멘트</h3>
             <ul>
               <li>사업계획서 세부 항목별 디테일한 첨삭 코멘트</li>
@@ -136,7 +138,7 @@ const MainSolutionBox = () => {
         </SolutionItem>
         <SolutionItem>
           <SolutionItemContent>
-            <img src={SOLUTION_3} alt="solution_3" />
+            <img src={ICON_SOLUTION[2]} alt="solution_3" />
             <h3>PPT형식 사업계획서 제작</h3>
             <ul>
               <li>PPT 기획부터 디자인까지 IR 전문가가 제작</li>

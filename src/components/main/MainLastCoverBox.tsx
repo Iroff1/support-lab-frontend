@@ -3,13 +3,13 @@ import translateFontSize from '@utils/translateFontSize';
 import palette from '@assets/colors';
 import ConsultButton from '@components/common/ConsultButton';
 
-const LAST_COVER = require('@assets/images/main/last_cover.png');
+const IMAGE_LAST_COVER = require('@assets/images/main/image_cover_last.png');
 
 const MainLastCoverBoxBlock = styled.div`
   width: 100%;
   height: calc(100vh - 64px);
   display: flex;
-  background: url(${LAST_COVER}) center/cover no-repeat;
+  background: url(${IMAGE_LAST_COVER}) center/cover no-repeat;
 `;
 
 const CoverBox = styled.div`
