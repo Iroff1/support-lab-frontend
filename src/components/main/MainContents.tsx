@@ -20,7 +20,14 @@ const MainContentsBlock = styled(Responsive)`
 
   .wrapper1 {
     width: 100%;
-    background: linear-gradient(180deg, #ffffff 0%, #c2ddff 100%);
+    background: linear-gradient(
+      180deg,
+      #fff 45.98%,
+      #c6dfff 54.33%,
+      #90c4ff 62%,
+      #2647c8 69%,
+      #191970 76.88%
+    );
 
     & > div {
       display: flex;
