@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 import Responsive from './Responsive';
 import translateFontSize from '@utils/translateFontSize';
 import palette from '@assets/colors/index';
+import { Link } from 'react-router-dom';
 
 const [ICON_BLOG, ICON_INSTA, ICON_YOUTUBE] = [
   require('@assets/images/common/icon_blog.png'),
@@ -28,9 +29,10 @@ const CompanyInfoBlock = styled.div`
     color: ${palette.black.B80};
     margin: 0 auto;
     text-align: center;
-    ${css(translateFontSize('R_13'))}
+    ${css(translateFontSize('R_13'))};
 
-    &>span {
+    & > a {
+      ${css(translateFontSize('R_13'))};
       cursor: pointer;
       transition: 0.2s ease color;
       &:hover {
@@ -88,8 +90,10 @@ const Footer = () => {
             주소: 경기도 김포시 양촌읍 양곡로 495, 6층 | 고객센터:
             0507-1402-3531 | 이메일: official@iroff.kr
             <br />
-            <span> 개인정보처리방침 </span>|<span> 이용약관 </span>|
-            <span> 고객센터 </span>
+            <Link to={''}>이용약관</Link> |{' '}
+            <Link to={''}>개인정보 수집 및 이용</Link> |{' '}
+            <Link to={''}>이벤트·혜택 정보 수신</Link> |{' '}
+            <Link to={''}>고객센터</Link>
           </p>
         </CompanyInfoBlock>
 
