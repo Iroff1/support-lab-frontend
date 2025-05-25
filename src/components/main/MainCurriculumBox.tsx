@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import MainMessageBox from './MainMessageBox';
+import MessageBox from '../common/MessageBox';
 import translateFontSize from '@utils/translateFontSize';
 import palette from '@assets/colors/index';
 
@@ -36,8 +36,8 @@ const CurriculumItem = styled.div`
   border-radius: 10px;
   background-color: #ffffff20;
   box-shadow: 0px 4px 10px 0px #00000040;
-  color: ${palette.black.white};
-  fill: ${palette.black.white};
+  color: ${palette.black.B700};
+  fill: ${palette.black.B700};
 
   display: flex;
   flex-direction: column;
@@ -73,9 +73,9 @@ const RightArrow = () => {
 const MainCurriculumBox = () => {
   return (
     <MainCurriculumBoxBlock>
-      <MainMessageBox>
+      <MessageBox>
         <h2>이렇게 작성합니다.</h2>
-      </MainMessageBox>
+      </MessageBox>
 
       <CurriculumList>
         <CurriculumItem>

@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import MainMessageBox from './MainMessageBox';
+import MessageBox from '../common/MessageBox';
 import translateFontSize from '@utils/translateFontSize';
 
 const ICON_ANALYZE = [
@@ -9,9 +9,10 @@ const ICON_ANALYZE = [
   require('@assets/images/main/icon_analyze_4.svg'),
 ];
 
-const MainBoxAnalyzBlock = styled.div`
+const MainBoxForAnalyzeBlock = styled.div`
   display: flex;
   flex-direction: column;
+  margin: 0 auto;
   gap: 20px;
 `;
 
@@ -52,15 +53,15 @@ const Card = styled.div`
   }
 `;
 
-const MainBoxAnalyze = () => {
+const MainBoxForAnalyze = () => {
   return (
-    <MainBoxAnalyzBlock>
-      <MainMessageBox>
+    <MainBoxForAnalyzeBlock>
+      <MessageBox>
         <h2>
           지금까지 여러분의 사업계획서가 <br />
           1차 서류 평가에서 탈락한 이유는 간단합니다.
         </h2>
-      </MainMessageBox>
+      </MessageBox>
 
       <AnalyzeCardList>
         <Card>
@@ -98,7 +99,7 @@ const MainBoxAnalyze = () => {
           </p>
         </Card>
       </AnalyzeCardList>
-    </MainBoxAnalyzBlock>
+    </MainBoxForAnalyzeBlock>
   );
 };
-export default MainBoxAnalyze;
+export default MainBoxForAnalyze;

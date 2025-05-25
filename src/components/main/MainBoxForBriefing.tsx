@@ -1,50 +1,51 @@
 import styled, { css } from 'styled-components';
-import MainMessageBox from './MainMessageBox';
+import MessageBox from '../common/MessageBox';
 import translateFontSize from '@utils/translateFontSize';
 
 const IMAGE_EXAMPLES = require('@assets/images/main/image_examples.png');
 
-const MainBoxBriefingBlock = styled.div`
+const MainBoxForBriefingBlock = styled.div`
   width: 100%;
   max-width: 1032px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
-`;
+  margin: 0 auto;
 
-const ImageBox = styled.div`
-  width: 100%;
-  max-width: 956px;
-  height: 796.4px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  img {
+  & > .imageBox {
     width: 100%;
+    max-width: 956px;
+    height: 796.4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  & > .imageFooter {
+    text-align: center;
+    ${css(translateFontSize('R_17'))};
   }
 `;
 
-const ImageFooter = styled.p`
-  text-align: center;
-  ${css(translateFontSize('R_17'))};
-`;
-
-const MainBoxBriefing = () => {
+const MainBoxForBriefing = () => {
   return (
     <>
-      <MainMessageBox>
+      <MessageBox>
         <h2>처음부터 혼자 다 하려고 하지 마세요.</h2>
         <p>
           지원사업연구소가 6년간 쌓은
           <br />
           사업계획서 작성 노하우를 모두 전수해 드립니다.
         </p>
-      </MainMessageBox>
+      </MessageBox>
 
-      <MainBoxBriefingBlock>
-        <MainMessageBox>
+      <MainBoxForBriefingBlock>
+        <MessageBox>
           <h1>도움받으면 뭐가 다를까요?</h1>
           <h2>
             2025년, 지원 사업에 대해 아무것도 모르고
@@ -56,22 +57,22 @@ const MainBoxBriefing = () => {
             <br />
             눈앞의 기회를 놓쳐 손해 보지 마세요.
           </p>
-        </MainMessageBox>
+        </MessageBox>
 
-        <ImageBox>
+        <div className="imageBox">
           <img src={IMAGE_EXAMPLES} alt="결과 예시 이미지" />
-        </ImageBox>
+        </div>
 
-        <ImageFooter>
+        <div className="imageFooter">
           예비창업패키지, 초기창업패키지, 창업도약패키지, 재도전성공패키지,
           창업중심대학
           <br />
           청년창업사관학교, 신사업창업사관학교, 로컬크리에이터, 에코스타트업,
           여성창업
-        </ImageFooter>
-      </MainBoxBriefingBlock>
+        </div>
+      </MainBoxForBriefingBlock>
     </>
   );
 };
 
-export default MainBoxBriefing;
+export default MainBoxForBriefing;

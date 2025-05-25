@@ -2,7 +2,7 @@ import translateFontSize from '@utils/translateFontSize';
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-const MainMessageBoxBlock = styled.div`
+const MessageBoxBlock = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -22,10 +22,10 @@ const MainMessageBoxBlock = styled.div`
   }
 `;
 
-const MainMessageBox: React.FC<{
+const MessageBox: React.FC<{
   children?: React.ReactNode | string;
 }> = ({ children }) => {
-  return <MainMessageBoxBlock>{children}</MainMessageBoxBlock>;
+  return <MessageBoxBlock>{children}</MessageBoxBlock>;
 };
 
-export default MainMessageBox;
+export default MessageBox;
