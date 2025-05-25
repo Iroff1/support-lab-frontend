@@ -5,6 +5,7 @@ import AuthFindEmailPage from '@pages/auth/AuthFindEmailPage';
 import AuthFindPasswordPage from '@pages/auth/AuthFindPasswordPage';
 import AuthLoginPage from '@pages/auth/AuthLoginPage';
 import AuthRegisterPage from '@pages/auth/AuthRegisterPage';
+import AuthTermsOfUsePage from '@pages/auth/AuthTermsOfUsePage';
 import CustomerServiceInquirementPage from '@pages/cs/CustomerServiceInquirementPage';
 import CustomerServiceQuestionsPage from '@pages/cs/CustomerServiceQuestionsPage';
 import CustomerServiceInfoListPage from '@pages/cs/CustormerServiceInfoListPage';
@@ -19,6 +20,7 @@ const App = () => {
       </Route>
       <Route path="/auth" element={<AuthLayout />}>
         <Route index element={<AuthLoginPage />} />
+        <Route path="termsOfUse" element={<AuthTermsOfUsePage />} />
         <Route path="register" element={<AuthRegisterPage />} />
         <Route path="find/email" element={<AuthFindEmailPage />} />
         <Route path="find/password" element={<AuthFindPasswordPage />} />
