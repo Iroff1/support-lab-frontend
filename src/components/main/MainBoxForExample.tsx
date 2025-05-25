@@ -1,8 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
-import styled, { css } from 'styled-components';
+import { useEffect } from 'react';
+import styled from 'styled-components';
 import MessageBox from '../common/MessageBox';
 import palette from '@assets/colors/index';
-import translateFontSize from '@utils/translateFontSize';
 import useSlideShow from '@hooks/useSlideShow';
 
 const ICON_ARROW = [
@@ -17,7 +16,7 @@ const IMAGE_DOC_AFTER = [
   require('@assets/images/main/image_doc_after_3.png'),
 ];
 
-const MainExampleBoxBlock = styled.div`
+const MainBoxForExampleBlock = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -157,7 +156,7 @@ const SlideBox = styled.div<{ index: number }>`
   }
 `;
 
-const MainExampleBox = () => {
+const MainBoxForExample = () => {
   const slideShow = useSlideShow(IMAGE_DOC_AFTER.length);
 
   useEffect(() => {
@@ -168,7 +167,7 @@ const MainExampleBox = () => {
   }, []);
 
   return (
-    <MainExampleBoxBlock>
+    <MainBoxForExampleBlock>
       <BoxHeader>
         <h1>그래서 만들었습니다.</h1>
         <p>
@@ -198,8 +197,8 @@ const MainExampleBox = () => {
           >
             <div className="slideView">
               <ul>
-                {IMAGE_DOC_AFTER.map((item) => (
-                  <li>
+                {IMAGE_DOC_AFTER.map((item, index) => (
+                  <li key={index}>
                     <img src={item} alt="문서 작성 결과 예시" />
                   </li>
                 ))}
@@ -216,7 +215,7 @@ const MainExampleBox = () => {
           </div>
         </SlideBox>
       </BoxContents>
-    </MainExampleBoxBlock>
+    </MainBoxForExampleBlock>
   );
 };
-export default MainExampleBox;
+export default MainBoxForExample;

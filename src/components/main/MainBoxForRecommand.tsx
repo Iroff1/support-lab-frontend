@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 
 const CHECK_ICON = require('@assets/images/common/icon_check.png');
 
-const MainRecommendBoxBlock = styled.div`
+const MainBoxForRecommendBlock = styled.div`
   width: 100%;
   max-width: 453px;
   height: 285px;
@@ -40,9 +40,9 @@ const RecommendBoxBody = styled.div`
   }
 `;
 
-const MainRecommendBox = () => {
+const MainBoxForRecommand = () => {
   return (
-    <MainRecommendBoxBlock>
+    <MainBoxForRecommendBlock>
       <RecommendBoxHeader>
         <h2>이런 분께 추천합니다.</h2>
         <p>하나라도 해당된다면 솔루션이 필요합니다.</p>
@@ -73,7 +73,7 @@ const MainRecommendBox = () => {
           <span>어떤 컨설팅 업체의 도움을 받아야 할지 모르겠는 분</span>
         </p>
       </RecommendBoxBody>
-    </MainRecommendBoxBlock>
+    </MainBoxForRecommendBlock>
   );
 };
-export default MainRecommendBox;
+export default MainBoxForRecommand;

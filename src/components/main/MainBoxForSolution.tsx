@@ -8,7 +8,7 @@ const ICON_SOLUTION = [
   require('@assets/images/main/icon_solution_3.png'),
 ];
 
-const MainSolutionBoxBlock = styled.div`
+const MainBoxForSolutionBlock = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -96,9 +96,9 @@ const SolutionButton = styled.button`
   }
 `;
 
-const MainSolutionBox = () => {
+const MainBoxForSolution = () => {
   return (
-    <MainSolutionBoxBlock>
+    <MainBoxForSolutionBlock>
       <SolutionBoxHeader>
         <h2>받으실 사업계획서 솔루션을 선택해주세요.</h2>
       </SolutionBoxHeader>
@@ -147,7 +147,7 @@ const MainSolutionBox = () => {
           <SolutionButton>자세히 보기</SolutionButton>
         </SolutionItem>
       </SolutionBoxBody>
-    </MainSolutionBoxBlock>
+    </MainBoxForSolutionBlock>
   );
 };
-export default MainSolutionBox;
+export default MainBoxForSolution;

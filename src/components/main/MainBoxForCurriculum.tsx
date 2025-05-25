@@ -11,7 +11,7 @@ const ICON_CURRICULAM = [
   require('@assets/images/main/icon_curriculam_4.svg'),
 ];
 
-const MainCurriculumBoxBlock = styled.div`
+const MainBoxForCurriculumBlock = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -68,9 +68,9 @@ const RightArrow = () => {
   );
 };
 
-const MainCurriculumBox = () => {
+const MainBoxForCurriculum = () => {
   return (
-    <MainCurriculumBoxBlock>
+    <MainBoxForCurriculumBlock>
       <MessageBox>
         <h2>이렇게 작성합니다.</h2>
       </MessageBox>
@@ -123,8 +123,8 @@ const MainCurriculumBox = () => {
           </div>
         </CurriculumItem>
       </CurriculumList>
-    </MainCurriculumBoxBlock>
+    </MainBoxForCurriculumBlock>
   );
 };
 
-export default MainCurriculumBox;
+export default MainBoxForCurriculum;

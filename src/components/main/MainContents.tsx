@@ -4,13 +4,13 @@ import MainBoxForCover from './MainBoxForCover';
 import Floating from '@components/common/Floating';
 import MainBoxForBriefing from './MainBoxForBriefing';
 import MainBoxForAnalyze from './MainBoxForAnalyze';
-import MainExampleBox from './MainExampleBox';
-import MainCurriculumBox from './MainCurriculumBox';
+import MainBoxForExample from './MainBoxForExample';
+import MainBoxForCurriculum from './MainBoxForCurriculum';
 import translateFontSize from '@utils/translateFontSize';
 import MainBoxForMerit from './MainBoxForMerit';
-import MainRecommendBox from './MainRecommendBox';
-import MainLastCoverBox from './MainLastCoverBox';
-import MainSolutionBox from './MainSolutionBox';
+import MainBoxForRecommand from './MainBoxForRecommand';
+import MainBoxForLastCover from './MainBoxForLastCover';
+import MainBoxForSolution from './MainBoxForSolution';
 import palette from '@assets/colors';
 
 const MainContentsBlock = styled(Responsive)`
@@ -82,16 +82,16 @@ const MainContents = () => {
             <MainBoxForAnalyze />
           </div>
           {/* max width 1176px */}
-          <MainExampleBox />
+          <MainBoxForExample />
         </ContentsWrapper1>
 
         <ContentsWrapper2>
           <h2>지원사업연구소가 자신 있는 이유입니다.</h2>
           <MainBoxForMerit />
-          <MainRecommendBox />
-          <MainCurriculumBox />
-          <MainSolutionBox />
-          <MainLastCoverBox />
+          <MainBoxForRecommand />
+          <MainBoxForCurriculum />
+          <MainBoxForSolution />
+          <MainBoxForLastCover />
         </ContentsWrapper2>
       </MainContentsBlock>
 

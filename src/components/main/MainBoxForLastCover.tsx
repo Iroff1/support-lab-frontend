@@ -5,7 +5,7 @@ import ConsultButton from '@components/common/ConsultButton';
 
 const IMAGE_LAST_COVER = require('@assets/images/main/image_cover_last.png');
 
-const MainLastCoverBoxBlock = styled.div`
+const MainBoxForLastCoverBlock = styled.div`
   width: 100%;
   height: calc(100vh - 64px);
   display: flex;
@@ -40,9 +40,9 @@ const CoverBoxContent = styled.div`
   }
 `;
 
-const MainLastCoverBox = () => {
+const MainBoxForLastCover = () => {
   return (
-    <MainLastCoverBoxBlock>
+    <MainBoxForLastCoverBlock>
       <CoverBox>
         <CoverBoxContent>
           <h2>
@@ -63,7 +63,7 @@ const MainLastCoverBox = () => {
 
         <ConsultButton location="body">무료 상담</ConsultButton>
       </CoverBox>
-    </MainLastCoverBoxBlock>
+    </MainBoxForLastCoverBlock>
   );
 };
-export default MainLastCoverBox;
+export default MainBoxForLastCover;
