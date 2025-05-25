@@ -12,6 +12,8 @@ const ICON_CURRICULAM = [
 ];
 
 const MainBoxForCurriculumBlock = styled.div`
+  width: 100%;
+  max-width: 1032px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,21 +21,26 @@ const MainBoxForCurriculumBlock = styled.div`
 `;
 
 const CurriculumList = styled.div`
-  width: 952px;
+  width: 100%;
+  max-width: 952px;
   height: 195px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  overflow-x: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const CurriculumItem = styled.div`
-  width: 220px;
+  min-width: 220px;
   height: 195px;
   padding: 20px;
   padding-right: 0px;
   border-radius: 10px;
   background-color: #ffffff20;
-  box-shadow: 0px 4px 10px 0px #00000040;
+  border: 1px solid ${palette.black.B50};
   color: ${palette.black.B700};
   fill: ${palette.black.B700};
 
@@ -117,7 +124,7 @@ const MainBoxForCurriculum = () => {
           <div>
             <p>사업계획서 초안 받기</p>
             <p>
-              아이디어 전달 후 10분 내<br />
+              아이디어 전달 후 10분 내<br />
               결과물을 드립니다.
             </p>
           </div>
