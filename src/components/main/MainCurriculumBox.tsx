@@ -16,8 +16,6 @@ const MainCurriculumBoxBlock = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 20px;
-
-  color: ${palette.black.white};
 `;
 
 const CurriculumList = styled.div`

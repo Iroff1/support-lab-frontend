@@ -4,8 +4,9 @@ import styled, { css } from 'styled-components';
 const CHECK_ICON = require('@assets/images/common/icon_check.png');
 
 const MainRecommendBoxBlock = styled.div`
-  width: 453;
-  height: 285;
+  width: 100%;
+  max-width: 453px;
+  height: 285px;
   gap: 20px;
   display: flex;
   flex-direction: column;

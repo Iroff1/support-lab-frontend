@@ -40,7 +40,6 @@ const SolutionItem = styled.div`
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  gap: 40px;
   border-radius: 10px;
   border: 1px solid ${palette.black.B50};
   padding: 20px;
