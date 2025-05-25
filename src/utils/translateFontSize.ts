@@ -1,6 +1,7 @@
 const fontWeight = {
   Bold: '700',
   SemiBold: '600',
+  Medium: '500',
   Regular: '400',
   ExtraLight: '200',
 };
@@ -21,6 +22,8 @@ const translateFontSize = (item: string) => {
         ? fontWeight.Bold
         : upperWeight === 'SB'
         ? fontWeight.SemiBold
+        : upperWeight === 'M'
+        ? fontWeight.Medium
         : upperWeight === 'R'
         ? fontWeight.Regular
         : fontWeight.ExtraLight,
