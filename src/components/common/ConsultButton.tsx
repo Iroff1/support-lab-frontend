@@ -1,7 +1,8 @@
 import palette from '@assets/colors/index';
 import translateFontSize from '@utils/translateFontSize';
-import React from 'react';
+import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
+import Modal from './Modal';
 
 const ConsultButtonBlock = styled.div<IButtonProps>`
   width: ${(props) => (props.location === 'header' ? '117px' : '169px')};
@@ -32,10 +33,24 @@ const ConsultButton: React.FC<IButtonProps> = ({
   onClick,
   ...props
 }) => {
+  const [toggle, setToggle] = useState(false);
+
+  const handleClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    onClick && onClick(e);
+    setToggle(true);
+  };
+
+  const handleClose = () => {
+    setToggle(false);
+  };
+
   return (
-    <ConsultButtonBlock location={location} onClick={onClick} {...props}>
-      {children}
-    </ConsultButtonBlock>
+    <>
+      <ConsultButtonBlock location={location} onClick={handleClick} {...props}>
+        {children}
+      </ConsultButtonBlock>
+      {toggle ? <Modal handleClose={handleClose} /> : null}
+    </>
   );
 };
 

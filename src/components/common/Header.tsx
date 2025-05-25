@@ -148,11 +148,9 @@ const AuthButton = styled.div`
   ${css(translateFontSize('B_18'))}
 `;
 
-interface IHeaderProps {
-  showModal?: () => void;
-}
+interface IHeaderProps {}
 
-const Header: React.FC<IHeaderProps> = ({ showModal }) => {
+const Header: React.FC<IHeaderProps> = () => {
   const navigate = useNavigate();
 
   return (
@@ -196,7 +194,7 @@ const Header: React.FC<IHeaderProps> = ({ showModal }) => {
           </CategoryBox>
 
           <CategoryBox>
-            <ConsultButton onClick={showModal}>무료 상담</ConsultButton>
+            <ConsultButton>무료 상담</ConsultButton>
           </CategoryBox>
         </HeaderNavBox>
 

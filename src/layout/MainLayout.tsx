@@ -11,25 +11,13 @@ const MainBlock = styled.div`
 `;
 
 const MainLayout = () => {
-  const [toggleModal, setToggleModal] = useState(false);
-
-  const showModal = () => {
-    console.log('hi');
-    setToggleModal(true);
-  };
-  const hideModal = () => {
-    setToggleModal(false);
-  };
-
   return (
     <>
-      <Header showModal={showModal} />
+      <Header />
       <MainBlock>
         <Outlet />
       </MainBlock>
       <Footer />
-
-      {toggleModal && <Modal hideModal={hideModal} />}
     </>
   );
 };

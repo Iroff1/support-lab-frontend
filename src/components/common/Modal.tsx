@@ -80,14 +80,14 @@ const ModalExit = styled.div`
 `;
 
 interface IModalProps {
-  hideModal: () => void;
+  handleClose: () => void;
 }
 
-const Modal: React.FC<IModalProps> = ({ hideModal }) => {
+const Modal: React.FC<IModalProps> = ({ handleClose }) => {
   return (
     <ModalBlock>
       <ModalPop>
-        <ModalExit onClick={hideModal}>
+        <ModalExit onClick={handleClose}>
           <img src={MODAL_EXIT} alt="exit" />
         </ModalExit>
         <ModalHeader>
