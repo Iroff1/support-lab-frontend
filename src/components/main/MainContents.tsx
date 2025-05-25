@@ -7,10 +7,11 @@ import MainBoxForAnalyze from './MainBoxForAnalyze';
 import MainExampleBox from './MainExampleBox';
 import MainCurriculumBox from './MainCurriculumBox';
 import translateFontSize from '@utils/translateFontSize';
-import MainMeritBox from './MainMeritBox';
+import MainBoxForMerit from './MainBoxForMerit';
 import MainRecommendBox from './MainRecommendBox';
 import MainLastCoverBox from './MainLastCoverBox';
 import MainSolutionBox from './MainSolutionBox';
+import palette from '@assets/colors';
 
 const MainContentsBlock = styled(Responsive)`
   width: 100%;
@@ -64,6 +65,7 @@ const ContentsWrapper2 = styled.div`
     top: -61px;
     text-align: center;
     ${css(translateFontSize('B_29'))};
+    color: ${palette.black.white};
   }
 `;
 
@@ -85,7 +87,7 @@ const MainContents = () => {
 
         <ContentsWrapper2>
           <h2>지원사업연구소가 자신 있는 이유입니다.</h2>
-          <MainMeritBox />
+          <MainBoxForMerit />
           <MainRecommendBox />
           <MainCurriculumBox />
           <MainSolutionBox />
