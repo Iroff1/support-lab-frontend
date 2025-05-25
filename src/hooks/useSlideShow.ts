@@ -8,7 +8,7 @@ function useSlideShow(limit: number) {
   const start = () => {
     slideEvent.current = setInterval(() => {
       setIndex((prev) => (prev + 1) % limit);
-    }, 3000);
+    }, 2000);
   };
 
   const stop = () => {
