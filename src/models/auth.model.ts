@@ -29,19 +29,21 @@ export interface IRegister extends ILogin {
 }
 
 /** 서버에 전송할 register 선택 데이터 인터페이스 */
-export interface IRegisterAgreement {
-  personalInfoAgreement: boolean; // 필수 체크 항목
-  marketingAgreement: boolean;
+export interface ITermsOfUse {
+  termsOfUse: boolean; // true 필수
+  personalInfo: boolean; // true 필수
+  subscribeEvent: boolean;
 }
 
 /** 서버에 전송할 register 데이터 인터페이스 */
-export interface IRegisterRequest extends IRegister, IRegisterAgreement {}
+export interface IRegisterRequest extends IRegister, ITermsOfUse {}
 
 /** 코드레벨에서 필요한 register 상태 데이터를 위한 인터페이스 */
-export interface IRegisterState extends IRegister, IRegisterAgreement {
+export interface IRegisterState extends IRegister {
   passwordConfirm: string;
   authCode: string;
   authConfirm: string;
+  terms: ITermsOfUse;
   error: SerializedError | null;
   isValid: IAuthChecker<IRegister>;
 }
