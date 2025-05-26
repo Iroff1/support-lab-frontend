@@ -41,11 +41,11 @@ const AuthTermsOfUse = () => {
 
       {/* [필수] 개인정보 수집 및 이용 */}
       <InputForTerms
-        name="personalInfoCollection"
+        name="personalInfo"
         header="개인 정보 수집 및 이용"
         isRequired="필수"
         isWrapped={true}
-        contents={termsOfUses.personalInfoCollection}
+        contents={termsOfUses.personalInfo}
       />
 
       {/* [선택] 이벤트・혜택 정보 수신 */}
@@ -54,7 +54,7 @@ const AuthTermsOfUse = () => {
         header="이벤트・혜택 정보 수신"
         isRequired="선택"
         isWrapped={true}
-        contents={termsOfUses.receiveEventInfo}
+        contents={termsOfUses.subscribeEvent}
       />
     </AuthTermsOfUseBlock>
   );

@@ -128,7 +128,7 @@ const AuthLoginForm: React.FC<IAuthLoginForm> = ({
       </LoginBody>
 
       <LoginFooter>
-        <Link to={'register'}>회원가입</Link>
+        <Link to={'termsOfUse'}>회원가입</Link>
         <Link to={'find/password'}>비밀번호 찾기</Link>
         <Link to={'find/email'}>아이디 찾기</Link>
       </LoginFooter>

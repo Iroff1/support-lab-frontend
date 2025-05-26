@@ -5,7 +5,7 @@ import useTimer from '@hooks/useTimer';
 import {
   IAuthChecker,
   IRegister,
-  IRegisterAgreement,
+  ITermsOfUse,
   IRegisterState,
 } from '@models/auth.model';
 import {
@@ -65,17 +65,6 @@ const AuthRegisterFormContainer = () => {
     );
   };
 
-  /** InputWithCheck 컴포넌트의 onClick에 할당할 콜백 함수 */
-  const handleToggleField: TMouseEventHandler<HTMLInputElement> = (e) => {
-    dispatch(
-      changeField({
-        form: 'register',
-        key: e.currentTarget.name as keyof IRegisterAgreement,
-        value: e.currentTarget.checked,
-      }),
-    );
-  };
-
   /** isValid 갱신용 핸들러 */
   const handleValidation = (
     key: keyof IAuthChecker<IRegister>,
@@ -107,7 +96,7 @@ const AuthRegisterFormContainer = () => {
   /** register 입력 폼 submit 이벤트 핸들러 */
   const handleSubmit: TFormEventHandler = (e) => {
     e.preventDefault();
-    dispatch(authRegisterUserThunk(registerForm));
+    // dispatch(authRegisterUserThunk(registerForm));
   };
 
   // 타이머 만료 시
@@ -126,11 +115,11 @@ const AuthRegisterFormContainer = () => {
 
   // 컴포넌트 렌더링 시작 시
   useEffect(() => {
-    dispatch(initializeState({ form: 'register' })); // register 상태 초기화
     initComponent();
     return () => {
       // 컴포넌트 렌더링 종료 시
       timerReset();
+      dispatch(initializeState({ form: 'register' })); // register 상태 초기화
     };
   }, []);
 
@@ -153,14 +142,9 @@ const AuthRegisterFormContainer = () => {
       registerState={registerForm}
       timer={timer}
       disabled={
-        !(
-          Object.values(registerForm.isValid).every(
-            (value) => value === true,
-          ) && registerForm.personalInfoAgreement
-        )
+        !Object.values(registerForm.isValid).every((value) => value === true)
       }
       handleChange={handleChangeField}
-      handleToggle={handleToggleField}
       handleAuthorization={handleAuthorization}
       handleAuthCheck={handleAuthCheck}
       handleValidation={handleValidation}

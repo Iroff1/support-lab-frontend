@@ -50,7 +50,6 @@ interface IAuthRegisterForm {
   disabled: boolean;
 
   handleChange: TChangeEventHandler<HTMLInputElement>;
-  handleToggle: TMouseEventHandler<HTMLInputElement>;
   handleAuthorization: TMouseEventHandler<HTMLButtonElement>;
   handleAuthCheck: TMouseEventHandler<HTMLButtonElement>;
   handleValidation: (
@@ -65,7 +64,6 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
   registerState,
   disabled,
   handleChange,
-  handleToggle,
   handleAuthorization,
   handleAuthCheck,
   handleValidation,
@@ -208,25 +206,6 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
 
         {/* 제출 공간 */}
         <SubmitSection>
-          {/* 옵션 공간 */}
-          <OptionSection>
-            <InputWithCheck
-              useFor="auth"
-              name="personalInfoAgreement"
-              required={true}
-              onClick={handleToggle}
-            >
-              [필수] 개인정보 수집 및 이용 동의
-            </InputWithCheck>
-            <InputWithCheck
-              useFor="auth"
-              name="marketingAgreement"
-              onClick={handleToggle}
-            >
-              [선택] 마케팅 수신 동의
-            </InputWithCheck>
-          </OptionSection>
-
           {/* 버튼 공간 */}
           <SubmitButton disabled={disabled}>가입하기</SubmitButton>
         </SubmitSection>
