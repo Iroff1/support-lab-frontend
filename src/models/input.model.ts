@@ -1,4 +1,5 @@
 import React from 'react';
+import { IRegister } from './auth.model';
 
 /** 가장 기본적인 Input 인터페이스 */
 export interface IInput {
@@ -29,11 +30,14 @@ export interface IInputWithCheck extends IInput {
 /** 버튼이 같이 있는 입력 컴포넌트용 interface */
 export interface IInputWithConfirm extends IInput {
   useFor?: 'validation' | 'auth'; // 컴포넌트 사용 목표 속성
-  authChecker?: TCheckValidation; // 유효성 확인을 위한 함수를 받아오기 위한 속성
   onClick?: TMouseEventHandler<HTMLButtonElement>; // 버튼을 위한 이벤트 콜백함수 속성
 }
 
-export type TCheckValidation = (userInput: string, reg: RegExp) => boolean;
+export type TRegObj = { [key in keyof IRegister]: RegExp };
+export type TCheckValidation = (
+  userInput: string,
+  reg: keyof IRegister,
+) => boolean;
 export type TAsyncReq<T, R> = (req: T) => Promise<R>;
 
 /** change 이벤트 핸들러 함수 타입 <T : 대상 input 태그 속성>

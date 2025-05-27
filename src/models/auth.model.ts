@@ -43,7 +43,4 @@ export interface IRegisterState extends IRegister {
   passwordConfirm: string;
   authCode: string;
   authConfirm: string;
-  terms: ITermsOfUse;
-  error: SerializedError | null;
-  isValid: IAuthChecker<IRegister>;
 }

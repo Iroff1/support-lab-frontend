@@ -2,9 +2,11 @@ import { ILogin, IRegisterRequest } from '@models/auth.model';
 import client from './client';
 
 export const authGetCode = async (contact: string) => {
-  return client.get<{ text: string }>('/api/auth', {
+  const res = await client.get<{ authCode: string }>('/api/auth', {
     params: { contact: contact },
   });
+
+  return res;
 };
 
 export const authLoginUser = async (formData: ILogin) => {

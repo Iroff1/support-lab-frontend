@@ -20,18 +20,6 @@ const initialState: IAuth = {
     contact: '',
     authCode: '',
     authConfirm: '',
-    error: null,
-    isValid: {
-      email: false,
-      username: false,
-      password: false,
-      contact: false,
-    },
-    terms: {
-      termsOfUse: false,
-      personalInfo: false,
-      subscribeEvent: false,
-    },
   },
   auth: {},
   authError: {},
@@ -61,16 +49,6 @@ export const authSlice = createSlice({
     ) => {
       Object.assign(state[form], { [key]: value });
     },
-
-    /** auth[form][register][isValid] 객체의 특정 개체 토글 */
-    toggleRegisterValid: (
-      state,
-      {
-        payload: { key, value },
-      }: PayloadAction<{ key: keyof IAuthChecker<IRegister>; value: boolean }>,
-    ) => {
-      Object.assign(state.register.isValid, { [key]: value });
-    },
   },
   extraReducers: (builder) => {
     /** 전화번호를 통한 인증 번호 비동기 요청 */
@@ -80,7 +58,7 @@ export const authSlice = createSlice({
       })
       .addCase(authGetCodeThunk.fulfilled, (state, { type, payload }) => {
         console.log(type + '/성공');
-        if (payload.text) state.register.authCode = payload.text;
+        if (payload.authCode) state.register.authCode = payload.authCode;
       })
       .addCase(authGetCodeThunk.rejected, (state, { type, error }) => {
         console.log(type + '/오류');
