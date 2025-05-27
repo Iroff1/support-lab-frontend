@@ -77,7 +77,7 @@ const LoginFooter = styled.div`
 `;
 
 interface IAuthLoginForm {
-  loginState: ILogin;
+  loginForm: ILogin;
   isMaintain: boolean;
   handleChange: TChangeEventHandler<HTMLInputElement>;
   handleSubmit: TFormEventHandler;
@@ -85,8 +85,7 @@ interface IAuthLoginForm {
 }
 
 const AuthLoginForm: React.FC<IAuthLoginForm> = ({
-  loginState,
-  isMaintain,
+  loginForm,
   handleChange,
   handleSubmit,
   handleToggle,
@@ -116,10 +115,11 @@ const AuthLoginForm: React.FC<IAuthLoginForm> = ({
               로그인 상태 유지
             </InputWithCheck>
           </InputSection>
+          {/* TODO) 경고 컴포넌트 추가 바람 */}
 
           <SubmitButton
             disabled={
-              loginState.email.length === 0 || loginState.password.length === 0
+              loginForm.email.length === 0 || loginForm.password.length === 0
             }
           >
             로그인

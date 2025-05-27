@@ -1,4 +1,4 @@
-import { ILogin, IRegisterRequest } from '@models/auth.model';
+import { ILogin, IRegisterRequest, ISessionAuth } from '@models/auth.model';
 import client from './client';
 
 export const authGetCode = async (contact: string) => {
@@ -11,7 +11,10 @@ export const authGetCode = async (contact: string) => {
 
 export const authLoginUser = async (formData: ILogin) => {
   console.log('로그인 요청');
-  return client.post('/api/auth/login', { ...formData });
+  const res = await client.post<{ auth: ISessionAuth }>('/api/auth/login', {
+    ...formData,
+  });
+  return res;
 };
 
 export const authRegisterUser = async (formData: IRegisterRequest) => {

@@ -6,42 +6,44 @@ import {
   TFormEventHandler,
   TMouseEventHandler,
 } from '@models/input.model';
-import { authActions } from '@store/auth';
+import { authActions, authLoginUserThunk } from '@store/auth';
 import { useAppDispatch, useAppSelector } from '@store/index';
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const AuthLoginFormContainer = () => {
   const dispatch = useAppDispatch();
-  const { loginForm } = useAppSelector(({ auth }) => ({
+  const navigate = useNavigate();
+  const { loginForm, auth, authError } = useAppSelector(({ auth }) => ({
     loginForm: auth.login,
+    auth: auth.auth,
+    authError: auth.authError,
   }));
-  const { changeField } = authActions;
-
   const [isMaintain, setIsMaintain] = useState(false);
   const { isInit, initComponent } = useInit();
 
+  /** 로그인 폼 입력 핸들러 함수 */
   const handleChange: TChangeEventHandler<HTMLInputElement> = (e) => {
     dispatch(
-      changeField({
-        form: 'login',
+      authActions.changeField({
         key: e.target.name as keyof ILogin,
         value: e.target.value,
       }),
     );
   };
 
+  /** 로그인 유지 상태 토글 핸들러 함수 */
   const handleToggle: TMouseEventHandler<HTMLInputElement> = (e) => {
     setIsMaintain((prev) => !prev);
   };
 
+  /** 로그인 폼 상태 데이터 요청 핸들러 함수 */
   const handleSubmit: TFormEventHandler = (e) => {
-    // console.log(e);
     e.preventDefault();
-
     // TODO) POST /auth/login 요청 추가
-    // dispatch(authLoginUser(loginForm));
-
+    dispatch(authLoginUserThunk(loginForm));
     // TODO) isMaintain true일 경우, 로컬스토리지에 로그인 정보 저장
+    if (isMaintain) localStorage.setItem('auth', JSON.stringify(auth));
   };
 
   useEffect(() => {
@@ -49,11 +51,13 @@ const AuthLoginFormContainer = () => {
   }, []);
   useEffect(() => {
     if (!isInit) return;
-  }, []);
+    if (auth) navigate('/');
+    if (authError) alert('오류 발생!');
+  }, [auth]);
 
   return (
     <AuthLoginForm
-      loginState={loginForm}
+      loginForm={loginForm}
       isMaintain={isMaintain}
       handleChange={handleChange}
       handleSubmit={handleSubmit}

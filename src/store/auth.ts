@@ -1,28 +1,12 @@
 import { authGetCode, authLoginUser, authRegisterUser } from '@api/auth';
-import {
-  IAuth,
-  IAuthChecker,
-  ILogin,
-  IRegister,
-  IRegisterRequest,
-  IRegisterState,
-} from '@models/auth.model';
+import { IAuth, ILogin, IRegisterState } from '@models/auth.model';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 /** auth 스토어 초기 상태 값 */
 const initialState: IAuth = {
   login: { email: '', password: '' },
-  register: {
-    email: '',
-    username: '',
-    password: '',
-    passwordConfirm: '',
-    contact: '',
-    authCode: '',
-    authConfirm: '',
-  },
-  auth: {},
-  authError: {},
+  auth: null,
+  authError: null,
 };
 
 export const authSlice = createSlice({
@@ -40,75 +24,41 @@ export const authSlice = createSlice({
     changeField: (
       state,
       {
-        payload: { form, key, value },
+        payload: { key, value },
       }: PayloadAction<{
-        form: keyof IAuth;
         key: keyof IRegisterState | keyof ILogin;
         value: string | boolean;
       }>,
     ) => {
-      Object.assign(state[form], { [key]: value });
+      Object.assign(state.login, { [key]: value });
     },
   },
   extraReducers: (builder) => {
     /** 전화번호를 통한 인증 번호 비동기 요청 */
     builder
-      .addCase(authGetCodeThunk.pending, (state, { type }) => {
+      .addCase(authLoginUserThunk.pending, (state, { type }) => {
         console.log(type + '/시작');
       })
-      .addCase(authGetCodeThunk.fulfilled, (state, { type, payload }) => {
+      .addCase(authLoginUserThunk.fulfilled, (state, { type, payload }) => {
         console.log(type + '/성공');
-        if (payload.authCode) state.register.authCode = payload.authCode;
+        state.auth && Object.assign(state.auth, payload);
       })
-      .addCase(authGetCodeThunk.rejected, (state, { type, error }) => {
+      .addCase(authLoginUserThunk.rejected, (state, { type, error }) => {
         console.log(type + '/오류');
         console.error(error);
-        state.register.authCode = '111111';
-        // state.authError = error;
-      });
-    /** 회원 가입 비동기 요청 */
-    builder
-      .addCase(authRegisterUserThunk.pending, (state, { type }) => {
-        console.log(type + '/시작');
-        console.log(state.register);
-      })
-      .addCase(authRegisterUserThunk.fulfilled, (state, { type, payload }) => {
-        console.log(type + '/성공');
-        console.log(payload);
-        state.auth = payload;
-        state.authError = {};
-      })
-      .addCase(authRegisterUserThunk.rejected, (state, { type, error }) => {
-        console.log(type + '/오류');
-        console.error(error);
-        state.auth = state.register;
-        // state.auth = {};
-        // state.authError = error;
+        state.authError = error;
+
+        // test codes
+        state.auth = { username: '홍길동', token: 'qwer1234' }; // test code
       });
   },
 });
-
-export const authGetCodeThunk = createAsyncThunk(
-  'auth/getCode',
-  async (userContact: string) => {
-    const res = await authGetCode(userContact);
-    return res.data;
-  },
-);
 
 export const authLoginUserThunk = createAsyncThunk(
   'auth/loginUser',
   async (formData: ILogin) => {
     const res = await authLoginUser(formData);
-    return res.data;
-  },
-);
-
-export const authRegisterUserThunk = createAsyncThunk(
-  'auth/registerUser',
-  async (formData: IRegisterRequest) => {
-    const res = await authRegisterUser(formData);
-    return res.data;
+    return res.data.auth;
   },
 );
 

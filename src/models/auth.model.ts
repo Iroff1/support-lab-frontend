@@ -6,9 +6,14 @@ export type IAuthChecker<T> = {
 
 export interface IAuth {
   login: ILogin;
-  register: IRegisterState;
-  auth: ILogin | IRegisterRequest | {};
-  authError: SerializedError;
+  auth: ISessionAuth | null;
+  authError: SerializedError | null;
+}
+
+/** 사용자 권한 데이터 인터페이스 */
+export interface ISessionAuth {
+  username: string;
+  token: string;
 }
 
 /** 서버에 전송할 login 데이터 인터페이스 */

@@ -17,6 +17,7 @@ import { useNavigate } from 'react-router-dom';
 
 const TIMER_INIT = -1;
 const TIMER_LIMIT = 5;
+// const TIMER_LIMIT = 300;
 
 const AuthRegisterFormContainer = () => {
   const navigate = useNavigate();
