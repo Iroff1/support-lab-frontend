@@ -9,6 +9,8 @@ import {
   TFormEventHandler,
   TMouseEventHandler,
 } from '@models/input.model';
+import { useAppDispatch, useAppSelector } from '@store/index';
+import { termsActions } from '@store/terms';
 import checkValidation from '@utils/checkValidation';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -18,6 +20,11 @@ const TIMER_LIMIT = 5;
 
 const AuthRegisterFormContainer = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { a, b } = useAppSelector(({ terms }) => ({
+    a: terms.termsOfUse,
+    b: terms.personalInfo,
+  }));
   const [registerForm, setRegisterForm] = useState<IRegisterState>({
     email: '',
     username: '',
@@ -33,6 +40,7 @@ const AuthRegisterFormContainer = () => {
     username: false,
     contact: false,
   });
+  const [confirmAuth, setConfirmAuth] = useState(false);
 
   const { timer, timerEvent, timerStart, timerReset } = useTimer(
     TIMER_INIT,
@@ -57,6 +65,12 @@ const AuthRegisterFormContainer = () => {
     setRegisterForm((prev) => ({ ...prev, [userInputKey]: userInputValue }));
   };
 
+  /** checkList 속성 토글 핸들링 함수 */
+  const handleValidCheck = (key: keyof IRegister) => {
+    const result = checkValidation(registerForm[key], key);
+    setCheckList((prev) => ({ ...prev, [key]: result }));
+  };
+
   /** InputForAuthorization 컴포넌트의 onClick에 할당할 인증용 핸들러 함수 */
   const handleAuthorization: TMouseEventHandler<HTMLButtonElement> = async (
     e,
@@ -75,6 +89,8 @@ const AuthRegisterFormContainer = () => {
     } catch (e) {
       // test code
       // alert(e);
+      timerStart(); // 타이머 시작
+
       setRegisterForm((prev) => ({
         ...prev,
         authCode: '111111',
@@ -83,7 +99,7 @@ const AuthRegisterFormContainer = () => {
   };
 
   /** InputForValidation[name="authConfirm"] 컴포넌트의 onClick에 할당할 콜백 함수 */
-  const handleAuthCheck: TMouseEventHandler<HTMLButtonElement> = (e) => {
+  const handleAuthConfirm: TMouseEventHandler<HTMLButtonElement> = () => {
     if (
       registerForm.authCode.length === 6 &&
       registerForm.authCode === registerForm.authConfirm
@@ -91,7 +107,8 @@ const AuthRegisterFormContainer = () => {
       timerReset(); // 타이머 초기화
 
       // TODO)
-      setRegisterForm((prev) => ({ ...prev }));
+      setConfirmAuth(true);
+      setCheckList((prev) => ({ ...prev, contact: true }));
       // dispatch(toggleRegisterValid({ key: 'contact', value: true }));
     }
   };
@@ -99,67 +116,62 @@ const AuthRegisterFormContainer = () => {
   /** register 입력 폼 submit 이벤트 핸들러 */
   const handleSubmit: TFormEventHandler = (e) => {
     e.preventDefault();
-    // dispatch(authRegisterUserThunk(registerForm));
-  };
+    // TODO) 비동기 요청 (PUT auth/register)
 
-  // 타이머 만료 시
+    // console.log(registerForm); // test code
+    // console.log(checkList); // test code
+    alert('회원가입 완료!');
+    navigate('/');
+  };
 
   // 컴포넌트 렌더링 시작 시
   useEffect(() => {
     initComponent();
-    return () => {
-      // 컴포넌트 렌더링 종료 시
-      timerReset();
-    };
   }, []);
+
+  useEffect(() => {
+    if (!(a && b)) navigate('../termsOfUse'); // 새로 고침 후 약관 상태 초기화 시 다시 약관페이지로
+  }, [a, b]);
 
   // 초기 렌더링 이후
   useEffect(() => {
     if (!isInit) return;
-    // TODO) 타이머 만료 시 authCode, authConfirm 초기화
     if (timerEvent.current && timer < 0) {
       timerReset(); // 타이머 초기화
       setRegisterForm((prev) => ({ ...prev, authCode: '', authConfirm: '' }));
     }
-  }, [isInit, timer]);
+    return () => {
+      // 컴포넌트 렌더링 종료 시
+      timerReset();
+      dispatch(termsActions.initialState());
+    };
+  }, [isInit]);
 
   // 입력 폼 유효성 추적
   useEffect(() => {
-    checkValidation(registerForm.email, 'email')
-      ? setCheckList((prev) => ({ ...prev, email: true }))
-      : setCheckList((prev) => ({ ...prev, email: false }));
-  }, [registerForm.email]);
-
-  useEffect(() => {
-    checkValidation(registerForm.username, 'username')
-      ? setCheckList((prev) => ({ ...prev, username: true }))
-      : setCheckList((prev) => ({ ...prev, username: false }));
-  }, [registerForm.username]);
-
-  useEffect(() => {
-    checkValidation(registerForm.contact, 'contact')
-      ? setCheckList((prev) => ({ ...prev, contact: true }))
-      : setCheckList((prev) => ({ ...prev, contact: false }));
-  }, [registerForm.contact]);
-
-  useEffect(() => {
-    checkValidation(registerForm.password, 'password')
-      ? setCheckList((prev) => ({ ...prev, password: true }))
-      : setCheckList((prev) => ({ ...prev, password: false }));
+    handleValidCheck('password');
   }, [registerForm.password]);
+  useEffect(() => {
+    handleValidCheck('username');
+  }, [registerForm.username]);
 
   return (
     <AuthRegisterForm
       registerState={registerForm}
       checkList={checkList}
       timer={timer}
-      disabled={Object.keys(checkList).every((key, index) => {
-        checkList[key as keyof IAuthChecker<IRegister>];
-      })}
+      confirmAuth={confirmAuth}
+      isReady={
+        // 모든 정규표현식 통과 + 본인인증 완료
+        Object.keys(checkList).every(
+          (key) => checkList[key as keyof IAuthChecker<IRegister>],
+        ) && confirmAuth
+      }
       handleChange={handleChangeField}
       handleAuthorization={handleAuthorization}
-      handleAuthCheck={handleAuthCheck}
+      handleAuthConfirm={handleAuthConfirm}
       handleSubmit={handleSubmit}
+      handleValidCheck={handleValidCheck}
     />
   );
 };

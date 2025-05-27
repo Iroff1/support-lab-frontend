@@ -14,6 +14,8 @@ const AuthTermsOfUseBlock = styled.div`
   flex-direction: column;
   gap: 34px;
 
+  margin-bottom: 30px;
+
   & > div {
     width: 100%;
   }
@@ -85,8 +87,9 @@ const AuthTermsOfUse: React.FC<IAuthTermsOfUse> = (props) => {
         disabled={
           !(props.termsOfUses.termsOfUse && props.termsOfUses.personalInfo)
         }
-        onClick={() => {
-          props.handleSubmit();
+        onClick={(e) => {
+          if (props.termsOfUses.termsOfUse && props.termsOfUses.personalInfo)
+            props.handleSubmit();
         }}
       >
         확인

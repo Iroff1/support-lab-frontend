@@ -1,17 +1,22 @@
-import { IInputWithConfirm, TMouseEventHandler } from '@models/input.model';
-import React, { useState } from 'react';
+import {
+  IInputWithConfirm,
+  TChangeEventHandler,
+  TMouseEventHandler,
+} from '@models/input.model';
+import React, { use, useEffect, useState } from 'react';
 import InputWithConfirm from './InputWithConfirm';
 
 const InputForValidation: React.FC<IInputWithConfirm> = ({
   cautionText: prevCaution,
   isValid: prevIsValid = false,
   onClick,
+  onChange,
   disabled,
   ...props
 }) => {
   const [nextIsValid, setNextIsValid] = useState(false);
   const [nextCaution, setNextCaution] = useState<string | React.ReactNode>('');
-  const [isDone, setIsDone] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
 
   const handleClick: TMouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
@@ -19,20 +24,34 @@ const InputForValidation: React.FC<IInputWithConfirm> = ({
     // 넘겨받은 클릭 이벤트
     onClick && onClick(e);
 
-    // 클릭 시에 속성으로 넘길 값들 갱신
-    setNextIsValid(prevIsValid);
-    setIsDone(prevIsValid);
-    prevCaution && setNextCaution(prevCaution);
+    setIsClicked(true);
   };
+
+  const handleChange: TChangeEventHandler<HTMLInputElement> = (e) => {
+    onChange && onChange(e);
+    setIsClicked(false);
+  };
+
+  // useEffect(() => {
+  //   if (!isClicked) return;
+  //   setIsDone(false);
+  // }, [isClicked]);
 
   return (
     <InputWithConfirm
       {...props}
-      isValid={nextIsValid}
-      cautionText={nextCaution}
+      isValid={prevIsValid}
+      cautionText={isClicked && prevCaution}
       onClick={handleClick}
+      onChange={handleChange}
       useFor="validation"
-      disabled={disabled || isDone}
+      disabled={
+        typeof disabled === 'undefined'
+          ? prevIsValid && isClicked
+          : disabled
+          ? true
+          : disabled && prevIsValid && isClicked
+      }
     />
   );
 };

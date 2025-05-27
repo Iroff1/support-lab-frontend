@@ -11,8 +11,8 @@ export const termsSlice = createSlice({
   name: 'terms',
   initialState,
   reducers: {
-    initialState: (state, _) => {
-      state = initialState;
+    initialState: (state) => {
+      Object.assign(state, initialState);
     },
     toggleOne: (state, { payload: name }: PayloadAction<keyof ITermsOfUse>) => {
       state[name] = !state[name];
