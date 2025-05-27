@@ -1,6 +1,6 @@
-import AuthTermsOfUse from '@components/auth/AuthTermsOfUse';
+import AuthTermsOfUseContainer from '@containers/auth/AuthTermsOfUseContainer';
 
 const AuthTermsOfUsePage = () => {
-  return <AuthTermsOfUse />;
+  return <AuthTermsOfUseContainer />;
 };
 export default AuthTermsOfUsePage;

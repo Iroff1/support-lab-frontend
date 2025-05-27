@@ -24,12 +24,18 @@ const SubmitButtonBlock = styled.button`
 interface ISubmitButton {
   children: string;
   disabled?: boolean;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
   ref?: React.RefObject<HTMLButtonElement | null>;
 }
 
-const SubmitButton: React.FC<ISubmitButton> = ({ children, ref, disabled }) => {
+const SubmitButton: React.FC<ISubmitButton> = ({
+  children,
+  ref,
+  disabled,
+  onClick,
+}) => {
   return (
-    <SubmitButtonBlock ref={ref} disabled={disabled}>
+    <SubmitButtonBlock ref={ref} disabled={disabled} onClick={onClick}>
       {children}
     </SubmitButtonBlock>
   );

@@ -1,5 +1,6 @@
 import palette from '@assets/colors';
 import useScroll from '@hooks/useScroll';
+import { ITermsOfUse } from '@models/auth.model';
 import { TMouseEventHandler } from '@models/input.model';
 import translateFontSize from '@utils/translateFontSize';
 import { useEffect, useRef } from 'react';
@@ -16,7 +17,7 @@ const Wrapper = styled.label`
   height: 100%;
   display: flex;
   gap: 7px;
-
+  position: relative;
   &:hover {
     & > .checkBox {
       border: 3px solid #444444;
@@ -78,8 +79,9 @@ const CheckBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
+  position: absolute;
   top: 3px;
+  left: -28px;
 
   & > svg {
     fill: ${palette.black.white};
@@ -89,16 +91,15 @@ const CheckBox = styled.div`
 `;
 
 const Contents = styled.div`
-  width: calc(100% - 34px);
+  width: 100%;
   display: flex;
   flex-direction: column;
   margin-top: 10px;
-  margin-left: 34px;
   gap: 10px;
 
   & > p {
     color: ${palette.black.B100};
-    ${css(translateFontSize('R_17'))};
+    ${css(translateFontSize('R_14'))};
   }
 `;
 
@@ -109,13 +110,13 @@ const WrapBox = styled.div<{ h: number }>`
   padding-left: 15px;
   padding-right: 45px;
   color: ${palette.black.B100};
-  ${css(translateFontSize('R_17'))};
   border-radius: 10px;
   border: 1px solid ${palette.black.B50};
   position: relative;
 
   & > p {
     height: 100%;
+    ${css(translateFontSize('R_14'))};
     overflow-y: scroll;
     &::-webkit-scrollbar {
       display: none;
@@ -136,9 +137,10 @@ const WrapBox = styled.div<{ h: number }>`
 `;
 
 interface IInputForterms {
-  name: string;
+  name: keyof ITermsOfUse | 'checkAll';
   isRequired?: '필수' | '선택';
   isWrapped?: boolean;
+  isChecked?: boolean;
   onClick?: TMouseEventHandler<HTMLInputElement>;
   header: string;
   contents: string;
@@ -152,6 +154,7 @@ const InputForTerms: React.FC<IInputForterms> = ({
   header,
   contents,
   isWrapped,
+  isChecked,
 }) => {
   const { state, handleScrollY } = useScroll();
   const ref = useRef<HTMLParagraphElement | null>(null);
@@ -184,6 +187,7 @@ const InputForTerms: React.FC<IInputForterms> = ({
           name={name}
           required={isRequired === '필수'}
           onClick={onClick}
+          checked={isChecked}
         />
         <CheckBox className="checkBox">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
