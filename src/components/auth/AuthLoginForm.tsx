@@ -38,14 +38,13 @@ const InputSection = styled.div`
 `;
 
 const LoginFooter = styled.div`
-  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 20px;
   margin-top: 28px;
 
   & > a {
-    flex: 1;
     ${css(translateFontSize('R_17'))};
     color: ${palette.black.B80};
     text-align: center;
@@ -55,24 +54,19 @@ const LoginFooter = styled.div`
     }
   }
 
-  & > a:nth-child(2) {
+  & > div {
+    width: 4.25px;
+    height: 14px;
     position: relative;
-    &::before,
-    &::after {
+    &::before {
       content: '';
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
       width: 1px;
       height: 14px;
+      position: absolute;
       background-color: ${palette.black.B40};
-    }
-
-    &::before {
-      left: 0px;
-    }
-    &::after {
-      right: 0px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
   }
 `;
@@ -138,7 +132,9 @@ const AuthLoginForm: React.FC<IAuthLoginForm> = ({
 
       <LoginFooter>
         <Link to={'termsOfUse'}>회원가입</Link>
+        <div />
         <Link to={'find/password'}>비밀번호 찾기</Link>
+        <div />
         <Link to={'find/email'}>아이디 찾기</Link>
       </LoginFooter>
     </>
