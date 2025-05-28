@@ -40,6 +40,7 @@ const RecommendBoxBody = styled.div`
   }
 `;
 
+/** 서비스를 추천해줄 만한 사용자들에 대한 내용을 담은 컴포넌트 */
 const MainBoxForRecommand = () => {
   return (
     <MainBoxForRecommendBlock>

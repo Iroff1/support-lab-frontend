@@ -103,6 +103,7 @@ const BoxItem = styled.div`
   }
 `;
 
+/** 서비스가 가지는 메리트에 관한 내용을 담은 컴포넌트 */
 const MainBoxForMerit = () => {
   return (
     <MainBoxForMeritBlock>

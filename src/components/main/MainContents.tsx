@@ -19,6 +19,7 @@ const MainContentsBlock = styled(Responsive)`
   margin-top: 64px;
 `;
 
+/** 최대 너비가 지정된 컨텐츠를 감싸는 블럭 */
 const ContentsWrapper1 = styled.div`
   width: 100%;
 
@@ -50,6 +51,7 @@ const ContentsWrapper1 = styled.div`
   }
 `;
 
+/** ContentsWrapper1 이후로 출력될 컨텐츠를 감싸는 블럭 */
 const ContentsWrapper2 = styled.div`
   width: 100%;
   display: flex;
@@ -69,6 +71,7 @@ const ContentsWrapper2 = styled.div`
   }
 `;
 
+/** 메인 페이지의 모든 컨텐츠 내용을 담는 컴포넌트 */
 const MainContents = () => {
   return (
     <>

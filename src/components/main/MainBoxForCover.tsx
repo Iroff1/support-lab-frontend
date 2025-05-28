@@ -43,6 +43,7 @@ const MainCoverBoxBlock = styled.div`
   }
 `;
 
+/** 메인 페이지의 최상단 화면 커버용 컴포넌트 */
 const MainBoxForCover = () => {
   return (
     <MainCoverBoxBlock>

@@ -96,6 +96,7 @@ const SolutionButton = styled.button`
   }
 `;
 
+//** 서비스에서 제공하는 솔루션에 관한 내용을 담은 컴포넌트 */
 const MainBoxForSolution = () => {
   return (
     <MainBoxForSolutionBlock>

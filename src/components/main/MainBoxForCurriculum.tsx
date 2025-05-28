@@ -75,6 +75,7 @@ const RightArrow = () => {
   );
 };
 
+/** 서비스 이용 과정에 관한 내용을 담은 컴포넌트 */
 const MainBoxForCurriculum = () => {
   return (
     <MainBoxForCurriculumBlock>

@@ -156,6 +156,7 @@ const SlideBox = styled.div<{ index: number }>`
   }
 `;
 
+/** 서비스 이용 예시 내용을 담은 컴포넌트 */
 const MainBoxForExample = () => {
   const slideShow = useSlideShow(IMAGE_DOC_AFTER.length);
 

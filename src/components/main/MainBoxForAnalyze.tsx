@@ -53,6 +53,7 @@ const Card = styled.div`
   }
 `;
 
+/** 서비스 미래 고객층을 분석하는 내용을 담은 컴포넌트 */
 const MainBoxForAnalyze = () => {
   return (
     <MainBoxForAnalyzeBlock>

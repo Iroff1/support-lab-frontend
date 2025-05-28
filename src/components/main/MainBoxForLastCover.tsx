@@ -40,6 +40,7 @@ const CoverBoxContent = styled.div`
   }
 `;
 
+/** 메인 페이지 마지막 화면 커버용 컴포넌트 */
 const MainBoxForLastCover = () => {
   return (
     <MainBoxForLastCoverBlock>

@@ -32,6 +32,7 @@ const MainBoxForBriefingBlock = styled.div`
   }
 `;
 
+/** 지원사업 연구소 서비스를 브리핑하는 내용을 담은 블럭 */
 const MainBoxForBriefing = () => {
   return (
     <>
