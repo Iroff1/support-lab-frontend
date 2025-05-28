@@ -1,6 +1,6 @@
-import AuthFindForm from '@components/auth/AuthFindForm';
+import AuthFindPassword from '@components/auth/AuthFindPassword';
 
 const AuthFindPasswordPage = () => {
-  return <AuthFindForm isPasswordForm />;
+  return <AuthFindPassword />;
 };
 export default AuthFindPasswordPage;

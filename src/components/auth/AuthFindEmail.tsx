@@ -35,14 +35,14 @@ interface IAuthFindForm {
   findForm: IFindEmailFormState;
   checkResult: boolean;
   handleChangeField: TChangeEventHandler<HTMLInputElement>;
-  handleFind: () => void;
+  handleFindEmail: () => void;
 }
 
 const AuthFindEmail: React.FC<IAuthFindForm> = ({
   findForm,
   checkResult,
   handleChangeField,
-  handleFind,
+  handleFindEmail,
 }) => {
   return (
     <>
@@ -71,7 +71,7 @@ const AuthFindEmail: React.FC<IAuthFindForm> = ({
       </FindForm>
 
       <FindSubmit>
-        <SubmitButton disabled={!checkResult} onClick={handleFind}>
+        <SubmitButton disabled={!checkResult} onClick={handleFindEmail}>
           아이디 찾기
         </SubmitButton>
       </FindSubmit>

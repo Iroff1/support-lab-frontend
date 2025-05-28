@@ -34,3 +34,12 @@ export const authGetEmail = async (username: string, contact: string) => {
   });
   return res;
 };
+
+// GET/auth 비밀번호 찾기
+export const authGetPassword = async (email: string) => {
+  console.log('비밀번호 찾기');
+  const res = await client.get<{ password: string }>('/api/auth/find/email', {
+    params: { email: email },
+  });
+  return res;
+};

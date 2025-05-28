@@ -25,6 +25,7 @@ const AuthFindEmailContainer = () => {
     contact: false,
   });
 
+  /** input 컴포넌트들에 할당할 onChange 핸들러 함수 */
   const handleChangeField: TChangeEventHandler<HTMLInputElement> = (
     e,
     reg,
@@ -41,7 +42,8 @@ const AuthFindEmailContainer = () => {
     setFindForm((prev) => ({ ...prev, [userInputKey]: userInputValue }));
   };
 
-  const handleFind = async () => {
+  /** SubmitButton에 할당할 onClick 핸들러 함수 */
+  const handleFindEmail = async () => {
     if (!checkResult) return;
     try {
       // TODO) GET auth/email 이메일 정보 요청 비동기 처리 후 이메일 상태 초기화
@@ -70,7 +72,7 @@ const AuthFindEmailContainer = () => {
       findForm={findForm}
       checkResult={checkResult}
       handleChangeField={handleChangeField}
-      handleFind={handleFind}
+      handleFindEmail={handleFindEmail}
     />
   ) : (
     <AuthShowEmail
