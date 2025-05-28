@@ -6,12 +6,12 @@ export type IAuthChecker<T> = {
 
 export interface IAuth {
   login: ILogin;
-  auth: ISessionAuth | null;
+  auth: ILocalAuth | null;
   authError: SerializedError | null;
 }
 
 /** 사용자 권한 데이터 인터페이스 */
-export interface ISessionAuth {
+export interface ILocalAuth {
   username: string;
   token: string;
 }
