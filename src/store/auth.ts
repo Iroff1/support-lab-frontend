@@ -1,5 +1,5 @@
 import { authGetCode, authLoginUser, authRegisterUser } from '@api/auth';
-import { IAuth, ILogin, IRegisterState } from '@models/auth.model';
+import { IAuth, ILocalAuth, ILogin, IRegisterState } from '@models/auth.model';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 /** auth 스토어 초기 상태 값 */
@@ -14,11 +14,9 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     /** auth[form] 상태 초기화 */
-    initializeState: (
-      state,
-      { payload: { form } }: PayloadAction<{ form: keyof IAuth }>,
-    ) => {
-      Object.assign(state, { [form]: initialState[form] });
+    initializeState: (state) => {
+      localStorage.getItem('auth') && localStorage.removeItem('auth');
+      Object.assign(state, initialState);
     },
     /** auth[form]의 특정 값 최신화 */
     changeField: (
@@ -32,9 +30,11 @@ export const authSlice = createSlice({
     ) => {
       Object.assign(state.login, { [key]: value });
     },
+    refreshAuth: (state, { payload: auth }: PayloadAction<ILocalAuth>) => {
+      state.auth = auth;
+    },
   },
   extraReducers: (builder) => {
-    /** 전화번호를 통한 인증 번호 비동기 요청 */
     builder
       .addCase(authLoginUserThunk.pending, (state, { type }) => {
         console.log(type + '/시작');
@@ -49,11 +49,12 @@ export const authSlice = createSlice({
         state.authError = error;
 
         // test codes
-        state.auth = { username: '홍길동', token: 'qwer1234' }; // test code
+        // state.auth = { username: '홍길동', token: 'qwer1234' }; // test code
       });
   },
 });
 
+/** 전화번호를 통한 인증 번호 비동기 요청 */
 export const authLoginUserThunk = createAsyncThunk(
   'auth/loginUser',
   async (formData: ILogin) => {
