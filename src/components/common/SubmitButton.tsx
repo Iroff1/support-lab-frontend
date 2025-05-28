@@ -3,7 +3,7 @@ import translateFontSize from '@utils/translateFontSize';
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-const SubmitButtonBlock = styled.button`
+export const SubmitButtonBlock = styled.button`
   width: 100%;
   height: 48px;
   border-radius: 8px;
