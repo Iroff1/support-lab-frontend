@@ -2,7 +2,7 @@ import AuthTermsOfUse from '@components/auth/AuthTermsOfUse';
 import { ITermsOfUse } from '@models/auth.model';
 import { useAppDispatch, useAppSelector } from '@store/index';
 import { termsActions } from '@store/terms';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const AuthTermsOfUseContainer = () => {
@@ -36,4 +36,4 @@ const AuthTermsOfUseContainer = () => {
     />
   );
 };
-export default AuthTermsOfUseContainer;
+export default React.memo(AuthTermsOfUseContainer);
