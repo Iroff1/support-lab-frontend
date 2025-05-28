@@ -1,6 +1,6 @@
 import { authGetCode } from '@api/auth';
 import AuthRegisterForm from '@components/auth/AuthRegisterForm';
-import { regValid } from '@consts/reg';
+import useCheckList from '@hooks/useCheckList';
 import useInit from '@hooks/useInit';
 import useTimer from '@hooks/useTimer';
 import { IAuthChecker, IRegister, IRegisterState } from '@models/auth.model';
@@ -35,7 +35,7 @@ const AuthRegisterFormContainer = () => {
     authCode: '',
     authConfirm: '',
   });
-  const [checkList, setCheckList] = useState<IAuthChecker<IRegister>>({
+  const { checkList, handleCheckList } = useCheckList<IRegister>({
     email: false,
     password: false,
     username: false,
@@ -69,7 +69,7 @@ const AuthRegisterFormContainer = () => {
   /** checkList 속성 토글 핸들링 함수 */
   const handleValidCheck = (key: keyof IRegister) => {
     const result = checkValidation(registerForm[key], key);
-    setCheckList((prev) => ({ ...prev, [key]: result }));
+    handleCheckList(key, result);
   };
 
   /** InputForAuthorization 컴포넌트의 onClick에 할당할 인증용 핸들러 함수 */
@@ -109,7 +109,7 @@ const AuthRegisterFormContainer = () => {
 
       // TODO)
       setConfirmAuth(true);
-      setCheckList((prev) => ({ ...prev, contact: true }));
+      handleCheckList('contact', true);
       // dispatch(toggleRegisterValid({ key: 'contact', value: true }));
     }
   };
