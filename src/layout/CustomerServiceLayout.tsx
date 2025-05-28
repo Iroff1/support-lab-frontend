@@ -1,4 +1,4 @@
-import Header from '@components/common/Header';
+import HeaderContainer from '@containers/common/HeaderContainer';
 import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -12,7 +12,7 @@ const CustomerServiceLayoutBlock = styled.div`
 const CustomerServiceLayout = () => {
   return (
     <>
-      <Header />
+      <HeaderContainer />
       <CustomerServiceLayoutBlock>
         <Outlet />
       </CustomerServiceLayoutBlock>

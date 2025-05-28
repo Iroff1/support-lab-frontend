@@ -1,11 +1,12 @@
 import styled, { css } from 'styled-components';
 import Responsive from './Responsive';
-import { Link, useNavigate } from 'react-router';
+import { Link } from 'react-router';
 import palette from '@assets/colors/index';
 import translateFontSize from '@utils/translateFontSize';
 import React from 'react';
 import Blank from './Blank';
 import ConsultButton from './ConsultButton';
+import { ILocalAuth } from '@models/auth.model';
 
 const LOGO_HEADER = require('@assets/images/common/header_logo_pc.png');
 
@@ -54,7 +55,8 @@ const CategoryBox = styled.div`
   ${css(translateFontSize('R_18'))};
   position: relative;
 
-  & > a {
+  & > a,
+  & > span {
     height: 100%;
     display: flex;
     justify-content: center;
@@ -93,28 +95,30 @@ const CategoryBox = styled.div`
         width: 100%;
         height: 25px;
 
-        & > a {
+        & > a,
+        & > span {
           height: 100%;
           display: flex;
           align-items: center;
+          cursor: pointer;
 
-          &:hover > span::before {
-            transform: scaleX(1);
-          }
           & > span {
             position: relative;
             ${css(translateFontSize('R_18'))};
-            &::before {
-              position: absolute;
-              bottom: 0;
-              left: 0;
-              content: '';
-              height: 1px;
-              width: 100%;
-              transform: scaleX(0);
-              background-color: #333;
-              transition: 0.2s ease transform;
-            }
+          }
+          & > span::before {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            content: '';
+            height: 1px;
+            width: 100%;
+            transform: scaleX(0);
+            background-color: #333;
+            transition: 0.2s ease transform;
+          }
+          &:hover > span::before {
+            transform: scaleX(1);
           }
         }
       }
@@ -145,22 +149,29 @@ const AuthButton = styled.div`
   align-items: center;
   background-color: transparent;
   cursor: pointer;
-  ${css(translateFontSize('B_18'))}
+  ${css(translateFontSize('R_18'))};
+  & > strong {
+    ${css(translateFontSize('B_18'))};
+  }
 `;
 
-interface IHeaderProps {}
+interface IHeader {
+  auth: ILocalAuth | null;
+  handleLogin: () => void;
+  handleLogout: () => void;
+  handleGoHome: () => void;
+}
 
-const Header: React.FC<IHeaderProps> = () => {
-  const navigate = useNavigate();
-
+const Header: React.FC<IHeader> = ({
+  auth,
+  handleLogin,
+  handleLogout,
+  handleGoHome,
+}) => {
   return (
     <HeaderBlock>
       <HeaderResponsiveBox>
-        <HeaderLogoBox
-          onClick={() => {
-            navigate('/');
-          }}
-        />
+        <HeaderLogoBox onClick={handleGoHome} />
 
         <HeaderNavBox>
           <CategoryBox>
@@ -199,37 +210,48 @@ const Header: React.FC<IHeaderProps> = () => {
         </HeaderNavBox>
 
         <AuthBox>
-          <AuthButton onClick={() => navigate('/auth')}>로그인</AuthButton>
+          <AuthButton onClick={handleLogin}>
+            {auth ? (
+              <>
+                <strong>{auth.username}</strong> 님
+              </>
+            ) : (
+              '로그인'
+            )}
+          </AuthButton>
           <Blank width="100%" height="12px" />
-          <div className="dropDown">
-            <ul>
-              <li>
-                <Link to={'/'}>
-                  <span>사업계획서 관리</span>
-                </Link>
-              </li>
-              <li>
-                <Link to={'/'}>
-                  <span>구매내역</span>
-                </Link>
-              </li>
-              <li>
-                <Link to={'/'}>
-                  <span>개인정보 수정</span>
-                </Link>
-              </li>
-              <li>
-                <Link to={'/'}>
-                  <span>문의 내역</span>
-                </Link>
-              </li>
-              <li>
-                <Link to={'/'}>
-                  <span>로그아웃</span>
-                </Link>
-              </li>
-            </ul>
-          </div>
+
+          {auth ? (
+            <div className="dropDown">
+              <ul>
+                <li>
+                  <Link to={'/'}>
+                    <span>사업계획서 관리</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to={'/'}>
+                    <span>구매내역</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to={'/'}>
+                    <span>개인정보 수정</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to={'/'}>
+                    <span>문의 내역</span>
+                  </Link>
+                </li>
+                <li>
+                  <span onClick={handleLogout}>
+                    <span>로그아웃</span>
+                  </span>
+                </li>
+              </ul>
+            </div>
+          ) : null}
         </AuthBox>
       </HeaderResponsiveBox>
     </HeaderBlock>

@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router';
 import styled from 'styled-components';
-import Header from '@components/common/Header';
 import Footer from '@components/common/Footer';
+import HeaderContainer from '@containers/common/HeaderContainer';
 
 const MainBlock = styled.div`
   width: 100%;
@@ -11,7 +11,7 @@ const MainBlock = styled.div`
 const MainLayout = () => {
   return (
     <>
-      <Header />
+      <HeaderContainer />
       <MainBlock>
         <Outlet />
       </MainBlock>
