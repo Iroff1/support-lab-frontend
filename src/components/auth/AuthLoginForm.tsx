@@ -15,6 +15,7 @@ import {
   TFormEventHandler,
   TMouseEventHandler,
 } from '@models/input.model';
+import { SerializedError } from '@reduxjs/toolkit';
 
 const LoginBody = styled.div`
   width: 100%;
@@ -79,6 +80,8 @@ const LoginFooter = styled.div`
 interface IAuthLoginForm {
   loginForm: ILogin;
   isMaintain: boolean;
+  loginError: SerializedError | null;
+
   handleChange: TChangeEventHandler<HTMLInputElement>;
   handleSubmit: TFormEventHandler;
   handleToggle: TMouseEventHandler<HTMLInputElement>;
@@ -86,6 +89,7 @@ interface IAuthLoginForm {
 
 const AuthLoginForm: React.FC<IAuthLoginForm> = ({
   loginForm,
+  loginError,
   handleChange,
   handleSubmit,
   handleToggle,
@@ -116,6 +120,11 @@ const AuthLoginForm: React.FC<IAuthLoginForm> = ({
             </InputWithCheck>
           </InputSection>
           {/* TODO) 경고 컴포넌트 추가 바람 */}
+          {loginError && (
+            <Caution color="red">
+              아이디 또는 비밀번호가 일치하지 않습니다.
+            </Caution>
+          )}
 
           <SubmitButton
             disabled={

@@ -42,8 +42,6 @@ const AuthLoginFormContainer = () => {
     e.preventDefault();
     // TODO) POST /auth/login 요청 추가
     dispatch(authLoginUserThunk(loginForm));
-    // TODO) isMaintain true일 경우, 로컬스토리지에 로그인 정보 저장
-    if (isMaintain) localStorage.setItem('auth', JSON.stringify(auth));
   };
 
   useEffect(() => {
@@ -51,14 +49,22 @@ const AuthLoginFormContainer = () => {
   }, []);
   useEffect(() => {
     if (!isInit) return;
-    if (auth) navigate('/');
+    if (auth) {
+      // TODO) isMaintain true일 경우, 로컬스토리지에 로그인 정보 저장
+      isMaintain && localStorage.setItem('auth', JSON.stringify(auth));
+      navigate('/');
+    }
     if (authError) alert('오류 발생!');
-  }, [auth]);
+    return () => {
+      dispatch(authActions.initializeState());
+    };
+  }, [isInit, auth]);
 
   return (
     <AuthLoginForm
       loginForm={loginForm}
       isMaintain={isMaintain}
+      loginError={authError}
       handleChange={handleChange}
       handleSubmit={handleSubmit}
       handleToggle={handleToggle}
