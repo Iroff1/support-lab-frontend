@@ -11,9 +11,12 @@ const useCheckList = <T>(init: IAuthChecker<T>) => {
   };
 
   const confirmCheckList = () => {
-    for (const key of Object.keys(checkList))
-      if (!checkList[key as keyof T]) return false;
-    return true;
+    // for (const key of Object.keys(checkList))
+    //   if (!checkList[key as keyof T]) return false;
+    // return true;
+    return Object.keys(checkList).every(
+      (key) => checkList[key as keyof IAuthChecker<T>],
+    );
   };
 
   useEffect(() => {

@@ -6,8 +6,11 @@ const useInit = () => {
   const initComponent = () => {
     setIsInit(true);
   };
+  const resetComponent = () => {
+    setIsInit(false);
+  };
 
-  return { isInit, initComponent };
+  return { isInit, initComponent, resetComponent };
 };
 
 export default useInit;
