@@ -31,11 +31,11 @@ const AuthRegisterFormContainer = () => {
     username: false,
     contact: false,
   });
-  const { isInit, startInit: initComponent } = useInit();
-  const [confirmState, setConfirmState] = useState(false);
+  const { isInit, startInit } = useInit();
+  const [confirmState, setConfirmState] = useState(false); // 인증 코드 일치 확인 상태
 
   /** checkList 유효성 갱신 함수 */
-  const handleCheckValid = (key: keyof IRegister) => {
+  const handleValidCheck = (key: keyof IRegister) => {
     const result = checkValidation(registerForm[key], key);
     modifyCheckList(key, result);
   };
@@ -67,7 +67,7 @@ const AuthRegisterFormContainer = () => {
   };
 
   useEffect(() => {
-    initComponent();
+    startInit();
     // 필수 약관 상태 false인 경우, 다시 약관페이지로 리다이렉트
     if (!(terms.termsOfUse && terms.personalInfo)) navigate('../termsOfUse');
   }, []);
@@ -79,10 +79,10 @@ const AuthRegisterFormContainer = () => {
     };
   }, [isInit]);
   useEffect(() => {
-    handleCheckValid('password');
+    handleValidCheck('password');
   }, [registerForm.password]);
   useEffect(() => {
-    handleCheckValid('username');
+    handleValidCheck('username');
   }, [registerForm.username]);
 
   return (
@@ -102,7 +102,7 @@ const AuthRegisterFormContainer = () => {
       }}
       handleAuthConfirm={handleAuthConfirm}
       handleSubmit={handleSubmit}
-      handleValidCheck={handleCheckValid}
+      handleValidCheck={handleValidCheck}
     />
   );
 };

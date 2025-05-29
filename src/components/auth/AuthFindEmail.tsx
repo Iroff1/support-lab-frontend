@@ -34,8 +34,8 @@ export const FindAnother = styled.div`
 
 interface IAuthFindForm {
   findForm: IFindEmailFormState;
-  checkResult: boolean;
   checkList: IAuthChecker<IFindEmailFormState>;
+  checkResult: boolean;
   confirmAuth: boolean;
   handleChangeField: TChangeEventHandler<HTMLInputElement>;
   handleFindEmail: () => Promise<void>;

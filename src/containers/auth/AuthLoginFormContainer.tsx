@@ -55,9 +55,6 @@ const AuthLoginFormContainer = () => {
       navigate('/');
     }
     if (authError) alert('오류 발생!');
-    return () => {
-      dispatch(authActions.initializeState());
-    };
   }, [isInit, auth]);
 
   return (
