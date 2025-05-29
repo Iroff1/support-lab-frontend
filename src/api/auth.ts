@@ -35,6 +35,15 @@ export const authGetEmail = async (username: string, contact: string) => {
   return res;
 };
 
+// GET/auth 아이디 체크
+export const authCheckEmail = async (email: string) => {
+  console.log('이메일 체크');
+  const res = await client.get<{ email: string }>('/api/auth/check/email', {
+    params: { email: email },
+  });
+  return res;
+};
+
 // GET/auth 비밀번호 찾기
 export const authGetPassword = async (email: string) => {
   console.log('비밀번호 찾기');

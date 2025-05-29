@@ -1,12 +1,17 @@
 import InputText from '@components/common/InputText';
 import styled from 'styled-components';
-import InputWithConfirm from '../../containers/common/InputWithConfirm';
 import SubmitButton from '@components/common/SubmitButton';
 import React from 'react';
 import AuthTitleBox from './AuthTitleBox';
 import AuthHeaderLogo from './AuthHeaderLogo';
-import { IFindPasswordFormState } from '@containers/auth/AuthFindPasswordContainer';
-import { TChangeEventHandler } from '@models/input.model';
+import { IFindPassword } from '@containers/auth/AuthFindPasswordContainer';
+import { TChangeEventHandler, TMouseEventHandler } from '@models/input.model';
+import InputForValidation from '@containers/common/InputForValidation';
+import { regInput } from '@consts/reg';
+import InputForAuth from '@containers/common/InputForAuth';
+import { IAuthChecker } from '@models/auth.model';
+import { Link } from 'react-router-dom';
+import { FindAnother } from './AuthFindEmail';
 
 const FindForm = styled.div`
   width: 100%;
@@ -18,41 +23,106 @@ const FindForm = styled.div`
 
 const FindSubmit = styled.div`
   width: 100%;
+  margin-bottom: 36px;
 `;
 
 interface IAuthFindPassword {
-  findForm: IFindPasswordFormState;
-  checkResult: boolean;
+  findForm: IFindPassword;
+  checkList: IAuthChecker<IFindPassword>;
+  confirmAuth: boolean;
+  confirmEmail: boolean;
+  handleValidCheck: (key: keyof IFindPassword) => void;
   handleChangeField: TChangeEventHandler<HTMLInputElement>;
+  handleCheckEmail: () => Promise<void>;
+  handleAuthStart: () => Promise<void>;
+  handleAuthConfirm: () => void;
   handleFindPassword: () => void;
 }
 
-const AuthFindPassword: React.FC<IAuthFindPassword> = () => {
+const AuthFindPassword: React.FC<IAuthFindPassword> = ({
+  findForm,
+  checkList,
+  confirmAuth,
+  confirmEmail,
+  handleChangeField,
+  handleAuthStart,
+  handleAuthConfirm,
+  handleCheckEmail,
+  handleFindPassword,
+  handleValidCheck,
+}) => {
   return (
     <>
       <AuthHeaderLogo />
-      <AuthTitleBox>'비밀번호 찾기'</AuthTitleBox>
+      <AuthTitleBox>비밀번호 찾기</AuthTitleBox>
 
       <FindForm>
         {/* 비밀번호 찾기: email, username, contact, */}
-        <InputWithConfirm name="" type="text" placeholder="이메일(아이디)" />
-        <InputText name="username" type="text" placeholder="이름" />
-        <InputWithConfirm
-          name="contact"
-          type="tel"
-          placeholder="휴대폰번호"
-          useFor="auth"
+        <InputForValidation
+          name="email"
+          type="email"
+          placeholder="이메일(아이디)"
+          value={findForm.email}
+          onChange={handleChangeField}
+          onClick={async (e) => {
+            handleValidCheck!('email');
+            await handleCheckEmail();
+          }}
+          isValid={checkList['email'] && confirmEmail}
+          cautionText={
+            findForm.email.length === 0
+              ? ''
+              : !checkList.email
+              ? '올바른 이메일을 입력해 주세요.'
+              : confirmEmail
+              ? '존재하는 이메일입니다.'
+              : '존재하지 않는 이메일입니다.'
+          }
         />
-        <InputWithConfirm
-          name="authConfirm"
+
+        <InputText
+          name="username"
           type="text"
-          placeholder="인증번호"
+          placeholder="이름"
+          value={findForm.username}
+          onChange={(e) => {
+            handleChangeField && handleChangeField(e, regInput.korOrEng, 10);
+          }}
+        />
+
+        <InputForAuth
+          contact={findForm.contact}
+          authConfirm={findForm.authConfirm}
+          authCode={findForm.authCode}
+          checkList={checkList}
+          confirmAuth={confirmAuth}
+          handleChange={handleChangeField}
+          handleAuthStart={handleAuthStart}
+          handleAuthConfirm={handleAuthConfirm}
         />
       </FindForm>
 
       <FindSubmit>
-        <SubmitButton disabled={true}>'비밀번호 찾기'</SubmitButton>
+        <SubmitButton
+          disabled={
+            !(
+              checkList.email &&
+              checkList.username &&
+              checkList.contact &&
+              confirmAuth &&
+              confirmEmail
+            )
+          }
+          onClick={handleFindPassword}
+        >
+          비밀번호 찾기
+        </SubmitButton>
       </FindSubmit>
+
+      <FindAnother>
+        아이디가 기억나지 않는다면?{' '}
+        <Link to={'/auth/find/email'}>이메일 찾기</Link>
+      </FindAnother>
     </>
   );
 };

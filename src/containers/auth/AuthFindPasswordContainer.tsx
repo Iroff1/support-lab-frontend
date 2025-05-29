@@ -1,76 +1,119 @@
-import { authGetPassword } from '@api/auth';
+import { authCheckEmail, authGetEmail, authGetPassword } from '@api/auth';
 import AuthFindPassword from '@components/auth/AuthFindPassword';
 import useCheckList from '@hooks/useCheckList';
-import { TChangeEventHandler } from '@models/input.model';
+import { TMouseEventHandler } from '@models/input.model';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import useInit from '@hooks/useInit';
+import checkValidation from '@utils/checkValidation';
+import handleChangeField from '@utils/handleChangeField';
+import handleAuthStart from '@utils/handleGetAuthCode';
+import { IRegister } from '@models/auth.model';
 
-export interface IFindPasswordFormState {
+export interface IFindPassword {
   email: string;
   username: string;
   contact: string;
+  authCode: string;
   authConfirm: string;
 }
 
 const AuthFindPasswordContainer = () => {
   const navigate = useNavigate();
-  const [findForm, setFindForm] = useState<IFindPasswordFormState>({
+  const [findForm, setFindForm] = useState<IFindPassword>({
     email: '',
     username: '',
     contact: '',
+    authCode: '',
     authConfirm: '',
   });
-  const [userPw, setUserPw] = useState('');
-  const { checkResult, handleCheckList } = useCheckList<IFindPasswordFormState>(
-    {
-      email: false,
-      username: false,
-      contact: false,
-      authConfirm: false,
-    },
-  );
+  const { checkList, modifyCheckList } = useCheckList<IFindPassword>({
+    email: false,
+    username: false,
+    contact: false,
+    authCode: false,
+    authConfirm: false,
+  });
+  const [confirmEmail, setConfirmEmail] = useState(false);
+  const [confirmAuth, setConfirmAuth] = useState(false);
 
-  /** input 컴포넌트들에 할당할 onChange 핸들러 함수 */
-  const handleChangeField: TChangeEventHandler<HTMLInputElement> = (
-    e,
-    reg,
-    max,
-  ) => {
-    const userInputKey = e.target.name as keyof IFindPasswordFormState;
-    const userInputValue = !reg
-      ? e.target.value
-      : max
-      ? e.target.value.replace(reg, '').slice(0, max)
-      : e.target.value.replace(reg, '');
-    // state에 적용
-    setFindForm((prev) => ({ ...prev, [userInputKey]: userInputValue }));
+  /** InputForValidation[name="authConfirm"] 컴포넌트의 onClick에 할당할 콜백 함수 */
+  const handleAuthConfirm = () => {
+    if (
+      findForm.authCode.length === 6 &&
+      findForm.authCode === findForm.authConfirm
+    ) {
+      setConfirmAuth(true);
+      modifyCheckList('contact', true);
+    }
+  };
+
+  /** 유효성 체크 함수 */
+  const handleValidCheck = (key: keyof IFindPassword) => {
+    const result = checkValidation(findForm[key], key as keyof IRegister);
+    modifyCheckList(key, result);
+  };
+
+  /** 이메일 조회 함수 */
+  const handleCheckEmail = async () => {
+    try {
+      const res = await authCheckEmail(findForm.email);
+      if (res.data.email)
+        findForm.email === res.data.email && setConfirmEmail(true);
+    } catch (e) {
+      console.log(e);
+      findForm.email === 'example@naver.com' && setConfirmEmail(true); // 테스트 코드
+    }
   };
 
   /** SubmitButton에 할당할 onClick 핸들러 함수 */
   const handleFindPassword = async () => {
-    if (!checkResult) return;
+    if (
+      !(
+        checkList.email &&
+        checkList.username &&
+        checkList.contact &&
+        confirmAuth &&
+        confirmEmail
+      )
+    )
+      return;
     try {
       // TODO) GET auth/password 비밀번호 정보 요청 비동기 처리 후 이메일 상태 초기화
       const res = await authGetPassword(findForm.email);
-      //   setUserPw(res.data.password);
-      // test codes
-      alert(res.data);
+      if (res.status === 200) {
+        alert('비밀번호 찾기 완료!');
+      }
     } catch (e) {
       console.error(e);
-      // test codes
-      alert(e);
-      setUserPw('aa1234');
+      console.log(findForm); // 테스트 코드
+      navigate('/');
     }
   };
 
-  useEffect(() => {});
+  useEffect(() => {
+    if (checkList.email) handleCheckEmail();
+  }, [checkList.email]);
+  useEffect(() => {
+    handleValidCheck('username');
+  }, [findForm.username]);
 
   return (
     <AuthFindPassword
       findForm={findForm}
-      checkResult={checkResult}
-      handleChangeField={handleChangeField}
+      confirmAuth={confirmAuth}
+      confirmEmail={confirmEmail}
+      checkList={checkList}
+      handleChangeField={(e, reg, max) => {
+        handleChangeField<IFindPassword>(e, setFindForm, reg, max);
+      }}
+      handleAuthStart={async () => {
+        await handleAuthStart<IFindPassword>(findForm.contact, setFindForm);
+      }}
+      handleAuthConfirm={handleAuthConfirm}
       handleFindPassword={handleFindPassword}
+      handleCheckEmail={handleCheckEmail}
+      handleValidCheck={handleValidCheck}
     />
   );
 };

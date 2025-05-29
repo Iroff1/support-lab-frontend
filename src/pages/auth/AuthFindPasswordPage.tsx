@@ -1,6 +1,6 @@
-import AuthFindPassword from '@components/auth/AuthFindPassword';
+import AuthFindPasswordContainer from '@containers/auth/AuthFindPasswordContainer';
 
 const AuthFindPasswordPage = () => {
-  return <AuthFindPassword />;
+  return <AuthFindPasswordContainer />;
 };
 export default AuthFindPasswordPage;
