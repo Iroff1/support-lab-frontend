@@ -1,19 +1,16 @@
-import { IAuthChecker } from '@models/auth.model';
+import { IAuthChecker, IRegister } from '@models/auth.model';
 import { useEffect, useState } from 'react';
 
-const useCheckList = <T>(init: IAuthChecker<T>) => {
+const useCheckList = <T extends object>(init: IAuthChecker<T>) => {
   const [checkList, setCheckList] = useState<IAuthChecker<T>>(init);
   const [checkResult, setCheckResult] = useState(false);
 
-  const handleCheckList = (key: keyof T, result: boolean) => {
+  const modifyCheckList = (key: keyof T, result: boolean) => {
     if (checkList[key] === result) return;
     setCheckList((prev) => ({ ...prev, [key]: result }));
   };
 
   const confirmCheckList = () => {
-    // for (const key of Object.keys(checkList))
-    //   if (!checkList[key as keyof T]) return false;
-    // return true;
     return Object.keys(checkList).every(
       (key) => checkList[key as keyof IAuthChecker<T>],
     );
@@ -21,7 +18,8 @@ const useCheckList = <T>(init: IAuthChecker<T>) => {
 
   useEffect(() => {
     setCheckResult(confirmCheckList());
+    console.log('checkList', checkList);
   }, [checkList]);
-  return { checkList, handleCheckList, checkResult };
+  return { checkList, modifyCheckList, checkResult };
 };
 export default useCheckList;

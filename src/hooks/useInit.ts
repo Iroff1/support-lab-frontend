@@ -3,14 +3,14 @@ import { useState } from 'react';
 const useInit = () => {
   const [isInit, setIsInit] = useState(false);
 
-  const initComponent = () => {
+  const startInit = () => {
     setIsInit(true);
   };
-  const resetComponent = () => {
+  const resetInit = () => {
     setIsInit(false);
   };
 
-  return { isInit, initComponent, resetComponent };
+  return { isInit, startInit, resetInit };
 };
 
 export default useInit;

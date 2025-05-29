@@ -10,11 +10,10 @@ import {
 } from '@models/input.model';
 import { IAuthChecker, IRegister, IRegisterState } from '@models/auth.model';
 import InputForValidation from '@containers/common/InputForValidation';
-import InputForAuthorization from '@containers/common/InputForAuthorization';
 import { regInput } from '@consts/reg';
 import AuthHeaderLogo from './AuthHeaderLogo';
 import AuthTitleBox from './AuthTitleBox';
-import palette from '@assets/colors';
+import InputForAuth from '../../containers/common/InputForAuth';
 
 const AuthRegisterFormBlock = styled.form`
   width: 100%;
@@ -38,25 +37,23 @@ const SubmitSection = styled.div`
 interface IAuthRegisterForm {
   registerState: IRegisterState;
   checkList: IAuthChecker<IRegister>;
-  timer: number;
   confirmAuth: boolean;
   isReady: boolean;
 
   handleChange: TChangeEventHandler<HTMLInputElement>;
-  handleAuthorization: TMouseEventHandler<HTMLButtonElement>;
+  handleAuthStart: () => Promise<void>;
   handleAuthConfirm: TMouseEventHandler<HTMLButtonElement>;
   handleSubmit: TFormEventHandler;
   handleValidCheck: (key: keyof IRegister) => void;
 }
 
 const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
-  timer,
   checkList,
   registerState,
   confirmAuth,
   isReady,
   handleChange,
-  handleAuthorization,
+  handleAuthStart,
   handleAuthConfirm,
   handleSubmit,
   handleValidCheck,
@@ -128,60 +125,15 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
             }}
           />
 
-          <InputForAuthorization
-            name="contact"
-            type="tel"
-            placeholder="휴대폰번호"
-            useFor="auth"
-            value={registerState.contact}
-            disabled={timer >= 0 || checkList.contact}
-            onChange={(e) => {
-              handleChange && handleChange(e, regInput.onlyNum, 11);
-            }}
-            isValid={checkList.contact && timer >= 0 && confirmAuth}
-            onClick={(e) => {
-              e.preventDefault();
-              checkList.contact || handleAuthorization(e);
-            }}
-            cautionText={
-              checkList.contact ? (
-                ''
-              ) : timer >= 0 ? (
-                <span style={{ color: palette.system.blue }}>
-                  남은 시간 {Math.floor(timer / 60)}분
-                  {String(timer % 60).padStart(2, '0')}초<br />
-                  문자가 오지 않으면 스팸함을 확인해 주세요.
-                </span>
-              ) : confirmAuth === true ? (
-                ''
-              ) : (
-                <span>
-                  인증 시간이 만료되었습니다.
-                  <br />
-                  다시 인증해 주세요.
-                </span>
-              )
-            }
-          />
-
-          <InputForValidation
-            name="authConfirm"
-            type="text"
-            placeholder="인증번호"
-            value={registerState.authConfirm}
-            onClick={handleAuthConfirm}
-            onChange={(e) => {
-              handleChange && handleChange(e, regInput.onlyNum, 6);
-            }}
-            isValid={registerState.authCode.length === 6 && confirmAuth}
-            cautionText={
-              registerState.authCode.length < 6
-                ? ''
-                : registerState.authCode === registerState.authConfirm
-                ? '인증되었습니다.'
-                : '인증번호가 일치하지 않습니다.'
-            }
-            disabled={timer < 0}
+          <InputForAuth
+            contact={registerState.contact}
+            authConfirm={registerState.authConfirm}
+            authCode={registerState.authCode}
+            checkList={checkList}
+            confirmAuth={confirmAuth}
+            handleChange={handleChange}
+            handleAuthStart={handleAuthStart}
+            handleAuthConfirm={handleAuthConfirm}
           />
         </InputSection>
 
@@ -195,4 +147,4 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
   );
 };
 
-export default React.memo(AuthRegisterForm);
+export default AuthRegisterForm;

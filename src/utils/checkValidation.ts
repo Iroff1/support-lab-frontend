@@ -6,4 +6,8 @@ const checkValidation: TCheckValidation = (userInput, reg) => {
   return regValid[reg].test(userInput);
 };
 
+const checkAuthMatch = (authCode: string, authConfirm: string) => {
+  return authCode.length === 6 && authCode === authConfirm;
+};
+
 export default checkValidation;

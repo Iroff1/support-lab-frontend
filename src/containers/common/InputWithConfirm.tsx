@@ -3,8 +3,13 @@ import translateFontSize from '@utils/translateFontSize';
 import React, { useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import InputText from '../../components/common/InputText';
-import { IInputWithConfirm, TMouseEventHandler } from '@models/input.model';
+import {
+  IInputWithConfirm,
+  TChangeEventHandler,
+  TMouseEventHandler,
+} from '@models/input.model';
 import Caution from '@components/common/Caution';
+import useInit from '@hooks/useInit';
 
 const InputWithConfirmBlock = styled.div`
   width: 100%;
@@ -46,21 +51,41 @@ const InputConfirmButton = styled.button`
 
 const InputWithConfirm: React.FC<IInputWithConfirm> = ({
   onClick,
+  onChange,
   useFor = 'validation',
   isValid,
   disabled = false,
   cautionText,
   ...props
 }) => {
+  const {
+    isInit,
+    startInit: initComponent,
+    resetInit: resetComponent,
+  } = useInit();
+  const handleClick: TMouseEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault();
+    onClick && onClick(e);
+    !isInit && initComponent();
+  };
+  const handleChange: TChangeEventHandler<HTMLInputElement> = (e) => {
+    onChange && onChange(e);
+    isInit && resetComponent();
+  };
   return (
     <InputWithConfirmBlock>
       <InputWrapper>
-        <InputText {...props} isValid={isValid} disabled={disabled} />
-        <InputConfirmButton onClick={onClick} disabled={disabled}>
+        <InputText
+          {...props}
+          onChange={handleChange}
+          isValid={isValid}
+          disabled={disabled}
+        />
+        <InputConfirmButton onClick={handleClick} disabled={disabled}>
           {useFor === 'validation' ? '확인' : '인증'}
         </InputConfirmButton>
       </InputWrapper>
-      {cautionText ? (
+      {isInit && cautionText ? (
         <Caution color={isValid ? 'green' : 'red'} mt="4px">
           {cautionText}
         </Caution>

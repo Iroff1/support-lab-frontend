@@ -7,9 +7,10 @@ import AuthHeaderLogo from './AuthHeaderLogo';
 import { IFindEmailFormState } from '@containers/auth/AuthFindEmailContainer';
 import { TChangeEventHandler } from '@models/input.model';
 import { regInput } from '@consts/reg';
-import translateContact from '@utils/translateContact';
 import { Link } from 'react-router-dom';
 import palette from '@assets/colors';
+import InputForAuth from '@containers/common/InputForAuth';
+import { IAuthChecker } from '@models/auth.model';
 
 const FindForm = styled.div`
   width: 100%;
@@ -24,7 +25,7 @@ const FindSubmit = styled.div`
   margin-bottom: 36px;
 `;
 
-const FindPassword = styled.div`
+export const FindAnother = styled.div`
   color: ${palette.black.B200};
   & > a {
     color: ${palette.main.main};
@@ -34,15 +35,23 @@ const FindPassword = styled.div`
 interface IAuthFindForm {
   findForm: IFindEmailFormState;
   checkResult: boolean;
+  checkList: IAuthChecker<IFindEmailFormState>;
+  confirmAuth: boolean;
   handleChangeField: TChangeEventHandler<HTMLInputElement>;
-  handleFindEmail: () => void;
+  handleFindEmail: () => Promise<void>;
+  handleAuthStart: () => Promise<void>;
+  handleAuthConfirm: () => void;
 }
 
 const AuthFindEmail: React.FC<IAuthFindForm> = ({
   findForm,
   checkResult,
+  checkList,
+  confirmAuth,
   handleChangeField,
   handleFindEmail,
+  handleAuthStart,
+  handleAuthConfirm,
 }) => {
   return (
     <>
@@ -59,14 +68,15 @@ const AuthFindEmail: React.FC<IAuthFindForm> = ({
             handleChangeField(e, regInput.korOrEng);
           }}
         />
-        <InputText
-          name="contact"
-          type="text"
-          placeholder="휴대폰번호"
-          value={translateContact(findForm.contact)}
-          onChange={(e) => {
-            handleChangeField(e, regInput.onlyNum, 11);
-          }}
+        <InputForAuth
+          contact={findForm.contact}
+          authConfirm={findForm.authConfirm}
+          authCode={findForm.authCode}
+          checkList={checkList}
+          confirmAuth={confirmAuth}
+          handleChange={handleChangeField}
+          handleAuthStart={handleAuthStart}
+          handleAuthConfirm={handleAuthConfirm}
         />
       </FindForm>
 
@@ -76,10 +86,10 @@ const AuthFindEmail: React.FC<IAuthFindForm> = ({
         </SubmitButton>
       </FindSubmit>
 
-      <FindPassword>
+      <FindAnother>
         비밀번호가 기억나지 않는다면?{' '}
         <Link to={'/auth/find/password'}>비밀번호 찾기</Link>
-      </FindPassword>
+      </FindAnother>
     </>
   );
 };

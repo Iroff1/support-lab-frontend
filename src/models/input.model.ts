@@ -36,7 +36,7 @@ export interface IInputWithConfirm extends IInput {
 export type TRegObj = { [key in keyof IRegister]: RegExp };
 export type TCheckValidation = (
   userInput: string,
-  reg: keyof IRegister,
+  reg: keyof TRegObj,
 ) => boolean;
 export type TAsyncReq<T, R> = (req: T) => Promise<R>;
 

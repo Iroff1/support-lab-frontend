@@ -3,14 +3,18 @@ import AuthFindEmail from '@components/auth/AuthFindEmail';
 import AuthShowEmail from '@components/auth/AuthShowEmail';
 import useCheckList from '@hooks/useCheckList';
 import useInit from '@hooks/useInit';
-import { TChangeEventHandler } from '@models/input.model';
+import { IRegister } from '@models/auth.model';
 import checkValidation from '@utils/checkValidation';
+import handleChangeField from '@utils/handleChangeField';
+import handleAuthStart from '@utils/handleGetAuthCode';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export interface IFindEmailFormState {
   username: string;
   contact: string;
+  authCode: string;
+  authConfirm: string;
 }
 
 const AuthFindEmailContainer = () => {
@@ -18,67 +22,77 @@ const AuthFindEmailContainer = () => {
   const [findForm, setFindForm] = useState<IFindEmailFormState>({
     username: '',
     contact: '',
+    authCode: '',
+    authConfirm: '',
   });
-  //   const [userEmail, setUserEmail] = useState('example@naver.com'); // test state;
-  const { checkResult, handleCheckList } = useCheckList<IFindEmailFormState>({
+  const { checkList, modifyCheckList } = useCheckList<IFindEmailFormState>({
     username: false,
     contact: false,
+    authCode: false,
+    authConfirm: false,
   });
-  const { isInit, initComponent } = useInit();
+  const { isInit, startInit } = useInit();
+  const [confirmAuth, setConfirmAuth] = useState(false);
   const [userEmail, setUserEmail] = useState('');
-
-  /** input 컴포넌트들에 할당할 onChange 핸들러 함수 */
-  const handleChangeField: TChangeEventHandler<HTMLInputElement> = (
-    e,
-    reg,
-    max,
-  ) => {
-    const userInputKey = e.target.name as keyof IFindEmailFormState;
-    const userInputValue = !reg
-      ? e.target.value
-      : max
-      ? e.target.value.replace(reg, '').slice(0, max)
-      : e.target.value.replace(reg, '');
-
-    // state에 적용
-    setFindForm((prev) => ({ ...prev, [userInputKey]: userInputValue }));
-  };
+  //   const [, setUserEmail] = useState('example@naver.com'); // test state;
 
   /** SubmitButton에 할당할 onClick 핸들러 함수 */
   const handleFindEmail = async () => {
-    if (!checkResult) return;
+    if (!checkList.username || !checkList.contact) return;
     try {
       // TODO) GET auth/email 이메일 정보 요청 비동기 처리 후 이메일 상태 초기화
       const res = await authGetEmail(findForm.username, findForm.contact);
-      // setUserEmail(res.data.email);
+      setUserEmail(res.data.email);
       // test codes
       alert(res.data);
     } catch (e) {
       console.error(e);
       // test codes
       alert(e);
-      setUserEmail('example@naver.com');
+      // setUserEmail('example@naver.com');
     }
-    initComponent();
+    startInit();
+  };
+
+  /** authConfirm 입력 태그에 할당할 콜백 함수 */
+  const handleAuthConfirm = () => {
+    if (
+      findForm.authCode.length === 6 &&
+      findForm.authCode === findForm.authConfirm
+    ) {
+      setConfirmAuth(true);
+      modifyCheckList('contact', true);
+    }
+  };
+
+  /** checkList 유효성 갱신 함수 */
+  const handleCheckValid = (key: keyof IFindEmailFormState) => {
+    const result = checkValidation(findForm[key], key as keyof IRegister);
+    modifyCheckList(key, result);
   };
 
   // 유효성 추적
   useEffect(() => {
-    handleCheckList('username', checkValidation(findForm.username, 'username'));
+    handleCheckValid('username');
   }, [findForm.username]);
-  useEffect(() => {
-    handleCheckList('contact', checkValidation(findForm.contact, 'contact'));
-  }, [findForm.contact]);
-  useEffect(() => {
-    console.log(checkResult);
-  }, [checkResult]);
 
   return !isInit ? (
     <AuthFindEmail
       findForm={findForm}
-      checkResult={checkResult}
-      handleChangeField={handleChangeField}
+      checkResult={checkList.username && checkList.contact}
+      checkList={checkList}
+      confirmAuth={confirmAuth}
+      handleChangeField={(e, reg, max) => {
+        handleChangeField<IFindEmailFormState>(e, setFindForm, reg, max);
+      }}
       handleFindEmail={handleFindEmail}
+      handleAuthStart={async () => {
+        await handleAuthStart<IFindEmailFormState>(
+          findForm.contact,
+          setFindForm,
+        );
+      }}
+      handleAuthConfirm={handleAuthConfirm}
     />
   ) : userEmail.length !== 0 ? (
     <AuthShowEmail

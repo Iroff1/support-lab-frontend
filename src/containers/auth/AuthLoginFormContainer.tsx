@@ -20,7 +20,7 @@ const AuthLoginFormContainer = () => {
     authError: auth.authError,
   }));
   const [isMaintain, setIsMaintain] = useState(false);
-  const { isInit, initComponent } = useInit();
+  const { isInit, startInit: initComponent } = useInit();
 
   /** 로그인 폼 입력 핸들러 함수 */
   const handleChange: TChangeEventHandler<HTMLInputElement> = (e) => {

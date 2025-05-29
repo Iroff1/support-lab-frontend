@@ -5,6 +5,7 @@ function useTimer(init: number, limit: number) {
   const timerEvent = useRef<NodeJS.Timeout>(null);
 
   const timerStart = () => {
+    if (timerEvent.current) return;
     if (timer <= 0) setTimer(limit);
     timerEvent.current = setInterval(() => {
       setTimer((prev) => prev - 1);
