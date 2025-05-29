@@ -2,6 +2,7 @@ import { authGetEmail } from '@api/auth';
 import AuthFindEmail from '@components/auth/AuthFindEmail';
 import AuthShowEmail from '@components/auth/AuthShowEmail';
 import useCheckList from '@hooks/useCheckList';
+import useInit from '@hooks/useInit';
 import { TChangeEventHandler } from '@models/input.model';
 import checkValidation from '@utils/checkValidation';
 import React, { useEffect, useState } from 'react';
@@ -18,12 +19,13 @@ const AuthFindEmailContainer = () => {
     username: '',
     contact: '',
   });
-  const [userEmail, setUserEmail] = useState('');
   //   const [userEmail, setUserEmail] = useState('example@naver.com'); // test state;
   const { checkResult, handleCheckList } = useCheckList<IFindEmailFormState>({
     username: false,
     contact: false,
   });
+  const { isInit, initComponent } = useInit();
+  const [userEmail, setUserEmail] = useState('');
 
   /** input 컴포넌트들에 할당할 onChange 핸들러 함수 */
   const handleChangeField: TChangeEventHandler<HTMLInputElement> = (
@@ -57,6 +59,7 @@ const AuthFindEmailContainer = () => {
       alert(e);
       setUserEmail('example@naver.com');
     }
+    initComponent();
   };
 
   // 유효성 추적
@@ -66,22 +69,35 @@ const AuthFindEmailContainer = () => {
   useEffect(() => {
     handleCheckList('contact', checkValidation(findForm.contact, 'contact'));
   }, [findForm.contact]);
+  useEffect(() => {
+    console.log(checkResult);
+  }, [checkResult]);
 
-  return userEmail.length === 0 ? (
+  return !isInit ? (
     <AuthFindEmail
       findForm={findForm}
       checkResult={checkResult}
       handleChangeField={handleChangeField}
       handleFindEmail={handleFindEmail}
     />
+  ) : userEmail.length !== 0 ? (
+    <AuthShowEmail
+      email={userEmail}
+      handleLeftBtn={() => {
+        navigate('/auth');
+      }}
+      handleRightBtn={() => {
+        navigate('/auth/find/password');
+      }}
+    />
   ) : (
     <AuthShowEmail
       email={userEmail}
-      handleLogin={() => {
-        navigate('/auth');
+      handleLeftBtn={() => {
+        navigate('/auth/register');
       }}
-      handleFindPw={() => {
-        navigate('../password');
+      handleRightBtn={() => {
+        navigate('/');
       }}
     />
   );

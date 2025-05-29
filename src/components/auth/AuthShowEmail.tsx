@@ -22,6 +22,7 @@ const AuthShowEmailBlock = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
     gap: 20px;
     & > div:nth-child(2) {
       ${css(translateFontSize('SB_22'))};
@@ -45,27 +46,42 @@ const NavigateButton = styled(SubmitButtonBlock)`
 
 interface IAuthShowEmail {
   email: string;
-  handleLogin: () => void;
-  handleFindPw: () => void;
+  handleLeftBtn: () => void;
+  handleRightBtn: () => void;
 }
 
 const AuthShowEmail: React.FC<IAuthShowEmail> = ({
   email,
-  handleFindPw,
-  handleLogin,
+  handleLeftBtn,
+  handleRightBtn,
 }) => {
   return (
     <AuthShowEmailBlock>
       <div>아이디 찾기</div>
-      <div>
-        <div>입력하신 정보와 일치하는 아이디입니다.</div>
+      {email.length !== 0 ? (
         <div>
-          {email.split('@')[0]}@{email.split('@')[1]}
+          <div>입력하신 정보와 일치하는 아이디입니다.</div>
+          <div>
+            {email.split('@')[0].slice(0, 3) +
+              '*'.repeat(email.split('@')[0].length - 3)}
+            @{email.split('@')[1]}
+          </div>
         </div>
-      </div>
+      ) : (
+        <div style={{ color: palette.system.red }}>
+          입력하신 정보와 일치하는 아이디가 없습니다.
+          <br />
+          서비스를 이용하시려면 회원가입을 진행해 주세요.
+        </div>
+      )}
+
       <div>
-        <SubmitButton onClick={handleLogin}>로그인</SubmitButton>
-        <NavigateButton onClick={handleFindPw}>비밀번호 찾기</NavigateButton>
+        <SubmitButton onClick={handleLeftBtn}>
+          {email.length !== 0 ? '로그인' : '회원가입'}
+        </SubmitButton>
+        <NavigateButton onClick={handleRightBtn}>
+          {email.length !== 0 ? '비밀번호 찾기' : '메인으로'}
+        </NavigateButton>
       </div>
     </AuthShowEmailBlock>
   );
