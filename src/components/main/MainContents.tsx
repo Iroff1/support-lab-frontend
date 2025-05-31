@@ -16,7 +16,6 @@ import palette from '@assets/colors';
 const MainContentsBlock = styled(Responsive)`
   width: 100%;
   padding: 0;
-  margin-top: 64px;
 `;
 
 /** 최대 너비가 지정된 컨텐츠를 감싸는 블럭 */

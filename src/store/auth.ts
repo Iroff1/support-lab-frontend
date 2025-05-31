@@ -36,20 +36,19 @@ export const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(authLoginUserThunk.pending, (state, { type }) => {
-        console.log(type + '/시작');
+      .addCase(authLoginUserThunk.pending, (_, { type }) => {
+        console.log(type + ' 시작');
       })
       .addCase(authLoginUserThunk.fulfilled, (state, { type, payload }) => {
-        console.log(type + '/성공');
-        state.auth && Object.assign(state.auth, payload);
+        console.log(type + ' 성공');
+        state.authError = null;
+        state.auth = payload;
       })
-      .addCase(authLoginUserThunk.rejected, (state, { type, error }) => {
-        console.log(type + '/오류');
+      .addCase(authLoginUserThunk.rejected, (state, { error }) => {
         console.error(error);
+        state.auth = null;
+        state.auth = { username: '홍길동', token: 'qwer1234' }; // test code
         state.authError = error;
-
-        // test codes
-        // state.auth = { username: '홍길동', token: 'qwer1234' }; // test code
       });
   },
 });

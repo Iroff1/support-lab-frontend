@@ -5,20 +5,19 @@ import HeaderContainer from '@containers/common/HeaderContainer';
 
 const MainBlock = styled.div`
   width: 100%;
-  min-height: calc(100% - 264px); // header 64px footer 200px
+  min-height: calc(100% - 64px); // header 64px
   margin-top: 64px;
 `;
 
-const MainLayout = () => {
+const TermsLayout = () => {
   return (
     <>
       <HeaderContainer />
       <MainBlock>
         <Outlet />
       </MainBlock>
-      <Footer />
     </>
   );
 };
 
-export default MainLayout;
+export default TermsLayout;

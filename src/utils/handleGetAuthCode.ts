@@ -18,7 +18,7 @@ const handleAuthStart = async <T extends { authCode: string }>(
     }));
   } catch (e) {
     console.log(e);
-    alert('잘못된 요청입니다. 전화번호를 확인해주세요');
+    // alert('잘못된 요청입니다. 전화번호를 확인해주세요');
 
     // test code
     setter((prev) => ({

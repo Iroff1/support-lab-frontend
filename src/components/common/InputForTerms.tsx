@@ -1,19 +1,22 @@
 import palette from '@assets/colors';
 import useScroll from '@hooks/useScroll';
-import { ITermsOfUse } from '@models/auth.model';
+import { ITerms } from '@models/auth.model';
 import { TMouseEventHandler } from '@models/input.model';
 import translateFontSize from '@utils/translateFontSize';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 
 const ICON_ARROW_RIGHT = require('@assets/images/common/icon_arrow_right.svg');
 
 const InputForTermsBlock = styled.div`
   width: 100%;
+  & > div {
+    display: flex;
+  }
 `;
 
-const Wrapper = styled.label`
-  width: 100%;
+const CheckBoxWrapper = styled.label`
+  /* width: 100%; */
   height: 100%;
   display: flex;
   gap: 7px;
@@ -43,26 +46,26 @@ const Wrapper = styled.label`
     gap: 4px;
     color: #000;
     ${css(translateFontSize('M_20'))};
+  }
+`;
 
-    & > span {
-      color: #000;
-      ${css(translateFontSize('M_20'))};
+const Direct = styled.span`
+  color: #000;
+  ${css(translateFontSize('M_20'))};
 
-      &.direct {
-        display: flex;
-        align-items: center;
-        color: ${palette.black.B70};
-        ${css(translateFontSize('R_17'))};
-        fill: white;
-        cursor: pointer;
-        margin-left: 6px; /* gap 이랑 더해서 10px */
+  &.direct {
+    display: flex;
+    align-items: center;
+    color: ${palette.black.B70};
+    ${css(translateFontSize('R_17'))};
+    fill: white;
+    cursor: pointer;
+    margin-left: 6px; /* gap 이랑 더해서 10px */
 
-        & > img {
-          width: 16px;
-          height: 16px;
-          aspect-ratio: 1/1;
-        }
-      }
+    & > img {
+      width: 16px;
+      height: 16px;
+      aspect-ratio: 1/1;
     }
   }
 `;
@@ -90,7 +93,7 @@ const CheckBox = styled.div`
   }
 `;
 
-const Contents = styled.div`
+const ContentsOfTerms = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -103,7 +106,7 @@ const Contents = styled.div`
   }
 `;
 
-const WrapBox = styled.div<{ h: number }>`
+const ContentsWrapper = styled.div<{ h: number }>`
   height: 96px;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -136,15 +139,26 @@ const WrapBox = styled.div<{ h: number }>`
   }
 `;
 
+const PopupWrapper = styled.div`
+  width: 100vw;
+  height: 100vh;
+  background-color: ${palette.black.white};
+  cursor: pointer;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+`;
+
 interface IInputForterms {
-  name: keyof ITermsOfUse | 'checkAll';
+  name: keyof ITerms | 'checkAll';
   isRequired?: '필수' | '선택';
   isWrapped?: boolean;
   isChecked?: boolean;
   onClick?: TMouseEventHandler<HTMLInputElement>;
   header: string;
   contents: string;
-  // children: React.ReactNode | string;
+  popup?: React.ReactNode | string;
 }
 
 const InputForTerms: React.FC<IInputForterms> = ({
@@ -155,14 +169,20 @@ const InputForTerms: React.FC<IInputForterms> = ({
   contents,
   isWrapped,
   isChecked,
+  popup,
 }) => {
   const { state, handleScrollY } = useScroll();
+  const [toggle, setToggle] = useState(false);
   const ref = useRef<HTMLParagraphElement | null>(null);
 
   const scrollEvent = () => {
     const { clientHeight, scrollHeight, scrollTop } = ref.current!;
     const percent = scrollTop / (scrollHeight - clientHeight);
     handleScrollY(48 * percent);
+  };
+
+  const handleToggle = () => {
+    setToggle((prev) => !prev);
   };
 
   useEffect(() => {
@@ -180,47 +200,52 @@ const InputForTerms: React.FC<IInputForterms> = ({
   }, []);
 
   return (
-    <InputForTermsBlock>
-      <Wrapper>
-        <input
-          type="checkbox"
-          name={name}
-          required={isRequired === '필수'}
-          onClick={onClick}
-          checked={isChecked}
-        />
-        <CheckBox className="checkBox">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-            <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
-          </svg>
-        </CheckBox>
-        <h4>
-          {isRequired === '필수' ? (
-            <span style={{ color: palette.system.blue }}>[필수] </span>
-          ) : isRequired === '선택' ? (
-            <span style={{ color: palette.black.B100 }}>[선택] </span>
-          ) : (
-            ''
-          )}
-          {header}
-          {isRequired ? (
-            <span className="direct">
+    <>
+      <InputForTermsBlock>
+        <div>
+          <CheckBoxWrapper>
+            <input
+              type="checkbox"
+              name={name}
+              required={isRequired === '필수'}
+              onClick={onClick}
+              checked={isChecked}
+            />
+            <CheckBox className="checkBox">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
+              </svg>
+            </CheckBox>
+            <h4>
+              {isRequired === '필수' ? (
+                <span style={{ color: palette.system.blue }}>[필수] </span>
+              ) : isRequired === '선택' ? (
+                <span style={{ color: palette.black.B100 }}>[선택] </span>
+              ) : (
+                ''
+              )}
+              {header}
+            </h4>
+          </CheckBoxWrapper>
+          {!isRequired ? null : (
+            <Direct className="direct" onClick={handleToggle}>
               전체
               <img src={ICON_ARROW_RIGHT} alt="→" />
-            </span>
-          ) : null}
-        </h4>
-      </Wrapper>
-      <Contents>
-        {isWrapped ? (
-          <WrapBox h={state.y}>
-            <p ref={ref}>{contents}</p>
-          </WrapBox>
-        ) : (
-          <p>{contents}</p>
-        )}
-      </Contents>
-    </InputForTermsBlock>
+            </Direct>
+          )}
+        </div>
+        <ContentsOfTerms>
+          {isWrapped ? (
+            <ContentsWrapper h={state.y}>
+              <p ref={ref}>{contents}</p>
+            </ContentsWrapper>
+          ) : (
+            <p>{contents}</p>
+          )}
+        </ContentsOfTerms>
+      </InputForTermsBlock>
+      {toggle && <PopupWrapper onClick={handleToggle}>{popup}</PopupWrapper>}
+    </>
   );
 };
 export default InputForTerms;

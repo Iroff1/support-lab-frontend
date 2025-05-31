@@ -1,6 +1,7 @@
 import AuthLayout from '@layout/AuthLayout';
 import CustomerServiceLayout from '@layout/CustomerServiceLayout';
 import MainLayout from '@layout/MainLayout';
+import TermsLayout from '@layout/TermsLayout';
 import AuthFindEmailPage from '@pages/auth/AuthFindEmailPage';
 import AuthFindPasswordPage from '@pages/auth/AuthFindPasswordPage';
 import AuthLoginPage from '@pages/auth/AuthLoginPage';
@@ -10,6 +11,7 @@ import CustomerServiceInquirementPage from '@pages/cs/CustomerServiceInquirement
 import CustomerServiceQuestionsPage from '@pages/cs/CustomerServiceQuestionsPage';
 import CustomerServiceInfoListPage from '@pages/cs/CustormerServiceInfoListPage';
 import MainPage from '@pages/MainPage';
+import TermsOfUsePage from '@pages/TermsOfUsePage';
 import { Route, Routes } from 'react-router-dom';
 
 const App = () => {
@@ -17,6 +19,9 @@ const App = () => {
     <Routes>
       <Route element={<MainLayout />}>
         <Route path="/" element={<MainPage />} />
+      </Route>
+      <Route path="/terms" element={<TermsLayout />}>
+        <Route path=":typeOfTerms" element={<TermsOfUsePage />} />
       </Route>
       <Route path="/auth" element={<AuthLayout />}>
         <Route index element={<AuthLoginPage />} />

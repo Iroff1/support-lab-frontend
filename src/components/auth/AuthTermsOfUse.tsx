@@ -1,10 +1,11 @@
 import InputForTerms from '@components/common/InputForTerms';
-import { termsOfUses } from '@consts/terms';
+import { termsOfUses } from '@consts/termsForRegister';
 import styled from 'styled-components';
 import AuthHeaderLogo from './AuthHeaderLogo';
 import AuthTitleBox from './AuthTitleBox';
-import { ITermsOfUse } from '@models/auth.model';
+import { ITerms } from '@models/auth.model';
 import SubmitButton from '@components/common/SubmitButton';
+import TermsOfUse from '@components/terms/TermsOfPersonalInfo';
 
 const AuthTermsOfUseBlock = styled.div`
   width: 100%;
@@ -22,8 +23,8 @@ const AuthTermsOfUseBlock = styled.div`
 `;
 
 interface IAuthTermsOfUse {
-  termsOfUses: ITermsOfUse;
-  handleToggleOne: (name: keyof ITermsOfUse) => void;
+  termsOfUses: ITerms;
+  handleToggleOne: (name: keyof ITerms) => void;
   handleToggleAll: () => void;
   handleSubmit: () => void;
 }
@@ -53,8 +54,9 @@ const AuthTermsOfUse: React.FC<IAuthTermsOfUse> = (props) => {
           contents={termsOfUses.termsOfUse}
           isChecked={props.termsOfUses.termsOfUse}
           onClick={(e) => {
-            props.handleToggleOne(e.currentTarget.name as keyof ITermsOfUse);
+            props.handleToggleOne(e.currentTarget.name as keyof ITerms);
           }}
+          popup={<TermsOfUse type="businessPlan" isPopup={true} />}
         />
 
         {/* [필수] 개인정보 수집 및 이용 */}
@@ -66,21 +68,23 @@ const AuthTermsOfUse: React.FC<IAuthTermsOfUse> = (props) => {
           contents={termsOfUses.personalInfo}
           isChecked={props.termsOfUses.personalInfo}
           onClick={(e) => {
-            props.handleToggleOne(e.currentTarget.name as keyof ITermsOfUse);
+            props.handleToggleOne(e.currentTarget.name as keyof ITerms);
           }}
+          popup={<TermsOfUse type="personalInfo" isPopup={true} />}
         />
 
         {/* [선택] 이벤트・혜택 정보 수신 */}
         <InputForTerms
-          name="subscribeEvent"
+          name="marketing"
           header="이벤트・혜택 정보 수신"
           isRequired="선택"
           isWrapped={true}
-          contents={termsOfUses.subscribeEvent}
-          isChecked={props.termsOfUses.subscribeEvent}
+          contents={termsOfUses.marketing}
+          isChecked={props.termsOfUses.marketing}
           onClick={(e) => {
-            props.handleToggleOne(e.currentTarget.name as keyof ITermsOfUse);
+            props.handleToggleOne(e.currentTarget.name as keyof ITerms);
           }}
+          popup={<TermsOfUse type="marketing" isPopup={true} />}
         />
       </AuthTermsOfUseBlock>
       <SubmitButton

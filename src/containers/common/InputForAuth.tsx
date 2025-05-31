@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { TChangeEventHandler, TMouseEventHandler } from '@models/input.model';
-import InputForValidation from '@containers/common/InputForValidation';
 import { regInput } from '@consts/reg';
 import palette from '@assets/colors';
 import InputWithConfirm from './InputWithConfirm';
@@ -39,9 +38,7 @@ const InputForAuth: React.FC<IInputForAuth> = ({
   const { isInit, startInit, resetInit } = useInit();
 
   useEffect(() => {
-    return () => {
-      timerReset();
-    };
+    return timerReset();
   }, []);
 
   // 타이머 종료 추적
@@ -53,11 +50,11 @@ const InputForAuth: React.FC<IInputForAuth> = ({
   }, [timer]);
 
   useEffect(() => {
-    confirmAuth && timerReset();
+    confirmAuth && timerReset(); // 권환 확인 시 타이머 초기화
   }, [confirmAuth]);
 
   useEffect(() => {
-    isInit && authCode.length === 6 && timerStart();
+    isInit && authCode.length === 6 && timerStart(); // 권한 코드 생성 시 타이머 시작
   }, [isInit]);
 
   return (

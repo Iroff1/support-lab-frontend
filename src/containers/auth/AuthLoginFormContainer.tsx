@@ -20,7 +20,7 @@ const AuthLoginFormContainer = () => {
     authError: auth.authError,
   }));
   const [isMaintain, setIsMaintain] = useState(false);
-  const { isInit, startInit: initComponent } = useInit();
+  const { isInit, startInit } = useInit();
 
   /** 로그인 폼 입력 핸들러 함수 */
   const handleChange: TChangeEventHandler<HTMLInputElement> = (e) => {
@@ -45,7 +45,7 @@ const AuthLoginFormContainer = () => {
   };
 
   useEffect(() => {
-    initComponent();
+    startInit();
   }, []);
   useEffect(() => {
     if (!isInit) return;
@@ -54,7 +54,7 @@ const AuthLoginFormContainer = () => {
       isMaintain && localStorage.setItem('auth', JSON.stringify(auth));
       navigate('/');
     }
-    if (authError) alert('오류 발생!');
+    if (authError) alert('일치하는 계정이 없습니다!');
   }, [isInit, auth]);
 
   return (

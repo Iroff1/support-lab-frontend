@@ -34,14 +34,17 @@ export interface IRegister extends ILogin {
 }
 
 /** 서버에 전송할 register 선택 데이터 인터페이스 */
-export interface ITermsOfUse {
+export interface ITerms {
   termsOfUse: boolean; // true 필수
   personalInfo: boolean; // true 필수
-  subscribeEvent: boolean;
+
+  marketing: boolean;
+  // otherInfo: boolean;
+  // businessPlan: boolean;
 }
 
 /** 서버에 전송할 register 데이터 인터페이스 */
-export interface IRegisterRequest extends IRegister, ITermsOfUse {}
+export interface IRegisterRequest extends IRegister, ITerms {}
 
 /** 코드레벨에서 필요한 register 상태 데이터를 위한 인터페이스 */
 export interface IRegisterState extends IRegister {
