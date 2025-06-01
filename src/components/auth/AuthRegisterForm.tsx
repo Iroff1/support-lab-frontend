@@ -44,7 +44,8 @@ interface IAuthRegisterForm {
   handleAuthStart: () => Promise<void>;
   handleAuthConfirm: TMouseEventHandler<HTMLButtonElement>;
   handleSubmit: TFormEventHandler;
-  handleValidCheck: (key: keyof IRegister) => void;
+  // handleValidCheck: (key: keyof IRegister) => void;
+  handleCheckEmail: () => Promise<void>;
 }
 
 const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
@@ -56,7 +57,7 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
   handleAuthStart,
   handleAuthConfirm,
   handleSubmit,
-  handleValidCheck,
+  handleCheckEmail,
 }) => {
   return (
     <>
@@ -75,13 +76,15 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
             placeholder="이메일"
             value={registerState.email}
             onChange={handleChange}
-            onClick={(e) => {
-              handleValidCheck!('email');
+            onClick={async () => {
+              await handleCheckEmail();
             }}
-            isValid={checkList['email']}
+            isValid={checkList['email'] && !registerState.emailDuplication}
             cautionText={
               registerState.email.length === 0
                 ? ''
+                : registerState.emailDuplication
+                ? '중복된 이메일입니다.'
                 : checkList.email === true
                 ? '사용가능합니다.'
                 : '올바른 이메일을 입력해 주세요.'

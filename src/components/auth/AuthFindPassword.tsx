@@ -66,7 +66,7 @@ const AuthFindPassword: React.FC<IAuthFindPassword> = ({
           onChange={handleChangeField}
           onClick={async (e) => {
             handleValidCheck!('email');
-            await handleCheckEmail();
+            await handleCheckEmail().then();
           }}
           isValid={checkList['email'] && confirmEmail}
           cautionText={

@@ -1,4 +1,4 @@
-import { authRegisterUser } from '@api/auth';
+import { authCheckEmail, authRegisterUser } from '@api/auth';
 import AuthRegisterForm from '@components/auth/AuthRegisterForm';
 import useCheckList from '@hooks/useCheckList';
 import useInit from '@hooks/useInit';
@@ -18,6 +18,7 @@ const AuthRegisterFormContainer = () => {
   const terms = useAppSelector(({ terms }) => terms);
   const [registerForm, setRegisterForm] = useState<IRegisterState>({
     email: '',
+    emailDuplication: false,
     username: '',
     password: '',
     passwordConfirm: '',
@@ -38,6 +39,37 @@ const AuthRegisterFormContainer = () => {
   const handleValidCheck = (key: keyof IRegister) => {
     const result = checkValidation(registerForm[key], key);
     modifyCheckList(key, result);
+  };
+
+  /** 이메일 조회 함수 */
+  const handleCheckEmail = async () => {
+    if (!checkList.email) return;
+    try {
+      const res = await authCheckEmail(registerForm.email);
+      if (res.data.email) {
+        registerForm.email === res.data.email
+          ? setRegisterForm({
+              ...registerForm,
+              emailDuplication: true,
+            })
+          : setRegisterForm({
+              ...registerForm,
+              emailDuplication: false,
+            });
+      }
+      // registerForm.email === res.data.email && setConfirmEmail(true);
+    } catch (e) {
+      console.log(e);
+      registerForm.email === 'example@naver.com'
+        ? setRegisterForm({
+            ...registerForm,
+            emailDuplication: true,
+          })
+        : setRegisterForm({
+            ...registerForm,
+            emailDuplication: false,
+          }); // 테스트 코드
+    }
   };
 
   /** authConfirm 할당할 콜백 함수 */
@@ -81,6 +113,9 @@ const AuthRegisterFormContainer = () => {
     };
   }, [isInit]);
   useEffect(() => {
+    handleValidCheck('email');
+  }, [registerForm.email]);
+  useEffect(() => {
     handleValidCheck('password');
   }, [registerForm.password]);
   useEffect(() => {
@@ -104,7 +139,8 @@ const AuthRegisterFormContainer = () => {
       }}
       handleAuthConfirm={handleAuthConfirm}
       handleSubmit={handleSubmit}
-      handleValidCheck={handleValidCheck}
+      // handleValidCheck={handleValidCheck}
+      handleCheckEmail={handleCheckEmail}
     />
   );
 };

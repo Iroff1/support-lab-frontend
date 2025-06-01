@@ -64,7 +64,8 @@ module.exports = {
   ],
   devtool: 'inline-source-map',
   devServer: {
-    port: 3000,
+    port: 8080,
+    host: 'localhost',
     static: './dist',
     hot: true,
     open: true,

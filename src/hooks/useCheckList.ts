@@ -18,7 +18,7 @@ const useCheckList = <T extends object>(init: IAuthChecker<T>) => {
 
   useEffect(() => {
     setCheckResult(confirmCheckList());
-    console.log('checkList', checkList);
+    // console.log('checkList', checkList);
   }, [checkList]);
   return { checkList, modifyCheckList, checkResult };
 };
