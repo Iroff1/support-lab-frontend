@@ -45,10 +45,20 @@ export const authCheckEmail = async (email: string) => {
 };
 
 // GET/auth 비밀번호 찾기
-export const authGetPassword = async (email: string) => {
+export const authFindPassword = async (email: string) => {
   console.log('비밀번호 찾기');
-  const res = await client.get<{ password: string }>('/api/auth/find/email', {
-    params: { email: email },
-  });
+  const res = await client.get<{ password: string }>(
+    '/api/auth/find/password',
+    {
+      params: { email: email },
+    },
+  );
+  return res;
+};
+
+// PUT/auth 비밀번호 재설정 요청
+export const authUpdatePassword = async (email: string, password: string) => {
+  console.log('비밀번호 재설정');
+  const res = await client.put('/api/auth/find/password', { email, password });
   return res;
 };

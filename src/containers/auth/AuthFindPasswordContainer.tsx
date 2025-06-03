@@ -1,10 +1,8 @@
-import { authCheckEmail, authGetEmail, authGetPassword } from '@api/auth';
+import { authCheckEmail, authFindPassword } from '@api/auth';
 import AuthFindPassword from '@components/auth/AuthFindPassword';
 import useCheckList from '@hooks/useCheckList';
-import { TMouseEventHandler } from '@models/input.model';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useInit from '@hooks/useInit';
 import checkValidation from '@utils/checkValidation';
 import handleChangeField from '@utils/handleChangeField';
 import handleAuthStart from '@utils/handleGetAuthCode';
@@ -18,8 +16,12 @@ export interface IFindPassword {
   authConfirm: string;
 }
 
-const AuthFindPasswordContainer = () => {
-  const navigate = useNavigate();
+interface IProp {
+  handleEmail: (email: string) => void;
+}
+
+const AuthFindPasswordContainer: React.FC<IProp> = ({ handleEmail }) => {
+  // const navigate = useNavigate();
   const [findForm, setFindForm] = useState<IFindPassword>({
     email: '',
     username: '',
@@ -80,14 +82,16 @@ const AuthFindPasswordContainer = () => {
       return;
     try {
       // TODO) GET auth/password 비밀번호 정보 요청 비동기 처리 후 이메일 상태 초기화
-      const res = await authGetPassword(findForm.email);
+      const res = await authFindPassword(findForm.email);
       if (res.status === 200) {
         alert('비밀번호 찾기 완료!');
+        handleEmail(findForm.email);
       }
     } catch (e) {
       console.error(e);
-      console.log(findForm); // 테스트 코드
-      navigate('/');
+
+      console.log(findForm); // test code
+      handleEmail(findForm.email);
     }
   };
 

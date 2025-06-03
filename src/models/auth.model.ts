@@ -53,3 +53,8 @@ export interface IRegisterState extends IRegister {
   authCode: string;
   authConfirm: string;
 }
+
+export interface IChangePassword {
+  password: string;
+  passwordConfirm: string;
+}
