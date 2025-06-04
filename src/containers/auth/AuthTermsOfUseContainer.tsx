@@ -3,7 +3,7 @@ import useInit from '@hooks/useInit';
 import { ITerms } from '@models/auth.model';
 import { useAppDispatch, useAppSelector } from '@store/index';
 import { termsActions } from '@store/terms';
-import React, { use, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const AuthTermsOfUseContainer = () => {

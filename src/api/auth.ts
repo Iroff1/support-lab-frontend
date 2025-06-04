@@ -1,4 +1,9 @@
-import { ILogin, IRegisterRequest, IAuth } from '@models/auth.model';
+import {
+  ILogin,
+  IRegisterRequest,
+  IAuth,
+  ILocalAuth,
+} from '@models/auth.model';
 import client from './client';
 
 // GET/auth 본인인증 코드 요청
@@ -60,5 +65,14 @@ export const authFindPassword = async (email: string) => {
 export const authUpdatePassword = async (email: string, password: string) => {
   console.log('비밀번호 재설정');
   const res = await client.put('/api/auth/find/password', { email, password });
+  return res;
+};
+
+/** GET/auth 토큰 복호화 요청 */
+export const authDecryptToken = async (token: string) => {
+  console.log('토큰 복호화');
+  const res = await client.get<ILocalAuth>('/api/auth/decrypt', {
+    params: { token: token },
+  });
   return res;
 };

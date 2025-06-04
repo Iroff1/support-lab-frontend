@@ -6,6 +6,19 @@ import styled, { css } from 'styled-components';
 
 const ICON_CHECK_CIRCLE = require('@assets/images/common/icon_check_circle.png');
 
+const FullScreen = styled.div`
+  width: 100vw;
+  height: 100vh;
+  background-color: ${palette.black.white};
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 1000;
+  padding-top: 104px;
+  display: flex;
+  justify-content: center;
+`;
+
 const CSInquirementSuccessBlock = styled.div`
   max-width: 500px;
   width: 100%;
@@ -62,27 +75,29 @@ const CSInquirementSuccess: React.FC<ICSInquirementSuccess> = ({
 }) => {
   const navigate = useNavigate();
   return (
-    <CSInquirementSuccessBlock>
-      <Contents>
-        <img src={ICON_CHECK_CIRCLE} alt="check_circle" />
-        <Notice>
-          <h2>접수가 완료되었습니다.</h2>
-          <p>영업일 기준 3일 이내 처리됩니다.</p>
-        </Notice>
-      </Contents>
-      <Navigations>
-        <SubmitButton inverse={true} onClick={setIsDone}>
-          신규 문의 접수
-        </SubmitButton>
-        <SubmitButton
-          onClick={() => {
-            navigate('/');
-          }}
-        >
-          메인 페이지
-        </SubmitButton>
-      </Navigations>
-    </CSInquirementSuccessBlock>
+    <FullScreen>
+      <CSInquirementSuccessBlock>
+        <Contents>
+          <img src={ICON_CHECK_CIRCLE} alt="check_circle" />
+          <Notice>
+            <h2>접수가 완료되었습니다.</h2>
+            <p>영업일 기준 3일 이내 처리됩니다.</p>
+          </Notice>
+        </Contents>
+        <Navigations>
+          <SubmitButton inverse={true} onClick={setIsDone}>
+            신규 문의 접수
+          </SubmitButton>
+          <SubmitButton
+            onClick={() => {
+              navigate('/');
+            }}
+          >
+            메인 페이지
+          </SubmitButton>
+        </Navigations>
+      </CSInquirementSuccessBlock>
+    </FullScreen>
   );
 };
 

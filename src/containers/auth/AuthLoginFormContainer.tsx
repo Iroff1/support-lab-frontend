@@ -6,7 +6,7 @@ import {
   TFormEventHandler,
   TMouseEventHandler,
 } from '@models/input.model';
-import { authActions, authLoginUserThunk } from '@store/auth';
+import { authLoginUserThunk } from '@store/auth';
 import { useAppDispatch, useAppSelector } from '@store/index';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -43,20 +43,20 @@ const AuthLoginFormContainer = () => {
   };
 
   useEffect(() => {
-    if (localStorage.getItem('auth') !== null) {
-      const auth = JSON.parse(localStorage.getItem('auth')!);
-      dispatch(authActions.refreshAuth(auth));
-    }
     startInit();
   }, []);
+
   useEffect(() => {
     if (!isInit) return;
     if (auth) {
       // TODO) isMaintain true일 경우, 로컬스토리지에 로그인 정보 저장
-      isMaintain && localStorage.setItem('auth', JSON.stringify(auth));
-      isMaintain &&
+      if (isMaintain) {
         token.length > 0 &&
-        localStorage.setItem('token', JSON.stringify(token));
+          localStorage.setItem('token', JSON.stringify(token));
+      } else {
+        token.length > 0 &&
+          sessionStorage.setItem('token', JSON.stringify(token));
+      }
       navigate('/');
     }
     if (authError) alert('일치하는 계정이 없습니다!');

@@ -1,4 +1,4 @@
-import { authLoginUser } from '@api/auth';
+import { authDecryptToken, authLoginUser } from '@api/auth';
 import { IAuth, ILocalAuth, ILogin, IRegisterState } from '@models/auth.model';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
@@ -16,7 +16,9 @@ export const authSlice = createSlice({
     /** auth[form] 상태 초기화 */
     initializeState: (state) => {
       // Local Storage에 저장된 auth가 있는 경우, 제거
-      localStorage.getItem('auth') && localStorage.removeItem('auth');
+      sessionStorage.getItem('auth') && sessionStorage.removeItem('auth');
+      localStorage.getItem('token') && localStorage.removeItem('token');
+      sessionStorage.getItem('token') && sessionStorage.removeItem('token');
       Object.assign(state, initialState);
     },
     /** 로그인 상태 갱신 */
@@ -47,6 +49,25 @@ export const authSlice = createSlice({
         }; // test code
         state.authError = error; // test code
       });
+
+    builder
+      .addCase(authDecryptTokenThunk.pending, (_, { type }) => {
+        console.log(type + ' 시작');
+      })
+      .addCase(authDecryptTokenThunk.fulfilled, (state, { type, payload }) => {
+        console.log(type + ' 성공');
+        state.auth = payload;
+        state.authError = null;
+      })
+      .addCase(authDecryptTokenThunk.rejected, (state, { error }) => {
+        console.error(error);
+        state.auth = {
+          email: 'example@example.com',
+          username: '홍길동',
+          contact: '01012341234',
+        }; // test code
+        state.authError = error; // test code
+      });
   },
 });
 
@@ -56,6 +77,19 @@ export const authLoginUserThunk = createAsyncThunk(
   async (formData: ILogin) => {
     const res = await authLoginUser(formData);
     return { auth: res.data.auth, token: res.data.token };
+  },
+);
+
+/** 토큰 복호화 요청 */
+export const authDecryptTokenThunk = createAsyncThunk(
+  'auth/decryptToken',
+  async (token: string) => {
+    const res = await authDecryptToken(token);
+    return {
+      email: res.data.email,
+      username: res.data.username,
+      contact: res.data.contact,
+    };
   },
 );
 
