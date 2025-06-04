@@ -14,22 +14,23 @@ import { useNavigate } from 'react-router-dom';
 const AuthLoginFormContainer = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { loginForm, auth, authError } = useAppSelector(({ auth }) => ({
-    loginForm: auth.login,
+  const { auth, authError } = useAppSelector(({ auth }) => ({
     auth: auth.auth,
     authError: auth.authError,
   }));
+  const [loginForm, setLoginForm] = useState<ILogin>({
+    email: '',
+    password: '',
+  });
   const [isMaintain, setIsMaintain] = useState(false);
   const { isInit, startInit } = useInit();
 
   /** 로그인 폼 입력 핸들러 함수 */
   const handleChange: TChangeEventHandler<HTMLInputElement> = (e) => {
-    dispatch(
-      authActions.changeField({
-        key: e.target.name as keyof ILogin,
-        value: e.target.value,
-      }),
-    );
+    setLoginForm({
+      ...loginForm,
+      [e.target.name]: e.target.value,
+    });
   };
 
   /** 로그인 유지 상태 토글 핸들러 함수 */
@@ -45,6 +46,10 @@ const AuthLoginFormContainer = () => {
   };
 
   useEffect(() => {
+    if (localStorage.getItem('auth') !== null) {
+      const auth = JSON.parse(localStorage.getItem('auth')!);
+      dispatch(authActions.refreshAuth(auth));
+    }
     startInit();
   }, []);
   useEffect(() => {

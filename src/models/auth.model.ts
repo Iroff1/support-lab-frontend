@@ -5,15 +5,16 @@ export type IAuthChecker<T> = {
 };
 
 export interface IAuth {
-  login: ILogin;
+  token: string;
   auth: ILocalAuth | null;
   authError: SerializedError | null;
 }
 
 /** 사용자 권한 데이터 인터페이스 */
 export interface ILocalAuth {
+  email: string;
   username: string;
-  token: string;
+  contact: string;
 }
 
 /** 서버에 전송할 login 데이터 인터페이스 */

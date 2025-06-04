@@ -1,4 +1,9 @@
-import { ILogin, IRegisterRequest, ILocalAuth } from '@models/auth.model';
+import {
+  ILogin,
+  IRegisterRequest,
+  ILocalAuth,
+  IAuth,
+} from '@models/auth.model';
 import client from './client';
 
 // GET/auth 본인인증 코드 요청
@@ -13,7 +18,7 @@ export const authGetCode = async (contact: string) => {
 // POST/auth 로그인 요청
 export const authLoginUser = async (formData: ILogin) => {
   console.log('로그인 요청');
-  const res = await client.post<{ auth: ILocalAuth }>('/api/auth/login', {
+  const res = await client.post<IAuth>('/api/auth/login', {
     ...formData,
   });
   return res;
