@@ -50,7 +50,7 @@ const HeaderNavBox = styled.div`
 const CategoryBox = styled.div`
   height: 100%;
   padding: 0 25px;
-  text-wrap: nowrap;
+  word-wrap: nowrap;
   color: ${palette.black.B700};
   ${css(translateFontSize('R_18'))};
   position: relative;
@@ -235,7 +235,7 @@ const Header: React.FC<IHeader> = ({
                   </Link>
                 </li>
                 <li>
-                  <Link to={'/'}>
+                  <Link to={'/user/modifyInfo'}>
                     <span>개인정보 수정</span>
                   </Link>
                 </li>

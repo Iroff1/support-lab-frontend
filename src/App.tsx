@@ -1,3 +1,4 @@
+import { Route, Routes } from 'react-router-dom';
 import AuthLayout from '@layout/AuthLayout';
 import CustomerServiceLayout from '@layout/CustomerServiceLayout';
 import MainLayout from '@layout/MainLayout';
@@ -12,17 +13,23 @@ import CSQuestionsPage from '@pages/cs/CSQuestionsPage';
 import CSInfoListPage from '@pages/cs/CSInfoListPage';
 import MainPage from '@pages/MainPage';
 import TermsOfUsePage from '@pages/TermsOfUsePage';
-import { Route, Routes } from 'react-router-dom';
+import UserModifyInfoContainer from '@containers/user/UserModifyInfoContainer';
+import HeaderOnlyLayout from '@layout/HeaderOnlyLayout';
 
 const App = () => {
   return (
     <Routes>
+      {/* Main Page */}
       <Route element={<MainLayout />}>
         <Route path="/" element={<MainPage />} />
       </Route>
+
+      {/* Terms Page */}
       <Route path="/terms" element={<TermsLayout />}>
         <Route path=":typeOfTerms" element={<TermsOfUsePage />} />
       </Route>
+
+      {/* Auth Page */}
       <Route path="/auth" element={<AuthLayout />}>
         <Route index element={<AuthLoginPage />} />
         <Route path="termsOfUse" element={<AuthTermsOfUsePage />} />
@@ -30,11 +37,19 @@ const App = () => {
         <Route path="find/email" element={<AuthFindEmailPage />} />
         <Route path="find/password" element={<AuthFindPasswordPage />} />
       </Route>
+
+      {/* Customer Service Page */}
       <Route path="/customerService" element={<CustomerServiceLayout />}>
         <Route path="supportBusinesses" element={<CSInfoListPage />} />
         <Route path="questions" element={<CSQuestionsPage />} />
         <Route path="inquire" element={<CSInquirementPage />} />
       </Route>
+
+      {/* User Service Page */}
+      <Route path="/user" element={<HeaderOnlyLayout />}>
+        <Route path="modifyInfo" element={<UserModifyInfoContainer />} />
+      </Route>
+
       <Route path="*" element={<>Page Not Found</>} />
     </Routes>
   );
