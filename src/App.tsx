@@ -7,9 +7,9 @@ import AuthFindPasswordPage from '@pages/auth/AuthFindPasswordPage';
 import AuthLoginPage from '@pages/auth/AuthLoginPage';
 import AuthRegisterPage from '@pages/auth/AuthRegisterPage';
 import AuthTermsOfUsePage from '@pages/auth/AuthTermsOfUsePage';
-import CustomerServiceInquirementPage from '@pages/cs/CustomerServiceInquirementPage';
-import CustomerServiceQuestionsPage from '@pages/cs/CustomerServiceQuestionsPage';
-import CustomerServiceInfoListPage from '@pages/cs/CustormerServiceInfoListPage';
+import CSInquirementPage from '@pages/cs/CSInquirementPage';
+import CSQuestionsPage from '@pages/cs/CSQuestionsPage';
+import CSInfoListPage from '@pages/cs/CSInfoListPage';
 import MainPage from '@pages/MainPage';
 import TermsOfUsePage from '@pages/TermsOfUsePage';
 import { Route, Routes } from 'react-router-dom';
@@ -31,12 +31,9 @@ const App = () => {
         <Route path="find/password" element={<AuthFindPasswordPage />} />
       </Route>
       <Route path="/customerService" element={<CustomerServiceLayout />}>
-        <Route
-          path="supportBusinesses"
-          element={<CustomerServiceInfoListPage />}
-        />
-        <Route path="questions" element={<CustomerServiceQuestionsPage />} />
-        <Route path="inquire" element={<CustomerServiceInquirementPage />} />
+        <Route path="supportBusinesses" element={<CSInfoListPage />} />
+        <Route path="questions" element={<CSQuestionsPage />} />
+        <Route path="inquire" element={<CSInquirementPage />} />
       </Route>
       <Route path="*" element={<>Page Not Found</>} />
     </Routes>

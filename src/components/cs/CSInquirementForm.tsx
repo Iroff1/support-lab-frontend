@@ -1,13 +1,15 @@
 import palette from '@assets/colors';
 import InputText from '@components/common/InputText';
 import SubmitButton from '@components/common/SubmitButton';
+import { regInput } from '@consts/reg';
+import { ICSInquirementState } from '@containers/cs/CSInquirementContainer';
+import translateContact from '@utils/translateContact';
 import translateFontSize from '@utils/translateFontSize';
-import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 
 const SELECT_CARET = require('@assets/images/common/icon_caret.png');
 
-const CsInquirementBlock = styled.div`
+const CSInquirementBlock = styled.div`
   max-width: 500px;
   width: 100%;
   min-width: 320px;
@@ -30,7 +32,7 @@ const Body = styled.div`
   flex-direction: column;
 `;
 
-const InquirementForm = styled.form`
+const InquirementForm = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -132,19 +134,9 @@ const Textarea = styled.textarea`
   }
 `;
 
-const CustomerServiceInquirement = () => {
-  const [inqType, setInqType] = useState('');
-
-  const toggleSelectBox = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.currentTarget.classList.toggle('on');
-  };
-
-  const handleInqType = (e: React.MouseEvent<HTMLLIElement>) => {
-    setInqType(e.currentTarget.innerText);
-  };
-
+const CSInquirementForm: React.FC<ICSInquirementState> = (props) => {
   return (
-    <CsInquirementBlock>
+    <CSInquirementBlock>
       <Header>
         <h1>문의하기</h1>
       </Header>
@@ -153,41 +145,76 @@ const CustomerServiceInquirement = () => {
         <InquirementForm>
           <InquirementItem>
             <p>이름</p>
-            <InputText name="username" placeholder="홍길동" />
+            <InputText
+              name="username"
+              placeholder="홍길동"
+              value={props.form.username}
+              onChange={props.handleChange}
+              autoComplete="on"
+            />
           </InquirementItem>
 
           <InquirementItem>
             <p>휴대폰 번호</p>
-            <InputText name="contact" placeholder="010-0000-0000" />
+            <InputText
+              name="contact"
+              placeholder="010-0000-0000"
+              value={translateContact(props.form.contact)}
+              onChange={(e) => {
+                props.handleChange(e, regInput.onlyNum, 11);
+              }}
+            />
           </InquirementItem>
 
           <InquirementItem>
             <p>이메일</p>
-            <InputText name="email" placeholder="example@naver.com" />
+            <InputText
+              name="email"
+              placeholder="example@naver.com"
+              value={props.form.email}
+              onChange={props.handleChange}
+              autoComplete="on"
+            />
           </InquirementItem>
 
           <InquirementItem>
             <p>문의 분야</p>
-            <SelectBox onClick={toggleSelectBox}>
-              <input type="text" name="inquirementType" value={inqType} />
-              <div>{inqType.length ? inqType : <span>선택</span>}</div>
+            <SelectBox onClick={props.toggleSelectBox}>
+              <input
+                type="text"
+                name="inquirementType"
+                value={props.form.inquirementType}
+              />
+              <div>
+                {props.form.inquirementType.length ? (
+                  props.form.inquirementType
+                ) : (
+                  <span>선택</span>
+                )}
+              </div>
               <ul>
-                <li onClick={handleInqType}>사용 문의</li>
-                <li onClick={handleInqType}>협력 문의</li>
-                <li onClick={handleInqType}>환불 문의</li>
+                <li onClick={props.handleInqType}>사용 문의</li>
+                <li onClick={props.handleInqType}>협력 문의</li>
+                <li onClick={props.handleInqType}>환불 문의</li>
               </ul>
             </SelectBox>
           </InquirementItem>
 
           <InquirementItem>
             <p>문의 내용</p>
-            <Textarea placeholder="내용을 입력하세요." />
+            <Textarea
+              name="inquirementContent"
+              placeholder="내용을 입력하세요."
+              onChange={props.handleChange}
+            >
+              {props.form.inquirementContent}
+            </Textarea>
           </InquirementItem>
 
-          <SubmitButton>제출하기</SubmitButton>
+          <SubmitButton onClick={props.handleSubmit}>제출하기</SubmitButton>
         </InquirementForm>
       </Body>
-    </CsInquirementBlock>
+    </CSInquirementBlock>
   );
 };
-export default CustomerServiceInquirement;
+export default CSInquirementForm;

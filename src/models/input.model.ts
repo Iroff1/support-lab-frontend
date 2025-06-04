@@ -7,7 +7,7 @@ export interface IInput {
   type?: string;
   name: string;
   placeholder?: string;
-  autoComplete?: string;
+  autoComplete?: React.InputHTMLAttributes<HTMLInputElement>['autoComplete'];
   required?: boolean;
   value?: string;
   disabled?: boolean; // input 태그를 잠그기 위한 속성

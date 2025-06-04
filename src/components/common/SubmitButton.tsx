@@ -3,7 +3,7 @@ import translateFontSize from '@utils/translateFontSize';
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-export const SubmitButtonBlock = styled.button`
+const SubmitButtonBlock = styled.button`
   width: 100%;
   height: 48px;
   border-radius: 8px;
@@ -21,9 +21,16 @@ export const SubmitButtonBlock = styled.button`
   }
 `;
 
+const SubmitButtonBlockInverse = styled(SubmitButtonBlock)`
+  background-color: transparent;
+  color: ${palette.main.main};
+  border: 1px solid ${palette.main.main};
+`;
+
 interface ISubmitButton {
   children: string;
   disabled?: boolean;
+  inverse?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   ref?: React.RefObject<HTMLButtonElement | null>;
 }
@@ -32,12 +39,25 @@ const SubmitButton: React.FC<ISubmitButton> = ({
   children,
   ref,
   disabled,
+  inverse = false,
   onClick,
 }) => {
   return (
-    <SubmitButtonBlock ref={ref} disabled={disabled} onClick={onClick}>
-      {children}
-    </SubmitButtonBlock>
+    <>
+      {inverse ? (
+        <SubmitButtonBlockInverse
+          ref={ref}
+          disabled={disabled}
+          onClick={onClick}
+        >
+          {children}
+        </SubmitButtonBlockInverse>
+      ) : (
+        <SubmitButtonBlock ref={ref} disabled={disabled} onClick={onClick}>
+          {children}
+        </SubmitButtonBlock>
+      )}
+    </>
   );
 };
 

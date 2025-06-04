@@ -1,7 +1,5 @@
 import palette from '@assets/colors';
-import SubmitButton, {
-  SubmitButtonBlock,
-} from '@components/common/SubmitButton';
+import SubmitButton from '@components/common/SubmitButton';
 import translateFontSize from '@utils/translateFontSize';
 import styled, { css } from 'styled-components';
 
@@ -36,12 +34,6 @@ const AuthShowEmailBlock = styled.div`
       flex: 1;
     }
   }
-`;
-
-const NavigateButton = styled(SubmitButtonBlock)`
-  background-color: transparent;
-  color: ${palette.main.main};
-  border: 1px solid ${palette.main.main};
 `;
 
 interface IAuthShowEmail {
@@ -79,9 +71,9 @@ const AuthShowEmail: React.FC<IAuthShowEmail> = ({
         <SubmitButton onClick={handleLeftBtn}>
           {email.length !== 0 ? '로그인' : '회원가입'}
         </SubmitButton>
-        <NavigateButton onClick={handleRightBtn}>
+        <SubmitButton inverse={true} onClick={handleRightBtn}>
           {email.length !== 0 ? '비밀번호 찾기' : '메인으로'}
-        </NavigateButton>
+        </SubmitButton>
       </div>
     </AuthShowEmailBlock>
   );

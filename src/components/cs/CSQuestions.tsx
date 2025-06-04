@@ -1,10 +1,10 @@
 import palette from '@assets/colors';
 import translateFontSize from '@utils/translateFontSize';
-import styled, { css, keyframes } from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const ARROW = require('@assets/images/common/icon_arrow_below.png');
 
-const CustomerServiceQuestionsBlock = styled.div`
+const CSQuestionsBlock = styled.div`
   width: 726px;
   display: flex;
   flex-direction: column;
@@ -86,7 +86,7 @@ interface IQuestion {
   content: string;
 }
 
-const CustomerServiceQuestions = () => {
+const CSQuestions = () => {
   const questions: Array<IQuestion> = [
     {
       title: '지원 사업에 대해 하나도 모릅니다. 컨설팅 받는데 돈이 드나요?',
@@ -120,7 +120,7 @@ const CustomerServiceQuestions = () => {
   ];
 
   return (
-    <CustomerServiceQuestionsBlock>
+    <CSQuestionsBlock>
       {/* 헤더 */}
       <Header>
         <h1>자주하는 질문</h1>
@@ -147,7 +147,7 @@ const CustomerServiceQuestions = () => {
           ))}
         </QuestionList>
       </Body>
-    </CustomerServiceQuestionsBlock>
+    </CSQuestionsBlock>
   );
 };
-export default CustomerServiceQuestions;
+export default CSQuestions;

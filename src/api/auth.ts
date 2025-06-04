@@ -1,9 +1,4 @@
-import {
-  ILogin,
-  IRegisterRequest,
-  ILocalAuth,
-  IAuth,
-} from '@models/auth.model';
+import { ILogin, IRegisterRequest, IAuth } from '@models/auth.model';
 import client from './client';
 
 // GET/auth 본인인증 코드 요청
@@ -24,14 +19,14 @@ export const authLoginUser = async (formData: ILogin) => {
   return res;
 };
 
-// POST/auth 회원가입 요청
+/** POST/auth 회원가입 요청 */
 export const authRegisterUser = async (formData: IRegisterRequest) => {
   console.log('회원가입 요청');
   const res = client.post('/api/auth/register', { ...formData });
   return res;
 };
 
-// GET/auth 아이디 찾기
+/** GET/auth 아이디 찾기 */
 export const authGetEmail = async (username: string, contact: string) => {
   console.log('이메일 찾기');
   const res = await client.get<{ email: string }>('/api/auth/find/email', {
@@ -40,7 +35,7 @@ export const authGetEmail = async (username: string, contact: string) => {
   return res;
 };
 
-// GET/auth 아이디 체크
+/** GET/auth 아이디 체크 */
 export const authCheckEmail = async (email: string) => {
   console.log('이메일 체크');
   const res = await client.get<{ email: string }>('/api/auth/check/email', {
@@ -49,7 +44,7 @@ export const authCheckEmail = async (email: string) => {
   return res;
 };
 
-// GET/auth 비밀번호 찾기
+/** GET/auth 비밀번호 찾기 */
 export const authFindPassword = async (email: string) => {
   console.log('비밀번호 찾기');
   const res = await client.get<{ password: string }>(
@@ -61,7 +56,7 @@ export const authFindPassword = async (email: string) => {
   return res;
 };
 
-// PUT/auth 비밀번호 재설정 요청
+/** PUT/auth 비밀번호 재설정 요청 */
 export const authUpdatePassword = async (email: string, password: string) => {
   console.log('비밀번호 재설정');
   const res = await client.put('/api/auth/find/password', { email, password });
