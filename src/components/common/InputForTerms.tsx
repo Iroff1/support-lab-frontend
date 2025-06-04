@@ -15,29 +15,25 @@ const InputForTermsBlock = styled.div`
   }
 `;
 
-const CheckBoxWrapper = styled.label`
+const CheckBoxWrapper = styled.label<{ $isChecked: boolean }>`
   /* width: 100%; */
   height: 100%;
   display: flex;
   gap: 7px;
   position: relative;
-  &:hover {
-    & > .checkBox {
-      border: 3px solid #444444;
-    }
-  }
+
+  ${({ $isChecked }) =>
+    !$isChecked &&
+    css`
+      &:hover {
+        & > .checkBox {
+          border: 3px solid #444444;
+        }
+      }
+    `}
 
   & > input[type='checkbox'] {
     display: none;
-
-    &:checked + .checkBox {
-      background-color: ${palette.main.main};
-      fill: ${palette.black.white};
-      border: 0px;
-      & + span {
-        color: ${palette.black.B700};
-      }
-    }
   }
 
   & > h4 {
@@ -70,7 +66,7 @@ const Direct = styled.span`
   }
 `;
 
-const CheckBox = styled.div`
+const CheckBox = styled.div<{ $isChecked: boolean }>`
   width: 24px;
   height: 24px;
   aspect-ratio: 1/1;
@@ -91,6 +87,20 @@ const CheckBox = styled.div`
     width: 80%;
     height: 80%;
   }
+
+  ${({ $isChecked }) =>
+    $isChecked &&
+    css`
+      background-color: ${palette.main.main};
+      fill: ${palette.black.white};
+      border: 0px;
+      & + span {
+        color: ${palette.black.B700};
+      }
+      &:hover {
+        border: 0px;
+      }
+    `}
 `;
 
 const ContentsOfTerms = styled.div`
@@ -106,7 +116,7 @@ const ContentsOfTerms = styled.div`
   }
 `;
 
-const ContentsWrapper = styled.div<{ h: number }>`
+const ContentsWrapper = styled.div<{ $h: number }>`
   height: 96px;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -130,7 +140,7 @@ const ContentsWrapper = styled.div<{ h: number }>`
   &::after {
     content: '';
     position: absolute;
-    top: ${({ h }) => h + 6}px;
+    top: ${({ $h }) => $h + 6}px;
     right: 6px;
     width: 8px;
     height: 36px;
@@ -168,7 +178,7 @@ const InputForTerms: React.FC<IInputForterms> = ({
   header,
   contents,
   isWrapped,
-  isChecked,
+  isChecked = false,
   popup,
 }) => {
   const { state, handleScrollY } = useScroll();
@@ -203,15 +213,15 @@ const InputForTerms: React.FC<IInputForterms> = ({
     <>
       <InputForTermsBlock>
         <div>
-          <CheckBoxWrapper>
+          <CheckBoxWrapper $isChecked={isChecked}>
             <input
               type="checkbox"
               name={name}
               required={isRequired === '필수'}
               onClick={onClick}
-              checked={isChecked}
+              defaultChecked={isChecked}
             />
-            <CheckBox className="checkBox">
+            <CheckBox className="checkBox" $isChecked={isChecked}>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                 <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
               </svg>
@@ -236,7 +246,7 @@ const InputForTerms: React.FC<IInputForterms> = ({
         </div>
         <ContentsOfTerms>
           {isWrapped ? (
-            <ContentsWrapper h={state.y}>
+            <ContentsWrapper $h={state.y}>
               <p ref={ref}>{contents}</p>
             </ContentsWrapper>
           ) : (

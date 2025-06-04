@@ -56,7 +56,7 @@ const BoxContents = styled.div`
   }
 `;
 
-const SlideBox = styled.div<{ index: number }>`
+const SlideBox = styled.div<{ $index: number }>`
   width: 100%;
   padding: 80px 0;
   display: flex;
@@ -82,7 +82,7 @@ const SlideBox = styled.div<{ index: number }>`
         display: flex;
 
         position: absolute;
-        left: ${(props) => props.index * -100}%;
+        left: ${(props) => props.$index * -100}%;
         transition: 0.4s ease left;
 
         & > li {
@@ -124,7 +124,7 @@ const SlideBox = styled.div<{ index: number }>`
 
     & > div {
       width: 8px;
-      heigth: 8px;
+      height: 8px;
       aspect-ratio: 1/1;
       border-radius: 50%;
 
@@ -190,7 +190,7 @@ const MainBoxForExample = () => {
         <div />
 
         {/* 문서 작성 후 이미지 슬라이드 */}
-        <SlideBox index={slideShow.index}>
+        <SlideBox $index={slideShow.index}>
           <div
             className="slideWrapper"
             onMouseOver={slideShow.stop}
@@ -211,7 +211,10 @@ const MainBoxForExample = () => {
 
           <div className="slideDot">
             {IMAGE_DOC_AFTER.map((_, index) => (
-              <div className={slideShow.index === index ? 'on' : ''} />
+              <div
+                key={index}
+                className={slideShow.index === index ? 'on' : ''}
+              />
             ))}
           </div>
         </SlideBox>

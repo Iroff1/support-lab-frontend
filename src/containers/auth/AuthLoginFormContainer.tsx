@@ -14,11 +14,7 @@ import { useNavigate } from 'react-router-dom';
 const AuthLoginFormContainer = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { token, auth, authError } = useAppSelector(({ auth }) => ({
-    token: auth.token,
-    auth: auth.auth,
-    authError: auth.authError,
-  }));
+  const { token, auth, authError } = useAppSelector(({ auth }) => auth);
   const [loginForm, setLoginForm] = useState<ILogin>({
     email: '',
     password: '',

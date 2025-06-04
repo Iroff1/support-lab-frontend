@@ -5,8 +5,8 @@ import styled, { css } from 'styled-components';
 import Modal from './Modal';
 
 const ConsultButtonBlock = styled.div<IButtonProps>`
-  width: ${(props) => (props.location === 'header' ? '117px' : '169px')};
-  height: ${(props) => (props.location === 'header' ? '40px' : '48px')};
+  width: ${(props) => (props.$location === 'header' ? '117px' : '169px')};
+  height: ${(props) => (props.$location === 'header' ? '40px' : '48px')};
   border-radius: 40px;
   display: flex;
   justify-content: center;
@@ -15,20 +15,20 @@ const ConsultButtonBlock = styled.div<IButtonProps>`
   background-color: ${palette.system.blue};
   cursor: pointer;
   ${(props) =>
-    props.location === 'header'
+    props.$location === 'header'
       ? css(translateFontSize('B_18'))
       : css(translateFontSize('B_20'))};
 `;
 
 interface IButtonProps {
-  location?: 'header' | 'body';
+  $location?: 'header' | 'body';
   children?: React.ReactNode | string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   [key: string]: any; // 나머지 props은 string 키와 any 타입의 값으로 받을 수 있도록 허용 (선택 사항)
 }
 
 const ConsultButton: React.FC<IButtonProps> = ({
-  location = 'header',
+  $location = 'header',
   children,
   onClick,
   ...props
@@ -46,7 +46,11 @@ const ConsultButton: React.FC<IButtonProps> = ({
 
   return (
     <>
-      <ConsultButtonBlock location={location} onClick={handleClick} {...props}>
+      <ConsultButtonBlock
+        $location={$location}
+        onClick={handleClick}
+        {...props}
+      >
         {children}
       </ConsultButtonBlock>
       {toggle ? <Modal handleClose={handleClose} /> : null}

@@ -19,10 +19,10 @@ const InputPw = styled(InputText)`
   padding-right: 44px;
 `;
 
-const ToggleVisible = styled.div<{ isVisible: boolean }>`
+const ToggleVisible = styled.div<{ $isVisible: boolean }>`
   width: 24px;
   height: 24px;
-  background: url(${(props) => (props.isVisible ? pw_show : pw_hide)})
+  background: url(${(props) => (props.$isVisible ? pw_show : pw_hide)})
     center/cover no-repeat;
   position: absolute;
   top: 14px;
@@ -67,7 +67,7 @@ const InputPassword: React.FC<IInput> = ({
           }
           required
         />
-        <ToggleVisible onClick={handleIsVisible} isVisible={isVisible} />
+        <ToggleVisible onClick={handleIsVisible} $isVisible={isVisible} />
       </InputWrapper>
     </InputPasswordBlock>
   );

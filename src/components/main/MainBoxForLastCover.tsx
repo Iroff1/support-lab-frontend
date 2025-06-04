@@ -62,7 +62,7 @@ const MainBoxForLastCover = () => {
           </p>
         </CoverBoxContent>
 
-        <ConsultButton location="body">무료 상담</ConsultButton>
+        <ConsultButton $location="body">무료 상담</ConsultButton>
       </CoverBox>
     </MainBoxForLastCoverBlock>
   );

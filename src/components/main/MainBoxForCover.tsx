@@ -53,7 +53,7 @@ const MainBoxForCover = () => {
           <h2>컨설팅비 수백만 원 내는 건 돈 버리는 겁니다.</h2>
         </div>
         <p>타자 느리고 문서 작업 잘 못해도 괜찮습니다.</p>
-        <ConsultButton location="body">무료 상담</ConsultButton>
+        <ConsultButton $location="body">무료 상담</ConsultButton>
       </div>
     </MainCoverBoxBlock>
   );

@@ -1,7 +1,7 @@
 import palette from '@assets/colors/index';
 import InputText from '@components/common/InputText';
 import translateFontSize from '@utils/translateFontSize';
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import InputPassword from '../../containers/common/InputPassword';

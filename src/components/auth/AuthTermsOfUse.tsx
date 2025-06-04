@@ -23,6 +23,7 @@ const AuthTermsOfUseBlock = styled.div`
 `;
 
 interface IAuthTermsOfUse {
+  toggleAll: boolean;
   termsOfUses: ITerms;
   handleToggleOne: (name: keyof ITerms) => void;
   handleToggleAll: () => void;
@@ -40,6 +41,7 @@ const AuthTermsOfUse: React.FC<IAuthTermsOfUse> = (props) => {
           name="checkAll"
           header="전체 동의"
           contents="이벤트・혜택 정보 수신 (선택) 동의를 포함합니다."
+          isChecked={props.toggleAll}
           onClick={(e) => {
             props.handleToggleAll();
           }}

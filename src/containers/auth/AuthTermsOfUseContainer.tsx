@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 const AuthTermsOfUseContainer = () => {
   const terms = useAppSelector(({ terms }) => terms);
   const dispatch = useAppDispatch();
-  const [toggle, setToggle] = useState(false);
+  const [toggleAll, setToggleAll] = useState(false);
   const { isInit, startInit } = useInit();
   const navigate = useNavigate();
 
@@ -20,21 +20,27 @@ const AuthTermsOfUseContainer = () => {
 
   /** 전체 항목에 대해서 토글하는 핸들러 함수 */
   const handleToggleAll = () => {
-    setToggle((prev) => !prev); // toggle 값만 변경
+    dispatch(termsActions.toggleAll(!toggleAll));
   };
 
   useEffect(() => {
     startInit();
-    dispatch(termsActions.initialState());
   }, []);
-
   useEffect(() => {
     if (!isInit) return;
-    dispatch(termsActions.toggleAll(toggle));
-  }, [toggle]);
+    dispatch(termsActions.initialState());
+  }, [isInit]);
+  useEffect(() => {
+    if (Object.keys(terms).every((key) => terms[key as keyof ITerms])) {
+      setToggleAll(true);
+    } else if (!Object.keys(terms).every((key) => terms[key as keyof ITerms])) {
+      setToggleAll(false);
+    }
+  }, [terms]);
 
   return (
     <AuthTermsOfUse
+      toggleAll={toggleAll}
       termsOfUses={terms}
       handleToggleOne={handleToggleOne}
       handleToggleAll={handleToggleAll}
