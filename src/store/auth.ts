@@ -31,13 +31,15 @@ export const authSlice = createSlice({
       })
       .addCase(authLoginUserThunk.fulfilled, (state, { type, payload }) => {
         console.log(type + ' 성공');
-        state.authError = null;
+        state.token = payload.token;
         state.auth = payload.auth;
+        state.authError = null;
       })
       .addCase(authLoginUserThunk.rejected, (state, { error }) => {
         console.error(error);
         // state.auth = null;
 
+        state.token = 'example.token.1234567890';
         state.auth = {
           email: 'example@example.com',
           username: '홍길동',

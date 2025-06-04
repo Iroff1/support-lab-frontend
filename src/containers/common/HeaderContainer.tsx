@@ -33,10 +33,10 @@ const HeaderContainer = () => {
   }, []);
   useEffect(() => {
     if (!isInit) return;
-    const localAuth = localStorage.getItem('auth');
-    if (localAuth) {
-      dispatch(authActions.refreshAuth(JSON.parse(localAuth)));
-    }
+    // const localAuth = localStorage.getItem('auth');
+    // if (localAuth) {
+    //   dispatch(authActions.refreshAuth(JSON.parse(localAuth)));
+    // }
   }, []);
 
   return (

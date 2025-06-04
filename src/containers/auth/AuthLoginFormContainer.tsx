@@ -14,7 +14,8 @@ import { useNavigate } from 'react-router-dom';
 const AuthLoginFormContainer = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { auth, authError } = useAppSelector(({ auth }) => ({
+  const { token, auth, authError } = useAppSelector(({ auth }) => ({
+    token: auth.token,
     auth: auth.auth,
     authError: auth.authError,
   }));
@@ -57,6 +58,9 @@ const AuthLoginFormContainer = () => {
     if (auth) {
       // TODO) isMaintain true일 경우, 로컬스토리지에 로그인 정보 저장
       isMaintain && localStorage.setItem('auth', JSON.stringify(auth));
+      isMaintain &&
+        token.length > 0 &&
+        localStorage.setItem('token', JSON.stringify(token));
       navigate('/');
     }
     if (authError) alert('일치하는 계정이 없습니다!');
