@@ -1,7 +1,15 @@
 import palette from '@assets/colors';
+import InputWithCheck from '@components/common/InputWithCheck';
+import TermsOfUse from '@components/terms/TermsOfPersonalInfo';
+import { regValid } from '@consts/reg';
+import InputForAuth from '@containers/common/InputForAuth';
+import InputPassword from '@containers/common/InputPassword';
+import InputWithConfirm from '@containers/common/InputWithConfirm';
+import { IUserModifyInfoProps } from '@containers/user/UserModifyInfoContainer';
 import translateFontSize from '@utils/translateFontSize';
-import { useState } from 'react';
 import styled, { css } from 'styled-components';
+
+const ICON_ARROW_RIGHT = require('@assets/images/common/icon_arrow_right.svg');
 
 const UserModifyInfoBlock = styled.div`
   width: 100%;
@@ -26,12 +34,13 @@ const Title = styled.h1`
   ${css(translateFontSize('B_38'))};
 `;
 
-const FormCard = styled.div`
-  background-color: white;
+const ModifyForm = styled.div`
+  width: 100%;
   overflow: hidden;
   border-top: 2px solid ${palette.black.B70};
 `;
 
+/** 테이블 행 */
 const FormRow = styled.div`
   display: flex;
   border-bottom: 1px solid ${palette.black.B50};
@@ -40,31 +49,26 @@ const FormRow = styled.div`
   }
 `;
 
-const LabelSection = styled.div`
+/** 테이블 좌측 열 */
+const FormLeft = styled.div`
   width: 140px;
   background-color: ${palette.black.B20};
-  padding-top: 13px;
+  padding-top: 14px;
   padding-right: 19px;
-  padding-bottom: 12px;
   ${css(translateFontSize('SB_17'))};
   display: flex;
-  justify-content: end;
-  align-items: center;
+  justify-content: flex-end;
+  align-items: flex-start;
   border-right: 1px solid ${palette.black.B50};
 
-  &.align-start {
-    align-items: flex-start;
-    padding-top: 32px;
+  & > span {
+    color: ${palette.black.black};
+    ${css(translateFontSize('SB_17'))};
   }
 `;
 
-const Label = styled.span`
-  font-size: 1.125rem;
-  font-weight: 500;
-  color: #1c1c1c;
-`;
-
-const ContentSection = styled.div`
+/** 테이블 우측 열 */
+const FormRight = styled.div`
   flex: 1;
   padding-top: 13px;
   padding-left: 11px;
@@ -72,6 +76,7 @@ const ContentSection = styled.div`
   display: flex;
   align-items: center;
 
+  // 세로 정렬
   &.column {
     flex-direction: column;
     gap: 12px;
@@ -83,62 +88,16 @@ const ContentSection = styled.div`
   }
 `;
 
-const EmailText = styled.span`
-  font-size: 1.125rem;
-  color: #1c1c1c;
-`;
-
 const InputGroup = styled.div`
+  width: 100%;
   display: flex;
   align-items: center;
   gap: 8px;
-  width: 100%;
-  height: 34px;
 `;
 
-const InputWrapper = styled.div`
-  position: relative;
-  height: 34px;
-  flex: 1;
-`;
-
-const StyledInput = styled.input`
-  width: 100%;
+const Blank = styled.div`
+  min-width: 53px;
   height: 100%;
-  padding: 4px 10px;
-  font-size: 1rem;
-  border: 1px solid #bfbfbf;
-  border-radius: 6px;
-  background-color: white;
-  outline: none;
-
-  &:focus {
-    border-color: #1c1c1c;
-  }
-
-  &::placeholder {
-    color: #a3a3a3;
-  }
-
-  &:read-only {
-    background-color: #f9f9f9;
-  }
-`;
-
-const EyeButton = styled.button`
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  color: #a3a3a3;
-  cursor: pointer;
-  padding: 4px;
-
-  &:hover {
-    color: #1c1c1c;
-  }
 `;
 
 const ActionButton = styled.button`
@@ -147,11 +106,11 @@ const ActionButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid #bfbfbf;
+  border: 1px solid ${palette.black.B40};
   border-radius: 6px;
-  background-color: white;
-  color: #1c1c1c;
-  font-size: 1rem;
+  background-color: ${palette.black.white};
+  color: ${palette.black.black};
+  ${css(translateFontSize('R_17'))};
   cursor: pointer;
   transition: background-color 0.2s;
 
@@ -160,65 +119,23 @@ const ActionButton = styled.button`
   }
 `;
 
-const CheckboxGroup = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 12px;
-`;
-
-const CheckboxWrapper = styled.div`
-  position: relative;
-`;
-
-const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-`;
-
-const StyledCheckbox = styled.div<{ checked: boolean }>`
-  width: 20px;
-  height: 20px;
-  border: 1px solid #bfbfbf;
-  border-radius: 3px;
-  background-color: ${(props) => (props.checked ? '#1c1c1c' : 'white')};
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  &:after {
-    content: '';
-    display: ${(props) => (props.checked ? 'block' : 'none')};
-    width: 4px;
-    height: 8px;
-    border: solid white;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
-  }
-`;
-
-const CheckboxLabel = styled.label`
-  font-size: 1.125rem;
-  color: #1c1c1c;
-  cursor: pointer;
-`;
-
-const AccountDeletionButton = styled.button`
+const AccountDeletionButton = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
   background: none;
   border: none;
-  color: #757575;
-  font-size: 1.125rem;
+  color: ${palette.black.B90};
   cursor: pointer;
   transition: color 0.2s;
 
   &:hover {
     color: #1c1c1c;
+  }
+  & > img {
+    width: 16px;
+    height: 16px;
+    aspect-ratio: 1/1;
   }
 `;
 
@@ -228,147 +145,141 @@ const BottomSection = styled.div`
   justify-content: flex-end;
 `;
 
-const UserModifyInfo = () => {
-  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
-  const [showNewPassword, setShowNewPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [marketingConsent, setMarketingConsent] = useState(false);
-
+const UserModifyInfo: React.FC<IUserModifyInfoProps> = (props) => {
   return (
     <UserModifyInfoBlock>
       <Container>
         <Title>회원정보 수정</Title>
 
-        <FormCard>
+        <ModifyForm>
           {/* Email Section */}
           <FormRow>
-            <LabelSection>
-              <Label>이메일</Label>
-            </LabelSection>
-            <ContentSection>
-              <EmailText>example@gmail.com</EmailText>
-            </ContentSection>
+            <FormLeft>
+              <span>이메일</span>
+            </FormLeft>
+            <FormRight>
+              <span style={{ paddingLeft: '10px' }}>
+                {props.formState.email}
+              </span>
+            </FormRight>
           </FormRow>
 
           {/* Password Section */}
           <FormRow>
-            <LabelSection className="align-start">
-              <Label>비밀번호</Label>
-            </LabelSection>
-            <ContentSection className="column">
+            <FormLeft>
+              <span>비밀번호</span>
+            </FormLeft>
+            <FormRight className="column">
               {/* Current Password */}
               <InputGroup>
-                <InputWrapper>
-                  <StyledInput
-                    type={showCurrentPassword ? 'text' : 'password'}
-                    placeholder="현재 비밀번호"
-                  />
-                  <EyeButton
-                    type="button"
-                    onClick={() => setShowCurrentPassword(!showCurrentPassword)}
-                  >
-                    {showCurrentPassword ? <></> : <></>}
-                  </EyeButton>
-                </InputWrapper>
+                <InputPassword
+                  name="currentPassword"
+                  placeholder="현재 비밀번호"
+                  $theme="modify"
+                  value={props.formState.password}
+                />
+                <Blank />
               </InputGroup>
 
               {/* New Password */}
               <InputGroup>
-                <InputWrapper>
-                  <StyledInput
-                    type={showNewPassword ? 'text' : 'password'}
-                    placeholder="새 비밀번호"
-                  />
-                  <EyeButton
-                    type="button"
-                    onClick={() => setShowNewPassword(!showNewPassword)}
-                  >
-                    {showNewPassword ? <></> : <></>}
-                  </EyeButton>
-                </InputWrapper>
+                <InputPassword
+                  name="newPassword"
+                  placeholder="새 비밀번호"
+                  $theme="modify"
+                  value={props.formState.newPassword}
+                  isValid={props.checkList.newPassword}
+                  cautionText={
+                    '8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해 주세요.'
+                  }
+                  onChange={(e) => {
+                    props.handleChange(e, regValid.password, 16);
+                  }}
+                />
+                <Blank />
               </InputGroup>
 
               {/* Confirm Password */}
               <InputGroup>
-                <InputWrapper>
-                  <StyledInput
-                    type={showConfirmPassword ? 'text' : 'password'}
-                    placeholder="비밀번호 재입력"
-                  />
-                  <EyeButton
-                    type="button"
-                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  >
-                    {showConfirmPassword ? <></> : <></>}
-                  </EyeButton>
-                </InputWrapper>
+                <InputPassword
+                  name="newPasswordConfirm"
+                  placeholder="비밀번호 확인"
+                  $theme="modify"
+                  value={props.formState.newPasswordConfirm}
+                  isValid={props.checkList.newPasswordConfirm}
+                  cautionText={'비밀번호가 일치하지 않습니다.'}
+                  onChange={(e) => {
+                    props.handleChange(e, regValid.password, 16);
+                  }}
+                />
                 <ActionButton>변경</ActionButton>
               </InputGroup>
-            </ContentSection>
+            </FormRight>
           </FormRow>
 
           {/* Name Section */}
           <FormRow>
-            <LabelSection>
-              <Label>이름</Label>
-            </LabelSection>
-            <ContentSection>
+            <FormLeft>
+              <span>이름</span>
+            </FormLeft>
+            <FormRight>
               <InputGroup>
-                <StyledInput value="홍길동" readOnly />
-                <ActionButton>변경</ActionButton>
+                <InputWithConfirm
+                  name="username"
+                  value={props.formState.username}
+                  useFor="modify"
+                  $theme="modify"
+                />
               </InputGroup>
-            </ContentSection>
+            </FormRight>
           </FormRow>
 
           {/* Phone Number Section */}
           <FormRow>
-            <LabelSection className="align-start">
-              <Label>휴대폰번호</Label>
-            </LabelSection>
-            <ContentSection className="column">
-              <InputGroup>
-                <StyledInput value="010-0000-0000" readOnly />
-                <ActionButton>변경</ActionButton>
-              </InputGroup>
-              <InputGroup>
-                <StyledInput placeholder="인증번호" />
-                <ActionButton>확인</ActionButton>
-              </InputGroup>
-            </ContentSection>
+            <FormLeft>
+              <span>휴대폰번호</span>
+            </FormLeft>
+            <FormRight className="column">
+              <InputForAuth
+                $theme="modify"
+                contact={props.formState.contact}
+                authConfirm={props.formState.authConfirm}
+                authCode={props.formState.authCode}
+                checkList={props.checkList}
+                confirmAuth={props.confirmAuth}
+                handleChange={props.handleChange}
+                handleAuthStart={props.handleAuthStart}
+                handleAuthConfirm={props.handleAuthConfirm}
+              />
+            </FormRight>
           </FormRow>
 
           {/* Marketing Consent Section */}
           <FormRow>
-            <LabelSection>
-              <Label>수신설정</Label>
-            </LabelSection>
-            <ContentSection className="space-between">
-              <CheckboxGroup>
-                <CheckboxWrapper>
-                  <HiddenCheckbox
-                    id="marketing"
-                    checked={marketingConsent}
-                    onChange={(e) => setMarketingConsent(e.target.checked)}
-                  />
-                  <StyledCheckbox
-                    checked={marketingConsent}
-                    onClick={() => setMarketingConsent(!marketingConsent)}
-                  />
-                </CheckboxWrapper>
-                <CheckboxLabel htmlFor="marketing">
-                  마케팅 수신 동의
-                </CheckboxLabel>
-              </CheckboxGroup>
-            </ContentSection>
+            <FormLeft>
+              <span>수신설정</span>
+            </FormLeft>
+            <FormRight className="space-between">
+              <InputWithCheck
+                name="marketing"
+                required={false}
+                useFor="auth"
+                handleClick={props.handleMarketing}
+                popup={<TermsOfUse type="marketing" isPopup={true} />}
+              >
+                마케팅 수신 동의
+              </InputWithCheck>
+            </FormRight>
           </FormRow>
 
           {/* Account Deletion Link */}
           <BottomSection>
             <AccountDeletionButton>
               <span>회원탈퇴</span>
+              <img src={ICON_ARROW_RIGHT} alt="▶" />
             </AccountDeletionButton>
           </BottomSection>
-        </FormCard>
+        </ModifyForm>
       </Container>
     </UserModifyInfoBlock>
   );

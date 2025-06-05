@@ -23,15 +23,15 @@ export interface ILogin {
   password: string;
 }
 
-export interface IRegisterAuth extends IAuthChecker<IRegister> {
-  passwordConfirm: boolean;
-  authConfirm: boolean;
-}
-
 /** register 입력 데이터 인터페이스 */
 export interface IRegister extends ILogin {
   username: string;
   contact: string;
+}
+
+export interface IConfirm {
+  authCode: string;
+  authConfirm: string;
 }
 
 /** 서버에 전송할 register 선택 데이터 인터페이스 */
@@ -48,14 +48,12 @@ export interface ITerms {
 export interface IRegisterRequest extends IRegister, ITerms {}
 
 /** 코드레벨에서 필요한 register 상태 데이터를 위한 인터페이스 */
-export interface IRegisterState extends IRegister {
-  emailDuplication: boolean;
+export interface IRegisterState extends IRegister, IConfirm {
   passwordConfirm: string;
-  authCode: string;
-  authConfirm: string;
+  emailDuplication: boolean;
 }
 
-export interface IChangePassword {
-  password: string;
-  passwordConfirm: string;
+export interface INewPassword {
+  newPassword: string;
+  newPasswordConfirm: string;
 }

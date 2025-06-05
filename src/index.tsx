@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router';
 import store from './store';
 import { Provider } from 'react-redux';
-import { authActions, authDecryptTokenThunk } from '@store/auth';
+import { authDecryptTokenThunk } from '@store/auth';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -15,7 +15,8 @@ const root = ReactDOM.createRoot(
 const localToken =
   sessionStorage.getItem('token') || localStorage.getItem('token');
 try {
-  if (localToken) store.dispatch(authDecryptTokenThunk(JSON.parse(localToken)));
+  if (localToken)
+    await store.dispatch(authDecryptTokenThunk(JSON.parse(localToken)));
 } catch (error) {
   console.log(error);
 }

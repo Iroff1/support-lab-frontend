@@ -19,9 +19,11 @@ interface IInputForAuth {
   handleChange: TChangeEventHandler<HTMLInputElement>;
   handleAuthStart: () => Promise<void>;
   handleAuthConfirm: TMouseEventHandler<HTMLButtonElement>;
+  $theme?: 'default' | 'modify';
 }
 
 const InputForAuth: React.FC<IInputForAuth> = ({
+  $theme = 'default',
   contact,
   authConfirm,
   authCode,
@@ -35,31 +37,31 @@ const InputForAuth: React.FC<IInputForAuth> = ({
     TIMER_INIT,
     TIMER_LIMIT,
   );
-  const { isInit, startInit, resetInit } = useInit();
 
   useEffect(() => {
     return timerReset();
   }, []);
 
   // 타이머 종료 추적
+
   useEffect(() => {
     if (timerEvent.current && timer < 0) {
       timerReset(); // 타이머 초기화
-      resetInit();
     }
   }, [timer]);
-
   useEffect(() => {
     confirmAuth && timerReset(); // 권환 확인 시 타이머 초기화
   }, [confirmAuth]);
 
   useEffect(() => {
-    isInit && authCode.length === 6 && timerStart(); // 권한 코드 생성 시 타이머 시작
-  }, [isInit]);
+    authCode.length === 6 && timerStart(); // 권한 코드 생성 시 타이머 시작
+  }, [authCode]);
 
   return (
     <>
       <InputWithConfirm
+        $theme={$theme}
+        useFor={$theme === 'modify' ? 'modify' : 'auth'}
         name="contact"
         type="tel"
         placeholder="휴대폰번호"
@@ -71,10 +73,7 @@ const InputForAuth: React.FC<IInputForAuth> = ({
         isValid={checkList.contact && timer >= 0 && confirmAuth}
         onClick={async (e) => {
           e.preventDefault();
-          if (!checkList.contact) {
-            await handleAuthStart();
-            startInit();
-          }
+          if (!checkList.contact) await handleAuthStart();
         }}
         cautionText={
           checkList.contact ? (
@@ -100,6 +99,8 @@ const InputForAuth: React.FC<IInputForAuth> = ({
       />
 
       <InputWithConfirm
+        $theme={$theme}
+        useFor="validation"
         name="authConfirm"
         type="text"
         placeholder="인증번호"

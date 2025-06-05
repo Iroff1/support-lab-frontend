@@ -1,9 +1,10 @@
 import { authUpdatePassword } from '@api/auth';
 import AuthChangePassword from '@components/auth/AuthChangePassword';
 import useCheckList from '@hooks/useCheckList';
-import { IChangePassword } from '@models/auth.model';
+import { INewPassword } from '@models/auth.model';
 import checkValidation from '@utils/checkValidation';
 import handleChangeField from '@utils/handleChangeField';
+import handleModifyPw from '@utils/handleModifyPw';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,37 +14,30 @@ interface IProp {
 
 const AuthChangePasswordContainer: React.FC<IProp> = ({ email }) => {
   const navigate = useNavigate();
-  const [formState, setFormState] = useState<IChangePassword>({
-    password: '',
-    passwordConfirm: '',
+  const [formState, setFormState] = useState<INewPassword>({
+    newPassword: '',
+    newPasswordConfirm: '',
   });
-  const { checkList, modifyCheckList } = useCheckList<IChangePassword>({
-    password: false,
-    passwordConfirm: false,
+  const { checkList, modifyCheckList } = useCheckList<INewPassword>({
+    newPassword: false,
+    newPasswordConfirm: false,
   });
 
   const handleSubmit = async () => {
     try {
-      const res = await authUpdatePassword(email, formState.password);
-      if (res.status === 200) {
-        alert('비밀번호 재 설정 완료');
-        navigate('/');
-      }
-    } catch (e) {
-      console.error(e);
-      alert(email + ' : ' + formState.password);
-      navigate('/');
-    }
+      await handleModifyPw(email, formState.newPassword);
+    } catch (e) {}
+    navigate('/');
   };
 
   useEffect(() => {
     modifyCheckList(
-      'password',
-      checkValidation(formState.password, 'password'),
+      'newPassword',
+      checkValidation(formState.newPassword, 'password'),
     );
     modifyCheckList(
-      'passwordConfirm',
-      formState.password === formState.passwordConfirm,
+      'newPasswordConfirm',
+      formState.newPassword === formState.newPasswordConfirm,
     );
   }, [formState]);
 

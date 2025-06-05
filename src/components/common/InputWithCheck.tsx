@@ -1,18 +1,28 @@
 import palette from '@assets/colors/index';
 import { IInputWithCheck } from '@models/input.model';
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const RIGHT_ARROW = require('@assets/images/common/icon_arrow_right.svg');
 
 const InputWithCheckBlock = styled.label`
+  width: 100%;
   height: 26px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
-
-const Wrapper = styled.div`
+const PopupWrapper = styled.div`
+  width: 100vw;
+  height: 100vh;
+  background-color: ${palette.black.white};
+  cursor: pointer;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+`;
+const InputWrapper = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
@@ -45,7 +55,6 @@ const Wrapper = styled.div`
     transition: 0.2s ease color;
   }
 `;
-
 const CheckBox = styled.div`
   width: 18px;
   height: 18px;
@@ -64,17 +73,21 @@ const CheckBox = styled.div`
     height: 80%;
   }
 `;
-
 const DirectSection = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
   cursor: pointer;
+  transition: 0.4s ease background-color;
 
   & > img {
     width: 16px;
     height: 16px;
-    transtion: 0.2s ease filter;
+    transition: 0.2s ease filter;
+  }
+
+  &:hover {
+    background-color: ${palette.black.B40};
   }
 `;
 
@@ -82,32 +95,42 @@ const InputWithCheck: React.FC<IInputWithCheck> = ({
   name,
   useFor = 'option',
   children,
-  onClick,
+  handleClick,
   required,
+  popup,
 }) => {
-  return (
-    <InputWithCheckBlock>
-      <Wrapper>
-        <input
-          type="checkbox"
-          name={name}
-          required={required}
-          onClick={onClick}
-        />
-        <CheckBox>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-            <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
-          </svg>
-        </CheckBox>
-        <span>{children}</span>
-      </Wrapper>
+  const [isPopup, setIsPopup] = useState(false);
 
-      {useFor === 'auth' ? (
-        <DirectSection>
-          <img src={RIGHT_ARROW} />
-        </DirectSection>
-      ) : null}
-    </InputWithCheckBlock>
+  const handlePopup = () => {
+    setIsPopup((prev) => !prev);
+  };
+
+  return (
+    <>
+      <InputWithCheckBlock>
+        <InputWrapper>
+          <input
+            type="checkbox"
+            name={name}
+            required={required}
+            onClick={handleClick}
+          />
+          <CheckBox>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+              <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
+            </svg>
+          </CheckBox>
+          <span>{children}</span>
+        </InputWrapper>
+
+        {useFor === 'auth' ? (
+          <DirectSection onClick={handlePopup}>
+            <img src={RIGHT_ARROW} />
+          </DirectSection>
+        ) : null}
+      </InputWithCheckBlock>
+      {isPopup && <PopupWrapper onClick={handlePopup}>{popup}</PopupWrapper>}
+    </>
   );
 };
 export default InputWithCheck;

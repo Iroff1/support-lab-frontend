@@ -1,4 +1,4 @@
-import InputText from '@components/common/InputText';
+import InputText, { InputTextBlock } from '@components/common/InputText';
 import { IInput, TChangeEventHandler } from '@models/input.model';
 import React, { useState } from 'react';
 import styled from 'styled-components';
@@ -6,32 +6,31 @@ import styled from 'styled-components';
 const pw_hide = require('@assets/images/common/icon_hide.png');
 const pw_show = require('@assets/images/common/icon_show.png');
 
-const InputPasswordBlock = styled.div`
-  width: 100%;
-`;
-
 const InputWrapper = styled.div`
   position: relative;
   width: 100%;
+  height: 100%;
 `;
 
-const InputPw = styled(InputText)`
-  padding-right: 44px;
-`;
-
-const ToggleVisible = styled.div<{ $isVisible: boolean }>`
+const ToggleVisible = styled.div<{
+  $isVisible: boolean;
+  $theme: 'default' | 'modify';
+}>`
   width: 24px;
   height: 24px;
-  background: url(${(props) => (props.$isVisible ? pw_show : pw_hide)})
-    center/cover no-repeat;
   position: absolute;
-  top: 14px;
+  top: ${({ $theme }) => ($theme === 'modify' ? '5px' : '12px')};
   right: 10px;
   cursor: pointer;
   border-radius: 50%;
   transition: 0.2s ease background-color;
-  &:hover {
-    background-color: #00000025;
+
+  & > img {
+    width: 100%;
+    height: 100%;
+    &:hover {
+      background-color: #00000025;
+    }
   }
 `;
 
@@ -40,6 +39,7 @@ const InputPassword: React.FC<IInput> = ({
   cautionText,
   isValid,
   value,
+  $theme = 'default',
   ...props
 }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -54,9 +54,9 @@ const InputPassword: React.FC<IInput> = ({
   };
 
   return (
-    <InputPasswordBlock>
+    <>
       <InputWrapper>
-        <InputPw
+        <InputText
           {...props}
           type={isVisible ? 'text' : 'password'}
           autoComplete="off"
@@ -65,11 +65,19 @@ const InputPassword: React.FC<IInput> = ({
           cautionText={
             !value ? '' : value.length === 0 ? '' : isValid ? '' : cautionText
           }
+          $PR={44}
           required
+          $theme={$theme}
         />
-        <ToggleVisible onClick={handleIsVisible} $isVisible={isVisible} />
+        <ToggleVisible
+          onClick={handleIsVisible}
+          $isVisible={isVisible}
+          $theme={$theme}
+        >
+          <img src={isVisible ? pw_show : pw_hide} alt="●" />
+        </ToggleVisible>
       </InputWrapper>
-    </InputPasswordBlock>
+    </>
   );
 };
 

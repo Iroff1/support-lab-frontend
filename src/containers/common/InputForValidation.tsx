@@ -3,7 +3,7 @@ import {
   TChangeEventHandler,
   TMouseEventHandler,
 } from '@models/input.model';
-import React, { use, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import InputWithConfirm from './InputWithConfirm';
 
 const InputForValidation: React.FC<IInputWithConfirm> = ({
@@ -14,16 +14,11 @@ const InputForValidation: React.FC<IInputWithConfirm> = ({
   disabled,
   ...props
 }) => {
-  const [nextIsValid, setNextIsValid] = useState(false);
-  const [nextCaution, setNextCaution] = useState<string | React.ReactNode>('');
   const [isClicked, setIsClicked] = useState(false);
 
   const handleClick: TMouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
-
-    // 넘겨받은 클릭 이벤트
     onClick && onClick(e);
-
     setIsClicked(true);
   };
 
@@ -31,11 +26,6 @@ const InputForValidation: React.FC<IInputWithConfirm> = ({
     onChange && onChange(e);
     setIsClicked(false);
   };
-
-  // useEffect(() => {
-  //   if (!isClicked) return;
-  //   setIsDone(false);
-  // }, [isClicked]);
 
   return (
     <InputWithConfirm

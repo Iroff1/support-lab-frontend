@@ -18,18 +18,22 @@ export interface IInput {
   ref?: React.RefObject<HTMLInputElement | null>; // ref 할당을 위한 속성
   cautionText?: string | React.ReactNode; // 알림 창에 띄울 문자열/컴포넌트 속성
   reg?: RegExp; // 이
+  $theme?: 'default' | 'modify'; // 컴포넌트 사용 목표 속성
+  $PR?: number;
 }
 
 /** input[type='checkout']이 있는 입력 컴포넌트용 interface */
 export interface IInputWithCheck extends IInput {
   useFor?: 'option' | 'auth'; // 컴포넌트 사용 목표 속성
   children: string | React.ReactNode; // 컴포넌트 내 input 태그 외 태그에 사용할 '문자열|자식' 컴포넌트 속성
-  onClick?: TMouseEventHandler<HTMLInputElement>; // input[type='checkout']를 위한 이벤트 콜백함수 속성
+  handleClick?: TMouseEventHandler<HTMLInputElement>; // input[type='checkout']를 위한 이벤트 콜백함수 속성
+  handlePopup?: TMouseEventHandler<HTMLInputElement>;
+  popup?: React.ReactNode | string;
 }
 
 /** 버튼이 같이 있는 입력 컴포넌트용 interface */
 export interface IInputWithConfirm extends IInput {
-  useFor?: 'validation' | 'auth'; // 컴포넌트 사용 목표 속성
+  useFor?: 'validation' | 'auth' | 'modify'; // 컴포넌트 사용 목표 속성
   onClick?: TMouseEventHandler<HTMLButtonElement>; // 버튼을 위한 이벤트 콜백함수 속성
 }
 

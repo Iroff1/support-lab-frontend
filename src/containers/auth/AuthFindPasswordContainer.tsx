@@ -7,6 +7,7 @@ import checkValidation from '@utils/checkValidation';
 import handleChangeField from '@utils/handleChangeField';
 import handleAuthStart from '@utils/handleGetAuthCode';
 import { IRegister } from '@models/auth.model';
+import handleAuthCheck from '@utils/handleAuthCheck';
 
 export interface IFindPassword {
   email: string;
@@ -41,13 +42,10 @@ const AuthFindPasswordContainer: React.FC<IProp> = ({ handleEmail }) => {
 
   /** InputForValidation[name="authConfirm"] 컴포넌트의 onClick에 할당할 콜백 함수 */
   const handleAuthConfirm = () => {
-    if (
-      findForm.authCode.length === 6 &&
-      findForm.authCode === findForm.authConfirm
-    ) {
+    handleAuthCheck(findForm.authCode, findForm.authConfirm, () => {
       setConfirmAuth(true);
       modifyCheckList('contact', true);
-    }
+    });
   };
 
   /** 유효성 체크 함수 */

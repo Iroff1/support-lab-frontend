@@ -109,7 +109,7 @@ const AuthLoginForm: React.FC<IAuthLoginForm> = ({
                 handleChange && handleChange(e);
               }}
             />
-            <InputWithCheck name="loginMaintain" onClick={handleToggle}>
+            <InputWithCheck name="loginMaintain" handleClick={handleToggle}>
               로그인 상태 유지
             </InputWithCheck>
           </InputSection>
