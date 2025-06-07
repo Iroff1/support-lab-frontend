@@ -1,6 +1,7 @@
 import React from 'react';
 import InputPassword from './InputPassword';
-import { IAuthChecker, INewPassword } from '@models/auth.model';
+import { INewPassword } from '@models/auth.model';
+import { IAuthChecker } from '@models/common.model';
 import { TChangeEventHandler } from '@models/input.model';
 
 interface IInputChangePw {

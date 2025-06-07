@@ -3,7 +3,7 @@ import InputText from '@components/common/InputText';
 import SubmitButton from '@components/common/SubmitButton';
 import { regInput } from '@consts/reg';
 import { ICSInquirementState } from '@containers/cs/CSInquirementContainer';
-import translateContact from '@utils/translateContact';
+import translatePhoneNumber from '@utils/translateContact';
 import translateFontSize from '@utils/translateFontSize';
 import styled, { css } from 'styled-components';
 
@@ -157,9 +157,9 @@ const CSInquirementForm: React.FC<ICSInquirementState> = (props) => {
           <InquirementItem>
             <p>휴대폰 번호</p>
             <InputText
-              name="contact"
+              name="phone"
               placeholder="010-0000-0000"
-              value={translateContact(props.form.contact)}
+              value={translatePhoneNumber(props.form.phone)}
               onChange={(e) => {
                 props.handleChange(e, regInput.onlyNum, 11);
               }}

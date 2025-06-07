@@ -1,4 +1,3 @@
-import { authUpdatePassword } from '@api/auth';
 import AuthChangePassword from '@components/auth/AuthChangePassword';
 import useCheckList from '@hooks/useCheckList';
 import { INewPassword } from '@models/auth.model';

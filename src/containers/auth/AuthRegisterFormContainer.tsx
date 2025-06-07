@@ -1,4 +1,3 @@
-import { authCheckEmail, authRegisterUser } from '@api/auth';
 import AuthRegisterForm from '@components/auth/AuthRegisterForm';
 import useCheckList from '@hooks/useCheckList';
 import useInit from '@hooks/useInit';
@@ -11,6 +10,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import handleChangeField from '@utils/handleChangeField';
 import handleAuthStart from '@utils/handleGetAuthCode';
+import { usersFindEmail, usersSignUp } from '@api/user';
 
 const AuthRegisterFormContainer = () => {
   const navigate = useNavigate();
@@ -19,18 +19,18 @@ const AuthRegisterFormContainer = () => {
   const [registerForm, setRegisterForm] = useState<IRegisterState>({
     email: '',
     emailDuplication: false,
-    username: '',
+    name: '',
     password: '',
     passwordConfirm: '',
-    contact: '',
+    phone: '',
     authCode: '',
     authConfirm: '',
   });
   const { checkList, modifyCheckList, checkResult } = useCheckList<IRegister>({
     email: false,
     password: false,
-    username: false,
-    contact: false,
+    name: false,
+    phone: false,
   });
   const { isInit, startInit } = useInit();
   const [confirmState, setConfirmState] = useState(false); // 인증 코드 일치 확인 상태
@@ -45,7 +45,7 @@ const AuthRegisterFormContainer = () => {
   const handleCheckEmail = async () => {
     if (!checkList.email) return;
     try {
-      const res = await authCheckEmail(registerForm.email);
+      const res = await usersFindEmail(registerForm.email, registerForm.phone);
       if (res.data.email) {
         registerForm.email === res.data.email
           ? setRegisterForm({
@@ -79,7 +79,7 @@ const AuthRegisterFormContainer = () => {
       registerForm.authCode === registerForm.authConfirm
     ) {
       setConfirmState(true);
-      modifyCheckList('contact', true);
+      modifyCheckList('phone', true);
     }
   };
 
@@ -88,7 +88,7 @@ const AuthRegisterFormContainer = () => {
     e.preventDefault();
     try {
       // TODO) 비동기 요청 (PUT auth/register)
-      const res = await authRegisterUser({ ...registerForm, ...terms });
+      const res = await usersSignUp({ ...registerForm, ...terms });
       if (res.status === 200) {
         alert('회원가입 완료!');
         navigate('/');
@@ -103,7 +103,8 @@ const AuthRegisterFormContainer = () => {
   useEffect(() => {
     startInit();
     // 필수 약관 상태 false인 경우, 다시 약관페이지로 리다이렉트
-    if (!(terms.termsOfUse && terms.personalInfo)) navigate('../termsOfUse');
+    if (!(terms.termsOfServiceAgreed && terms.privacyPolicyAgreed))
+      navigate('../termsOfUse');
   }, []);
   useEffect(() => {
     if (!isInit) return;
@@ -119,8 +120,8 @@ const AuthRegisterFormContainer = () => {
     handleValidCheck('password');
   }, [registerForm.password]);
   useEffect(() => {
-    handleValidCheck('username');
-  }, [registerForm.username]);
+    handleValidCheck('name');
+  }, [registerForm.name]);
 
   return (
     <AuthRegisterForm
@@ -133,7 +134,7 @@ const AuthRegisterFormContainer = () => {
       }}
       handleAuthStart={async () => {
         await handleAuthStart<IRegisterState>(
-          registerForm.contact,
+          registerForm.phone,
           setRegisterForm,
         );
       }}

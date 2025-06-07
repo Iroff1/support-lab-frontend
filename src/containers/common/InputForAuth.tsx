@@ -3,17 +3,16 @@ import { TChangeEventHandler, TMouseEventHandler } from '@models/input.model';
 import { regInput } from '@consts/reg';
 import palette from '@assets/colors';
 import InputWithConfirm from './InputWithConfirm';
-import useInit from '@hooks/useInit';
 import { TIMER_INIT, TIMER_LIMIT } from '@consts/timer';
-import translateContact from '@utils/translateContact';
+import translatePhoneNumber from '@utils/translateContact';
 import useTimer from '@hooks/useTimer';
 
 interface IInputForAuth {
-  contact: string;
+  phone: string;
   authConfirm: string;
   authCode: string;
   checkList: {
-    contact: boolean;
+    phone: boolean;
   };
   confirmAuth: boolean;
   handleChange: TChangeEventHandler<HTMLInputElement>;
@@ -24,7 +23,7 @@ interface IInputForAuth {
 
 const InputForAuth: React.FC<IInputForAuth> = ({
   $theme = 'default',
-  contact,
+  phone,
   authConfirm,
   authCode,
   checkList,
@@ -62,21 +61,21 @@ const InputForAuth: React.FC<IInputForAuth> = ({
       <InputWithConfirm
         $theme={$theme}
         useFor={$theme === 'modify' ? 'modify' : 'auth'}
-        name="contact"
+        name="phone"
         type="tel"
         placeholder="휴대폰번호"
-        value={translateContact(contact)}
-        disabled={checkList.contact || timer >= 0}
+        value={translatePhoneNumber(phone)}
+        disabled={checkList.phone || timer >= 0}
         onChange={(e) => {
           handleChange && handleChange(e, regInput.onlyNum, 11);
         }}
-        isValid={checkList.contact && timer >= 0 && confirmAuth}
+        isValid={checkList.phone && timer >= 0 && confirmAuth}
         onClick={async (e) => {
           e.preventDefault();
-          if (!checkList.contact) await handleAuthStart();
+          if (!checkList.phone) await handleAuthStart();
         }}
         cautionText={
-          checkList.contact ? (
+          checkList.phone ? (
             ''
           ) : timer >= 0 ? (
             <span style={{ color: palette.system.blue }}>

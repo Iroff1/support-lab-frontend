@@ -1,10 +1,11 @@
-import { authDecryptToken, authLoginUser } from '@api/auth';
-import { IAuth, ILocalAuth, ILogin, IRegisterState } from '@models/auth.model';
+import { authLoginUser } from '@api/auth';
+import { authDecryptToken } from '@api/user';
+import { IAuth, ILocalAuth, ILogin } from '@models/auth.model';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 /** auth 스토어 초기 상태 값 */
 const initialState: IAuth = {
-  token: '',
+  accessToken: '',
   auth: null,
   authError: null,
 };
@@ -33,19 +34,19 @@ export const authSlice = createSlice({
       })
       .addCase(authLoginUserThunk.fulfilled, (state, { type, payload }) => {
         console.log(type + ' 성공');
-        state.token = payload.token;
-        state.auth = payload.auth;
+        state.accessToken = payload.token;
+        // state.auth = payload.auth;
         state.authError = null;
       })
       .addCase(authLoginUserThunk.rejected, (state, { error }) => {
         console.error(error);
         // state.auth = null;
 
-        state.token = 'example.token.1234567890';
+        state.accessToken = 'example.token.1234567890';
         state.auth = {
           email: 'example@example.com',
-          username: '홍길동',
-          contact: '01012341234',
+          name: '홍길동',
+          phone: '01012341234',
         }; // test code
         state.authError = error; // test code
       });
@@ -56,15 +57,15 @@ export const authSlice = createSlice({
       })
       .addCase(authDecryptTokenThunk.fulfilled, (state, { type, payload }) => {
         console.log(type + ' 성공');
-        state.auth = payload;
+        // state.auth = payload;
         state.authError = null;
       })
       .addCase(authDecryptTokenThunk.rejected, (state, { error }) => {
         console.error(error);
         state.auth = {
           email: 'example@example.com',
-          username: '홍길동',
-          contact: '01012341234',
+          name: '홍길동',
+          phone: '01012341234',
         }; // test code
         state.authError = error; // test code
       });
@@ -76,7 +77,7 @@ export const authLoginUserThunk = createAsyncThunk(
   'auth/loginUser',
   async (formData: ILogin) => {
     const res = await authLoginUser(formData);
-    return { auth: res.data.auth, token: res.data.token };
+    return { token: res.data.accessToken };
   },
 );
 
@@ -87,8 +88,8 @@ export const authDecryptTokenThunk = createAsyncThunk(
     const res = await authDecryptToken(token);
     return {
       email: res.data.email,
-      username: res.data.username,
-      contact: res.data.contact,
+      username: res.data.name,
+      phone: res.data.phone,
     };
   },
 );

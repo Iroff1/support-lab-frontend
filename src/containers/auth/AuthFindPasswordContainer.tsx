@@ -1,18 +1,17 @@
-import { authCheckEmail, authFindPassword } from '@api/auth';
 import AuthFindPassword from '@components/auth/AuthFindPassword';
 import useCheckList from '@hooks/useCheckList';
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import checkValidation from '@utils/checkValidation';
 import handleChangeField from '@utils/handleChangeField';
 import handleAuthStart from '@utils/handleGetAuthCode';
 import { IRegister } from '@models/auth.model';
 import handleAuthCheck from '@utils/handleAuthCheck';
+import { userModifyPasswordReq, usersFindEmail } from '@api/user';
 
 export interface IFindPassword {
   email: string;
   username: string;
-  contact: string;
+  phone: string;
   authCode: string;
   authConfirm: string;
 }
@@ -26,14 +25,14 @@ const AuthFindPasswordContainer: React.FC<IProp> = ({ handleEmail }) => {
   const [findForm, setFindForm] = useState<IFindPassword>({
     email: '',
     username: '',
-    contact: '',
+    phone: '',
     authCode: '',
     authConfirm: '',
   });
   const { checkList, modifyCheckList } = useCheckList<IFindPassword>({
     email: false,
     username: false,
-    contact: false,
+    phone: false,
     authCode: false,
     authConfirm: false,
   });
@@ -44,7 +43,7 @@ const AuthFindPasswordContainer: React.FC<IProp> = ({ handleEmail }) => {
   const handleAuthConfirm = () => {
     handleAuthCheck(findForm.authCode, findForm.authConfirm, () => {
       setConfirmAuth(true);
-      modifyCheckList('contact', true);
+      modifyCheckList('phone', true);
     });
   };
 
@@ -57,7 +56,7 @@ const AuthFindPasswordContainer: React.FC<IProp> = ({ handleEmail }) => {
   /** 이메일 조회 함수 */
   const handleCheckEmail = async () => {
     try {
-      const res = await authCheckEmail(findForm.email);
+      const res = await usersFindEmail(findForm.email, findForm.phone);
       if (res.data.email)
         findForm.email === res.data.email && setConfirmEmail(true);
     } catch (e) {
@@ -72,7 +71,7 @@ const AuthFindPasswordContainer: React.FC<IProp> = ({ handleEmail }) => {
       !(
         checkList.email &&
         checkList.username &&
-        checkList.contact &&
+        checkList.phone &&
         confirmAuth &&
         confirmEmail
       )
@@ -80,7 +79,11 @@ const AuthFindPasswordContainer: React.FC<IProp> = ({ handleEmail }) => {
       return;
     try {
       // TODO) GET auth/password 비밀번호 정보 요청 비동기 처리 후 이메일 상태 초기화
-      const res = await authFindPassword(findForm.email);
+      const res = await userModifyPasswordReq({
+        email: findForm.email,
+        phone: findForm.phone,
+        name: findForm.username,
+      });
       if (res.status === 200) {
         alert('비밀번호 찾기 완료!');
         handleEmail(findForm.email);
@@ -110,7 +113,7 @@ const AuthFindPasswordContainer: React.FC<IProp> = ({ handleEmail }) => {
         handleChangeField<IFindPassword>(e, setFindForm, reg, max);
       }}
       handleAuthStart={async () => {
-        await handleAuthStart<IFindPassword>(findForm.contact, setFindForm);
+        await handleAuthStart<IFindPassword>(findForm.phone, setFindForm);
       }}
       handleAuthConfirm={handleAuthConfirm}
       handleFindPassword={handleFindPassword}

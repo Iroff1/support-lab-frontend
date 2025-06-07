@@ -1,4 +1,4 @@
-import { authGetEmail } from '@api/auth';
+import { usersFindEmail } from '@api/user';
 import AuthFindEmail from '@components/auth/AuthFindEmail';
 import AuthShowEmail from '@components/auth/AuthShowEmail';
 import useCheckList from '@hooks/useCheckList';
@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 
 export interface IFindEmailFormState {
   username: string;
-  contact: string;
+  phone: string;
   authCode: string;
   authConfirm: string;
 }
@@ -21,13 +21,13 @@ const AuthFindEmailContainer = () => {
   const navigate = useNavigate();
   const [findForm, setFindForm] = useState<IFindEmailFormState>({
     username: '',
-    contact: '',
+    phone: '',
     authCode: '',
     authConfirm: '',
   });
   const { checkList, modifyCheckList } = useCheckList<IFindEmailFormState>({
     username: false,
-    contact: false,
+    phone: false,
     authCode: false,
     authConfirm: false,
   });
@@ -38,10 +38,10 @@ const AuthFindEmailContainer = () => {
 
   /** SubmitButton에 할당할 onClick 핸들러 함수 */
   const handleFindEmail = async () => {
-    if (!checkList.username || !checkList.contact) return;
+    if (!checkList.username || !checkList.phone) return;
     try {
       // TODO) GET auth/email 이메일 정보 요청 비동기 처리 후 이메일 상태 초기화
-      const res = await authGetEmail(findForm.username, findForm.contact);
+      const res = await usersFindEmail(findForm.username, findForm.phone);
       setUserEmail(res.data.email);
       // test codes
       alert(res.data);
@@ -61,7 +61,7 @@ const AuthFindEmailContainer = () => {
       findForm.authCode === findForm.authConfirm
     ) {
       setConfirmAuth(true);
-      modifyCheckList('contact', true);
+      modifyCheckList('phone', true);
     }
   };
 
@@ -79,7 +79,7 @@ const AuthFindEmailContainer = () => {
   return !isInit ? (
     <AuthFindEmail
       findForm={findForm}
-      checkResult={checkList.username && checkList.contact}
+      checkResult={checkList.username && checkList.phone}
       checkList={checkList}
       confirmAuth={confirmAuth}
       handleChangeField={(e, reg, max) => {
@@ -87,10 +87,7 @@ const AuthFindEmailContainer = () => {
       }}
       handleFindEmail={handleFindEmail}
       handleAuthStart={async () => {
-        await handleAuthStart<IFindEmailFormState>(
-          findForm.contact,
-          setFindForm,
-        );
+        await handleAuthStart<IFindEmailFormState>(findForm.phone, setFindForm);
       }}
       handleAuthConfirm={handleAuthConfirm}
     />

@@ -1,11 +1,7 @@
 import { SerializedError } from '@reduxjs/toolkit';
 
-export type IAuthChecker<T> = {
-  [K in keyof T]: boolean;
-};
-
 export interface IAuth {
-  token: string;
+  accessToken: string;
   auth: ILocalAuth | null;
   authError: SerializedError | null;
 }
@@ -13,8 +9,8 @@ export interface IAuth {
 /** 사용자 권한 데이터 인터페이스 */
 export interface ILocalAuth {
   email: string;
-  username: string;
-  contact: string;
+  name: string;
+  phone: string;
 }
 
 /** 서버에 전송할 login 데이터 인터페이스 */
@@ -25,8 +21,8 @@ export interface ILogin {
 
 /** register 입력 데이터 인터페이스 */
 export interface IRegister extends ILogin {
-  username: string;
-  contact: string;
+  name: string;
+  phone: string;
 }
 
 export interface IConfirm {
@@ -36,12 +32,9 @@ export interface IConfirm {
 
 /** 서버에 전송할 register 선택 데이터 인터페이스 */
 export interface ITerms {
-  termsOfUse: boolean; // true 필수
-  personalInfo: boolean; // true 필수
-
-  marketing: boolean;
-  // otherInfo: boolean;
-  // businessPlan: boolean;
+  termsOfServiceAgreed: boolean; // true 필수
+  privacyPolicyAgreed: boolean; // true 필수
+  marketingAgreed: boolean;
 }
 
 /** 서버에 전송할 register 데이터 인터페이스 */

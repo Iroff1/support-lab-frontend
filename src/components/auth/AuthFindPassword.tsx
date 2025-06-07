@@ -5,11 +5,11 @@ import React from 'react';
 import AuthTitleBox from './AuthTitleBox';
 import AuthHeaderLogo from './AuthHeaderLogo';
 import { IFindPassword } from '@containers/auth/AuthFindPasswordContainer';
-import { TChangeEventHandler, TMouseEventHandler } from '@models/input.model';
+import { TChangeEventHandler } from '@models/input.model';
 import InputForValidation from '@containers/common/InputForValidation';
 import { regInput } from '@consts/reg';
 import InputForAuth from '@containers/common/InputForAuth';
-import { IAuthChecker } from '@models/auth.model';
+import { IAuthChecker } from '@models/common.model';
 import { Link } from 'react-router-dom';
 import { FindAnother } from './AuthFindEmail';
 
@@ -57,7 +57,7 @@ const AuthFindPassword: React.FC<IAuthFindPassword> = ({
       <AuthTitleBox>비밀번호 찾기</AuthTitleBox>
 
       <FindForm>
-        {/* 비밀번호 찾기: email, username, contact, */}
+        {/* 비밀번호 찾기: email, username, phone, */}
         <InputForValidation
           name="email"
           type="email"
@@ -91,7 +91,7 @@ const AuthFindPassword: React.FC<IAuthFindPassword> = ({
         />
 
         <InputForAuth
-          contact={findForm.contact}
+          phone={findForm.phone}
           authConfirm={findForm.authConfirm}
           authCode={findForm.authCode}
           checkList={checkList}
@@ -108,7 +108,7 @@ const AuthFindPassword: React.FC<IAuthFindPassword> = ({
             !(
               checkList.email &&
               checkList.username &&
-              checkList.contact &&
+              checkList.phone &&
               confirmAuth &&
               confirmEmail
             )

@@ -213,7 +213,7 @@ const Header: React.FC<IHeader> = ({
           <AuthButton onClick={handleLogin}>
             {auth ? (
               <>
-                <strong>{auth.username}</strong> 님
+                <strong>{auth.name}</strong> 님
               </>
             ) : (
               '로그인'

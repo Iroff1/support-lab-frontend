@@ -1,4 +1,4 @@
-import { IAuthChecker, IRegister } from '@models/auth.model';
+import { IAuthChecker } from '@models/common.model';
 import { useEffect, useState } from 'react';
 
 const useCheckList = <T extends object>(init: IAuthChecker<T>) => {

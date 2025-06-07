@@ -8,7 +8,7 @@ import React, { useEffect, useState } from 'react';
 
 export interface ICSInquirement {
   username: string;
-  contact: string;
+  phone: string;
   email: string;
   inquirementType: string;
   inquirementContent: string;
@@ -28,7 +28,7 @@ const CSInquirementContainer = ({ setIsDone }: { setIsDone: () => void }) => {
   }));
   const [form, setForm] = useState<ICSInquirement>({
     username: '',
-    contact: '',
+    phone: '',
     email: '',
     inquirementType: '',
     inquirementContent: '',
@@ -72,8 +72,8 @@ const CSInquirementContainer = ({ setIsDone }: { setIsDone: () => void }) => {
     if (auth) {
       setForm((prev) => ({
         ...prev,
-        username: auth.username,
-        contact: auth.contact,
+        username: auth.name,
+        phone: auth.phone,
         email: auth.email,
       }));
     }

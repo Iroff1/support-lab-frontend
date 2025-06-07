@@ -2,8 +2,9 @@ import React from 'react';
 import AuthTitleBox from './AuthTitleBox';
 import SubmitButton from '@components/common/SubmitButton';
 import AuthHeaderLogo from './AuthHeaderLogo';
-import { IAuthChecker, INewPassword } from '@models/auth.model';
-import { TChangeEventHandler, TMouseEventHandler } from '@models/input.model';
+import { INewPassword } from '@models/auth.model';
+import { IAuthChecker } from '@models/common.model';
+import { TChangeEventHandler } from '@models/input.model';
 import { styled } from 'styled-components';
 import InputChangePw from '@containers/common/InputChangePw';
 

@@ -49,12 +49,12 @@ const AuthTermsOfUse: React.FC<IAuthTermsOfUse> = (props) => {
 
         {/* [필수] 이용약관 */}
         <InputForTerms
-          name="termsOfUse"
+          name="termsOfServiceAgreed"
           header="이용약관"
           isRequired="필수"
           isWrapped={true}
           contents={termsOfUses.termsOfUse}
-          isChecked={props.termsOfUses.termsOfUse}
+          isChecked={props.termsOfUses.termsOfServiceAgreed}
           onClick={(e) => {
             props.handleToggleOne(e.currentTarget.name as keyof ITerms);
           }}
@@ -63,12 +63,12 @@ const AuthTermsOfUse: React.FC<IAuthTermsOfUse> = (props) => {
 
         {/* [필수] 개인정보 수집 및 이용 */}
         <InputForTerms
-          name="personalInfo"
+          name="privacyPolicyAgreed"
           header="개인 정보 수집 및 이용"
           isRequired="필수"
           isWrapped={true}
           contents={termsOfUses.personalInfo}
-          isChecked={props.termsOfUses.personalInfo}
+          isChecked={props.termsOfUses.privacyPolicyAgreed}
           onClick={(e) => {
             props.handleToggleOne(e.currentTarget.name as keyof ITerms);
           }}
@@ -77,12 +77,12 @@ const AuthTermsOfUse: React.FC<IAuthTermsOfUse> = (props) => {
 
         {/* [선택] 이벤트・혜택 정보 수신 */}
         <InputForTerms
-          name="marketing"
+          name="marketingAgreed"
           header="이벤트・혜택 정보 수신"
           isRequired="선택"
           isWrapped={true}
           contents={termsOfUses.marketing}
-          isChecked={props.termsOfUses.marketing}
+          isChecked={props.termsOfUses.marketingAgreed}
           onClick={(e) => {
             props.handleToggleOne(e.currentTarget.name as keyof ITerms);
           }}
@@ -91,10 +91,16 @@ const AuthTermsOfUse: React.FC<IAuthTermsOfUse> = (props) => {
       </AuthTermsOfUseBlock>
       <SubmitButton
         disabled={
-          !(props.termsOfUses.termsOfUse && props.termsOfUses.personalInfo)
+          !(
+            props.termsOfUses.termsOfServiceAgreed &&
+            props.termsOfUses.privacyPolicyAgreed
+          )
         }
         onClick={(e) => {
-          if (props.termsOfUses.termsOfUse && props.termsOfUses.personalInfo)
+          if (
+            props.termsOfUses.termsOfServiceAgreed &&
+            props.termsOfUses.privacyPolicyAgreed
+          )
             props.handleSubmit();
         }}
       >

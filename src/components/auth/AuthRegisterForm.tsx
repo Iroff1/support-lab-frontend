@@ -8,7 +8,8 @@ import {
   TFormEventHandler,
   TMouseEventHandler,
 } from '@models/input.model';
-import { IAuthChecker, IRegister, IRegisterState } from '@models/auth.model';
+import { IRegister, IRegisterState } from '@models/auth.model';
+import { IAuthChecker } from '@models/common.model';
 import InputForValidation from '@containers/common/InputForValidation';
 import { regInput } from '@consts/reg';
 import AuthHeaderLogo from './AuthHeaderLogo';
@@ -122,14 +123,14 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
             name="username"
             type="text"
             placeholder="이름"
-            value={registerState.username}
+            value={registerState.name}
             onChange={(e) => {
               handleChange && handleChange(e, regInput.korOrEng, 10);
             }}
           />
 
           <InputForAuth
-            contact={registerState.contact}
+            phone={registerState.phone}
             authConfirm={registerState.authConfirm}
             authCode={registerState.authCode}
             checkList={checkList}

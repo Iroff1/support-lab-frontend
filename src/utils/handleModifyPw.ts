@@ -1,8 +1,8 @@
-import { authUpdatePassword } from '@api/auth';
+import { usersModifyPassword } from '@api/user';
 
 export const handleModifyPw = async (email: string, newPassword: string) => {
   try {
-    const res = await authUpdatePassword(email, newPassword);
+    const res = await usersModifyPassword(email, newPassword);
     if (res.status === 200) alert('비밀번호 재 설정 완료');
   } catch (e) {
     console.error(e);

@@ -2,9 +2,9 @@ import { ITerms } from '@models/auth.model';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: ITerms = {
-  termsOfUse: false,
-  personalInfo: false,
-  marketing: false,
+  termsOfServiceAgreed: false,
+  privacyPolicyAgreed: false,
+  marketingAgreed: false,
 };
 
 export const termsSlice = createSlice({

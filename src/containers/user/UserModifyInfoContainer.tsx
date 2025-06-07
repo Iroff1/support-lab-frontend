@@ -1,12 +1,8 @@
 import UserModifyInfo from '@components/user/UserModifyInfo';
 import useCheckList from '@hooks/useCheckList';
 import useInit from '@hooks/useInit';
-import {
-  IAuthChecker,
-  IConfirm,
-  INewPassword,
-  IRegister,
-} from '@models/auth.model';
+import { IConfirm, INewPassword, IRegister } from '@models/auth.model';
+import { IAuthChecker } from '@models/common.model';
 import { TChangeEventHandler } from '@models/input.model';
 import { useAppSelector } from '@store/index';
 import checkValidation from '@utils/checkValidation';
@@ -30,7 +26,7 @@ export interface IUserModifyInfoProps {
   handleAuthStart: () => Promise<void>;
   handleModifyPassword: () => Promise<void>;
   handleModifyUsername: () => Promise<void>;
-  handleModifyContact: () => Promise<void>;
+  handleModifyphone: () => Promise<void>;
   handleSecession: () => Promise<void>;
 }
 
@@ -41,8 +37,8 @@ const UserModifyInfoContainer = () => {
   const [formState, setFormState] = useState<IUserModifyInfoState>({
     email: '',
     password: '',
-    username: '',
-    contact: '',
+    name: '',
+    phone: '',
     authCode: '',
     authConfirm: '',
     newPassword: '',
@@ -52,8 +48,8 @@ const UserModifyInfoContainer = () => {
     {
       email: false,
       password: false,
-      username: false,
-      contact: false,
+      name: false,
+      phone: false,
       newPassword: false,
       newPasswordConfirm: false,
     },
@@ -84,7 +80,7 @@ const UserModifyInfoContainer = () => {
       console.error(e);
     }
   };
-  const handleModifyContact = async () => {
+  const handleModifyphone = async () => {
     try {
     } catch (e) {
       console.error(e);
@@ -93,7 +89,7 @@ const UserModifyInfoContainer = () => {
   const handleAuthConfirm = async () => {
     handleAuthCheck(formState.authCode, formState.authConfirm, () => {
       setConfirmAuth(true);
-      modifyCheckList('contact', true);
+      modifyCheckList('phone', true);
     });
   };
   const handleSecession = async () => {
@@ -114,8 +110,8 @@ const UserModifyInfoContainer = () => {
       setFormState((prev) => ({
         ...prev,
         email: auth?.email || '',
-        username: auth?.username || '',
-        contact: auth?.contact || '',
+        name: auth?.name || '',
+        phone: auth?.phone || '',
       }));
     } else {
       alert('잘못된 접근입니다.');
@@ -124,10 +120,7 @@ const UserModifyInfoContainer = () => {
   }, [isInit]);
 
   useEffect(() => {
-    modifyCheckList(
-      'username',
-      checkValidation(formState.username, 'username'),
-    );
+    modifyCheckList('name', checkValidation(formState.name, 'name'));
     modifyCheckList(
       'newPassword',
       checkValidation(formState.newPassword, 'password'),
@@ -137,7 +130,7 @@ const UserModifyInfoContainer = () => {
       formState.newPassword === formState.newPasswordConfirm,
     );
     console.log(formState.newPassword, formState.newPasswordConfirm);
-  }, [formState.username, formState.newPassword, formState.newPasswordConfirm]);
+  }, [formState.name, formState.newPassword, formState.newPasswordConfirm]);
 
   return (
     <UserModifyInfo
@@ -150,13 +143,13 @@ const UserModifyInfoContainer = () => {
       handleMarketing={handleMarketing}
       handleAuthStart={async () => {
         await handleAuthStart<IUserModifyInfoState>(
-          formState.contact,
+          formState.phone,
           setFormState,
         );
       }}
       handleModifyPassword={handleModifyPassword}
       handleModifyUsername={handleModifyUsername}
-      handleModifyContact={handleModifyContact}
+      handleModifyphone={handleModifyphone}
       handleSecession={handleSecession}
     />
   );
