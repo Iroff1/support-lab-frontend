@@ -120,7 +120,7 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
           />
 
           <InputText
-            name="username"
+            name="name"
             type="text"
             placeholder="이름"
             value={registerState.name}
@@ -132,7 +132,6 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
           <InputForAuth
             phone={registerState.phone}
             authConfirm={registerState.authConfirm}
-            authCode={registerState.authCode}
             checkList={checkList}
             confirmAuth={confirmAuth}
             handleChange={handleChange}

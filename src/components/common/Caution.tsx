@@ -8,7 +8,7 @@ type TCautionColor = 'red' | 'green' | 'blue';
 interface ICaution {
   children: string | React.ReactNode;
   color?: TCautionColor;
-  mt?: string;
+  $mt?: string;
 }
 
 const CautionBlock = styled.p<ICaution>`
@@ -19,12 +19,12 @@ const CautionBlock = styled.p<ICaution>`
       : color === 'green'
       ? palette.system.green
       : palette.system.blue};
-  margin-top: ${({ mt }) => mt};
+  margin-top: ${({ $mt }) => $mt};
   ${css(translateFontSize('R_17'))};
 `;
-const Caution: React.FC<ICaution> = ({ children, color = 'blue', mt }) => {
+const Caution: React.FC<ICaution> = ({ children, color = 'blue', $mt }) => {
   return (
-    <CautionBlock color={color} mt={mt}>
+    <CautionBlock color={color} $mt={$mt}>
       {children}
     </CautionBlock>
   );

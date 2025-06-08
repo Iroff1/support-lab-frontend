@@ -57,7 +57,7 @@ const AuthFindPassword: React.FC<IAuthFindPassword> = ({
       <AuthTitleBox>비밀번호 찾기</AuthTitleBox>
 
       <FindForm>
-        {/* 비밀번호 찾기: email, username, phone, */}
+        {/* 비밀번호 찾기: email, name, phone, */}
         <InputForValidation
           name="email"
           type="email"
@@ -81,10 +81,10 @@ const AuthFindPassword: React.FC<IAuthFindPassword> = ({
         />
 
         <InputText
-          name="username"
+          name="name"
           type="text"
           placeholder="이름"
-          value={findForm.username}
+          value={findForm.name}
           onChange={(e) => {
             handleChangeField && handleChangeField(e, regInput.korOrEng, 10);
           }}
@@ -93,7 +93,6 @@ const AuthFindPassword: React.FC<IAuthFindPassword> = ({
         <InputForAuth
           phone={findForm.phone}
           authConfirm={findForm.authConfirm}
-          authCode={findForm.authCode}
           checkList={checkList}
           confirmAuth={confirmAuth}
           handleChange={handleChangeField}
@@ -107,7 +106,7 @@ const AuthFindPassword: React.FC<IAuthFindPassword> = ({
           disabled={
             !(
               checkList.email &&
-              checkList.username &&
+              checkList.name &&
               checkList.phone &&
               confirmAuth &&
               confirmEmail

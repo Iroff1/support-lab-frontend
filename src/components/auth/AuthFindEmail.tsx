@@ -59,9 +59,9 @@ const AuthFindEmail: React.FC<IAuthFindForm> = ({
       <AuthTitleBox>아이디 찾기</AuthTitleBox>
 
       <FindForm>
-        {/* 아이디 찾기 : username, phone */}
+        {/* 아이디 찾기 : name, phone */}
         <InputText
-          name="username"
+          name="name"
           type="text"
           placeholder="이름"
           onChange={(e) => {
@@ -71,7 +71,6 @@ const AuthFindEmail: React.FC<IAuthFindForm> = ({
         <InputForAuth
           phone={findForm.phone}
           authConfirm={findForm.authConfirm}
-          authCode={findForm.authCode}
           checkList={checkList}
           confirmAuth={confirmAuth}
           handleChange={handleChangeField}

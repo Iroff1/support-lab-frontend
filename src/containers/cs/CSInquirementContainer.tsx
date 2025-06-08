@@ -7,7 +7,7 @@ import handleChangeField from '@utils/handleChangeField';
 import React, { useEffect, useState } from 'react';
 
 export interface ICSInquirement {
-  username: string;
+  name: string;
   phone: string;
   email: string;
   inquirementType: string;
@@ -27,7 +27,7 @@ const CSInquirementContainer = ({ setIsDone }: { setIsDone: () => void }) => {
     auth: auth.auth,
   }));
   const [form, setForm] = useState<ICSInquirement>({
-    username: '',
+    name: '',
     phone: '',
     email: '',
     inquirementType: '',
@@ -72,7 +72,7 @@ const CSInquirementContainer = ({ setIsDone }: { setIsDone: () => void }) => {
     if (auth) {
       setForm((prev) => ({
         ...prev,
-        username: auth.name,
+        name: auth.name,
         phone: auth.phone,
         email: auth.email,
       }));

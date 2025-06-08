@@ -10,7 +10,7 @@ import { userModifyPasswordReq, usersFindEmail } from '@api/user';
 
 export interface IFindPassword {
   email: string;
-  username: string;
+  name: string;
   phone: string;
   authCode: string;
   authConfirm: string;
@@ -24,14 +24,14 @@ const AuthFindPasswordContainer: React.FC<IProp> = ({ handleEmail }) => {
   // const navigate = useNavigate();
   const [findForm, setFindForm] = useState<IFindPassword>({
     email: '',
-    username: '',
+    name: '',
     phone: '',
     authCode: '',
     authConfirm: '',
   });
   const { checkList, modifyCheckList } = useCheckList<IFindPassword>({
     email: false,
-    username: false,
+    name: false,
     phone: false,
     authCode: false,
     authConfirm: false,
@@ -70,7 +70,7 @@ const AuthFindPasswordContainer: React.FC<IProp> = ({ handleEmail }) => {
     if (
       !(
         checkList.email &&
-        checkList.username &&
+        checkList.name &&
         checkList.phone &&
         confirmAuth &&
         confirmEmail
@@ -82,7 +82,7 @@ const AuthFindPasswordContainer: React.FC<IProp> = ({ handleEmail }) => {
       const res = await userModifyPasswordReq({
         email: findForm.email,
         phone: findForm.phone,
-        name: findForm.username,
+        name: findForm.name,
       });
       if (res.status === 200) {
         alert('비밀번호 찾기 완료!');
@@ -100,8 +100,8 @@ const AuthFindPasswordContainer: React.FC<IProp> = ({ handleEmail }) => {
     if (checkList.email) handleCheckEmail();
   }, [checkList.email]);
   useEffect(() => {
-    handleValidCheck('username');
-  }, [findForm.username]);
+    handleValidCheck('name');
+  }, [findForm.name]);
 
   return (
     <AuthFindPassword
@@ -113,7 +113,7 @@ const AuthFindPasswordContainer: React.FC<IProp> = ({ handleEmail }) => {
         handleChangeField<IFindPassword>(e, setFindForm, reg, max);
       }}
       handleAuthStart={async () => {
-        await handleAuthStart<IFindPassword>(findForm.phone, setFindForm);
+        await handleAuthStart(findForm.phone);
       }}
       handleAuthConfirm={handleAuthConfirm}
       handleFindPassword={handleFindPassword}

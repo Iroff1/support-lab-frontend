@@ -146,9 +146,9 @@ const CSInquirementForm: React.FC<ICSInquirementState> = (props) => {
           <InquirementItem>
             <p>이름</p>
             <InputText
-              name="username"
+              name="name"
               placeholder="홍길동"
-              value={props.form.username}
+              value={props.form.name}
               onChange={props.handleChange}
               autoComplete="on"
             />

@@ -225,7 +225,7 @@ const UserModifyInfo: React.FC<IUserModifyInfoProps> = (props) => {
             <FormRight>
               <InputGroup>
                 <InputWithConfirm
-                  name="username"
+                  name="name"
                   value={props.formState.name}
                   useFor="modify"
                   $theme="modify"
@@ -244,7 +244,6 @@ const UserModifyInfo: React.FC<IUserModifyInfoProps> = (props) => {
                 $theme="modify"
                 phone={props.formState.phone}
                 authConfirm={props.formState.authConfirm}
-                authCode={props.formState.authCode}
                 checkList={props.checkList}
                 confirmAuth={props.confirmAuth}
                 handleChange={props.handleChange}

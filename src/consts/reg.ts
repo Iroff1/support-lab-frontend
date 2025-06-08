@@ -1,4 +1,3 @@
-import { IRegister } from '@models/auth.model';
 import { TRegObj } from '@models/input.model';
 
 export const regValid: TRegObj = {

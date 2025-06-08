@@ -25,7 +25,7 @@ export interface IUserModifyInfoProps {
   handleMarketing: () => void;
   handleAuthStart: () => Promise<void>;
   handleModifyPassword: () => Promise<void>;
-  handleModifyUsername: () => Promise<void>;
+  handleModifyname: () => Promise<void>;
   handleModifyphone: () => Promise<void>;
   handleSecession: () => Promise<void>;
 }
@@ -74,7 +74,7 @@ const UserModifyInfoContainer = () => {
     }
     navigate('/');
   };
-  const handleModifyUsername = async () => {
+  const handleModifyname = async () => {
     try {
     } catch (e) {
       console.error(e);
@@ -142,13 +142,10 @@ const UserModifyInfoContainer = () => {
       handleChange={handleChange}
       handleMarketing={handleMarketing}
       handleAuthStart={async () => {
-        await handleAuthStart<IUserModifyInfoState>(
-          formState.phone,
-          setFormState,
-        );
+        await handleAuthStart(formState.phone);
       }}
       handleModifyPassword={handleModifyPassword}
-      handleModifyUsername={handleModifyUsername}
+      handleModifyname={handleModifyname}
       handleModifyphone={handleModifyphone}
       handleSecession={handleSecession}
     />

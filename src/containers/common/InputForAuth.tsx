@@ -10,7 +10,6 @@ import useTimer from '@hooks/useTimer';
 interface IInputForAuth {
   phone: string;
   authConfirm: string;
-  authCode: string;
   checkList: {
     phone: boolean;
   };
@@ -25,7 +24,6 @@ const InputForAuth: React.FC<IInputForAuth> = ({
   $theme = 'default',
   phone,
   authConfirm,
-  authCode,
   checkList,
   confirmAuth,
   handleChange,
@@ -37,24 +35,18 @@ const InputForAuth: React.FC<IInputForAuth> = ({
     TIMER_LIMIT,
   );
 
-  useEffect(() => {
-    return timerReset();
-  }, []);
-
-  // 타이머 종료 추적
-
+  // 타이머 초기화
   useEffect(() => {
     if (timerEvent.current && timer < 0) {
-      timerReset(); // 타이머 초기화
+      timerReset(); // 타이머 이벤트가 존재하고, 타이머 시간이 0 미만이 되면 타이머 초기화
     }
   }, [timer]);
   useEffect(() => {
-    confirmAuth && timerReset(); // 권환 확인 시 타이머 초기화
+    confirmAuth && timerReset(); // 권환 확인 성공 시 타이머 초기화
   }, [confirmAuth]);
-
   useEffect(() => {
-    authCode.length === 6 && timerStart(); // 권한 코드 생성 시 타이머 시작
-  }, [authCode]);
+    return timerReset();
+  }, []);
 
   return (
     <>
@@ -72,7 +64,10 @@ const InputForAuth: React.FC<IInputForAuth> = ({
         isValid={checkList.phone && timer >= 0 && confirmAuth}
         onClick={async (e) => {
           e.preventDefault();
-          if (!checkList.phone) await handleAuthStart();
+          if (!timerEvent.current && !checkList.phone) {
+            await handleAuthStart();
+            timerStart();
+          }
         }}
         cautionText={
           checkList.phone ? (
@@ -84,8 +79,6 @@ const InputForAuth: React.FC<IInputForAuth> = ({
               문자가 오지 않으면 스팸함을 확인해 주세요.
             </span>
           ) : confirmAuth === true ? (
-            ''
-          ) : authCode.length !== 6 ? (
             ''
           ) : (
             <span>
@@ -108,11 +101,11 @@ const InputForAuth: React.FC<IInputForAuth> = ({
         onChange={(e) => {
           handleChange && handleChange(e, regInput.onlyNum, 6);
         }}
-        isValid={authCode.length === 6 && confirmAuth}
+        isValid={confirmAuth}
         cautionText={
-          authCode.length < 6
+          authConfirm.length < 6
             ? ''
-            : authCode === authConfirm
+            : confirmAuth
             ? '인증되었습니다.'
             : '인증번호가 일치하지 않습니다.'
         }

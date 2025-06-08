@@ -11,7 +11,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export interface IFindEmailFormState {
-  username: string;
+  name: string;
   phone: string;
   authCode: string;
   authConfirm: string;
@@ -20,13 +20,13 @@ export interface IFindEmailFormState {
 const AuthFindEmailContainer = () => {
   const navigate = useNavigate();
   const [findForm, setFindForm] = useState<IFindEmailFormState>({
-    username: '',
+    name: '',
     phone: '',
     authCode: '',
     authConfirm: '',
   });
   const { checkList, modifyCheckList } = useCheckList<IFindEmailFormState>({
-    username: false,
+    name: false,
     phone: false,
     authCode: false,
     authConfirm: false,
@@ -38,10 +38,10 @@ const AuthFindEmailContainer = () => {
 
   /** SubmitButton에 할당할 onClick 핸들러 함수 */
   const handleFindEmail = async () => {
-    if (!checkList.username || !checkList.phone) return;
+    if (!checkList.name || !checkList.phone) return;
     try {
       // TODO) GET auth/email 이메일 정보 요청 비동기 처리 후 이메일 상태 초기화
-      const res = await usersFindEmail(findForm.username, findForm.phone);
+      const res = await usersFindEmail(findForm.name, findForm.phone);
       setUserEmail(res.data.email);
       // test codes
       alert(res.data);
@@ -73,13 +73,14 @@ const AuthFindEmailContainer = () => {
 
   // 유효성 추적
   useEffect(() => {
-    handleCheckValid('username');
-  }, [findForm.username]);
+    handleCheckValid('name');
+    console.log(findForm.name);
+  }, [findForm.name]);
 
   return !isInit ? (
     <AuthFindEmail
       findForm={findForm}
-      checkResult={checkList.username && checkList.phone}
+      checkResult={checkList.name && checkList.phone}
       checkList={checkList}
       confirmAuth={confirmAuth}
       handleChangeField={(e, reg, max) => {
@@ -87,7 +88,7 @@ const AuthFindEmailContainer = () => {
       }}
       handleFindEmail={handleFindEmail}
       handleAuthStart={async () => {
-        await handleAuthStart<IFindEmailFormState>(findForm.phone, setFindForm);
+        await handleAuthStart(findForm.phone);
       }}
       handleAuthConfirm={handleAuthConfirm}
     />

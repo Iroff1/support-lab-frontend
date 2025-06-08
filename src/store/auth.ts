@@ -5,7 +5,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 /** auth 스토어 초기 상태 값 */
 const initialState: IAuth = {
-  accessToken: '',
+  token: '',
   auth: null,
   authError: null,
 };
@@ -34,21 +34,14 @@ export const authSlice = createSlice({
       })
       .addCase(authLoginUserThunk.fulfilled, (state, { type, payload }) => {
         console.log(type + ' 성공');
-        state.accessToken = payload.token;
-        // state.auth = payload.auth;
-        state.authError = null;
+        console.log(payload);
+        Object.assign(state, { token: payload.token, authError: null });
+        alert('로그인 성공');
       })
       .addCase(authLoginUserThunk.rejected, (state, { error }) => {
         console.error(error);
-        // state.auth = null;
-
-        state.accessToken = 'example.token.1234567890';
-        state.auth = {
-          email: 'example@example.com',
-          name: '홍길동',
-          phone: '01012341234',
-        }; // test code
-        state.authError = error; // test code
+        alert('로그인 실패');
+        Object.assign(state, { token: '', authError: error });
       });
 
     builder
@@ -77,7 +70,7 @@ export const authLoginUserThunk = createAsyncThunk(
   'auth/loginUser',
   async (formData: ILogin) => {
     const res = await authLoginUser(formData);
-    return { token: res.data.accessToken };
+    return { token: res.data.data.accessToken };
   },
 );
 
@@ -88,7 +81,7 @@ export const authDecryptTokenThunk = createAsyncThunk(
     const res = await authDecryptToken(token);
     return {
       email: res.data.email,
-      username: res.data.name,
+      name: res.data.name,
       phone: res.data.phone,
     };
   },

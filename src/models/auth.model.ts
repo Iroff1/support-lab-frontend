@@ -1,7 +1,7 @@
 import { SerializedError } from '@reduxjs/toolkit';
 
 export interface IAuth {
-  accessToken: string;
+  token: string | null;
   auth: ILocalAuth | null;
   authError: SerializedError | null;
 }
@@ -41,8 +41,9 @@ export interface ITerms {
 export interface IRegisterRequest extends IRegister, ITerms {}
 
 /** 코드레벨에서 필요한 register 상태 데이터를 위한 인터페이스 */
-export interface IRegisterState extends IRegister, IConfirm {
+export interface IRegisterState extends IRegister {
   passwordConfirm: string;
+  authConfirm: string;
   emailDuplication: boolean;
 }
 

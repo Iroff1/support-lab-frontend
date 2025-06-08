@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import handleChangeField from '@utils/handleChangeField';
 import handleAuthStart from '@utils/handleGetAuthCode';
 import { usersFindEmail, usersSignUp } from '@api/user';
+import { authVerifyCode } from '@api/auth';
 
 const AuthRegisterFormContainer = () => {
   const navigate = useNavigate();
@@ -23,7 +24,6 @@ const AuthRegisterFormContainer = () => {
     password: '',
     passwordConfirm: '',
     phone: '',
-    authCode: '',
     authConfirm: '',
   });
   const { checkList, modifyCheckList, checkResult } = useCheckList<IRegister>({
@@ -57,7 +57,6 @@ const AuthRegisterFormContainer = () => {
               emailDuplication: false,
             });
       }
-      // registerForm.email === res.data.email && setConfirmEmail(true);
     } catch (e) {
       console.log(e);
       registerForm.email === 'example@naver.com'
@@ -73,30 +72,45 @@ const AuthRegisterFormContainer = () => {
   };
 
   /** authConfirm 할당할 콜백 함수 */
-  const handleAuthConfirm: TMouseEventHandler<HTMLButtonElement> = () => {
-    if (
-      registerForm.authCode.length === 6 &&
-      registerForm.authCode === registerForm.authConfirm
-    ) {
-      setConfirmState(true);
-      modifyCheckList('phone', true);
+  const handleAuthConfirm: TMouseEventHandler<HTMLButtonElement> = async () => {
+    try {
+      const res = await authVerifyCode(
+        registerForm.phone,
+        registerForm.authConfirm,
+      );
+      if (res.data.data.status === 'SUCCESS') {
+        setConfirmState(true);
+        modifyCheckList('phone', true);
+      }
+    } catch (e) {
+      console.log(e);
     }
   };
 
   /** register 입력 폼 submit 이벤트 핸들러 */
   const handleSubmit: TFormEventHandler = async (e) => {
     e.preventDefault();
+    if (
+      !checkResult ||
+      !confirmState ||
+      !terms.termsOfServiceAgreed ||
+      !terms.privacyPolicyAgreed ||
+      registerForm.password !== registerForm.passwordConfirm
+    )
+      return;
     try {
-      // TODO) 비동기 요청 (PUT auth/register)
-      const res = await usersSignUp({ ...registerForm, ...terms });
-      if (res.status === 200) {
+      // TODO) 비동기 요청 (POST auth/register)
+      const res = await usersSignUp({
+        ...registerForm,
+        ...terms,
+      });
+      if (res.data.code === '200') {
         alert('회원가입 완료!');
         navigate('/');
       }
     } catch (e) {
       console.log(e);
       alert('회원가입 실패!'); // test code
-      // navigate('/'); // test code
     }
   };
 
@@ -114,8 +128,9 @@ const AuthRegisterFormContainer = () => {
     };
   }, [isInit]);
   useEffect(() => {
+    // if (registerForm.emailDuplication) return;
     handleValidCheck('email');
-  }, [registerForm.email]);
+  }, [registerForm.email, registerForm.emailDuplication]);
   useEffect(() => {
     handleValidCheck('password');
   }, [registerForm.password]);
@@ -128,15 +143,18 @@ const AuthRegisterFormContainer = () => {
       registerState={registerForm}
       checkList={checkList}
       confirmAuth={confirmState}
-      isReady={checkResult && confirmState} // 모든 정규표현식 통과 + 본인인증 완료
+      isReady={
+        checkResult &&
+        confirmState &&
+        terms.termsOfServiceAgreed &&
+        terms.privacyPolicyAgreed &&
+        registerForm.password === registerForm.passwordConfirm
+      } // 모든 정규표현식 통과 + 본인인증 완료 + 약관 동의
       handleChange={(e, reg, max) => {
         handleChangeField<IRegisterState>(e, setRegisterForm, reg, max);
       }}
       handleAuthStart={async () => {
-        await handleAuthStart<IRegisterState>(
-          registerForm.phone,
-          setRegisterForm,
-        );
+        await handleAuthStart(registerForm.phone);
       }}
       handleAuthConfirm={handleAuthConfirm}
       handleSubmit={handleSubmit}
