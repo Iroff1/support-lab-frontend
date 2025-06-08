@@ -1,7 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { DefinePlugin } = require('webpack');
 const Dotenv = require('dotenv-webpack');
+const dotenv = require('dotenv');
+dotenv.config();
 
 module.exports = {
   mode: 'development',
@@ -73,6 +74,13 @@ module.exports = {
     hot: true,
     open: true,
     historyApiFallback: true,
+    proxy: [
+      {
+        context: ['/api'],
+        target: `https://${process.env.REACT_APP_API_SERVER}`,
+        changeOrigin: true,
+      },
+    ],
   },
   watchOptions: {
     poll: true,
