@@ -70,7 +70,7 @@ const InputConfirmButton = styled.button<{ $theme: 'default' | 'modify' }>`
 
 const InputWithConfirm: React.FC<IInputWithConfirm> = ({
   $theme = 'default',
-  onClick,
+  handleConfirm,
   onChange,
   useFor = 'validation',
   isValid,
@@ -85,7 +85,7 @@ const InputWithConfirm: React.FC<IInputWithConfirm> = ({
   } = useInit();
   const handleClick: TMouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
-    onClick && onClick(e);
+    handleConfirm && handleConfirm(e);
     !isInit && initComponent();
   };
   const handleChange: TChangeEventHandler<HTMLInputElement> = (e) => {

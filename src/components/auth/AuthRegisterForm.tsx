@@ -56,7 +56,7 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
             placeholder="이메일"
             value={registerState.email}
             onChange={handleChange}
-            onClick={handleCheckEmail}
+            handleConfirm={handleCheckEmail}
             isValid={checkList.email && checkList.emailConfirm}
             cautionText={
               registerState.email.length === 0

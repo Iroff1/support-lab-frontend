@@ -9,7 +9,7 @@ import InputWithConfirm from './InputWithConfirm';
 const InputForValidation: React.FC<IInputWithConfirm> = ({
   cautionText: prevCaution,
   isValid: prevIsValid = false,
-  onClick,
+  handleConfirm,
   onChange,
   disabled,
   ...props
@@ -18,7 +18,7 @@ const InputForValidation: React.FC<IInputWithConfirm> = ({
 
   const handleClick: TMouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
-    onClick && onClick(e);
+    handleConfirm && handleConfirm(e);
     setIsClicked(true);
   };
 
@@ -32,7 +32,7 @@ const InputForValidation: React.FC<IInputWithConfirm> = ({
       {...props}
       isValid={prevIsValid}
       cautionText={isClicked && prevCaution}
-      onClick={handleClick}
+      handleConfirm={handleClick}
       onChange={handleChange}
       useFor="validation"
       disabled={

@@ -1,4 +1,3 @@
-import React from 'react';
 import { IRegister } from './auth.model';
 
 /** 가장 기본적인 Input 인터페이스 */
@@ -34,7 +33,7 @@ export interface IInputWithCheck extends IInput {
 /** 버튼이 같이 있는 입력 컴포넌트용 interface */
 export interface IInputWithConfirm extends IInput {
   useFor?: 'validation' | 'auth' | 'modify'; // 컴포넌트 사용 목표 속성
-  onClick?: TMouseEventHandler<HTMLButtonElement>; // 버튼을 위한 이벤트 콜백함수 속성
+  handleConfirm?: TMouseEventHandler<HTMLButtonElement>; // 버튼을 위한 이벤트 콜백함수 속성
 }
 
 export type TRegObj = { [key in keyof IRegister]: RegExp };

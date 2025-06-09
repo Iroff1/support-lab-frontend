@@ -1,4 +1,3 @@
-import { authVerifyCode } from '@api/auth';
 import UserModifyInfo from '@components/user/UserModifyInfo';
 import useCheckList from '@hooks/useCheckList';
 import useInit from '@hooks/useInit';
@@ -16,7 +15,6 @@ import handleAuthCheck from '@utils/handleAuthCheck';
 import handleChangeField from '@utils/handleChangeField';
 import handleGetAuthCode from '@utils/handleGetAuthCode';
 import handleModifyPw from '@utils/handleModifyPw';
-import translateAxiosError from '@utils/translateAxiosError';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 

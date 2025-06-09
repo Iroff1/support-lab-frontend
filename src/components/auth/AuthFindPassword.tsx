@@ -62,7 +62,7 @@ const AuthFindPassword: React.FC<IAuthFindPassword> = ({
           placeholder="이메일(아이디)"
           value={findForm.email}
           onChange={handleChangeField}
-          onClick={async (e) => {
+          handleConfirm={async (e) => {
             handleValidCheck!('email');
             await handleCheckEmail().then();
           }}

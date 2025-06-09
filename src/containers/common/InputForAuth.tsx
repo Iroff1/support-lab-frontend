@@ -66,7 +66,7 @@ const InputForAuth: React.FC<IInputForAuth> = ({
           handleChange && handleChange(e, regInput.onlyNum, 11);
         }}
         isValid={checkList.phone && timer >= 0 && checkList.authConfirm}
-        onClick={handleAuthRequest}
+        handleConfirm={handleAuthRequest}
         cautionText={
           checkList.phone ? (
             ''
@@ -95,7 +95,7 @@ const InputForAuth: React.FC<IInputForAuth> = ({
         type="text"
         placeholder="인증번호"
         value={authConfirmText}
-        onClick={handleAuthConfirm}
+        handleConfirm={handleAuthConfirm}
         onChange={(e) => {
           handleChange && handleChange(e, regInput.onlyNum, 6);
         }}
