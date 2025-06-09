@@ -148,7 +148,7 @@ const CSInquirementForm: React.FC<ICSInquirementState> = (props) => {
             <InputText
               name="name"
               placeholder="홍길동"
-              value={props.form.name}
+              value={props.inquireForm.name}
               onChange={props.handleChange}
               autoComplete="on"
             />
@@ -159,7 +159,7 @@ const CSInquirementForm: React.FC<ICSInquirementState> = (props) => {
             <InputText
               name="phone"
               placeholder="010-0000-0000"
-              value={translatePhoneNumber(props.form.phone)}
+              value={translatePhoneNumber(props.inquireForm.phone)}
               onChange={(e) => {
                 props.handleChange(e, regInput.onlyNum, 11);
               }}
@@ -171,7 +171,7 @@ const CSInquirementForm: React.FC<ICSInquirementState> = (props) => {
             <InputText
               name="email"
               placeholder="example@naver.com"
-              value={props.form.email}
+              value={props.inquireForm.email}
               onChange={props.handleChange}
               autoComplete="on"
             />
@@ -183,11 +183,12 @@ const CSInquirementForm: React.FC<ICSInquirementState> = (props) => {
               <input
                 type="text"
                 name="inquirementType"
-                value={props.form.inquirementType}
+                value={props.inquireForm.inquirementType}
+                readOnly={true}
               />
               <div>
-                {props.form.inquirementType.length ? (
-                  props.form.inquirementType
+                {props.inquireForm.inquirementType.length ? (
+                  props.inquireForm.inquirementType
                 ) : (
                   <span>선택</span>
                 )}
@@ -206,12 +207,16 @@ const CSInquirementForm: React.FC<ICSInquirementState> = (props) => {
               name="inquirementContent"
               placeholder="내용을 입력하세요."
               onChange={props.handleChange}
-            >
-              {props.form.inquirementContent}
-            </Textarea>
+              value={props.inquireForm.inquirementContent}
+            />
           </InquirementItem>
 
-          <SubmitButton onClick={props.handleSubmit}>제출하기</SubmitButton>
+          <SubmitButton
+            disabled={!props.checkResult}
+            onClick={props.handleSubmit}
+          >
+            제출하기
+          </SubmitButton>
         </InquirementForm>
       </Body>
     </CSInquirementBlock>

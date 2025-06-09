@@ -132,7 +132,6 @@ const UserModifyInfoContainer = () => {
       'newPasswordConfirm',
       formState.newPassword === formState.newPasswordConfirm,
     );
-    console.log(formState.newPassword, formState.newPasswordConfirm);
   }, [formState.name, formState.newPassword, formState.newPasswordConfirm]);
 
   return (

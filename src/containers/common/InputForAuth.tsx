@@ -65,9 +65,9 @@ const InputForAuth: React.FC<IInputForAuth> = ({
         onChange={(e) => {
           handleChange && handleChange(e, regInput.onlyNum, 11);
         }}
-        isValid={checkList.phone && timer >= 0 && checkList.authConfirm}
+        $isValid={checkList.phone && timer >= 0 && checkList.authConfirm}
         handleConfirm={handleAuthRequest}
-        cautionText={
+        $cautionText={
           checkList.phone ? (
             ''
           ) : timer >= 0 ? (
@@ -99,8 +99,8 @@ const InputForAuth: React.FC<IInputForAuth> = ({
         onChange={(e) => {
           handleChange && handleChange(e, regInput.onlyNum, 6);
         }}
-        isValid={checkList.authConfirm}
-        cautionText={
+        $isValid={checkList.authConfirm}
+        $cautionText={
           authConfirmText.length < 6
             ? ''
             : checkList.authConfirm

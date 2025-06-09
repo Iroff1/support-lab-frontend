@@ -47,12 +47,3 @@ export const usersModifyPassword = async (token: string, newPw: string) => {
   });
   return res;
 };
-
-/** GET/auth 토큰 복호화 요청 */
-export const authDecryptToken = async (token: string) => {
-  console.log('토큰 복호화');
-  const res = await client.get<ILocalAuth>('/auth/decrypt', {
-    params: { token: token },
-  });
-  return res;
-};

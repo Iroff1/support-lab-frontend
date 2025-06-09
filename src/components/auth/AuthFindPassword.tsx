@@ -66,8 +66,8 @@ const AuthFindPassword: React.FC<IAuthFindPassword> = ({
             handleValidCheck!('email');
             await handleCheckEmail().then();
           }}
-          isValid={checkList['email'] && confirmEmail}
-          cautionText={
+          $isValid={checkList['email'] && confirmEmail}
+          $cautionText={
             findForm.email.length === 0
               ? ''
               : !checkList.email

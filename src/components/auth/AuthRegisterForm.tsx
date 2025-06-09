@@ -57,8 +57,8 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
             value={registerState.email}
             onChange={handleChange}
             handleConfirm={handleCheckEmail}
-            isValid={checkList.email && checkList.emailConfirm}
-            cautionText={
+            $isValid={checkList.email && checkList.emailConfirm}
+            $cautionText={
               registerState.email.length === 0
                 ? ''
                 : checkList.emailConfirm === false
@@ -74,8 +74,8 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
             placeholder="비밀번호"
             onChange={handleChange}
             value={registerState.password}
-            isValid={checkList.password}
-            cautionText={
+            $isValid={checkList.password}
+            $cautionText={
               '8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해 주세요.'
             }
           />
@@ -86,8 +86,8 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
               handleChange && handleChange(e);
             }}
             value={registerState.passwordConfirm}
-            isValid={checkList.passwordConfirm}
-            cautionText={'비밀번호가 일치하지 않습니다.'}
+            $isValid={checkList.passwordConfirm}
+            $cautionText={'비밀번호가 일치하지 않습니다.'}
             disabled={
               registerState.password.length === 0
                 ? true

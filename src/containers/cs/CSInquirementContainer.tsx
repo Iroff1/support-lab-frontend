@@ -1,8 +1,13 @@
 import { csInquirement } from '@api/cs';
 import CSInquirementForm from '@components/cs/CSInquirementForm';
+import { regInput, regValid } from '@consts/reg';
+import useCheckList from '@hooks/useCheckList';
 import useInit from '@hooks/useInit';
+import { ILocalAuth } from '@models/auth.model';
+import { IAuthChecker } from '@models/common.model';
 import { TChangeEventHandler } from '@models/input.model';
 import { useAppSelector } from '@store/index';
+import checkValidation from '@utils/checkValidation';
 import handleChangeField from '@utils/handleChangeField';
 import React, { useEffect, useState } from 'react';
 
@@ -15,7 +20,8 @@ export interface ICSInquirement {
 }
 
 export interface ICSInquirementState {
-  form: ICSInquirement;
+  inquireForm: ICSInquirement;
+  checkResult: boolean;
   toggleSelectBox: (e: React.MouseEvent<HTMLDivElement>) => void;
   handleInqType: (e: React.MouseEvent<HTMLLIElement>) => void;
   handleChange: TChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
@@ -24,24 +30,32 @@ export interface ICSInquirementState {
 
 const CSInquirementContainer = ({ setIsDone }: { setIsDone: () => void }) => {
   const auth = useAppSelector(({ auth }) => auth.auth);
-  const [form, setForm] = useState<ICSInquirement>({
+  const [inquireForm, setInquireForm] = useState<ICSInquirement>({
     name: '',
     phone: '',
     email: '',
     inquirementType: '',
     inquirementContent: '',
   });
+  const { checkList, checkResult, modifyCheckList } =
+    useCheckList<ICSInquirement>({
+      name: false,
+      phone: false,
+      email: false,
+      inquirementType: false,
+      inquirementContent: false,
+    });
   const { isInit, startInit } = useInit();
 
   // 핸들러 선언부
   const handleChange: TChangeEventHandler<
     HTMLInputElement | HTMLTextAreaElement
   > = (e, reg, max) => {
-    handleChangeField<ICSInquirement>(e, setForm, reg, max);
+    handleChangeField<ICSInquirement>(e, setInquireForm, reg, max);
   };
   const handleInqType = (e: React.MouseEvent<HTMLLIElement>) => {
     const inqType = e.currentTarget.innerText;
-    setForm((prev) => ({
+    setInquireForm((prev) => ({
       ...prev,
       inquirementType: inqType,
     }));
@@ -50,25 +64,22 @@ const CSInquirementContainer = ({ setIsDone }: { setIsDone: () => void }) => {
     e.currentTarget.classList.toggle('on');
   };
   const handleSubmit = async () => {
-    console.log(form);
     try {
-      const res = await csInquirement(form);
-      if (res.status === 200) {
-        // alert('문의 전송에 성공했습니다.');
+      const res = await csInquirement(inquireForm);
+      if (res.data.status === '200') {
         setIsDone();
       }
     } catch (e) {
       console.error(e);
       alert('문의 전송에 실패했습니다.');
-
-      setIsDone(); // test code
+      // setIsDone(); // test code
     }
   };
 
   // 컴포넌트 모니터링
   useEffect(() => {
     if (auth) {
-      setForm((prev) => ({
+      setInquireForm((prev) => ({
         ...prev,
         name: auth.name,
         phone: auth.phone,
@@ -80,10 +91,29 @@ const CSInquirementContainer = ({ setIsDone }: { setIsDone: () => void }) => {
   useEffect(() => {
     if (!isInit) return;
   }, [isInit]);
+  useEffect(() => {
+    modifyCheckList('email', checkValidation(inquireForm.email, 'email'));
+  }, [inquireForm.email]);
+  useEffect(() => {
+    modifyCheckList('phone', checkValidation(inquireForm.phone, 'phone'));
+  }, [inquireForm.phone]);
+  useEffect(() => {
+    modifyCheckList('name', checkValidation(inquireForm.name, 'name'));
+  }, [inquireForm.name]);
+  useEffect(() => {
+    modifyCheckList('inquirementType', inquireForm.inquirementType.length > 0);
+  }, [inquireForm.inquirementType]);
+  useEffect(() => {
+    modifyCheckList(
+      'inquirementContent',
+      inquireForm.inquirementContent.length > 10,
+    );
+  }, [inquireForm.inquirementContent]);
 
   return (
     <CSInquirementForm
-      form={form}
+      inquireForm={inquireForm}
+      checkResult={checkResult}
       toggleSelectBox={toggleSelectBox}
       handleInqType={handleInqType}
       handleChange={handleChange}

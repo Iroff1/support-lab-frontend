@@ -91,14 +91,14 @@ const DirectSection = styled.div`
   }
 `;
 
-const InputWithCheck: React.FC<IInputWithCheck> = ({
+const InputWithCheck = <T extends object>({
   name,
   useFor = 'option',
   children,
   handleClick,
   required,
   popup,
-}) => {
+}: IInputWithCheck<T>) => {
   const [isPopup, setIsPopup] = useState(false);
 
   const handlePopup = () => {
@@ -111,7 +111,7 @@ const InputWithCheck: React.FC<IInputWithCheck> = ({
         <InputWrapper>
           <input
             type="checkbox"
-            name={name}
+            name={name as string}
             required={required}
             onClick={handleClick}
           />

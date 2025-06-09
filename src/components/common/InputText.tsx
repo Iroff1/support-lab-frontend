@@ -46,19 +46,21 @@ export const InputTextBlock = styled.input<{
     `}
 `;
 
-const InputText: React.FC<IInput> = ({
+const InputText = <T extends object>({
+  name,
   $theme = 'default',
   $PR,
   type = 'text',
   required = true,
-  cautionText,
-  isValid,
+  $cautionText: cautionText,
+  $isValid: isValid,
   ...props
-}) => {
+}: IInput<T>) => {
   return (
     <>
       <InputTextBlock
         {...props}
+        name={name as string}
         type={type}
         required={required}
         $theme={$theme}

@@ -1,6 +1,6 @@
 import palette from '@assets/colors/index';
 import translateFontSize from '@utils/translateFontSize';
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import styled, { css } from 'styled-components';
 import InputText from '../../components/common/InputText';
 import {
@@ -68,16 +68,16 @@ const InputConfirmButton = styled.button<{ $theme: 'default' | 'modify' }>`
         `}
 `;
 
-const InputWithConfirm: React.FC<IInputWithConfirm> = ({
+const InputWithConfirm = <T extends object>({
   $theme = 'default',
   handleConfirm,
   onChange,
   useFor = 'validation',
-  isValid,
+  $isValid: isValid,
   disabled = false,
-  cautionText,
+  $cautionText: cautionText,
   ...props
-}) => {
+}: IInputWithConfirm<T>) => {
   const {
     isInit,
     startInit: initComponent,
@@ -98,7 +98,7 @@ const InputWithConfirm: React.FC<IInputWithConfirm> = ({
         <InputText
           {...props}
           onChange={handleChange}
-          isValid={isValid}
+          $isValid={isValid}
           disabled={disabled}
           $theme={$theme}
         />

@@ -13,8 +13,8 @@ import CSQuestionsPage from '@pages/cs/CSQuestionsPage';
 import CSInfoListPage from '@pages/cs/CSInfoListPage';
 import MainPage from '@pages/MainPage';
 import TermsOfUsePage from '@pages/TermsOfUsePage';
-import UserModifyInfoContainer from '@containers/user/UserModifyInfoContainer';
 import HeaderOnlyLayout from '@layout/HeaderOnlyLayout';
+import UserModifyInfoPage from '@pages/user/UserModifyInfoPage';
 
 const App = () => {
   return (
@@ -47,7 +47,7 @@ const App = () => {
 
       {/* User Service Page */}
       <Route path="/user" element={<HeaderOnlyLayout />}>
-        <Route path="modifyInfo" element={<UserModifyInfoContainer />} />
+        <Route path="modifyInfo" element={<UserModifyInfoPage />} />
       </Route>
 
       <Route path="*" element={<>Page Not Found</>} />

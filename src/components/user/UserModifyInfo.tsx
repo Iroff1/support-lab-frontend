@@ -41,7 +41,7 @@ const ModifyForm = styled.div`
 `;
 
 /** 테이블 행 */
-const FormRow = styled.div`
+const FormRow = styled.form`
   display: flex;
   border-bottom: 1px solid ${palette.black.B50};
   &:last-child {
@@ -173,10 +173,13 @@ const UserModifyInfo: React.FC<IUserModifyInfoProps> = (props) => {
               {/* Current Password */}
               <InputGroup>
                 <InputPassword
-                  name="currentPassword"
+                  name="password"
                   placeholder="현재 비밀번호"
                   $theme="modify"
                   value={props.formState.password}
+                  onChange={(e) => {
+                    props.handleChange(e, regValid.password, 16);
+                  }}
                 />
                 <Blank />
               </InputGroup>
@@ -188,8 +191,8 @@ const UserModifyInfo: React.FC<IUserModifyInfoProps> = (props) => {
                   placeholder="새 비밀번호"
                   $theme="modify"
                   value={props.formState.newPassword}
-                  isValid={props.checkList.newPassword}
-                  cautionText={
+                  $isValid={props.checkList.newPassword}
+                  $cautionText={
                     '8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해 주세요.'
                   }
                   onChange={(e) => {
@@ -206,8 +209,8 @@ const UserModifyInfo: React.FC<IUserModifyInfoProps> = (props) => {
                   placeholder="비밀번호 확인"
                   $theme="modify"
                   value={props.formState.newPasswordConfirm}
-                  isValid={props.checkList.newPasswordConfirm}
-                  cautionText={'비밀번호가 일치하지 않습니다.'}
+                  $isValid={props.checkList.newPasswordConfirm}
+                  $cautionText={'비밀번호가 일치하지 않습니다.'}
                   onChange={(e) => {
                     props.handleChange(e, regValid.password, 16);
                   }}

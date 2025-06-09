@@ -3,17 +3,17 @@ import {
   TChangeEventHandler,
   TMouseEventHandler,
 } from '@models/input.model';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import InputWithConfirm from './InputWithConfirm';
 
-const InputForValidation: React.FC<IInputWithConfirm> = ({
-  cautionText: prevCaution,
-  isValid: prevIsValid = false,
+const InputForValidation = <T extends object>({
+  $cautionText: prevCaution,
+  $isValid: prevIsValid = false,
   handleConfirm,
   onChange,
   disabled,
   ...props
-}) => {
+}: IInputWithConfirm<T>) => {
   const [isClicked, setIsClicked] = useState(false);
 
   const handleClick: TMouseEventHandler<HTMLButtonElement> = (e) => {
@@ -30,8 +30,8 @@ const InputForValidation: React.FC<IInputWithConfirm> = ({
   return (
     <InputWithConfirm
       {...props}
-      isValid={prevIsValid}
-      cautionText={isClicked && prevCaution}
+      $isValid={prevIsValid}
+      $cautionText={isClicked && prevCaution}
       handleConfirm={handleClick}
       onChange={handleChange}
       useFor="validation"

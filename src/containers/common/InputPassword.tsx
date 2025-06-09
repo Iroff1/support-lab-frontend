@@ -34,14 +34,14 @@ const ToggleVisible = styled.div<{
   }
 `;
 
-const InputPassword: React.FC<IInput> = ({
+const InputPassword = <T extends object>({
   onChange,
-  cautionText,
-  isValid,
+  $cautionText: cautionText,
+  $isValid: isValid,
   value,
   $theme = 'default',
   ...props
-}) => {
+}: IInput<T>) => {
   const [isVisible, setIsVisible] = useState(false);
 
   /** 패스워드 인풋 <-> 텍스트 인풋 토글 이벤트 핸들러 함수 */
@@ -61,8 +61,8 @@ const InputPassword: React.FC<IInput> = ({
           type={isVisible ? 'text' : 'password'}
           autoComplete="off"
           onChange={handleChange}
-          isValid={isValid}
-          cautionText={
+          $isValid={isValid}
+          $cautionText={
             !value ? '' : value.length === 0 ? '' : isValid ? '' : cautionText
           }
           $PR={44}

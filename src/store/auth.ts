@@ -1,5 +1,4 @@
-import { authLoginUser } from '@api/auth';
-import { authDecryptToken } from '@api/user';
+import { authDecryptToken, authLoginUser } from '@api/auth';
 import { IAuth, ILocalAuth, ILogin } from '@models/auth.model';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
@@ -80,9 +79,9 @@ export const authDecryptTokenThunk = createAsyncThunk(
   async (token: string) => {
     const res = await authDecryptToken(token);
     return {
-      email: res.data.email,
-      name: res.data.name,
-      phone: res.data.phone,
+      email: res.data.data.email,
+      name: res.data.data.name,
+      phone: res.data.data.phone,
     };
   },
 );
