@@ -6,5 +6,5 @@ export type IResponse<T = null> = {
   code: string;
   status: string;
   message: string;
-  data: T;
+  body: T;
 };

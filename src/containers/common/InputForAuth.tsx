@@ -6,6 +6,7 @@ import InputWithConfirm from './InputWithConfirm';
 import translatePhoneNumber from '@utils/translateContact';
 import useTimer from '@hooks/useTimer';
 import { IRegisterState } from '@models/auth.model';
+import checkValidation from '@utils/checkValidation';
 
 interface IInputForAuth {
   phone: string;
@@ -16,7 +17,7 @@ interface IInputForAuth {
   };
   handleChange: TChangeEventHandler<HTMLInputElement>;
   handleAuthStart: () => Promise<void>;
-  handleAuthConfirm: TMouseEventHandler<HTMLButtonElement>;
+  handleAuthConfirm: () => Promise<void>;
   $theme?: 'default' | 'modify';
 }
 
@@ -30,13 +31,19 @@ const InputForAuth: React.FC<IInputForAuth> = ({
   handleAuthConfirm,
 }) => {
   const { timer, timerEvent, timerStart, timerReset } = useTimer();
+  const [isPhoneReady, setIsPhoneReady] = useState(false);
+  const [phoneCautionText, setPhoneCautionText] = useState<
+    string | React.ReactNode
+  >('');
+  const [authCautionText, setAuthCautionText] = useState('');
 
   /** 입력된 번호로 인증을 요청하고 타이머 시작 */
   const handleAuthRequest = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    if (!isPhoneReady) return;
     try {
-      await handleAuthStart();
       timerStart();
+      await handleAuthStart();
     } catch (e) {
       console.log(e);
     }
@@ -52,6 +59,41 @@ const InputForAuth: React.FC<IInputForAuth> = ({
   useEffect(() => {
     return timerReset();
   }, []);
+  useEffect(() => {
+    setIsPhoneReady(checkValidation(phone, 'phone'));
+  }, [phone]);
+  useEffect(() => {
+    setPhoneCautionText(
+      checkList.phone ? (
+        ''
+      ) : timer >= 0 ? (
+        <span style={{ color: palette.system.blue }}>
+          남은 시간 {Math.floor(timer / 60)}분
+          {String(timer % 60).padStart(2, '0')}초<br />
+          문자가 오지 않으면 스팸함을 확인해 주세요.
+        </span>
+      ) : checkList.authConfirm === true ? (
+        ''
+      ) : isPhoneReady ? (
+        <span>
+          인증 시간이 만료되었습니다.
+          <br />
+          다시 인증해 주세요.
+        </span>
+      ) : (
+        '휴대폰번호를 제대로 입력해 주세요.'
+      ),
+    );
+  }, [checkList, isPhoneReady, timer]);
+  useEffect(() => {
+    setAuthCautionText(
+      authConfirmText.length < 6
+        ? ''
+        : checkList.authConfirm
+        ? '인증되었습니다.'
+        : '인증번호가 일치하지 않습니다.',
+    );
+  }, [authConfirmText, checkList.authConfirm]);
 
   return (
     <>
@@ -66,27 +108,9 @@ const InputForAuth: React.FC<IInputForAuth> = ({
         onChange={(e) => {
           handleChange && handleChange(e, regInput.onlyNum, 11);
         }}
-        $isValid={checkList.phone && timer >= 0 && checkList.authConfirm}
         handleConfirm={handleAuthRequest}
-        $cautionText={
-          checkList.phone ? (
-            ''
-          ) : timer >= 0 ? (
-            <span style={{ color: palette.system.blue }}>
-              남은 시간 {Math.floor(timer / 60)}분
-              {String(timer % 60).padStart(2, '0')}초<br />
-              문자가 오지 않으면 스팸함을 확인해 주세요.
-            </span>
-          ) : checkList.authConfirm === true ? (
-            ''
-          ) : (
-            <span>
-              인증 시간이 만료되었습니다.
-              <br />
-              다시 인증해 주세요.
-            </span>
-          )
-        }
+        $isValid={checkList.phone && timer >= 0 && checkList.authConfirm}
+        $cautionText={phoneCautionText}
       />
 
       <InputWithConfirm<IRegisterState>
@@ -96,18 +120,16 @@ const InputForAuth: React.FC<IInputForAuth> = ({
         type="text"
         placeholder="인증번호"
         value={authConfirmText}
-        handleConfirm={handleAuthConfirm}
+        handleConfirm={async (e) => {
+          e.preventDefault();
+          await handleAuthConfirm();
+          if (!checkList.authConfirm) timerReset();
+        }}
         onChange={(e) => {
           handleChange && handleChange(e, regInput.onlyNum, 6);
         }}
         $isValid={checkList.authConfirm}
-        $cautionText={
-          authConfirmText.length < 6
-            ? ''
-            : checkList.authConfirm
-            ? '인증되었습니다.'
-            : '인증번호가 일치하지 않습니다.'
-        }
+        $cautionText={authCautionText}
         disabled={timer < 0}
       />
     </>

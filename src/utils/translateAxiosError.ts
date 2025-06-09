@@ -5,7 +5,7 @@ const translateAxiosError = (e: unknown) => {
     console.log(e.response?.data);
     return e.response?.data;
   } else {
-    console.log(e);
+    console.error(e);
     return e;
   }
 };

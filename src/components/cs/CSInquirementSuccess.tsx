@@ -85,7 +85,7 @@ const CSInquirementSuccess: React.FC<ICSInquirementSuccess> = ({
           </Notice>
         </Contents>
         <Navigations>
-          <SubmitButton inverse={true} onClick={setIsDone}>
+          <SubmitButton $inverse={true} onClick={setIsDone}>
             신규 문의 접수
           </SubmitButton>
           <SubmitButton

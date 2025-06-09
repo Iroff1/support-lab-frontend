@@ -34,7 +34,7 @@ interface IAuthFindPassword {
   handleChangeField: TChangeEventHandler<HTMLInputElement>;
   handleCheckEmail: () => Promise<void>;
   handleAuthStart: () => Promise<void>;
-  handleAuthConfirm: () => void;
+  handleAuthConfirm: () => Promise<void>;
   handleFindPassword: () => void;
 }
 

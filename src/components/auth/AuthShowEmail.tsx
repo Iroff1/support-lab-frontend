@@ -71,7 +71,7 @@ const AuthShowEmail: React.FC<IAuthShowEmail> = ({
         <SubmitButton onClick={handleLeftBtn}>
           {email.length !== 0 ? '로그인' : '회원가입'}
         </SubmitButton>
-        <SubmitButton inverse={true} onClick={handleRightBtn}>
+        <SubmitButton $inverse={true} onClick={handleRightBtn}>
           {email.length !== 0 ? '비밀번호 찾기' : '메인으로'}
         </SubmitButton>
       </div>

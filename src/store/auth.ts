@@ -1,4 +1,5 @@
-import { authDecryptToken, authLoginUser } from '@api/auth';
+import { authLoginUser } from '@api/auth';
+import { usersDecryptToken } from '@api/user';
 import { IAuth, ILocalAuth, ILogin } from '@models/auth.model';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
@@ -33,7 +34,6 @@ export const authSlice = createSlice({
       })
       .addCase(authLoginUserThunk.fulfilled, (state, { type, payload }) => {
         console.log(type + ' 성공');
-        console.log(payload);
         Object.assign(state, { token: payload.token, authError: null });
         alert('로그인 성공');
       })
@@ -77,11 +77,11 @@ export const authLoginUserThunk = createAsyncThunk(
 export const authDecryptTokenThunk = createAsyncThunk(
   'auth/decryptToken',
   async (token: string) => {
-    const res = await authDecryptToken(token);
+    const res = await usersDecryptToken(token);
     return {
-      email: res.data.data.email,
-      name: res.data.data.name,
-      phone: res.data.data.phone,
+      email: res.data.body.email,
+      name: res.data.body.name,
+      phone: res.data.body.phone,
     };
   },
 );

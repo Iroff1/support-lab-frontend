@@ -1,4 +1,4 @@
-import { ILocalAuth, ILogin } from '@models/auth.model';
+import { ILogin } from '@models/auth.model';
 import client from './client';
 import { IResponse } from '@models/common.model';
 
@@ -15,7 +15,7 @@ export const authSendCode = async (phone: string) => {
 // POST /auth/verify-code 본인인증 코드 검증
 export const authVerifyCode = async (phone: string, code: string) => {
   console.log('본인인증 코드 검증');
-  const res = await client.post<{ data: { status: string } }>(
+  const res = await client.post<IResponse<{ status: string }>>(
     '/auth/verify-code',
     {
       type: 'SIGN_UP_CODE',
@@ -51,14 +51,5 @@ export const authEmailCheckDuplication = async (email: string) => {
       email: email,
     },
   );
-  return res;
-};
-
-/** POST /auth/decrypt 토큰 복호화 요청 */
-export const authDecryptToken = async (token: string) => {
-  console.log('토큰 복호화');
-  const res = await client.post<IResponse<ILocalAuth>>('/auth/decrypt', {
-    token: token,
-  });
   return res;
 };

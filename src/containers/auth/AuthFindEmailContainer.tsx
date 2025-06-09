@@ -27,7 +27,7 @@ export interface IAuthFindForm {
   handleChangeField: TChangeEventHandler<HTMLInputElement>;
   handleFindEmail: () => Promise<void>;
   handleAuthStart: () => Promise<void>;
-  handleAuthConfirm: () => void;
+  handleAuthConfirm: () => Promise<void>;
 }
 
 const AuthFindEmailContainer = () => {

@@ -3,7 +3,7 @@ import translateFontSize from '@utils/translateFontSize';
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-const SubmitButtonBlock = styled.button<{ inverse?: boolean }>`
+const SubmitButtonBlock = styled.button<{ $inverse?: boolean }>`
   width: 100%;
   height: 48px;
   border-radius: 8px;
@@ -20,7 +20,7 @@ const SubmitButtonBlock = styled.button<{ inverse?: boolean }>`
     cursor: not-allowed;
   }
 
-  ${({ inverse }) =>
+  ${({ $inverse: inverse }) =>
     inverse &&
     css`
       background-color: transparent;
@@ -32,7 +32,7 @@ const SubmitButtonBlock = styled.button<{ inverse?: boolean }>`
 interface ISubmitButton {
   children: string;
   disabled?: boolean;
-  inverse?: boolean;
+  $inverse?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   ref?: React.RefObject<HTMLButtonElement | null>;
 }
@@ -41,7 +41,7 @@ const SubmitButton: React.FC<ISubmitButton> = ({
   children,
   ref,
   disabled,
-  inverse = false,
+  $inverse = false,
   onClick,
 }) => {
   return (
@@ -50,7 +50,7 @@ const SubmitButton: React.FC<ISubmitButton> = ({
         ref={ref}
         disabled={disabled}
         onClick={onClick}
-        inverse={inverse}
+        $inverse={$inverse}
       >
         {children}
       </SubmitButtonBlock>

@@ -5,7 +5,7 @@ import checkValidation from '@utils/checkValidation';
 import handleChangeField from '@utils/handleChangeField';
 import handleGetAuthCode from '@utils/handleGetAuthCode';
 import { IRegister } from '@models/auth.model';
-import { userModifyPasswordReq, usersFindEmail } from '@api/user';
+import { usersModifyPasswordReq, usersFindEmail } from '@api/user';
 import handleAuthCheck from '@utils/handleAuthCheck';
 
 export interface IFindPassword {
@@ -63,7 +63,7 @@ const AuthFindPasswordContainer: React.FC<IProp> = ({ handleEmail }) => {
     if (!(checkResult && confirmEmail)) return;
     try {
       // TODO) GET auth/password 비밀번호 정보 요청 비동기 처리 후 이메일 상태 초기화
-      const res = await userModifyPasswordReq({
+      const res = await usersModifyPasswordReq({
         email: findForm.email,
         phone: findForm.phone,
         name: findForm.name,

@@ -24,7 +24,7 @@ export interface IUserModifyInfoProps {
   formState: IUserModifyInfoState;
   checkList: IAuthChecker<IRegisterCheck & INewPassword>;
   marketingState: boolean;
-  handleAuthConfirm: () => void;
+  handleAuthConfirm: () => Promise<void>;
   handleChange: TChangeEventHandler<HTMLInputElement>;
   handleMarketing: () => void;
   handleAuthStart: () => Promise<void>;

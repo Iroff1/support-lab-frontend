@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import handleChangeField from '@utils/handleChangeField';
 import handleGetAuthCode from '@utils/handleGetAuthCode';
 import { usersSignUp } from '@api/user';
-import { authVerifyCode, authEmailCheckDuplication } from '@api/auth';
+import { authEmailCheckDuplication } from '@api/auth';
 import { IAuthChecker } from '@models/common.model';
 import translateAxiosError from '@utils/translateAxiosError';
 import handleAuthCheck from '@utils/handleAuthCheck';
@@ -27,7 +27,7 @@ export interface IAuthRegisterForm {
 
   handleChange: TChangeEventHandler<HTMLInputElement>;
   handleAuthStart: () => Promise<void>;
-  handleAuthConfirm: TMouseEventHandler<HTMLButtonElement>;
+  handleAuthConfirm: () => Promise<void>;
   handleSubmit: TFormEventHandler;
   handleCheckEmail: () => Promise<void>;
 }
@@ -74,26 +74,42 @@ const AuthRegisterFormContainer = () => {
         modifyCheckList('emailConfirm', true);
       }
     } catch (e) {
+      console.error(e);
       translateAxiosError(e);
+
+      // test code
       if (registerForm.email === 'example@naver.com') {
         modifyCheckList('emailConfirm', false);
       } else {
         modifyCheckList('emailConfirm', true);
       }
     }
-    console.log(checkList.email, checkList.emailConfirm);
   };
   /** 본인인증 시작 함수 */
   const handleAuthStart = async () => {
-    await handleGetAuthCode(registerForm.phone);
+    if (registerForm.phone.length !== 11 || checkList.phone) return;
+    try {
+      setRegisterForm({
+        ...registerForm,
+        authConfirm: '',
+      });
+      await handleGetAuthCode(registerForm.phone);
+    } catch (e) {
+      translateAxiosError(e);
+    }
   };
   /** authConfirm에 할당할 콜백 함수 */
-  const handleAuthConfirm: TMouseEventHandler<HTMLButtonElement> = async () => {
-    handleAuthCheck(
-      registerForm.phone,
-      registerForm.authConfirm,
-      modifyCheckList,
-    );
+  const handleAuthConfirm = async () => {
+    if (registerForm.authConfirm.length < 6 || checkList.authConfirm) return;
+    try {
+      await handleAuthCheck(
+        registerForm.phone,
+        registerForm.authConfirm,
+        modifyCheckList,
+      );
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   /** register 입력 폼 submit 이벤트 핸들러 */
@@ -135,7 +151,10 @@ const AuthRegisterFormContainer = () => {
     handleValidCheck('password');
   }, [registerForm.password]);
   useEffect(() => {
-    if (registerForm.password === registerForm.passwordConfirm) {
+    if (
+      registerForm.password === registerForm.passwordConfirm &&
+      registerForm.password.length > 0
+    ) {
       modifyCheckList('passwordConfirm', true);
     } else {
       modifyCheckList('passwordConfirm', false);

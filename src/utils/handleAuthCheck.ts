@@ -16,13 +16,13 @@ const handleAuthCheck = async (
   phone: string,
   authConfirm: string,
   modifyCheckList: (
-    key: keyof IAuthChecker<{ authConfirm: boolean }>,
+    key: keyof IAuthChecker<{ authConfirm: string }>,
     value: boolean,
   ) => void,
 ) => {
   try {
     const res = await authVerifyCode(phone, authConfirm);
-    if (res.data.data.status === 'SUCCESS')
+    if (res.data.body.status === 'SUCCESS')
       modifyCheckList('authConfirm', true);
     else modifyCheckList('authConfirm', false);
   } catch (e) {

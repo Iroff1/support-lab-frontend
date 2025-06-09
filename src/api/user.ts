@@ -1,6 +1,7 @@
 import { ILocalAuth, IRegisterRequest } from '@models/auth.model';
 import client from './client';
 import { AxiosRequestConfig } from 'axios';
+import { IResponse } from '@models/common.model';
 
 /** POST /api/users/sign-up 회원가입 요청 */
 export const usersSignUp = async (formData: IRegisterRequest) => {
@@ -25,7 +26,7 @@ export const usersFindEmail = async (name: string, phone: string) => {
  *
  * 휴대폰 인증이 완료된 상태일 때 사용바람
  */
-export const userModifyPasswordReq = async (auth: ILocalAuth) => {
+export const usersModifyPasswordReq = async (auth: ILocalAuth) => {
   console.log('비밀번호 찾기');
   const res = await client.post<{ token: string }>('/users/password', {
     email: auth.email,
@@ -44,6 +45,17 @@ export const usersModifyPassword = async (token: string, newPw: string) => {
   const res = await client.patch('/users/password', {
     token: token,
     password: newPw,
+  });
+  return res;
+};
+
+/** GET /auth/decrypt 토큰 복호화 요청 */
+export const usersDecryptToken = async (token: string) => {
+  console.log('토큰 복호화');
+  const res = await client.get<IResponse<ILocalAuth>>('/users/me', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
   return res;
 };
