@@ -6,7 +6,11 @@ import {
   TFormEventHandler,
   TMouseEventHandler,
 } from '@models/input.model';
-import { authDecryptTokenThunk, authLoginUserThunk } from '@store/auth';
+import {
+  authActions,
+  authDecryptTokenThunk,
+  authLoginUserThunk,
+} from '@store/auth';
 import { useAppDispatch, useAppSelector } from '@store/index';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -44,9 +48,15 @@ const AuthLoginFormContainer = () => {
 
   useEffect(() => {
     startInit();
+    dispatch(authActions.initializeState());
     // if (auth) navigate('/');
     if (token && token.length > 0) navigate('/');
   }, []);
+
+  useEffect(() => {
+    if (!isInit) return;
+  }, [isInit]);
+
   useEffect(() => {
     if (!isInit) return;
     if (token && token.length > 0) {
