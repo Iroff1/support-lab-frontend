@@ -70,9 +70,8 @@ const AuthFindEmail: React.FC<IAuthFindForm> = ({
         />
         <InputForAuth
           phone={findForm.phone}
-          authConfirm={findForm.authConfirm}
+          authConfirmText={findForm.authConfirm}
           checkList={checkList}
-          confirmAuth={confirmAuth}
           handleChange={handleChangeField}
           handleAuthStart={handleAuthStart}
           handleAuthConfirm={handleAuthConfirm}

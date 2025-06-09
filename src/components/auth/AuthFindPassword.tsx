@@ -92,9 +92,8 @@ const AuthFindPassword: React.FC<IAuthFindPassword> = ({
 
         <InputForAuth
           phone={findForm.phone}
-          authConfirm={findForm.authConfirm}
+          authConfirmText={findForm.authConfirm}
           checkList={checkList}
-          confirmAuth={confirmAuth}
           handleChange={handleChangeField}
           handleAuthStart={handleAuthStart}
           handleAuthConfirm={handleAuthConfirm}

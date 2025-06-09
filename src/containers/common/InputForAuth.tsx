@@ -1,19 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TChangeEventHandler, TMouseEventHandler } from '@models/input.model';
 import { regInput } from '@consts/reg';
 import palette from '@assets/colors';
 import InputWithConfirm from './InputWithConfirm';
-import { TIMER_INIT, TIMER_LIMIT } from '@consts/timer';
 import translatePhoneNumber from '@utils/translateContact';
 import useTimer from '@hooks/useTimer';
 
 interface IInputForAuth {
   phone: string;
-  authConfirm: string;
+  authConfirmText: string;
   checkList: {
     phone: boolean;
+    authConfirm: boolean;
   };
-  confirmAuth: boolean;
   handleChange: TChangeEventHandler<HTMLInputElement>;
   handleAuthStart: () => Promise<void>;
   handleAuthConfirm: TMouseEventHandler<HTMLButtonElement>;
@@ -23,27 +22,32 @@ interface IInputForAuth {
 const InputForAuth: React.FC<IInputForAuth> = ({
   $theme = 'default',
   phone,
-  authConfirm,
+  authConfirmText,
   checkList,
-  confirmAuth,
   handleChange,
   handleAuthStart,
   handleAuthConfirm,
 }) => {
-  const { timer, timerEvent, timerStart, timerReset } = useTimer(
-    TIMER_INIT,
-    TIMER_LIMIT,
-  );
+  const { timer, timerEvent, timerStart, timerReset } = useTimer();
+
+  /** 입력된 번호로 인증을 요청하고 타이머 시작 */
+  const handleAuthRequest = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    try {
+      await handleAuthStart();
+      timerStart();
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   // 타이머 초기화
   useEffect(() => {
-    if (timerEvent.current && timer < 0) {
-      timerReset(); // 타이머 이벤트가 존재하고, 타이머 시간이 0 미만이 되면 타이머 초기화
-    }
+    if (timerEvent.current && timer < 0) timerReset(); // 타이머 이벤트가 존재하고, 타이머 시간이 0 미만이 되면 타이머 초기화
   }, [timer]);
   useEffect(() => {
-    confirmAuth && timerReset(); // 권환 확인 성공 시 타이머 초기화
-  }, [confirmAuth]);
+    checkList.authConfirm && timerReset(); // 권환 확인 성공 시 타이머 초기화
+  }, [checkList.authConfirm]);
   useEffect(() => {
     return timerReset();
   }, []);
@@ -61,14 +65,8 @@ const InputForAuth: React.FC<IInputForAuth> = ({
         onChange={(e) => {
           handleChange && handleChange(e, regInput.onlyNum, 11);
         }}
-        isValid={checkList.phone && timer >= 0 && confirmAuth}
-        onClick={async (e) => {
-          e.preventDefault();
-          if (!timerEvent.current && !checkList.phone) {
-            await handleAuthStart();
-            timerStart();
-          }
-        }}
+        isValid={checkList.phone && timer >= 0 && checkList.authConfirm}
+        onClick={handleAuthRequest}
         cautionText={
           checkList.phone ? (
             ''
@@ -78,7 +76,7 @@ const InputForAuth: React.FC<IInputForAuth> = ({
               {String(timer % 60).padStart(2, '0')}초<br />
               문자가 오지 않으면 스팸함을 확인해 주세요.
             </span>
-          ) : confirmAuth === true ? (
+          ) : checkList.authConfirm === true ? (
             ''
           ) : (
             <span>
@@ -96,16 +94,16 @@ const InputForAuth: React.FC<IInputForAuth> = ({
         name="authConfirm"
         type="text"
         placeholder="인증번호"
-        value={authConfirm}
+        value={authConfirmText}
         onClick={handleAuthConfirm}
         onChange={(e) => {
           handleChange && handleChange(e, regInput.onlyNum, 6);
         }}
-        isValid={confirmAuth}
+        isValid={checkList.authConfirm}
         cautionText={
-          authConfirm.length < 6
+          authConfirmText.length < 6
             ? ''
-            : confirmAuth
+            : checkList.authConfirm
             ? '인증되었습니다.'
             : '인증번호가 일치하지 않습니다.'
         }

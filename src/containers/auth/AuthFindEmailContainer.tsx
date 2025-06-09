@@ -6,7 +6,7 @@ import useInit from '@hooks/useInit';
 import { IRegister } from '@models/auth.model';
 import checkValidation from '@utils/checkValidation';
 import handleChangeField from '@utils/handleChangeField';
-import handleAuthStart from '@utils/handleGetAuthCode';
+import handleGetAuthCode from '@utils/handleGetAuthCode';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -88,7 +88,7 @@ const AuthFindEmailContainer = () => {
       }}
       handleFindEmail={handleFindEmail}
       handleAuthStart={async () => {
-        await handleAuthStart(findForm.phone);
+        await handleGetAuthCode(findForm.phone);
       }}
       handleAuthConfirm={handleAuthConfirm}
     />

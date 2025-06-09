@@ -3,18 +3,12 @@ import SubmitButton from '@components/common/SubmitButton';
 import styled from 'styled-components';
 import InputPassword from '../../containers/common/InputPassword';
 import React from 'react';
-import {
-  TChangeEventHandler,
-  TFormEventHandler,
-  TMouseEventHandler,
-} from '@models/input.model';
-import { IRegister, IRegisterState } from '@models/auth.model';
-import { IAuthChecker } from '@models/common.model';
 import InputForValidation from '@containers/common/InputForValidation';
 import { regInput } from '@consts/reg';
 import AuthHeaderLogo from './AuthHeaderLogo';
 import AuthTitleBox from './AuthTitleBox';
 import InputForAuth from '../../containers/common/InputForAuth';
+import { IAuthRegisterForm } from '@containers/auth/AuthRegisterFormContainer';
 
 const AuthRegisterFormBlock = styled.form`
   width: 100%;
@@ -35,24 +29,9 @@ const SubmitSection = styled.div`
   gap: 36px;
 `;
 
-interface IAuthRegisterForm {
-  registerState: IRegisterState;
-  checkList: IAuthChecker<IRegister>;
-  confirmAuth: boolean;
-  isReady: boolean;
-
-  handleChange: TChangeEventHandler<HTMLInputElement>;
-  handleAuthStart: () => Promise<void>;
-  handleAuthConfirm: TMouseEventHandler<HTMLButtonElement>;
-  handleSubmit: TFormEventHandler;
-  // handleValidCheck: (key: keyof IRegister) => void;
-  handleCheckEmail: () => Promise<void>;
-}
-
 const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
-  checkList,
   registerState,
-  confirmAuth,
+  checkList,
   isReady,
   handleChange,
   handleAuthStart,
@@ -77,14 +56,12 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
             placeholder="이메일"
             value={registerState.email}
             onChange={handleChange}
-            onClick={async () => {
-              await handleCheckEmail();
-            }}
-            isValid={checkList['email'] && !registerState.emailDuplication}
+            onClick={handleCheckEmail}
+            isValid={checkList.email && checkList.emailConfirm}
             cautionText={
               registerState.email.length === 0
                 ? ''
-                : registerState.emailDuplication
+                : checkList.emailConfirm === false
                 ? '중복된 이메일입니다.'
                 : checkList.email === true
                 ? '사용가능합니다.'
@@ -109,7 +86,7 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
               handleChange && handleChange(e);
             }}
             value={registerState.passwordConfirm}
-            isValid={registerState.password === registerState.passwordConfirm}
+            isValid={checkList.passwordConfirm}
             cautionText={'비밀번호가 일치하지 않습니다.'}
             disabled={
               registerState.password.length === 0
@@ -131,9 +108,8 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
 
           <InputForAuth
             phone={registerState.phone}
-            authConfirm={registerState.authConfirm}
+            authConfirmText={registerState.authConfirm}
             checkList={checkList}
-            confirmAuth={confirmAuth}
             handleChange={handleChange}
             handleAuthStart={handleAuthStart}
             handleAuthConfirm={handleAuthConfirm}

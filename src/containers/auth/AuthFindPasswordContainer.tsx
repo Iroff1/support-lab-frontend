@@ -3,7 +3,7 @@ import useCheckList from '@hooks/useCheckList';
 import React, { useEffect, useState } from 'react';
 import checkValidation from '@utils/checkValidation';
 import handleChangeField from '@utils/handleChangeField';
-import handleAuthStart from '@utils/handleGetAuthCode';
+import handleGetAuthCode from '@utils/handleGetAuthCode';
 import { IRegister } from '@models/auth.model';
 import handleAuthCheck from '@utils/handleAuthCheck';
 import { userModifyPasswordReq, usersFindEmail } from '@api/user';
@@ -113,7 +113,7 @@ const AuthFindPasswordContainer: React.FC<IProp> = ({ handleEmail }) => {
         handleChangeField<IFindPassword>(e, setFindForm, reg, max);
       }}
       handleAuthStart={async () => {
-        await handleAuthStart(findForm.phone);
+        await handleGetAuthCode(findForm.phone);
       }}
       handleAuthConfirm={handleAuthConfirm}
       handleFindPassword={handleFindPassword}

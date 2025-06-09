@@ -1,14 +1,19 @@
 import UserModifyInfo from '@components/user/UserModifyInfo';
 import useCheckList from '@hooks/useCheckList';
 import useInit from '@hooks/useInit';
-import { IConfirm, INewPassword, IRegister } from '@models/auth.model';
+import {
+  IConfirm,
+  INewPassword,
+  IRegister,
+  IRegisterCheck,
+} from '@models/auth.model';
 import { IAuthChecker } from '@models/common.model';
 import { TChangeEventHandler } from '@models/input.model';
 import { useAppSelector } from '@store/index';
 import checkValidation from '@utils/checkValidation';
 import handleAuthCheck from '@utils/handleAuthCheck';
 import handleChangeField from '@utils/handleChangeField';
-import handleAuthStart from '@utils/handleGetAuthCode';
+import handleGetAuthCode from '@utils/handleGetAuthCode';
 import handleModifyPw from '@utils/handleModifyPw';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -17,8 +22,7 @@ interface IUserModifyInfoState extends IRegister, IConfirm, INewPassword {}
 
 export interface IUserModifyInfoProps {
   formState: IUserModifyInfoState;
-  checkList: IAuthChecker<IRegister & INewPassword>;
-  confirmAuth: boolean;
+  checkList: IAuthChecker<IRegisterCheck & INewPassword>;
   marketingState: boolean;
   handleAuthConfirm: () => void;
   handleChange: TChangeEventHandler<HTMLInputElement>;
@@ -44,19 +48,21 @@ const UserModifyInfoContainer = () => {
     newPassword: '',
     newPasswordConfirm: '',
   });
-  const { checkList, modifyCheckList } = useCheckList<IRegister & INewPassword>(
-    {
-      email: false,
-      password: false,
-      name: false,
-      phone: false,
-      newPassword: false,
-      newPasswordConfirm: false,
-    },
-  );
+  const { checkList, modifyCheckList } = useCheckList<
+    IRegisterCheck & INewPassword
+  >({
+    email: false,
+    emailConfirm: false,
+    password: false,
+    passwordConfirm: false,
+    name: false,
+    phone: false,
+    authConfirm: false,
+    newPassword: false,
+    newPasswordConfirm: false,
+  });
   const { isInit, startInit } = useInit();
   const [marketingState, setMarketingState] = useState(false);
-  const [confirmAuth, setConfirmAuth] = useState(false);
 
   // 핸들러 함수들
   const handleChange: TChangeEventHandler<HTMLInputElement> = (e, reg, max) => {
@@ -88,7 +94,7 @@ const UserModifyInfoContainer = () => {
   };
   const handleAuthConfirm = async () => {
     handleAuthCheck(formState.authCode, formState.authConfirm, () => {
-      setConfirmAuth(true);
+      modifyCheckList('authConfirm', true);
       modifyCheckList('phone', true);
     });
   };
@@ -136,13 +142,12 @@ const UserModifyInfoContainer = () => {
     <UserModifyInfo
       formState={formState}
       checkList={checkList}
-      confirmAuth={confirmAuth}
       marketingState={marketingState}
       handleAuthConfirm={handleAuthConfirm}
       handleChange={handleChange}
       handleMarketing={handleMarketing}
       handleAuthStart={async () => {
-        await handleAuthStart(formState.phone);
+        await handleGetAuthCode(formState.phone);
       }}
       handleModifyPassword={handleModifyPassword}
       handleModifyname={handleModifyname}

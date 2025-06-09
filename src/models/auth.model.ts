@@ -5,38 +5,28 @@ export interface IAuth {
   auth: ILocalAuth | null;
   authError: SerializedError | null;
 }
-
 /** 사용자 권한 데이터 인터페이스 */
 export interface ILocalAuth {
   email: string;
   name: string;
   phone: string;
 }
-
 /** 서버에 전송할 login 데이터 인터페이스 */
 export interface ILogin {
   email: string;
   password: string;
 }
-
 /** register 입력 데이터 인터페이스 */
 export interface IRegister extends ILogin {
   name: string;
   phone: string;
 }
-
-export interface IConfirm {
-  authCode: string;
-  authConfirm: string;
-}
-
 /** 서버에 전송할 register 선택 데이터 인터페이스 */
 export interface ITerms {
   termsOfServiceAgreed: boolean; // true 필수
   privacyPolicyAgreed: boolean; // true 필수
   marketingAgreed: boolean;
 }
-
 /** 서버에 전송할 register 데이터 인터페이스 */
 export interface IRegisterRequest extends IRegister, ITerms {}
 
@@ -44,10 +34,18 @@ export interface IRegisterRequest extends IRegister, ITerms {}
 export interface IRegisterState extends IRegister {
   passwordConfirm: string;
   authConfirm: string;
-  emailDuplication: boolean;
+}
+export interface IRegisterCheck extends IRegisterState {
+  /** 이메일 중복 체크 : true 중복 아님, false 중복 */
+  emailConfirm: boolean;
 }
 
 export interface INewPassword {
   newPassword: string;
   newPasswordConfirm: string;
+}
+
+export interface IConfirm {
+  authCode: string;
+  authConfirm: string;
 }

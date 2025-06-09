@@ -243,9 +243,8 @@ const UserModifyInfo: React.FC<IUserModifyInfoProps> = (props) => {
               <InputForAuth
                 $theme="modify"
                 phone={props.formState.phone}
-                authConfirm={props.formState.authConfirm}
+                authConfirmText={props.formState.authConfirm}
                 checkList={props.checkList}
-                confirmAuth={props.confirmAuth}
                 handleChange={props.handleChange}
                 handleAuthStart={props.handleAuthStart}
                 handleAuthConfirm={props.handleAuthConfirm}
