@@ -1,6 +1,6 @@
 import palette from '@assets/colors/index';
 import { IInputWithCheck } from '@models/input.model';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 
 const RIGHT_ARROW = require('@assets/images/common/icon_arrow_right.svg');

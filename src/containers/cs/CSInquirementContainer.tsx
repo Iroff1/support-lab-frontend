@@ -1,10 +1,7 @@
 import { csInquirement } from '@api/cs';
 import CSInquirementForm from '@components/cs/CSInquirementForm';
-import { regInput, regValid } from '@consts/reg';
 import useCheckList from '@hooks/useCheckList';
 import useInit from '@hooks/useInit';
-import { ILocalAuth } from '@models/auth.model';
-import { IAuthChecker } from '@models/common.model';
 import { TChangeEventHandler } from '@models/input.model';
 import { useAppSelector } from '@store/index';
 import checkValidation from '@utils/checkValidation';
@@ -37,14 +34,13 @@ const CSInquirementContainer = ({ setIsDone }: { setIsDone: () => void }) => {
     inquirementType: '',
     inquirementContent: '',
   });
-  const { checkList, checkResult, modifyCheckList } =
-    useCheckList<ICSInquirement>({
-      name: false,
-      phone: false,
-      email: false,
-      inquirementType: false,
-      inquirementContent: false,
-    });
+  const { checkResult, modifyCheckList } = useCheckList<ICSInquirement>({
+    name: false,
+    phone: false,
+    email: false,
+    inquirementType: false,
+    inquirementContent: false,
+  });
   const { isInit, startInit } = useInit();
 
   // 핸들러 선언부

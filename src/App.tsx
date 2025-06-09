@@ -15,6 +15,7 @@ import MainPage from '@pages/MainPage';
 import TermsOfUsePage from '@pages/TermsOfUsePage';
 import HeaderOnlyLayout from '@layout/HeaderOnlyLayout';
 import UserModifyInfoPage from '@pages/user/UserModifyInfoPage';
+import ProductListPage from '@pages/payment/PaymentMainPage';
 
 const App = () => {
   return (
@@ -48,6 +49,11 @@ const App = () => {
       {/* User Service Page */}
       <Route path="/user" element={<HeaderOnlyLayout />}>
         <Route path="modifyInfo" element={<UserModifyInfoPage />} />
+      </Route>
+
+      {/* Payment Service Page */}
+      <Route path="/products" element={<HeaderOnlyLayout />}>
+        <Route index element={<ProductListPage />} />
       </Route>
 
       <Route path="*" element={<>Page Not Found</>} />

@@ -9,6 +9,7 @@ import AuthHeaderLogo from './AuthHeaderLogo';
 import AuthTitleBox from './AuthTitleBox';
 import InputForAuth from '../../containers/common/InputForAuth';
 import { IAuthRegisterForm } from '@containers/auth/AuthRegisterFormContainer';
+import { IRegisterState } from '@models/auth.model';
 
 const AuthRegisterFormBlock = styled.form`
   width: 100%;
@@ -50,7 +51,7 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
       >
         {/* 입력 공간, 인풋 6개 */}
         <InputSection>
-          <InputForValidation
+          <InputForValidation<IRegisterState>
             name="email"
             type="email"
             placeholder="이메일"
@@ -69,7 +70,7 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
             }
           />
 
-          <InputPassword
+          <InputPassword<IRegisterState>
             name="password"
             placeholder="비밀번호"
             onChange={handleChange}
@@ -79,7 +80,7 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
               '8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해 주세요.'
             }
           />
-          <InputPassword
+          <InputPassword<IRegisterState>
             name="passwordConfirm"
             placeholder="비밀번호 확인"
             onChange={(e) => {
@@ -96,7 +97,7 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
             }
           />
 
-          <InputText
+          <InputText<IRegisterState>
             name="name"
             type="text"
             placeholder="이름"

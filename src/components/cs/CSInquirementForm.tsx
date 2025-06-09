@@ -2,7 +2,10 @@ import palette from '@assets/colors';
 import InputText from '@components/common/InputText';
 import SubmitButton from '@components/common/SubmitButton';
 import { regInput } from '@consts/reg';
-import { ICSInquirementState } from '@containers/cs/CSInquirementContainer';
+import {
+  ICSInquirement,
+  ICSInquirementState,
+} from '@containers/cs/CSInquirementContainer';
 import translatePhoneNumber from '@utils/translateContact';
 import translateFontSize from '@utils/translateFontSize';
 import styled, { css } from 'styled-components';
@@ -145,7 +148,7 @@ const CSInquirementForm: React.FC<ICSInquirementState> = (props) => {
         <InquirementForm>
           <InquirementItem>
             <p>이름</p>
-            <InputText
+            <InputText<ICSInquirement>
               name="name"
               placeholder="홍길동"
               value={props.inquireForm.name}
@@ -156,7 +159,7 @@ const CSInquirementForm: React.FC<ICSInquirementState> = (props) => {
 
           <InquirementItem>
             <p>휴대폰 번호</p>
-            <InputText
+            <InputText<ICSInquirement>
               name="phone"
               placeholder="010-0000-0000"
               value={translatePhoneNumber(props.inquireForm.phone)}
@@ -168,7 +171,7 @@ const CSInquirementForm: React.FC<ICSInquirementState> = (props) => {
 
           <InquirementItem>
             <p>이메일</p>
-            <InputText
+            <InputText<ICSInquirement>
               name="email"
               placeholder="example@naver.com"
               value={props.inquireForm.email}

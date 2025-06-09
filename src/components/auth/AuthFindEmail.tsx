@@ -9,7 +9,7 @@ import { regInput } from '@consts/reg';
 import { Link } from 'react-router-dom';
 import palette from '@assets/colors';
 import InputForAuth from '@containers/common/InputForAuth';
-import { IAuthChecker } from '@models/common.model';
+import { ILogin, IRegister } from '@models/auth.model';
 
 const FindForm = styled.div`
   width: 100%;
@@ -47,7 +47,7 @@ const AuthFindEmail: React.FC<IAuthFindForm> = ({
 
       <FindForm>
         {/* 아이디 찾기 : name, phone */}
-        <InputText
+        <InputText<IRegister>
           name="name"
           type="text"
           placeholder="이름"

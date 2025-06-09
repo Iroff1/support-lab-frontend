@@ -3,13 +3,13 @@ import useCheckList from '@hooks/useCheckList';
 import useInit from '@hooks/useInit';
 import {
   IConfirm,
+  ILocalAuth,
   INewPassword,
   IRegister,
   IRegisterCheck,
 } from '@models/auth.model';
 import { IAuthChecker } from '@models/common.model';
 import { TChangeEventHandler } from '@models/input.model';
-import { useAppSelector } from '@store/index';
 import checkValidation from '@utils/checkValidation';
 import handleAuthCheck from '@utils/handleAuthCheck';
 import handleChangeField from '@utils/handleChangeField';
@@ -32,12 +32,18 @@ export interface IUserModifyInfoProps {
   handleModifyname: () => Promise<void>;
   handleModifyphone: () => Promise<void>;
   handleSecession: () => Promise<void>;
+  handleDeleteAccount: () => void;
 }
 
-const UserModifyInfoContainer = () => {
+const UserModifyInfoContainer = ({
+  auth,
+  switchPage,
+}: {
+  auth: ILocalAuth | null;
+  switchPage: () => void;
+}) => {
   // 변수 부
   const navigate = useNavigate();
-  const auth = useAppSelector(({ auth }) => auth.auth);
   const [formState, setFormState] = useState<IUserModifyInfoState>({
     email: '',
     password: '',
@@ -149,6 +155,9 @@ const UserModifyInfoContainer = () => {
       handleModifyname={handleModifyname}
       handleModifyphone={handleModifyphone}
       handleSecession={handleSecession}
+      handleDeleteAccount={() => {
+        switchPage();
+      }}
     />
   );
 };

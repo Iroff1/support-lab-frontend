@@ -275,7 +275,7 @@ const UserModifyInfo: React.FC<IUserModifyInfoProps> = (props) => {
 
           {/* Account Deletion Link */}
           <BottomSection>
-            <AccountDeletionButton>
+            <AccountDeletionButton onClick={props.handleDeleteAccount}>
               <span>회원탈퇴</span>
               <img src={ICON_ARROW_RIGHT} alt="▶" />
             </AccountDeletionButton>

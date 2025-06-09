@@ -178,10 +178,10 @@ const Header: React.FC<IHeader> = ({
             <Link to={'/'}>사업 계획서 작성</Link>
           </CategoryBox>
           <CategoryBox>
-            <Link to={'/'}>요금제</Link>
+            <Link to={'/products'}>요금제</Link>
           </CategoryBox>
           <CategoryBox>
-            <Link to={'/'}>고객센터</Link>
+            <span>고객센터</span>
             <Blank width="100%" height="12px" />
             <div className="dropDown">
               <ul>

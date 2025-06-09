@@ -94,7 +94,7 @@ const AuthLoginForm: React.FC<IAuthLoginForm> = ({
       <LoginBody>
         <LoginForm onSubmit={handleSubmit}>
           <InputSection>
-            <InputText
+            <InputText<ILogin>
               name="email"
               type="email"
               placeholder="이메일"
@@ -102,7 +102,7 @@ const AuthLoginForm: React.FC<IAuthLoginForm> = ({
                 handleChange && handleChange(e);
               }}
             />
-            <InputPassword
+            <InputPassword<ILogin>
               name="password"
               placeholder="비밀번호"
               onChange={(e) => {

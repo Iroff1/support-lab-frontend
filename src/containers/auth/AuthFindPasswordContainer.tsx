@@ -20,7 +20,6 @@ interface IProp {
 }
 
 const AuthFindPasswordContainer: React.FC<IProp> = ({ handleEmail }) => {
-  // const navigate = useNavigate();
   const [findForm, setFindForm] = useState<IFindPassword>({
     email: '',
     name: '',

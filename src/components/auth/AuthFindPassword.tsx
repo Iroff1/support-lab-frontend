@@ -56,7 +56,7 @@ const AuthFindPassword: React.FC<IAuthFindPassword> = ({
 
       <FindForm>
         {/* 비밀번호 찾기: email, name, phone, */}
-        <InputForValidation
+        <InputForValidation<IFindPassword>
           name="email"
           type="email"
           placeholder="이메일(아이디)"
@@ -78,7 +78,7 @@ const AuthFindPassword: React.FC<IAuthFindPassword> = ({
           }
         />
 
-        <InputText
+        <InputText<IFindPassword>
           name="name"
           type="text"
           placeholder="이름"

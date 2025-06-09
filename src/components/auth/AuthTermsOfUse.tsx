@@ -42,9 +42,7 @@ const AuthTermsOfUse: React.FC<IAuthTermsOfUse> = (props) => {
           header="전체 동의"
           contents="이벤트・혜택 정보 수신 (선택) 동의를 포함합니다."
           isChecked={props.toggleAll}
-          onClick={(e) => {
-            props.handleToggleAll();
-          }}
+          onClick={props.handleToggleAll}
         />
 
         {/* [필수] 이용약관 */}

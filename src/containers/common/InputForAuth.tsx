@@ -5,6 +5,7 @@ import palette from '@assets/colors';
 import InputWithConfirm from './InputWithConfirm';
 import translatePhoneNumber from '@utils/translateContact';
 import useTimer from '@hooks/useTimer';
+import { IRegisterState } from '@models/auth.model';
 
 interface IInputForAuth {
   phone: string;
@@ -54,7 +55,7 @@ const InputForAuth: React.FC<IInputForAuth> = ({
 
   return (
     <>
-      <InputWithConfirm
+      <InputWithConfirm<IRegisterState>
         $theme={$theme}
         useFor={$theme === 'modify' ? 'modify' : 'auth'}
         name="phone"
@@ -88,7 +89,7 @@ const InputForAuth: React.FC<IInputForAuth> = ({
         }
       />
 
-      <InputWithConfirm
+      <InputWithConfirm<IRegisterState>
         $theme={$theme}
         useFor="validation"
         name="authConfirm"
