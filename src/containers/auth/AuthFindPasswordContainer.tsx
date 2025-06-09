@@ -5,14 +5,13 @@ import checkValidation from '@utils/checkValidation';
 import handleChangeField from '@utils/handleChangeField';
 import handleGetAuthCode from '@utils/handleGetAuthCode';
 import { IRegister } from '@models/auth.model';
-import handleAuthCheck from '@utils/handleAuthCheck';
 import { userModifyPasswordReq, usersFindEmail } from '@api/user';
+import handleAuthCheck from '@utils/handleAuthCheck';
 
 export interface IFindPassword {
   email: string;
   name: string;
   phone: string;
-  authCode: string;
   authConfirm: string;
 }
 
@@ -26,25 +25,20 @@ const AuthFindPasswordContainer: React.FC<IProp> = ({ handleEmail }) => {
     email: '',
     name: '',
     phone: '',
-    authCode: '',
     authConfirm: '',
   });
-  const { checkList, modifyCheckList } = useCheckList<IFindPassword>({
-    email: false,
-    name: false,
-    phone: false,
-    authCode: false,
-    authConfirm: false,
-  });
+  const { checkList, modifyCheckList, checkResult } =
+    useCheckList<IFindPassword>({
+      email: false,
+      name: false,
+      phone: false,
+      authConfirm: false,
+    });
   const [confirmEmail, setConfirmEmail] = useState(false);
-  const [confirmAuth, setConfirmAuth] = useState(false);
 
   /** InputForValidation[name="authConfirm"] 컴포넌트의 onClick에 할당할 콜백 함수 */
-  const handleAuthConfirm = () => {
-    handleAuthCheck(findForm.authCode, findForm.authConfirm, () => {
-      setConfirmAuth(true);
-      modifyCheckList('phone', true);
-    });
+  const handleAuthConfirm = async () => {
+    handleAuthCheck(findForm.phone, findForm.authConfirm, modifyCheckList);
   };
 
   /** 유효성 체크 함수 */
@@ -57,8 +51,8 @@ const AuthFindPasswordContainer: React.FC<IProp> = ({ handleEmail }) => {
   const handleCheckEmail = async () => {
     try {
       const res = await usersFindEmail(findForm.email, findForm.phone);
-      if (res.data.email)
-        findForm.email === res.data.email && setConfirmEmail(true);
+      if (res.data.data.email)
+        findForm.email === res.data.data.email && setConfirmEmail(true);
     } catch (e) {
       console.log(e);
       findForm.email === 'example@naver.com' && setConfirmEmail(true); // 테스트 코드
@@ -67,16 +61,7 @@ const AuthFindPasswordContainer: React.FC<IProp> = ({ handleEmail }) => {
 
   /** SubmitButton에 할당할 onClick 핸들러 함수 */
   const handleFindPassword = async () => {
-    if (
-      !(
-        checkList.email &&
-        checkList.name &&
-        checkList.phone &&
-        confirmAuth &&
-        confirmEmail
-      )
-    )
-      return;
+    if (!(checkResult && confirmEmail)) return;
     try {
       // TODO) GET auth/password 비밀번호 정보 요청 비동기 처리 후 이메일 상태 초기화
       const res = await userModifyPasswordReq({
@@ -106,7 +91,6 @@ const AuthFindPasswordContainer: React.FC<IProp> = ({ handleEmail }) => {
   return (
     <AuthFindPassword
       findForm={findForm}
-      confirmAuth={confirmAuth}
       confirmEmail={confirmEmail}
       checkList={checkList}
       handleChangeField={(e, reg, max) => {

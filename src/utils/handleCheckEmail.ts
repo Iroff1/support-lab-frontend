@@ -9,7 +9,7 @@ const handleCheckEmail = async (
 ) => {
   try {
     const res = await usersFindEmail(email, phone);
-    if (res.data.email) email === res.data.email && setter(true);
+    if (res.data.data.email) email === res.data.data.email && setter(true);
     else setter(false);
   } catch (e) {
     console.log(e);

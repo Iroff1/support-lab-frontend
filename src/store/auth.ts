@@ -48,7 +48,7 @@ export const authSlice = createSlice({
       .addCase(authDecryptTokenThunk.pending, (_, { type }) => {
         console.log(type + ' 시작');
       })
-      .addCase(authDecryptTokenThunk.fulfilled, (state, { type, payload }) => {
+      .addCase(authDecryptTokenThunk.fulfilled, (state, { type }) => {
         console.log(type + ' 성공');
         // state.auth = payload;
         state.authError = null;

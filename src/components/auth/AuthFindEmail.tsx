@@ -4,8 +4,7 @@ import SubmitButton from '@components/common/SubmitButton';
 import React from 'react';
 import AuthTitleBox from './AuthTitleBox';
 import AuthHeaderLogo from './AuthHeaderLogo';
-import { IFindEmailFormState } from '@containers/auth/AuthFindEmailContainer';
-import { TChangeEventHandler } from '@models/input.model';
+import { IAuthFindForm } from '@containers/auth/AuthFindEmailContainer';
 import { regInput } from '@consts/reg';
 import { Link } from 'react-router-dom';
 import palette from '@assets/colors';
@@ -32,22 +31,10 @@ export const FindAnother = styled.div`
   }
 `;
 
-interface IAuthFindForm {
-  findForm: IFindEmailFormState;
-  checkList: IAuthChecker<IFindEmailFormState>;
-  checkResult: boolean;
-  confirmAuth: boolean;
-  handleChangeField: TChangeEventHandler<HTMLInputElement>;
-  handleFindEmail: () => Promise<void>;
-  handleAuthStart: () => Promise<void>;
-  handleAuthConfirm: () => void;
-}
-
 const AuthFindEmail: React.FC<IAuthFindForm> = ({
   findForm,
   checkResult,
   checkList,
-  confirmAuth,
   handleChangeField,
   handleFindEmail,
   handleAuthStart,

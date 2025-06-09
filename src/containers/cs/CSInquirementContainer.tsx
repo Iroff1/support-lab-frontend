@@ -23,9 +23,7 @@ export interface ICSInquirementState {
 }
 
 const CSInquirementContainer = ({ setIsDone }: { setIsDone: () => void }) => {
-  const { auth } = useAppSelector(({ auth }) => ({
-    auth: auth.auth,
-  }));
+  const auth = useAppSelector(({ auth }) => auth.auth);
   const [form, setForm] = useState<ICSInquirement>({
     name: '',
     phone: '',

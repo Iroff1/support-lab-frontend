@@ -1,5 +1,6 @@
 import { ILocalAuth, IRegisterRequest } from '@models/auth.model';
 import client from './client';
+import { AxiosRequestConfig } from 'axios';
 
 /** POST /api/users/sign-up 회원가입 요청 */
 export const usersSignUp = async (formData: IRegisterRequest) => {
@@ -12,9 +13,9 @@ export const usersSignUp = async (formData: IRegisterRequest) => {
 /** GET /api/users/email 아이디 찾기 */
 export const usersFindEmail = async (name: string, phone: string) => {
   console.log('이메일 찾기');
-  const res = await client.get<{ email: string }>('/users/email', {
+  const res = await client.get<{ data: { email: string } }>('/users/email', {
     params: { name: name, phone: phone },
-  });
+  } as AxiosRequestConfig);
   return res;
 };
 
@@ -39,7 +40,7 @@ export const userModifyPasswordReq = async (auth: ILocalAuth) => {
  * 발급받은 토큰을 토대로 비밀번호 변경
  */
 export const usersModifyPassword = async (token: string, newPw: string) => {
-  console.log('비밀번호 찾기');
+  console.log('비밀번호 변경');
   const res = await client.patch('/users/password', {
     token: token,
     password: newPw,

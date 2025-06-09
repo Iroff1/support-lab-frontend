@@ -18,6 +18,7 @@ import { usersSignUp } from '@api/user';
 import { authVerifyCode, authEmailCheckDuplication } from '@api/auth';
 import { IAuthChecker } from '@models/common.model';
 import translateAxiosError from '@utils/translateAxiosError';
+import handleAuthCheck from '@utils/handleAuthCheck';
 
 export interface IAuthRegisterForm {
   registerState: IRegisterState;
@@ -88,17 +89,11 @@ const AuthRegisterFormContainer = () => {
   };
   /** authConfirm에 할당할 콜백 함수 */
   const handleAuthConfirm: TMouseEventHandler<HTMLButtonElement> = async () => {
-    try {
-      const res = await authVerifyCode(
-        registerForm.phone,
-        registerForm.authConfirm,
-      );
-      if (res.data.data.status === 'SUCCESS')
-        modifyCheckList('authConfirm', true);
-      else modifyCheckList('authConfirm', false);
-    } catch (e) {
-      translateAxiosError(e);
-    }
+    handleAuthCheck(
+      registerForm.phone,
+      registerForm.authConfirm,
+      modifyCheckList,
+    );
   };
 
   /** register 입력 폼 submit 이벤트 핸들러 */

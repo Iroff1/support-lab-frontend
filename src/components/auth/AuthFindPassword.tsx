@@ -29,7 +29,6 @@ const FindSubmit = styled.div`
 interface IAuthFindPassword {
   findForm: IFindPassword;
   checkList: IAuthChecker<IFindPassword>;
-  confirmAuth: boolean;
   confirmEmail: boolean;
   handleValidCheck: (key: keyof IFindPassword) => void;
   handleChangeField: TChangeEventHandler<HTMLInputElement>;
@@ -42,7 +41,6 @@ interface IAuthFindPassword {
 const AuthFindPassword: React.FC<IAuthFindPassword> = ({
   findForm,
   checkList,
-  confirmAuth,
   confirmEmail,
   handleChangeField,
   handleAuthStart,
@@ -107,7 +105,7 @@ const AuthFindPassword: React.FC<IAuthFindPassword> = ({
               checkList.email &&
               checkList.name &&
               checkList.phone &&
-              confirmAuth &&
+              checkList.authConfirm &&
               confirmEmail
             )
           }
