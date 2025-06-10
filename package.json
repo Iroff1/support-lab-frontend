@@ -6,12 +6,14 @@
   "author": "sungohki <sokim1201@naver.com>",
   "license": "MIT",
   "scripts": {
-    "start": "webpack serve",
-    "build": "rm -rf ./dist && webpack --mode=production"
+    "start": "node ./web.js",
+    "dev": "webpack serve --open --config webpack.dev.js",
+    "build": "rm -rf ./dist && webpack --config webpack.prod.js"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.1",
     "axios": "^1.9.0",
+    "express": "^5.1.0",
     "path": "^0.12.7",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
@@ -41,6 +43,7 @@
     "typescript": "^5.8.3",
     "webpack": "^5.99.6",
     "webpack-cli": "^6.0.1",
-    "webpack-dev-server": "^5.2.1"
+    "webpack-dev-server": "^5.2.1",
+    "webpack-merge": "^6.0.1"
   }
 }

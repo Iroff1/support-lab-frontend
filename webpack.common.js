@@ -1,11 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
-const dotenv = require('dotenv');
-dotenv.config();
 
 module.exports = {
-  mode: 'development',
   entry: './src/index.tsx',
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -66,22 +63,6 @@ module.exports = {
     }),
     new Dotenv(),
   ],
-  devtool: 'inline-source-map',
-  devServer: {
-    port: 3000,
-    host: 'localhost',
-    static: './dist',
-    hot: true,
-    open: true,
-    historyApiFallback: true,
-    proxy: [
-      {
-        context: ['/api'],
-        target: `https://${process.env.REACT_APP_API_SERVER}`,
-        changeOrigin: true,
-      },
-    ],
-  },
   watchOptions: {
     poll: true,
     ignored: '/node_modules/',
