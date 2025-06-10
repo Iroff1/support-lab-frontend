@@ -9,7 +9,7 @@ import { TChangeEventHandler } from '@models/input.model';
 import InputForValidation from '@containers/common/InputForValidation';
 import { regInput } from '@consts/reg';
 import InputForAuth from '@containers/common/InputForAuth';
-import { IAuthChecker } from '@models/common.model';
+import { IBooleanObj } from '@models/common.model';
 import { Link } from 'react-router-dom';
 import { FindAnother } from './AuthFindEmail';
 
@@ -28,7 +28,7 @@ const FindSubmit = styled.div`
 
 interface IAuthFindPassword {
   findForm: IFindPassword;
-  checkList: IAuthChecker<IFindPassword>;
+  checkList: IBooleanObj<IFindPassword>;
   confirmEmail: boolean;
   handleValidCheck: (key: keyof IFindPassword) => void;
   handleChangeField: TChangeEventHandler<HTMLInputElement>;

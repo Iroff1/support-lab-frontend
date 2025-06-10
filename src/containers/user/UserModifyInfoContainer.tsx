@@ -8,7 +8,7 @@ import {
   IRegister,
   IRegisterCheck,
 } from '@models/auth.model';
-import { IAuthChecker } from '@models/common.model';
+import { IBooleanObj } from '@models/common.model';
 import { TChangeEventHandler } from '@models/input.model';
 import checkValidation from '@utils/checkValidation';
 import handleAuthCheck from '@utils/handleAuthCheck';
@@ -22,7 +22,7 @@ interface IUserModifyInfoState extends IRegister, IConfirm, INewPassword {}
 
 export interface IUserModifyInfoProps {
   formState: IUserModifyInfoState;
-  checkList: IAuthChecker<IRegisterCheck & INewPassword>;
+  checkList: IBooleanObj<IRegisterCheck & INewPassword>;
   marketingState: boolean;
   handleAuthConfirm: () => Promise<void>;
   handleChange: TChangeEventHandler<HTMLInputElement>;
@@ -82,20 +82,20 @@ const UserModifyInfoContainer = ({
     try {
       await handleModifyPw(formState.email, formState.password);
     } catch (e) {
-      // console.error(e);
+      // (e);
     }
     navigate('/');
   };
   const handleModifyname = async () => {
     try {
     } catch (e) {
-      console.error(e);
+      e;
     }
   };
   const handleModifyphone = async () => {
     try {
     } catch (e) {
-      console.error(e);
+      e;
     }
   };
   const handleAuthConfirm = async () => {
@@ -104,7 +104,7 @@ const UserModifyInfoContainer = ({
   const handleSecession = async () => {
     try {
     } catch (e) {
-      console.error(e);
+      e;
     }
   };
 

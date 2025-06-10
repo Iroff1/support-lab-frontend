@@ -1,14 +1,14 @@
 import React from 'react';
 import InputPassword from './InputPassword';
 import { INewPassword } from '@models/auth.model';
-import { IAuthChecker } from '@models/common.model';
+import { IBooleanObj } from '@models/common.model';
 import { TChangeEventHandler } from '@models/input.model';
 
 interface IInputChangePw {
   $theme: 'default' | 'modify';
   handleChange: TChangeEventHandler<HTMLInputElement>;
   formState: INewPassword;
-  checkList: IAuthChecker<INewPassword>;
+  checkList: IBooleanObj<INewPassword>;
 }
 
 const InputChangePw: React.FC<IInputChangePw> = (props) => {

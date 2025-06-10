@@ -1,5 +1,5 @@
 import { SerializedError } from '@reduxjs/toolkit';
-import { IAuthChecker } from './common.model';
+import { IBooleanObj } from './common.model';
 
 export interface IAuth {
   token: string | null;
@@ -36,7 +36,7 @@ export interface IRegisterState extends IRegister {
   passwordConfirm: string;
   authConfirm: string;
 }
-export interface IRegisterCheck extends IAuthChecker<IRegisterState> {
+export interface IRegisterCheck extends IBooleanObj<IRegisterState> {
   /** 이메일 중복 체크 : true 중복 아님, false 중복 */
   emailConfirm: boolean;
 }

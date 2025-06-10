@@ -181,7 +181,7 @@ const InputForTerms: React.FC<IInputForterms> = ({
   isChecked = false,
   popup,
 }) => {
-  const { state, handleScrollY } = useScroll();
+  const { state: scrollY, handleScrollY } = useScroll();
   const [toggle, setToggle] = useState(false);
   const ref = useRef<HTMLParagraphElement | null>(null);
 
@@ -246,7 +246,7 @@ const InputForTerms: React.FC<IInputForterms> = ({
         </div>
         <ContentsOfTerms>
           {isWrapped ? (
-            <ContentsWrapper $h={state.y}>
+            <ContentsWrapper $h={scrollY.y}>
               <p ref={ref}>{contents}</p>
             </ContentsWrapper>
           ) : (

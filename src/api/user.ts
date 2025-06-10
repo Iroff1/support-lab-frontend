@@ -55,6 +55,7 @@ export const usersDecryptToken = async (token: string) => {
   const res = await client.get<IResponse<ILocalAuth>>('/users/me', {
     headers: {
       Authorization: `Bearer ${token}`,
+      withCredentials: true,
     },
   });
   return res;

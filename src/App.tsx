@@ -16,13 +16,16 @@ import TermsOfUsePage from '@pages/TermsOfUsePage';
 import HeaderOnlyLayout from '@layout/HeaderOnlyLayout';
 import UserModifyInfoPage from '@pages/user/UserModifyInfoPage';
 import ProductListPage from '@pages/payment/PaymentMainPage';
+import NotFound from '@components/common/NotFound';
+import NotPublished from '@components/common/NotPublished';
+import SideBarLayout from '@layout/ApplyLayout';
 
 const App = () => {
   return (
     <Routes>
       {/* Main Page */}
-      <Route element={<MainLayout />}>
-        <Route path="/" element={<MainPage />} />
+      <Route path="/" element={<MainLayout />}>
+        <Route index element={<MainPage />} />
       </Route>
 
       {/* Terms Page */}
@@ -51,12 +54,18 @@ const App = () => {
         <Route path="modifyInfo" element={<UserModifyInfoPage />} />
       </Route>
 
+      {/* Document Service Page */}
+      <Route path="/documents" element={<SideBarLayout />}>
+        <Route index element={<NotPublished />} />
+      </Route>
+
       {/* Payment Service Page */}
       <Route path="/products" element={<HeaderOnlyLayout />}>
         <Route index element={<ProductListPage />} />
       </Route>
 
-      <Route path="*" element={<>Page Not Found</>} />
+      {/* Not Found Page */}
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

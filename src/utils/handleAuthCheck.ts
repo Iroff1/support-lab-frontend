@@ -1,6 +1,5 @@
 import { authVerifyCode } from '@api/auth';
-import translateAxiosError from './translateAxiosError';
-import { IAuthChecker } from '@models/common.model';
+import { IBooleanObj } from '@models/common.model';
 
 /** InputForValidation[name="authConfirm"] 컴포넌트의 onClick에 할당할 콜백 함수
  *
@@ -16,7 +15,7 @@ const handleAuthCheck = async (
   phone: string,
   authConfirm: string,
   modifyCheckList: (
-    key: keyof IAuthChecker<{ authConfirm: string }>,
+    key: keyof IBooleanObj<{ authConfirm: string }>,
     value: boolean,
   ) => void,
 ) => {
@@ -26,7 +25,7 @@ const handleAuthCheck = async (
       modifyCheckList('authConfirm', true);
     else modifyCheckList('authConfirm', false);
   } catch (e) {
-    translateAxiosError(e);
+    console.error(e);
   }
 };
 export default handleAuthCheck;

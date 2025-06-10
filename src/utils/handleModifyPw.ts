@@ -5,7 +5,7 @@ export const handleModifyPw = async (email: string, newPassword: string) => {
     const res = await usersModifyPassword(email, newPassword);
     if (res.status === 200) alert('비밀번호 재 설정 완료');
   } catch (e) {
-    console.error(e);
+    e;
     alert(email + ' : ' + newPassword);
   }
 };

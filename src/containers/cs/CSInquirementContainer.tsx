@@ -66,7 +66,7 @@ const CSInquirementContainer = ({ setIsDone }: { setIsDone: () => void }) => {
         setIsDone();
       }
     } catch (e) {
-      console.error(e);
+      e;
       alert('문의 전송에 실패했습니다.');
       // setIsDone(); // test code
     }

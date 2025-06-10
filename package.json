@@ -6,7 +6,7 @@
   "author": "sungohki <sokim1201@naver.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node ./web.js",
+    "start": "rm -rf ./dist && webpack --config webpack.prod.js && node ./web.js",
     "dev": "webpack serve --open --config webpack.dev.js",
     "build": "rm -rf ./dist && webpack --config webpack.prod.js"
   },

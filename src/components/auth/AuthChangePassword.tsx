@@ -3,7 +3,7 @@ import AuthTitleBox from './AuthTitleBox';
 import SubmitButton from '@components/common/SubmitButton';
 import AuthHeaderLogo from './AuthHeaderLogo';
 import { INewPassword } from '@models/auth.model';
-import { IAuthChecker } from '@models/common.model';
+import { IBooleanObj } from '@models/common.model';
 import { TChangeEventHandler } from '@models/input.model';
 import { styled } from 'styled-components';
 import InputChangePw from '@containers/common/InputChangePw';
@@ -23,7 +23,7 @@ const ChangeSubmit = styled.div`
 
 interface IAuthChangePassword {
   formState: INewPassword;
-  checkList: IAuthChecker<INewPassword>;
+  checkList: IBooleanObj<INewPassword>;
 
   handleChange: TChangeEventHandler<HTMLInputElement>;
   handleSubmit: () => Promise<void>;

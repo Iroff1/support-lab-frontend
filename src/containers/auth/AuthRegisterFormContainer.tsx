@@ -2,11 +2,7 @@ import AuthRegisterForm from '@components/auth/AuthRegisterForm';
 import useCheckList from '@hooks/useCheckList';
 import useInit from '@hooks/useInit';
 import { IRegister, IRegisterCheck, IRegisterState } from '@models/auth.model';
-import {
-  TChangeEventHandler,
-  TFormEventHandler,
-  TMouseEventHandler,
-} from '@models/input.model';
+import { TChangeEventHandler, TFormEventHandler } from '@models/input.model';
 import { useAppDispatch, useAppSelector } from '@store/index';
 import { termsActions } from '@store/terms';
 import checkValidation from '@utils/checkValidation';
@@ -16,13 +12,12 @@ import handleChangeField from '@utils/handleChangeField';
 import handleGetAuthCode from '@utils/handleGetAuthCode';
 import { usersSignUp } from '@api/user';
 import { authEmailCheckDuplication } from '@api/auth';
-import { IAuthChecker } from '@models/common.model';
-import translateAxiosError from '@utils/translateAxiosError';
+import { IBooleanObj } from '@models/common.model';
 import handleAuthCheck from '@utils/handleAuthCheck';
 
 export interface IAuthRegisterForm {
   registerState: IRegisterState;
-  checkList: IAuthChecker<IRegisterCheck>;
+  checkList: IBooleanObj<IRegisterCheck>;
   isReady: boolean;
 
   handleChange: TChangeEventHandler<HTMLInputElement>;
@@ -68,14 +63,13 @@ const AuthRegisterFormContainer = () => {
     try {
       // TODO) 비동기 요청 (POST auth/email-check)
       const res = await authEmailCheckDuplication(registerForm.email);
-      if (res.data.data.value) {
+      if (res.data.body.value) {
         modifyCheckList('emailConfirm', false);
       } else {
         modifyCheckList('emailConfirm', true);
       }
     } catch (e) {
       console.error(e);
-      translateAxiosError(e);
 
       // test code
       if (registerForm.email === 'example@naver.com') {
@@ -95,7 +89,7 @@ const AuthRegisterFormContainer = () => {
       });
       await handleGetAuthCode(registerForm.phone);
     } catch (e) {
-      translateAxiosError(e);
+      console.error(e);
     }
   };
   /** authConfirm에 할당할 콜백 함수 */
@@ -108,7 +102,7 @@ const AuthRegisterFormContainer = () => {
         modifyCheckList,
       );
     } catch (e) {
-      console.error(e);
+      e;
     }
   };
 
@@ -127,7 +121,7 @@ const AuthRegisterFormContainer = () => {
         navigate('/');
       }
     } catch (e) {
-      translateAxiosError(e);
+      console.error(e);
       alert('회원가입 실패!'); // test code
     }
   };

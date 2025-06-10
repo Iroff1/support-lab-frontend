@@ -29,7 +29,7 @@ export const authVerifyCode = async (phone: string, code: string) => {
 // POST/auth/login 로그인 요청
 export const authLoginUser = async ({ email, password }: ILogin) => {
   console.log('로그인 요청');
-  const res = await client.post<{ data: { accessToken: string } }>(
+  const res = await client.post<IResponse<{ accessToken: string }>>(
     '/auth/login',
     {
       email: email,
@@ -45,7 +45,7 @@ export const authLoginUser = async ({ email, password }: ILogin) => {
  */
 export const authEmailCheckDuplication = async (email: string) => {
   console.log('이메일 중복 확인');
-  const res = await client.post<{ data: { value: boolean } }>(
+  const res = await client.post<IResponse<{ value: boolean }>>(
     '/auth/email-check',
     {
       email: email,

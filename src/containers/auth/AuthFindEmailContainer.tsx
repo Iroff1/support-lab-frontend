@@ -4,13 +4,12 @@ import AuthShowEmail from '@components/auth/AuthShowEmail';
 import useCheckList from '@hooks/useCheckList';
 import useInit from '@hooks/useInit';
 import { IRegister } from '@models/auth.model';
-import { IAuthChecker } from '@models/common.model';
+import { IBooleanObj } from '@models/common.model';
 import { TChangeEventHandler } from '@models/input.model';
 import checkValidation from '@utils/checkValidation';
 import handleAuthCheck from '@utils/handleAuthCheck';
 import handleChangeField from '@utils/handleChangeField';
 import handleGetAuthCode from '@utils/handleGetAuthCode';
-import translateAxiosError from '@utils/translateAxiosError';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -22,7 +21,7 @@ interface IFindEmailFormState {
 
 export interface IAuthFindForm {
   findForm: IFindEmailFormState;
-  checkList: IAuthChecker<IFindEmailFormState>;
+  checkList: IBooleanObj<IFindEmailFormState>;
   checkResult: boolean;
   handleChangeField: TChangeEventHandler<HTMLInputElement>;
   handleFindEmail: () => Promise<void>;
@@ -54,7 +53,7 @@ const AuthFindEmailContainer = () => {
       const res = await usersFindEmail(findForm.name, findForm.phone);
       setUserEmail(res.data.data.email);
     } catch (e) {
-      translateAxiosError(e);
+      console.error(e);
     }
     startInit();
   };

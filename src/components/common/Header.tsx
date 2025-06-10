@@ -50,7 +50,7 @@ const HeaderNavBox = styled.div`
 const CategoryBox = styled.div`
   height: 100%;
   padding: 0 25px;
-  word-wrap: nowrap;
+  white-space: nowrap;
   color: ${palette.black.B700};
   ${css(translateFontSize('R_18'))};
   position: relative;
@@ -65,6 +65,9 @@ const CategoryBox = styled.div`
     &:hover {
       text-shadow: 0 0 0.8px #333;
     }
+  }
+  & > span {
+    cursor: default;
   }
   & > button {
     margin: 0 auto;
@@ -175,7 +178,7 @@ const Header: React.FC<IHeader> = ({
 
         <HeaderNavBox>
           <CategoryBox>
-            <Link to={'/'}>사업 계획서 작성</Link>
+            <Link to={'/documents'}>사업 계획서 작성</Link>
           </CategoryBox>
           <CategoryBox>
             <Link to={'/products'}>요금제</Link>
