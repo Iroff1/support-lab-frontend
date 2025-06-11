@@ -1,21 +1,57 @@
 import { useState } from 'react';
 
-const useScroll = () => {
-  const [state, setState] = useState({ x: 0, y: 0 });
+const useScroll = (initialState: { x: number; y: number } = { x: 0, y: 0 }) => {
+  const [scrollState, setScrollState] = useState(initialState);
 
-  const handleScroll = (x: number, y: number) => {
-    setState({ x, y });
+  const handleScroll = (x: number | null, y: number | null) => {
+    x && setScrollState((prev) => ({ ...prev, x }));
+    y && setScrollState((prev) => ({ ...prev, y }));
   };
 
-  const handleScrollX = (x: number) => {
-    setState((prev) => ({ ...prev, x }));
+  const handleScrollRef = (
+    ref: React.RefObject<HTMLDivElement | null>,
+    scrollSize: number,
+    addSize: number = 0,
+    direction: 'x' | 'y' = 'y',
+  ) => {
+    if (!ref.current) return;
+    const { clientHeight, scrollHeight, scrollTop } = ref.current;
+    const percent = scrollTop / (scrollHeight - clientHeight);
+    handleScroll(
+      direction === 'x'
+        ? percent * (clientHeight - (scrollSize + addSize))
+        : null,
+      direction === 'y'
+        ? percent * (clientHeight - (scrollSize + addSize))
+        : null,
+    );
   };
 
-  const handleScrollY = (y: number) => {
-    setState((prev) => ({ ...prev, y }));
+  const handleScrollEvent = (
+    e: React.UIEvent<HTMLDivElement>,
+    scrollSize: number,
+    addSize: number = 0,
+    direction: 'x' | 'y' = 'y',
+  ) => {
+    if (!e.currentTarget) return;
+    const { clientHeight, scrollHeight, scrollTop } = e.currentTarget;
+    const percent = scrollTop / (scrollHeight - clientHeight);
+    handleScroll(
+      direction === 'x'
+        ? percent * (clientHeight - (scrollSize + addSize))
+        : null,
+      direction === 'y'
+        ? percent * (clientHeight - (scrollSize + addSize))
+        : null,
+    );
   };
 
-  return { state, handleScroll, handleScrollX, handleScrollY };
+  return {
+    scrollState,
+    handleScroll,
+    handleScrollRef,
+    handleScrollEvent,
+  };
 };
 
 export default useScroll;

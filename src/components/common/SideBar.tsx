@@ -51,7 +51,10 @@ const Subject = styled.div`
       padding: 7px;
       border-radius: 6px;
       color: ${palette.black.B500};
-      transition: all 0.2s background-color;
+      cursor: pointer;
+      transition: 0.2s ease background-color;
+
+      &:hover,
       &.on {
         background-color: ${palette.black.B40};
       }
@@ -62,21 +65,18 @@ const Subject = styled.div`
 const SideBar = () => {
   const categoryRef = useRef<HTMLDivElement | null>(null);
   const scrollBarRef = useRef<HTMLDivElement | null>(null);
-  const { state, handleScrollY } = useScroll();
+  const { scrollState, handleScrollRef } = useScroll();
 
-  const handleScrollEvent = () => {
-    if (!categoryRef.current) return;
-    const { clientHeight, scrollHeight, scrollTop } = categoryRef.current;
-    const percent = scrollTop / (scrollHeight - clientHeight);
-    handleScrollY(percent * (clientHeight - 260));
+  const scrollEvent = () => {
+    handleScrollRef(categoryRef, scrollBarRef.current!.clientHeight, 30);
   };
 
   useEffect(() => {
-    categoryRef.current &&
-      categoryRef.current.addEventListener('scroll', handleScrollEvent);
+    if (!categoryRef.current || !scrollBarRef.current) return;
+    categoryRef.current.addEventListener('scroll', scrollEvent);
     return () => {
       categoryRef.current &&
-        categoryRef.current.removeEventListener('scroll', handleScrollEvent);
+        categoryRef.current.removeEventListener('scroll', scrollEvent);
     };
   }, []);
 
@@ -106,7 +106,7 @@ const SideBar = () => {
 
   return (
     <Wrapper>
-      <ScrollBar ref={scrollBarRef} $h={state.y} />
+      <ScrollBar ref={scrollBarRef} $h={scrollState.y} />
       <CategoryList ref={categoryRef}>
         <Subject>
           <h3>기본정보</h3>

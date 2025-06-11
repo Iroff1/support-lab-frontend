@@ -181,31 +181,26 @@ const InputForTerms: React.FC<IInputForterms> = ({
   isChecked = false,
   popup,
 }) => {
-  const { state: scrollY, handleScrollY } = useScroll();
+  const { scrollState, handleScrollRef } = useScroll();
   const [toggle, setToggle] = useState(false);
-  const ref = useRef<HTMLParagraphElement | null>(null);
+  const scrollBarRef = useRef<HTMLDivElement | null>(null);
+  const paragraphRef = useRef<HTMLParagraphElement | null>(null);
 
   const scrollEvent = () => {
-    const { clientHeight, scrollHeight, scrollTop } = ref.current!;
-    const percent = scrollTop / (scrollHeight - clientHeight);
-    handleScrollY(48 * percent);
+    handleScrollRef(paragraphRef, scrollBarRef.current!.clientHeight, 26);
   };
-
   const handleToggle = () => {
     setToggle((prev) => !prev);
   };
 
   useEffect(() => {
     // 스크롤 이벤트 추가
-    if (ref.current) {
-      ref.current.addEventListener('scroll', scrollEvent);
-    }
-
+    if (paragraphRef.current)
+      paragraphRef.current.addEventListener('scroll', scrollEvent);
     return () => {
       // 스크롤 이벤트 제거
-      if (ref.current) {
-        ref.current.removeEventListener('scroll', scrollEvent);
-      }
+      if (paragraphRef.current)
+        paragraphRef.current.removeEventListener('scroll', scrollEvent);
     };
   }, []);
 
@@ -246,8 +241,9 @@ const InputForTerms: React.FC<IInputForterms> = ({
         </div>
         <ContentsOfTerms>
           {isWrapped ? (
-            <ContentsWrapper $h={scrollY.y}>
-              <p ref={ref}>{contents}</p>
+            <ContentsWrapper $h={scrollState.y}>
+              <div className="scrollBar" ref={scrollBarRef} />
+              <p ref={paragraphRef}>{contents}</p>
             </ContentsWrapper>
           ) : (
             <p>{contents}</p>
