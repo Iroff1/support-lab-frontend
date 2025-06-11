@@ -18,7 +18,9 @@ import UserModifyInfoPage from '@pages/user/UserModifyInfoPage';
 import ProductListPage from '@pages/payment/PaymentMainPage';
 import NotFound from '@components/common/NotFound';
 import NotPublished from '@components/common/NotPublished';
-import SideBarLayout from '@layout/ApplyLayout';
+import DocLayout from '@layout/DocLayout';
+import DocumentInitPage from '@pages/doc/DocumentInitPage';
+import DocumentReqPage from '@pages/doc/DocumentReqPage';
 
 const App = () => {
   return (
@@ -55,8 +57,12 @@ const App = () => {
       </Route>
 
       {/* Document Service Page */}
-      <Route path="/documents" element={<SideBarLayout />}>
-        <Route index element={<NotPublished />} />
+      <Route path="/documents" element={<DocLayout />}>
+        <Route index element={<DocumentInitPage />} />
+        <Route path=":id" element={<DocumentInitPage />} />
+        <Route path="required" element={<DocumentReqPage />} />
+        <Route path="required/:id" element={<DocumentReqPage />} />
+        <Route path="optional/:id" element={<NotPublished />} />
       </Route>
 
       {/* Payment Service Page */}
