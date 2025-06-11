@@ -1,11 +1,7 @@
 import AuthLoginForm from '@components/auth/AuthLoginForm';
 import useInit from '@hooks/useInit';
 import { ILogin } from '@models/auth.model';
-import {
-  TChangeEventHandler,
-  TFormEventHandler,
-  TMouseEventHandler,
-} from '@models/input.model';
+import { TChangeEventHandler, TMouseEventHandler } from '@models/input.model';
 import {
   authActions,
   authDecryptTokenThunk,
@@ -40,7 +36,7 @@ const AuthLoginFormContainer = () => {
   };
 
   /** 로그인 폼 상태 데이터 요청 핸들러 함수 */
-  const handleSubmit: TFormEventHandler = (e) => {
+  const handleSubmit: TMouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
     // TODO) POST /auth/login 요청 추가
     dispatch(authLoginUserThunk(loginForm));

@@ -77,7 +77,7 @@ interface IAuthLoginForm {
   loginError: SerializedError | null;
 
   handleChange: TChangeEventHandler<HTMLInputElement>;
-  handleSubmit: TFormEventHandler;
+  handleSubmit: TMouseEventHandler<HTMLButtonElement>;
   handleToggle: TMouseEventHandler<HTMLInputElement>;
 }
 
@@ -92,7 +92,7 @@ const AuthLoginForm: React.FC<IAuthLoginForm> = ({
     <>
       <AuthHeaderLogo />
       <LoginBody>
-        <LoginForm onSubmit={handleSubmit}>
+        <LoginForm>
           <InputSection>
             <InputText<ILogin>
               name="email"
@@ -124,6 +124,7 @@ const AuthLoginForm: React.FC<IAuthLoginForm> = ({
             disabled={
               loginForm.email.length === 0 || loginForm.password.length === 0
             }
+            onClick={handleSubmit}
           >
             로그인
           </SubmitButton>
