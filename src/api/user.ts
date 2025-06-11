@@ -7,14 +7,18 @@ import { IResponse } from '@models/common.model';
 export const usersSignUp = async (formData: IRegisterRequest) => {
   console.log('회원가입 요청');
   console.log(formData);
-  const res = client.post<{ code: string }>('/users/sign-up', formData);
+  const res = await client.post<IResponse<{ code: string }>>(
+    '/users/sign-up',
+    formData,
+  );
+  console.log(res);
   return res;
 };
 
 /** GET /api/users/email 아이디 찾기 */
 export const usersFindEmail = async (name: string, phone: string) => {
   console.log('이메일 찾기');
-  const res = await client.get<{ data: { email: string } }>('/users/email', {
+  const res = await client.get<IResponse<{ email: string }>>('/users/email', {
     params: { name: name, phone: phone },
   } as AxiosRequestConfig);
   return res;

@@ -99,7 +99,16 @@ const UserModifyInfoContainer = ({
     }
   };
   const handleAuthConfirm = async () => {
-    handleAuthCheck(formState.phone, formState.authConfirm, modifyCheckList);
+    try {
+      await handleAuthCheck(
+        'SIGN_UP_CODE',
+        formState.phone,
+        formState.authConfirm,
+        modifyCheckList,
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
   const handleSecession = async () => {
     try {
@@ -149,7 +158,7 @@ const UserModifyInfoContainer = ({
       handleChange={handleChange}
       handleMarketing={handleMarketing}
       handleAuthStart={async () => {
-        await handleGetAuthCode(formState.phone);
+        await handleGetAuthCode('SIGN_UP_CODE', formState.phone);
       }}
       handleModifyPassword={handleModifyPassword}
       handleModifyname={handleModifyname}

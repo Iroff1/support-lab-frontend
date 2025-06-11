@@ -2,6 +2,7 @@ import { authLoginUser } from '@api/auth';
 import { usersDecryptToken } from '@api/user';
 import { IAuth, ILocalAuth, ILogin } from '@models/auth.model';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import translateAxiosError from '@utils/translateAxiosError';
 
 /** auth 스토어 초기 상태 값 */
 const initialState: IAuth = {
@@ -52,7 +53,7 @@ export const authSlice = createSlice({
         Object.assign(state, { auth: payload, authError: null });
       })
       .addCase(authDecryptTokenThunk.rejected, (state, { error }) => {
-        // console.error(error);
+        translateAxiosError(error);
         Object.assign(state, { auth: null, authError: error });
       });
   },

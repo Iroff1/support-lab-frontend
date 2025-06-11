@@ -37,7 +37,16 @@ const AuthFindPasswordContainer: React.FC<IProp> = ({ handleEmail }) => {
 
   /** InputForValidation[name="authConfirm"] 컴포넌트의 onClick에 할당할 콜백 함수 */
   const handleAuthConfirm = async () => {
-    handleAuthCheck(findForm.phone, findForm.authConfirm, modifyCheckList);
+    try {
+      await handleAuthCheck(
+        'FIND_PASSWORD_CODE',
+        findForm.phone,
+        findForm.authConfirm,
+        modifyCheckList,
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   /** 유효성 체크 함수 */
@@ -50,8 +59,8 @@ const AuthFindPasswordContainer: React.FC<IProp> = ({ handleEmail }) => {
   const handleCheckEmail = async () => {
     try {
       const res = await usersFindEmail(findForm.email, findForm.phone);
-      if (res.data.data.email)
-        findForm.email === res.data.data.email && setConfirmEmail(true);
+      if (res.data.body.email)
+        findForm.email === res.data.body.email && setConfirmEmail(true);
     } catch (e) {
       console.log(e);
       findForm.email === 'example@naver.com' && setConfirmEmail(true); // 테스트 코드
@@ -96,7 +105,7 @@ const AuthFindPasswordContainer: React.FC<IProp> = ({ handleEmail }) => {
         handleChangeField<IFindPassword>(e, setFindForm, reg, max);
       }}
       handleAuthStart={async () => {
-        await handleGetAuthCode(findForm.phone);
+        await handleGetAuthCode('FIND_PASSWORD_CODE', findForm.phone);
       }}
       handleAuthConfirm={handleAuthConfirm}
       handleFindPassword={handleFindPassword}

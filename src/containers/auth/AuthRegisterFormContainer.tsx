@@ -14,6 +14,7 @@ import { usersSignUp } from '@api/user';
 import { authEmailCheckDuplication } from '@api/auth';
 import { IBooleanObj } from '@models/common.model';
 import handleAuthCheck from '@utils/handleAuthCheck';
+import translateAxiosError from '@utils/translateAxiosError';
 
 export interface IAuthRegisterForm {
   registerState: IRegisterState;
@@ -87,9 +88,9 @@ const AuthRegisterFormContainer = () => {
         ...registerForm,
         authConfirm: '',
       });
-      await handleGetAuthCode(registerForm.phone);
-    } catch (e) {
-      // console.error(e);
+      await handleGetAuthCode('SIGN_UP_CODE', registerForm.phone);
+    } catch (error) {
+      // translateAxiosError(error);
     }
   };
   /** authConfirm에 할당할 콜백 함수 */
@@ -97,6 +98,7 @@ const AuthRegisterFormContainer = () => {
     if (registerForm.authConfirm.length < 6 || checkList.authConfirm) return;
     try {
       await handleAuthCheck(
+        'SIGN_UP_CODE',
         registerForm.phone,
         registerForm.authConfirm,
         modifyCheckList,

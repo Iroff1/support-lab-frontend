@@ -1,4 +1,4 @@
-import { authVerifyCode } from '@api/auth';
+import { authVerifyCode, TRequestCode } from '@api/auth';
 import { IBooleanObj } from '@models/common.model';
 
 /** InputForValidation[name="authConfirm"] 컴포넌트의 onClick에 할당할 콜백 함수
@@ -12,6 +12,7 @@ import { IBooleanObj } from '@models/common.model';
  * @param modifyCheckList 인증 상태 변경 함수
  */
 const handleAuthCheck = async (
+  type: TRequestCode,
   phone: string,
   authConfirm: string,
   modifyCheckList: (
@@ -20,7 +21,7 @@ const handleAuthCheck = async (
   ) => void,
 ) => {
   try {
-    const res = await authVerifyCode(phone, authConfirm);
+    const res = await authVerifyCode(type, phone, authConfirm);
     if (res.data.body.status === 'SUCCESS')
       modifyCheckList('authConfirm', true);
     else modifyCheckList('authConfirm', false);

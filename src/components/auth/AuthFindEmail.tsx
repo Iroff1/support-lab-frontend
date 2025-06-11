@@ -9,7 +9,7 @@ import { regInput } from '@consts/reg';
 import { Link } from 'react-router-dom';
 import palette from '@assets/colors';
 import InputForAuth from '@containers/common/InputForAuth';
-import { ILogin, IRegister } from '@models/auth.model';
+import { IRegister } from '@models/auth.model';
 
 const FindForm = styled.div`
   width: 100%;

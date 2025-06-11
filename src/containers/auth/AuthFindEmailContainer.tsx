@@ -10,6 +10,7 @@ import checkValidation from '@utils/checkValidation';
 import handleAuthCheck from '@utils/handleAuthCheck';
 import handleChangeField from '@utils/handleChangeField';
 import handleGetAuthCode from '@utils/handleGetAuthCode';
+import translateAxiosError from '@utils/translateAxiosError';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -51,16 +52,26 @@ const AuthFindEmailContainer = () => {
     try {
       // TODO) GET auth/email 이메일 정보 요청 비동기 처리 후 이메일 상태 초기화
       const res = await usersFindEmail(findForm.name, findForm.phone);
-      setUserEmail(res.data.data.email);
-    } catch (e) {
+      setUserEmail(res.data.body.email);
+    } catch (error) {
       // console.error(e);
+      translateAxiosError(error);
     }
     startInit();
   };
 
   /** authConfirm 입력 태그에 할당할 콜백 함수 */
   const handleAuthConfirm = async () => {
-    handleAuthCheck(findForm.phone, findForm.authConfirm, modifyCheckList);
+    try {
+      await handleAuthCheck(
+        'FIND_EMAIL_CODE',
+        findForm.phone,
+        findForm.authConfirm,
+        modifyCheckList,
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   /** checkList 유효성 갱신 함수 */
@@ -89,7 +100,7 @@ const AuthFindEmailContainer = () => {
         handleChangeField<IFindEmailFormState>(e, setFindForm, reg, max);
       }}
       handleAuthStart={async () => {
-        await handleGetAuthCode(findForm.phone);
+        await handleGetAuthCode('FIND_EMAIL_CODE', findForm.phone);
       }}
       handleAuthConfirm={handleAuthConfirm}
       handleFindEmail={handleFindEmail}
