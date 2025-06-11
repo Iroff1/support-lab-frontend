@@ -34,11 +34,11 @@ export const authSlice = createSlice({
       })
       .addCase(authLoginUserThunk.fulfilled, (state, { type, payload }) => {
         console.log(type + ' 성공');
-        Object.assign(state, { token: payload.token, authError: null });
+        Object.assign(state, { token: payload?.token, authError: null });
         alert('로그인 성공');
       })
       .addCase(authLoginUserThunk.rejected, (state, { error }) => {
-        // console.error(e);
+        console.error(error);
         Object.assign(state, { token: '', authError: error });
         alert('로그인 실패');
       });
@@ -52,7 +52,7 @@ export const authSlice = createSlice({
         Object.assign(state, { auth: payload, authError: null });
       })
       .addCase(authDecryptTokenThunk.rejected, (state, { error }) => {
-        // console.error(e);
+        // console.error(error);
         Object.assign(state, { auth: null, authError: error });
       });
   },
@@ -62,8 +62,12 @@ export const authSlice = createSlice({
 export const authLoginUserThunk = createAsyncThunk(
   'auth/loginUser',
   async (formData: ILogin) => {
-    const res = await authLoginUser(formData);
-    return { token: res.data.body.accessToken };
+    try {
+      const res = await authLoginUser(formData);
+      return { token: res.data.body.accessToken };
+    } catch (error) {
+      throw error;
+    }
   },
 );
 
@@ -71,8 +75,12 @@ export const authLoginUserThunk = createAsyncThunk(
 export const authDecryptTokenThunk = createAsyncThunk(
   'auth/decryptToken',
   async (token: string) => {
-    const res = await usersDecryptToken(token);
-    return res.data.body;
+    try {
+      const res = await usersDecryptToken(token);
+      return res.data.body;
+    } catch (error) {
+      throw error;
+    }
   },
 );
 
