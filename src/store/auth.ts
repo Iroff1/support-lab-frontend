@@ -38,7 +38,7 @@ export const authSlice = createSlice({
         alert('로그인 성공');
       })
       .addCase(authLoginUserThunk.rejected, (state, { error }) => {
-        console.error(error);
+        // console.error(e);
         Object.assign(state, { token: '', authError: error });
         alert('로그인 실패');
       });
@@ -52,7 +52,7 @@ export const authSlice = createSlice({
         Object.assign(state, { auth: payload, authError: null });
       })
       .addCase(authDecryptTokenThunk.rejected, (state, { error }) => {
-        console.error(error);
+        // console.error(e);
         Object.assign(state, { auth: null, authError: error });
       });
   },

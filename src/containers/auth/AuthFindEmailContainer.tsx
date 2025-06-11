@@ -53,7 +53,7 @@ const AuthFindEmailContainer = () => {
       const res = await usersFindEmail(findForm.name, findForm.phone);
       setUserEmail(res.data.data.email);
     } catch (e) {
-      console.error(e);
+      // console.error(e);
     }
     startInit();
   };

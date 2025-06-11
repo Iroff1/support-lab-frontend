@@ -69,7 +69,7 @@ const AuthRegisterFormContainer = () => {
         modifyCheckList('emailConfirm', true);
       }
     } catch (e) {
-      console.error(e);
+      // console.error(e);
 
       // test code
       if (registerForm.email === 'example@naver.com') {
@@ -89,7 +89,7 @@ const AuthRegisterFormContainer = () => {
       });
       await handleGetAuthCode(registerForm.phone);
     } catch (e) {
-      console.error(e);
+      // console.error(e);
     }
   };
   /** authConfirm에 할당할 콜백 함수 */
@@ -121,7 +121,7 @@ const AuthRegisterFormContainer = () => {
         navigate('/');
       }
     } catch (e) {
-      console.error(e);
+      // console.error(e);
       alert('회원가입 실패!'); // test code
     }
   };

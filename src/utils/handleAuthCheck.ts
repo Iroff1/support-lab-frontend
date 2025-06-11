@@ -25,7 +25,7 @@ const handleAuthCheck = async (
       modifyCheckList('authConfirm', true);
     else modifyCheckList('authConfirm', false);
   } catch (e) {
-    console.error(e);
+    // console.error(e);
   }
 };
 export default handleAuthCheck;

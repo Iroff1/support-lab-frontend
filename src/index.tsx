@@ -17,8 +17,8 @@ const localToken =
 try {
   if (localToken)
     await store.dispatch(authDecryptTokenThunk(JSON.parse(localToken)));
-} catch (error) {
-  console.log(error);
+} catch (e) {
+  console.log(e);
 }
 
 root.render(
