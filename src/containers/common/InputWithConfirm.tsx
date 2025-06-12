@@ -1,6 +1,5 @@
 import palette from '@assets/colors/index';
 import translateFontSize from '@utils/translateFontSize';
-import React from 'react';
 import styled, { css } from 'styled-components';
 import InputText from '../../components/common/InputText';
 import {
@@ -75,7 +74,7 @@ const InputWithConfirm = <T extends object>({
   useFor = 'validation',
   $isValid: isValid,
   disabled = false,
-  $cautionText: cautionText,
+  $cautionText,
   ...props
 }: IInputWithConfirm<T>) => {
   const {
@@ -83,9 +82,9 @@ const InputWithConfirm = <T extends object>({
     startInit: initComponent,
     resetInit: resetComponent,
   } = useInit();
-  const handleClick: TMouseEventHandler<HTMLButtonElement> = (e) => {
+  const handleClick: TMouseEventHandler<HTMLButtonElement> = async (e) => {
     e.preventDefault();
-    handleConfirm && handleConfirm(e);
+    handleConfirm && (await handleConfirm(e));
     !isInit && initComponent();
   };
   const handleChange: TChangeEventHandler<HTMLInputElement> = (e) => {
@@ -110,9 +109,9 @@ const InputWithConfirm = <T extends object>({
           {useFor === 'modify' ? '변경' : useFor === 'auth' ? '인증' : '확인'}
         </InputConfirmButton>
       </InputWrapper>
-      {isInit && cautionText ? (
+      {isInit && $cautionText ? (
         <Caution color={isValid ? 'green' : 'red'} $mt="4px">
-          {cautionText}
+          {$cautionText}
         </Caution>
       ) : null}
     </InputWithConfirmBlock>

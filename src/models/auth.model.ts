@@ -30,6 +30,10 @@ export interface ITerms {
 }
 /** 서버에 전송할 register 데이터 인터페이스 */
 export interface IRegisterRequest extends IRegister, ITerms {}
+export interface IRegisterResponce extends IRegister, ITerms {
+  id: number;
+  createdAt: string;
+}
 
 /** 코드레벨에서 필요한 register 상태 데이터를 위한 인터페이스 */
 export interface IRegisterState extends IRegister {

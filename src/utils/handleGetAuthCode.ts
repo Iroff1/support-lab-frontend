@@ -9,8 +9,8 @@ const handleGetAuthCode = async (type: TRequestCode, phone: string) => {
 
   try {
     await authSendCode(type, phone);
-  } catch (error) {
-    translateAxiosError(error);
+  } catch (e) {
+    translateAxiosError(e);
     alert('잘못된 요청입니다. 전화번호를 확인해주세요');
   }
 };

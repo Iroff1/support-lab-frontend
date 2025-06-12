@@ -44,11 +44,7 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
     <>
       <AuthHeaderLogo />
       <AuthTitleBox>회원가입</AuthTitleBox>
-      <AuthRegisterFormBlock
-        onSubmit={(e) => {
-          isReady && handleSubmit(e);
-        }}
-      >
+      <AuthRegisterFormBlock>
         {/* 입력 공간, 인풋 6개 */}
         <InputSection>
           <InputForValidation<IRegisterState>
@@ -120,7 +116,14 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
         {/* 제출 공간 */}
         <SubmitSection>
           {/* 버튼 공간 */}
-          <SubmitButton disabled={!isReady}>가입하기</SubmitButton>
+          <SubmitButton
+            disabled={!isReady}
+            onClick={(e) => {
+              isReady && handleSubmit(e);
+            }}
+          >
+            가입하기
+          </SubmitButton>
         </SubmitSection>
       </AuthRegisterFormBlock>
     </>

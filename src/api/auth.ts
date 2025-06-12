@@ -47,18 +47,3 @@ export const authLoginUser = async ({ email, password }: ILogin) => {
   );
   return res;
 };
-
-/** POST /api/auth/email-check 이메일 중복 확인 요청
- *
- * 중복인 경우 true, 중복 아닌 경우 false
- */
-export const authEmailCheckDuplication = async (email: string) => {
-  console.log('이메일 중복 확인');
-  const res = await client.post<IResponse<{ value: boolean }>>(
-    '/auth/email-check',
-    {
-      email: email,
-    },
-  );
-  return res;
-};

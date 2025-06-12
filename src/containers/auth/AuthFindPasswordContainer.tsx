@@ -44,8 +44,8 @@ const AuthFindPasswordContainer: React.FC<IProp> = ({ handleEmail }) => {
         findForm.authConfirm,
         modifyCheckList,
       );
-    } catch (error) {
-      console.log(error);
+    } catch (e) {
+      console.log(e);
     }
   };
 

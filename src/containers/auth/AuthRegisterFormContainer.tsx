@@ -2,7 +2,7 @@ import AuthRegisterForm from '@components/auth/AuthRegisterForm';
 import useCheckList from '@hooks/useCheckList';
 import useInit from '@hooks/useInit';
 import { IRegister, IRegisterCheck, IRegisterState } from '@models/auth.model';
-import { TChangeEventHandler, TFormEventHandler } from '@models/input.model';
+import { TChangeEventHandler, TMouseEventHandler } from '@models/input.model';
 import { useAppDispatch, useAppSelector } from '@store/index';
 import { termsActions } from '@store/terms';
 import checkValidation from '@utils/checkValidation';
@@ -10,11 +10,11 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import handleChangeField from '@utils/handleChangeField';
 import handleGetAuthCode from '@utils/handleGetAuthCode';
-import { usersSignUp } from '@api/user';
-import { authEmailCheckDuplication } from '@api/auth';
-import { IBooleanObj } from '@models/common.model';
+import { usersCheckEmail, usersSignUp } from '@api/user';
+import { IBooleanObj, IResponse } from '@models/common.model';
 import handleAuthCheck from '@utils/handleAuthCheck';
 import translateAxiosError from '@utils/translateAxiosError';
+import { StatusCodes } from 'http-status-codes';
 
 export interface IAuthRegisterForm {
   registerState: IRegisterState;
@@ -24,7 +24,7 @@ export interface IAuthRegisterForm {
   handleChange: TChangeEventHandler<HTMLInputElement>;
   handleAuthStart: () => Promise<void>;
   handleAuthConfirm: () => Promise<void>;
-  handleSubmit: TFormEventHandler;
+  handleSubmit: TMouseEventHandler<HTMLButtonElement>;
   handleCheckEmail: () => Promise<void>;
 }
 
@@ -53,33 +53,30 @@ const AuthRegisterFormContainer = () => {
   const { isInit, startInit } = useInit();
   const [isReady, setIsReady] = useState(false); // 모든 정규표현식 통과 + 본인인증 완료 + 약관 동의
 
-  /** 입력 필드 별 checkList 유효성 갱신 함수 */
+  /**
+   * @description 입력 필드 별 checkList 유효성 갱신 함수
+   * @param key 입력 필드 키
+   * @returns 유효성 결과
+   */
   const handleValidCheck = (key: keyof IRegister) => {
     const result = checkValidation(registerForm[key], key);
     modifyCheckList(key, result);
   };
-  /** 이메일 조회 함수 */
+  /**
+   * @description 이메일 조회 함수
+   * @returns 이메일 중복 여부
+   */
   const handleCheckEmail = async () => {
     if (checkList.emailConfirm) return; // 이미 체크된 이메일인 경우 조회 안함
     try {
       // TODO) 비동기 요청 (POST auth/email-check)
-      const res = await authEmailCheckDuplication(registerForm.email);
-      if (res.data.body.value) {
-        modifyCheckList('emailConfirm', false);
-      } else {
-        modifyCheckList('emailConfirm', true);
-      }
+      const res = await usersCheckEmail(registerForm.email);
+      modifyCheckList('emailConfirm', !res.data.body.exists);
     } catch (e) {
-      // console.error(e);
-
-      // test code
-      if (registerForm.email === 'example@naver.com') {
-        modifyCheckList('emailConfirm', false);
-      } else {
-        modifyCheckList('emailConfirm', true);
-      }
+      translateAxiosError(e);
     }
   };
+
   /** 본인인증 시작 함수 */
   const handleAuthStart = async () => {
     if (registerForm.phone.length !== 11 || checkList.phone) return;
@@ -89,8 +86,8 @@ const AuthRegisterFormContainer = () => {
         authConfirm: '',
       });
       await handleGetAuthCode('SIGN_UP_CODE', registerForm.phone);
-    } catch (error) {
-      // translateAxiosError(error);
+    } catch (e) {
+      // translateAxiosError(e);
     }
   };
   /** authConfirm에 할당할 콜백 함수 */
@@ -109,7 +106,7 @@ const AuthRegisterFormContainer = () => {
   };
 
   /** register 입력 폼 submit 이벤트 핸들러 */
-  const handleSubmit: TFormEventHandler = async (e) => {
+  const handleSubmit: TMouseEventHandler<HTMLButtonElement> = async (e) => {
     e.preventDefault();
     if (!isReady) return;
     try {
@@ -119,12 +116,24 @@ const AuthRegisterFormContainer = () => {
         ...terms,
       });
       if (res.data.code === '200') {
-        alert('회원가입 완료!');
+        alert('회원가입 완료.');
         navigate('/');
       }
     } catch (e) {
-      // console.error(e);
-      alert('회원가입 실패!'); // test code
+      translateAxiosError(e, (resData) => {
+        if (resData.code === StatusCodes.CONFLICT + '') {
+          alert('회원가입 실패. 이미 존재하는 명의(전화번호)입니다');
+          setRegisterForm({
+            ...registerForm,
+            phone: '',
+            authConfirm: '',
+          });
+          modifyCheckList('phone', false);
+          modifyCheckList('authConfirm', false);
+        } else {
+          alert('회원가입 실패. 고객센터로 문의 부탁드립니다.'); // test code
+        }
+      });
     }
   };
 
@@ -155,7 +164,7 @@ const AuthRegisterFormContainer = () => {
     } else {
       modifyCheckList('passwordConfirm', false);
     }
-  }, [registerForm.passwordConfirm]);
+  }, [registerForm.password, registerForm.passwordConfirm]);
   useEffect(() => {
     handleValidCheck('name');
   }, [registerForm.name]);
@@ -167,9 +176,6 @@ const AuthRegisterFormContainer = () => {
       checkResult && terms.termsOfServiceAgreed && terms.privacyPolicyAgreed,
     );
   }, [checkResult, terms.termsOfServiceAgreed, terms.privacyPolicyAgreed]);
-  useEffect(() => {
-    console.log(checkList);
-  }, [checkList]);
 
   return (
     <AuthRegisterForm

@@ -39,7 +39,7 @@ export const authSlice = createSlice({
         alert('로그인 성공');
       })
       .addCase(authLoginUserThunk.rejected, (state, { error }) => {
-        console.error(error);
+        translateAxiosError(error);
         Object.assign(state, { token: '', authError: error });
         alert('로그인 실패');
       });
@@ -66,8 +66,8 @@ export const authLoginUserThunk = createAsyncThunk(
     try {
       const res = await authLoginUser(formData);
       return { token: res.data.body.accessToken };
-    } catch (error) {
-      throw error;
+    } catch (e) {
+      throw e;
     }
   },
 );
@@ -79,8 +79,8 @@ export const authDecryptTokenThunk = createAsyncThunk(
     try {
       const res = await usersDecryptToken(token);
       return res.data.body;
-    } catch (error) {
-      throw error;
+    } catch (e) {
+      throw e;
     }
   },
 );

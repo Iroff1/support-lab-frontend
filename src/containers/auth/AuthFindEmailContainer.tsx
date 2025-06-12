@@ -52,10 +52,9 @@ const AuthFindEmailContainer = () => {
     try {
       // TODO) GET auth/email 이메일 정보 요청 비동기 처리 후 이메일 상태 초기화
       const res = await usersFindEmail(findForm.name, findForm.phone);
-      setUserEmail(res.data.body.email);
-    } catch (error) {
-      // console.error(e);
-      translateAxiosError(error);
+      res.data.body.email !== null && setUserEmail(res.data.body.email);
+    } catch (e) {
+      translateAxiosError(e);
     }
     startInit();
   };
@@ -69,8 +68,8 @@ const AuthFindEmailContainer = () => {
         findForm.authConfirm,
         modifyCheckList,
       );
-    } catch (error) {
-      console.log(error);
+    } catch (e) {
+      console.log(e);
     }
   };
 
@@ -87,9 +86,6 @@ const AuthFindEmailContainer = () => {
   useEffect(() => {
     if (checkList.authConfirm) handleCheckValid('phone');
   }, [checkList.authConfirm]);
-  useEffect(() => {
-    console.log(checkList);
-  }, [checkList]);
 
   return !isInit ? (
     <AuthFindEmail

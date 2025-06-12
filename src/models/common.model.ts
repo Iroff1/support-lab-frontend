@@ -6,7 +6,7 @@ export type IStringObj<T> = {
   [K in keyof T]: string;
 };
 
-export type IResponse<T = null> = {
+export type IResponse<T = any> = {
   code: string;
   status: string;
   message: string;
