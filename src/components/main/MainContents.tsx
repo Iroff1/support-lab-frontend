@@ -1,4 +1,3 @@
-import Responsive from '@components/common/Responsive';
 import styled, { css } from 'styled-components';
 import MainBoxForCover from './MainBoxForCover';
 import Floating from '@components/common/Floating';
@@ -12,6 +11,7 @@ import MainBoxForRecommand from './MainBoxForRecommand';
 import MainBoxForLastCover from './MainBoxForLastCover';
 import MainBoxForSolution from './MainBoxForSolution';
 import palette from '@assets/colors';
+import Responsive from '@styles/common/Responsive.style';
 
 const MainContentsBlock = styled(Responsive)`
   width: 100%;

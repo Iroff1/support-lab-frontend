@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components';
-import Responsive from './Responsive';
 import translateFontSize from '@utils/translateFontSize';
 import palette from '@assets/colors/index';
 import { Link } from 'react-router-dom';
+import Responsive from '@styles/common/Responsive.style';
 
 const [ICON_BLOG, ICON_INSTA, ICON_YOUTUBE] = [
   require('@assets/images/common/icon_blog.png'),

@@ -1,7 +1,6 @@
-import React from 'react';
 import styled from 'styled-components';
 
-const ResponsiveBlock = styled.div`
+const Responsive = styled.div`
   padding: 0 10px;
   width: 1440px;
   margin: 0 auto;
@@ -21,13 +20,5 @@ const ResponsiveBlock = styled.div`
     max-width: 393px;
   }
 `;
-
-interface IResponsive {
-  children: React.ReactNode;
-}
-
-const Responsive: React.FC<IResponsive> = ({ children, ...props }) => {
-  return <ResponsiveBlock {...props}>{children}</ResponsiveBlock>;
-};
 
 export default Responsive;
