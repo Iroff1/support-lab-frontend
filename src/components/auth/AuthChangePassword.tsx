@@ -8,7 +8,7 @@ import { TChangeEventHandler } from '@models/input.model';
 import { styled } from 'styled-components';
 import InputChangePw from '@containers/common/InputChangePw';
 
-const ChangeForm = styled.div`
+const ChangeForm = styled.form`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -24,7 +24,7 @@ const ChangeSubmit = styled.div`
 interface IAuthChangePassword {
   formState: INewPassword;
   checkList: IBooleanObj<INewPassword>;
-
+  checkResult: boolean;
   handleChange: TChangeEventHandler<HTMLInputElement>;
   handleSubmit: () => Promise<void>;
 }
@@ -32,6 +32,7 @@ interface IAuthChangePassword {
 const AuthChangePassword: React.FC<IAuthChangePassword> = ({
   formState,
   checkList,
+  checkResult,
   handleChange,
   handleSubmit,
 }) => {
@@ -50,14 +51,7 @@ const AuthChangePassword: React.FC<IAuthChangePassword> = ({
       </ChangeForm>
 
       <ChangeSubmit>
-        <SubmitButton
-          disabled={
-            !Object.keys(checkList).every(
-              (val) => checkList[val as keyof INewPassword],
-            )
-          }
-          onClick={handleSubmit}
-        >
+        <SubmitButton disabled={!checkResult} onClick={handleSubmit}>
           비밀번호 재설정
         </SubmitButton>
       </ChangeSubmit>

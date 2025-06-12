@@ -1,32 +1,43 @@
+import { usersModifyPassword, usersModifyPasswordReq } from '@api/user';
 import AuthChangePassword from '@components/auth/AuthChangePassword';
 import useCheckList from '@hooks/useCheckList';
 import { INewPassword } from '@models/auth.model';
 import checkValidation from '@utils/checkValidation';
 import handleChangeField from '@utils/handleChangeField';
-import handleModifyPw from '@utils/handleModifyPw';
+import translateAxiosError from '@utils/translateAxiosError';
+import { StatusCodes } from 'http-status-codes';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-interface IProp {
-  email: string;
-}
-
-const AuthChangePasswordContainer: React.FC<IProp> = ({ email }) => {
+const AuthChangePasswordContainer: React.FC<{ passwordToken: string }> = ({
+  passwordToken,
+}) => {
   const navigate = useNavigate();
   const [formState, setFormState] = useState<INewPassword>({
     newPassword: '',
     newPasswordConfirm: '',
   });
-  const { checkList, modifyCheckList } = useCheckList<INewPassword>({
-    newPassword: false,
-    newPasswordConfirm: false,
-  });
+  const { checkList, checkResult, modifyCheckList } =
+    useCheckList<INewPassword>({
+      newPassword: false,
+      newPasswordConfirm: false,
+    });
 
   const handleSubmit = async () => {
     try {
-      await handleModifyPw(email, formState.newPassword);
-    } catch (e) {}
-    navigate('/');
+      const res = await usersModifyPassword(
+        passwordToken,
+        formState.newPassword,
+      );
+      if (res.data.code === StatusCodes.OK + '') {
+        alert('비밀번호가 변경되었습니다.');
+        navigate('/');
+      } else throw res;
+    } catch (e) {
+      // translateAxiosError(e);
+      alert('비밀번호 변경에 실패했습니다.');
+      console.error(e);
+    }
   };
 
   useEffect(() => {
@@ -44,6 +55,7 @@ const AuthChangePasswordContainer: React.FC<IProp> = ({ email }) => {
     <AuthChangePassword
       formState={formState}
       checkList={checkList}
+      checkResult={checkResult}
       handleChange={(e) => {
         handleChangeField(e, setFormState);
       }}

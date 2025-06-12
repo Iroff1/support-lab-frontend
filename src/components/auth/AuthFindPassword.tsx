@@ -28,8 +28,8 @@ const FindSubmit = styled.div`
 
 interface IAuthFindPassword {
   findForm: IFindPassword;
-  checkList: IBooleanObj<IFindPassword>;
-  confirmEmail: boolean;
+  checkList: IBooleanObj<IFindPassword & { emailConfirm: boolean }>;
+  checkResult: boolean;
   handleValidCheck: (key: keyof IFindPassword) => void;
   handleChangeField: TChangeEventHandler<HTMLInputElement>;
   handleCheckEmail: () => Promise<void>;
@@ -41,7 +41,7 @@ interface IAuthFindPassword {
 const AuthFindPassword: React.FC<IAuthFindPassword> = ({
   findForm,
   checkList,
-  confirmEmail,
+  checkResult,
   handleChangeField,
   handleAuthStart,
   handleAuthConfirm,
@@ -66,13 +66,13 @@ const AuthFindPassword: React.FC<IAuthFindPassword> = ({
             handleValidCheck!('email');
             await handleCheckEmail().then();
           }}
-          $isValid={checkList['email'] && confirmEmail}
+          $isValid={checkList.email && checkList.emailConfirm}
           $cautionText={
             findForm.email.length === 0
               ? ''
               : !checkList.email
               ? '올바른 이메일을 입력해 주세요.'
-              : confirmEmail
+              : checkList.emailConfirm
               ? '존재하는 이메일입니다.'
               : '존재하지 않는 이메일입니다.'
           }
@@ -99,18 +99,7 @@ const AuthFindPassword: React.FC<IAuthFindPassword> = ({
       </FindForm>
 
       <FindSubmit>
-        <SubmitButton
-          disabled={
-            !(
-              checkList.email &&
-              checkList.name &&
-              checkList.phone &&
-              checkList.authConfirm &&
-              confirmEmail
-            )
-          }
-          onClick={handleFindPassword}
-        >
+        <SubmitButton disabled={!checkResult} onClick={handleFindPassword}>
           비밀번호 찾기
         </SubmitButton>
       </FindSubmit>

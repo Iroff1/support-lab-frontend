@@ -1,27 +1,16 @@
 import AuthChangePasswordContainer from '@containers/auth/AuthChangePasswordContainer';
 import AuthFindPasswordContainer from '@containers/auth/AuthFindPasswordContainer';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const AuthFindPasswordPage = () => {
-  const [email, setEmail] = useState('');
-  const [toggle, setToggle] = useState(false);
-
-  const handleEmail = (email: string) => {
-    setEmail(email);
-  };
-
-  useEffect(() => {
-    if (email.length > 0) {
-      setToggle(true);
-    }
-  }, [email]);
+  const [passwordToken, setPasswordToken] = useState('');
 
   return (
     <>
-      {toggle ? (
-        <AuthChangePasswordContainer email={email} />
+      {passwordToken.length !== 0 ? (
+        <AuthChangePasswordContainer passwordToken={passwordToken} />
       ) : (
-        <AuthFindPasswordContainer handleEmail={handleEmail} />
+        <AuthFindPasswordContainer handlePasswordToken={setPasswordToken} />
       )}
     </>
   );

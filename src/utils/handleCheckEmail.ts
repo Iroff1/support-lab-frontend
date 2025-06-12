@@ -14,7 +14,6 @@ const handleCheckEmail = async (
   } catch (e) {
     console.log(e);
     setter(false);
-    // email === 'example@naver.com' && setter(true); // 테스트 코드
   }
 };
 

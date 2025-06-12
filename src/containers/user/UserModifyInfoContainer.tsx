@@ -14,7 +14,6 @@ import checkValidation from '@utils/checkValidation';
 import handleAuthCheck from '@utils/handleAuthCheck';
 import handleChangeField from '@utils/handleChangeField';
 import handleGetAuthCode from '@utils/handleGetAuthCode';
-import handleModifyPw from '@utils/handleModifyPw';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -80,10 +79,7 @@ const UserModifyInfoContainer = ({
   };
   const handleModifyPassword = async () => {
     try {
-      await handleModifyPw(formState.email, formState.password);
-    } catch (e) {
-      // (e);
-    }
+    } catch (e) {}
     navigate('/');
   };
   const handleModifyname = async () => {

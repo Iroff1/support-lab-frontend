@@ -39,11 +39,14 @@ export const usersFindEmail = async (name: string, phone: string) => {
  */
 export const usersModifyPasswordReq = async (auth: ILocalAuth) => {
   console.log('비밀번호 찾기');
-  const res = await client.post<{ token: string }>('/users/password', {
-    email: auth.email,
-    phone: auth.phone,
-    name: auth.name,
-  });
+  const res = await client.post<IResponse<{ token: string }>>(
+    '/users/password',
+    {
+      email: auth.email,
+      phone: auth.phone,
+      name: auth.name,
+    },
+  );
   return res;
 };
 
@@ -52,7 +55,7 @@ export const usersModifyPasswordReq = async (auth: ILocalAuth) => {
  */
 export const usersModifyPassword = async (token: string, newPw: string) => {
   console.log('비밀번호 변경');
-  const res = await client.patch('/users/password', {
+  const res = await client.patch<IResponse>('/users/password', {
     token: token,
     password: newPw,
   });

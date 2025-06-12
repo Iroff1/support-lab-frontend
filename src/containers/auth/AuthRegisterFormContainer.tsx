@@ -115,7 +115,7 @@ const AuthRegisterFormContainer = () => {
         ...registerForm,
         ...terms,
       });
-      if (res.data.code === '200') {
+      if (res.data.code === StatusCodes.OK + '') {
         alert('회원가입 완료.');
         navigate('/');
       }
