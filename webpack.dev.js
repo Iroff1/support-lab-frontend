@@ -1,5 +1,7 @@
 const common = require('./webpack.common.js');
 const { merge } = require('webpack-merge');
+const dotenv = require('dotenv');
+dotenv.config();
 
 module.exports = merge(common, {
   mode: 'development',
