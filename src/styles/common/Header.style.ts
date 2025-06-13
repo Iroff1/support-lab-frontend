@@ -159,7 +159,8 @@ export const HeaderAuthBoxButton = styled.div`
   cursor: pointer;
   ${css(translateFontSize('R_18'))};
   & > strong {
-    width: 95px;
+    max-width: 95px;
+    width: fit-content;
     overflow: hidden;
     text-overflow: ellipsis;
     text-align: center;
