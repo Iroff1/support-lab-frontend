@@ -74,11 +74,11 @@ const AuthFindPasswordContainer: React.FC<IProp> = ({
     if (!checkResult) return;
     try {
       // TODO) GET auth/password 비밀번호 정보 요청 비동기 처리 후 이메일 상태 초기화
-      const res = await usersModifyPasswordReq({
-        email: findForm.email,
-        phone: findForm.phone,
-        name: findForm.name,
-      });
+      const res = await usersModifyPasswordReq(
+        findForm.email,
+        findForm.name,
+        findForm.phone,
+      );
       if (res.data.code === StatusCodes.OK + '') {
         alert('비밀번호 찾기 완료!');
         handlePasswordToken(res.data.body.token);

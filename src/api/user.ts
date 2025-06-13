@@ -37,14 +37,18 @@ export const usersFindEmail = async (name: string, phone: string) => {
  * @description 비밀번호 변경을 위한 토큰을 발급받음
  * @description 휴대폰 인증이 완료된 상태일 때 사용바람
  */
-export const usersModifyPasswordReq = async (auth: ILocalAuth) => {
+export const usersModifyPasswordReq = async (
+  email: string,
+  phone: string,
+  name: string,
+) => {
   console.log('비밀번호 찾기');
   const res = await client.post<IResponse<{ token: string }>>(
     '/users/password',
     {
-      email: auth.email,
-      phone: auth.phone,
-      name: auth.name,
+      email: email,
+      phone: phone,
+      name: name,
     },
   );
   return res;
