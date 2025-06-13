@@ -80,11 +80,9 @@ const AuthFindPasswordContainer: React.FC<IProp> = ({
         findForm.phone,
       );
       if (res.data.code === StatusCodes.OK + '') {
-        alert('비밀번호 찾기 완료!');
         handlePasswordToken(res.data.body.token);
       } else throw res;
     } catch (e) {
-      alert('비밀번호 찾기 실패!');
       console.error(e);
     }
   };

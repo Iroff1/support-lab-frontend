@@ -118,13 +118,11 @@ const AuthRegisterFormContainer = () => {
         ...terms,
       });
       if (res.data.code === StatusCodes.OK + '') {
-        alert('회원가입 완료.');
         navigate('/');
       }
     } catch (e) {
       translateAxiosError(e, (resData) => {
         if (resData.code === StatusCodes.CONFLICT + '') {
-          alert('회원가입 실패. 이미 존재하는 명의(전화번호)입니다');
           setRegisterForm({
             ...registerForm,
             phone: '',
@@ -133,7 +131,6 @@ const AuthRegisterFormContainer = () => {
           modifyCheckList('phone', false);
           modifyCheckList('authConfirm', false);
         } else {
-          alert('회원가입 실패. 고객센터로 문의 부탁드립니다.'); // test code
         }
       });
     }

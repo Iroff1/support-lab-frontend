@@ -36,12 +36,10 @@ export const authSlice = createSlice({
       .addCase(authLoginUserThunk.fulfilled, (state, { type, payload }) => {
         console.log(type + ' 성공');
         Object.assign(state, { token: payload?.token, authError: null });
-        alert('로그인 성공');
       })
       .addCase(authLoginUserThunk.rejected, (state, { error }) => {
         translateAxiosError(error);
         Object.assign(state, { token: '', authError: error });
-        alert('로그인 실패');
       });
 
     builder

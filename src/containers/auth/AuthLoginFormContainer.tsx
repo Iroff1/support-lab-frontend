@@ -62,7 +62,6 @@ const AuthLoginFormContainer = () => {
       dispatch(authDecryptTokenThunk(token));
       navigate('/');
     }
-    if (authError) alert('일치하는 계정이 없습니다!');
   }, [isInit, token]);
 
   return (

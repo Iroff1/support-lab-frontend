@@ -11,7 +11,6 @@ const handleGetAuthCode = async (type: TRequestCode, phone: string) => {
     await authSendCode(type, phone);
   } catch (e) {
     translateAxiosError(e);
-    alert('잘못된 요청입니다. 전화번호를 확인해주세요');
   }
 };
 export default handleGetAuthCode;

@@ -30,12 +30,10 @@ const AuthChangePasswordContainer: React.FC<{ passwordToken: string }> = ({
         formState.newPassword,
       );
       if (res.data.code === StatusCodes.OK + '') {
-        alert('비밀번호가 변경되었습니다.');
         navigate('/');
       } else throw res;
     } catch (e) {
       // translateAxiosError(e);
-      alert('비밀번호 변경에 실패했습니다.');
       console.error(e);
     }
   };
