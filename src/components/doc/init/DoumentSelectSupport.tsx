@@ -2,6 +2,7 @@ import Blank from '@components/common/Blank';
 import SubmitButton from '@components/common/SubmitButton';
 import DocumentRadioLabel from '../common/DocumentRadioLabel';
 import { useState } from 'react';
+import DocumentMoveButton from '../common/DocumentMoveButton';
 
 const supportList = [
   '예비창업패키지',
@@ -33,7 +34,9 @@ const DoumentSelectSupport = () => {
         />
       ))}
       <Blank height="32px" />
-      <SubmitButton disabled={selected.length === 0}>다음</SubmitButton>
+      <DocumentMoveButton disabled={selected.length === 0}>
+        다음
+      </DocumentMoveButton>
     </>
   );
 };

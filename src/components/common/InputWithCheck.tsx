@@ -98,6 +98,7 @@ const InputWithCheck = <T extends object>({
   handleClick,
   required,
   popup,
+  $checked = false,
 }: IInputWithCheck<T>) => {
   const [isPopup, setIsPopup] = useState(false);
 
@@ -114,6 +115,7 @@ const InputWithCheck = <T extends object>({
             name={name as string}
             required={required}
             onClick={handleClick}
+            defaultChecked={$checked}
           />
           <CheckBox>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">

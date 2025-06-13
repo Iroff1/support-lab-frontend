@@ -27,6 +27,7 @@ const MainCoverBoxBlock = styled.div`
       display: flex;
       flex-direction: column;
       align-items: center;
+      text-align: center;
       h2 {
         &:nth-child(1) {
           ${css(translateFontSize('B_48'))}
@@ -38,6 +39,7 @@ const MainCoverBoxBlock = styled.div`
     }
 
     p {
+      text-align: center;
       ${css(translateFontSize('R_22'))}
     }
   }

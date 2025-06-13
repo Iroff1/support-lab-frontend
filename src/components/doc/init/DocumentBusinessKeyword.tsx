@@ -2,6 +2,7 @@ import Blank from '@components/common/Blank';
 import SubmitButton from '@components/common/SubmitButton';
 import DocumentCheckLabel from '../common/DocumentCheckLabel';
 import { useState } from 'react';
+import DocumentMoveButton from '../common/DocumentMoveButton';
 
 const keywords = [
   '정치적 요소',
@@ -43,7 +44,9 @@ const DocumentBusinessKeyword = () => {
       ))}
 
       <Blank height="32px" />
-      <SubmitButton disabled={selectedKeywords.length === 0}>다음</SubmitButton>
+      <DocumentMoveButton disabled={selectedKeywords.length === 0}>
+        다음
+      </DocumentMoveButton>
     </>
   );
 };

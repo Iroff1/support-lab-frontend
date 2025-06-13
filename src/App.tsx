@@ -17,10 +17,10 @@ import HeaderOnlyLayout from '@layout/HeaderOnlyLayout';
 import UserModifyInfoPage from '@pages/user/UserModifyInfoPage';
 import ProductListPage from '@pages/payment/PaymentMainPage';
 import NotFound from '@components/common/NotFound';
-import NotPublished from '@components/common/NotPublished';
 import DocLayout from '@layout/DocLayout';
 import DocumentInitPage from '@pages/doc/DocumentInitPage';
 import DocumentReqPage from '@pages/doc/DocumentReqPage';
+import DocumentOptPage from '@pages/doc/DocumentOptPage';
 
 const App = () => {
   return (
@@ -60,9 +60,10 @@ const App = () => {
       <Route path="/documents" element={<DocLayout />}>
         <Route index element={<DocumentInitPage />} />
         <Route path=":id" element={<DocumentInitPage />} />
-        <Route path="required" element={<DocumentReqPage />} />
+        <Route path="required/" element={<DocumentReqPage />} />
         <Route path="required/:id" element={<DocumentReqPage />} />
-        <Route path="optional/:id" element={<NotPublished />} />
+        <Route path="optional/" element={<DocumentOptPage />} />
+        <Route path="optional/:id" element={<DocumentOptPage />} />
       </Route>
 
       {/* Payment Service Page */}

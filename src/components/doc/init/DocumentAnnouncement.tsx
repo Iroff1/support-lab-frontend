@@ -2,7 +2,7 @@ import palette from '@assets/colors';
 import Blank from '@components/common/Blank';
 import SubmitButton from '@components/common/SubmitButton';
 import { DocumentTextBlock } from '@styles/doc/Document.style';
-import { useNavigate } from 'react-router-dom';
+import DocumentMoveButton from '../common/DocumentMoveButton';
 
 const [exampleRecord, examplePicture] = [
   require('@assets/images/doc/image_example_record.png'),
@@ -53,7 +53,7 @@ const DocumentAnnouncement = () => {
         </span>
       </DocumentTextBlock>
       <Blank height="32px" />
-      <SubmitButton onClick={() => {}}>다음</SubmitButton>
+      <DocumentMoveButton>다음</DocumentMoveButton>
       <Blank height="20px" />
     </>
   );

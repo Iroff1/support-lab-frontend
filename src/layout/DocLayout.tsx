@@ -1,8 +1,8 @@
 import { Outlet } from 'react-router';
 import styled, { css } from 'styled-components';
 import HeaderContainer from '@containers/common/HeaderContainer';
-import SideBar from '@components/common/SideBar';
 import translateFontSize from '@utils/translateFontSize';
+import SideBar from '@components/common/SideBar';
 
 const MainBlock = styled.div`
   width: 100%;
@@ -11,7 +11,10 @@ const MainBlock = styled.div`
 `;
 
 const Wrapper460 = styled.div`
-  width: 460px;
+  max-width: 500px; // 460px + 20 * 2px
+  width: 100%;
+  min-width: 320px;
+  padding: 0 20px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;

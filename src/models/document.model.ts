@@ -23,6 +23,7 @@ export interface IDocumentFormOptional {}
 export interface IDocumentFormItem {
   index: number;
   name: string;
+  isRequired: boolean;
   placeholder: string;
   title: string;
   description: string;

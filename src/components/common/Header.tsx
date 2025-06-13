@@ -11,6 +11,7 @@ import {
   HeaderResponsiveBox,
   HeaderAuthBox,
   HeaderAuthBoxButton,
+  HeaderDropDown,
 } from '@styles/common/Header.style';
 import { CustomerServiceList, UserServiceList } from '@consts/csList';
 
@@ -42,7 +43,7 @@ const Header: React.FC<IHeaderProps> = ({
           <HeaderNavBoxItem>
             <span>고객센터</span>
             <Blank width="100%" height="12px" />
-            <div className="dropDown">
+            <HeaderDropDown className="dropDown">
               <ul>
                 {CustomerServiceList.map((item, index) => (
                   <li key={index}>
@@ -52,7 +53,7 @@ const Header: React.FC<IHeaderProps> = ({
                   </li>
                 ))}
               </ul>
-            </div>
+            </HeaderDropDown>
           </HeaderNavBoxItem>
 
           <HeaderNavBoxItem>
@@ -73,7 +74,7 @@ const Header: React.FC<IHeaderProps> = ({
           <Blank width="100%" height="12px" />
 
           {auth ? (
-            <div className="dropDown">
+            <HeaderDropDown className="dropDown">
               <ul>
                 {UserServiceList.map((item, index) => (
                   <li key={index}>
@@ -88,7 +89,7 @@ const Header: React.FC<IHeaderProps> = ({
                   </span>
                 </li>
               </ul>
-            </div>
+            </HeaderDropDown>
           ) : null}
         </HeaderAuthBox>
       </HeaderResponsiveBox>

@@ -84,6 +84,7 @@ interface IAuthLoginForm {
 const AuthLoginForm: React.FC<IAuthLoginForm> = ({
   loginForm,
   loginError,
+  isMaintain,
   handleChange,
   handleSubmit,
   handleToggle,
@@ -109,7 +110,11 @@ const AuthLoginForm: React.FC<IAuthLoginForm> = ({
                 handleChange && handleChange(e);
               }}
             />
-            <InputWithCheck name="loginMaintain" handleClick={handleToggle}>
+            <InputWithCheck
+              name="loginMaintain"
+              handleClick={handleToggle}
+              $checked={isMaintain}
+            >
               로그인 상태 유지
             </InputWithCheck>
           </InputSection>

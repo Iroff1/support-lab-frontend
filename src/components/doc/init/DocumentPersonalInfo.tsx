@@ -1,8 +1,8 @@
 import Blank from '@components/common/Blank';
 import InputText from '@components/common/InputText';
-import SubmitButton from '@components/common/SubmitButton';
 import { IDocumentPersonalInfo } from '@models/document.model';
 import { DocumentInputBlock } from '@styles/doc/Document.style';
+import DocumentMoveButton from '../common/DocumentMoveButton';
 
 const DocumentPersonalInfo = () => {
   return (
@@ -56,7 +56,7 @@ const DocumentPersonalInfo = () => {
         />
       </DocumentInputBlock>
       <Blank height="32px" />
-      <SubmitButton>다음</SubmitButton>
+      <DocumentMoveButton>다음</DocumentMoveButton>
     </>
   );
 };

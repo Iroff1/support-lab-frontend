@@ -127,6 +127,7 @@ const UserModifyInfoContainer = ({
         name: auth?.name || '',
         phone: auth?.phone || '',
       }));
+      setMarketingState(auth.marketingAgreed);
     } else {
       alert('잘못된 접근입니다.');
       navigate('/auth');

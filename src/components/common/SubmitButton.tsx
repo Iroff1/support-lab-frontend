@@ -46,7 +46,7 @@ export const SubmitButtonBlock = styled.button<{
   }
 `;
 
-interface ISubmitButton {
+export interface ISubmitButton {
   children: string;
   disabled?: boolean;
   $maxWidth?: string;

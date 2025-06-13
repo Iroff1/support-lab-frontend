@@ -1,75 +1,35 @@
-import palette from '@assets/colors';
+import { sideBarList } from '@consts/sideBarList';
 import useScroll from '@hooks/useScroll';
-import translateFontSize from '@utils/translateFontSize';
+import * as S from '@styles/common/SideBar.style';
 import { useEffect, useRef, useState } from 'react';
-import styled, { css } from 'styled-components';
-
-const Wrapper = styled.div`
-  position: fixed;
-  top: 64px;
-  left: 0;
-  z-index: 5;
-  width: 210px;
-  height: calc(100vh - 64px);
-  padding: 10px;
-  background-color: ${palette.black.B20};
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
-`;
-
-const CategoryList = styled.div`
-  position: relative;
-  width: 100%;
-  height: 100%;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  overflow-y: scroll;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`;
-
-const ScrollBar = styled.div<{ $h: number }>`
-  position: absolute;
-  top: ${({ $h }) => $h + 30}px;
-  right: 2px;
-  width: 8px;
-  height: 230px;
-  background-color: ${palette.black.B40};
-  border-radius: 10px;
-`;
-
-const Subject = styled.div`
-  & > h3 {
-    ${css(translateFontSize('SB_18'))};
-  }
-
-  & > ul {
-    margin-top: 14px;
-    & > li {
-      padding: 7px;
-      border-radius: 6px;
-      color: ${palette.black.B500};
-      cursor: pointer;
-      transition: 0.2s ease background-color;
-
-      &:hover,
-      &.on {
-        background-color: ${palette.black.B40};
-      }
-    }
-  }
-`;
+import { useNavigate } from 'react-router-dom';
 
 const SideBar = () => {
+  const naviagte = useNavigate();
   const categoryRef = useRef<HTMLDivElement | null>(null);
   const scrollBarRef = useRef<HTMLDivElement | null>(null);
   const { scrollState, handleScrollRef } = useScroll();
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [sideBarToggle, setSideBarToggle] = useState(true);
 
   const scrollEvent = () => {
     handleScrollRef(categoryRef, scrollBarRef.current!.clientHeight, 30);
   };
+  const handdleToggle = () => {
+    setSideBarToggle((prev) => !prev);
+  };
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (windowWidth >= 1024) {
+      setSideBarToggle(true);
+    }
+  }, [windowWidth]);
 
   useEffect(() => {
     if (!categoryRef.current || !scrollBarRef.current) return;
@@ -80,76 +40,49 @@ const SideBar = () => {
     };
   }, []);
 
-  // TODO) 스크롤 드래그 이벤트 완성
-  //   const [prevMouseY, setPrevMouseY] = useState<number | null>(null);
-  //   const handleScrollDrag = (e: MouseEvent) => {
-  //     if (prevMouseY === null) return;
-  //     const diff = e.clientY - prevMouseY;
-  //     handleScrollY(state.y + diff);
-  //   };
-  //   useEffect(() => {
-  //     if (prevMouseY !== null) {
-  //       console.log('down');
-  //       scrollBarRef.current?.addEventListener('mousemove', handleScrollDrag);
-  //     } else {
-  //       console.log('up');
-  //       scrollBarRef.current?.removeEventListener('mousemove', handleScrollDrag);
-  //     }
-  //     console.log(prevMouseY);
-  //   }, [prevMouseY]);
-  //   useEffect(() => {
-  //     if (categoryRef.current)
-  //       categoryRef.current.scrollTop =
-  //         (state.y / (categoryRef.current.clientHeight - 260)) *
-  //         (categoryRef.current.scrollHeight - categoryRef.current.clientHeight);
-  //   }, [state.y]);
-
   return (
-    <Wrapper>
-      <ScrollBar ref={scrollBarRef} $h={scrollState.y} />
-      <CategoryList ref={categoryRef}>
-        <Subject>
-          <h3>기본정보</h3>
-          <ul>
-            <li>이용약관</li>
-            <li>개인정보 입력</li>
-            <li>지원사업 선택</li>
-            <li>안내사항</li>
-            <li>아이템 키워드 선택</li>
-          </ul>
-        </Subject>
-        <Subject>
-          <h3>필수항목</h3>
-          <ul>
-            <li>아이템명</li>
-            <li>핵심 내용</li>
-            <li>내부적 동기</li>
-            <li>기능 및 효과</li>
-            <li>시제품 현황</li>
-            <li>시장/고객 검증</li>
-            <li>판매 경로</li>
-            <li>올해 시제품</li>
-            <li>시제품 고도화</li>
-          </ul>
-        </Subject>
-        <Subject>
-          <h3>선택항목</h3>
-          <ul>
-            <li>예상 매출</li>
-            <li>자금 조달 계획</li>
-            <li>단기 목표</li>
-            <li>중장기 목표</li>
-            <li>대표자 역량</li>
-            <li>팀원 역량</li>
-            <li>장비·시설</li>
-            <li>파트너사 역량</li>
-          </ul>
-        </Subject>
-        <Subject>
+    <S.Wrapper $hide={windowWidth >= 1024 ? false : sideBarToggle}>
+      <S.ScrollBar ref={scrollBarRef} $h={scrollState.y} />
+
+      {windowWidth < 1024 ? (
+        <S.Opener onClick={handdleToggle} className={sideBarToggle ? '' : 'on'}>
+          <svg
+            width="56"
+            height="57"
+            viewBox="0 0 56 57"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M33.7713 28.4987L16.6213 11.3487C16.038 10.7654 15.7556 10.0747 15.7743 9.2767C15.793 8.4787 16.0948 7.78882 16.6796 7.20704C17.2645 6.62526 17.9552 6.33359 18.7516 6.33204C19.5481 6.33048 20.238 6.62215 20.8213 7.20704L38.7296 25.1737C39.1963 25.6404 39.5463 26.1654 39.7796 26.7487C40.013 27.332 40.1296 27.9154 40.1296 28.4987C40.1296 29.082 40.013 29.6654 39.7796 30.2487C39.5463 30.832 39.1963 31.357 38.7296 31.8237L20.763 49.7904C20.1796 50.3737 19.4991 50.656 18.7213 50.6374C17.9435 50.6187 17.263 50.3169 16.6796 49.732C16.0963 49.1471 15.8046 48.4565 15.8046 47.66C15.8046 46.8636 16.0963 46.1737 16.6796 45.5904L33.7713 28.4987Z"
+              fill="#757575"
+            />
+          </svg>
+        </S.Opener>
+      ) : null}
+      <S.CategoryList ref={categoryRef}>
+        {sideBarList.map((item, index) => (
+          <S.Subject key={index}>
+            <h3>{item.title}</h3>
+            <ul>
+              {item.list.map((item2, index2) => (
+                <li
+                  key={index2}
+                  onClick={() => {
+                    naviagte({ pathname: item.path + '/' + (index2 + 1) });
+                  }}
+                >
+                  {item2}
+                </li>
+              ))}
+            </ul>
+          </S.Subject>
+        ))}
+        <S.Subject>
           <h3>제출하기</h3>
-        </Subject>
-      </CategoryList>
-    </Wrapper>
+        </S.Subject>
+      </S.CategoryList>
+    </S.Wrapper>
   );
 };
 

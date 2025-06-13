@@ -3,11 +3,11 @@ import InputText from '@components/common/InputText';
 import { IDocumentFormItem } from '@models/document.model';
 import { DocumentTextBlock } from '@styles/doc/Document.style';
 import DocumentProgress from './DocumentProgress';
-import SubmitButton from '@components/common/SubmitButton';
 import FlexBox from '@components/common/FlexBox';
 import DocumentUploadButton from './DocumentUploadButton';
 import DocumentGuideButton from './DocumentGuideButton';
 import DocumentAttachmentItem from './DocumentAttachmentItem';
+import DocumentMoveButton from './DocumentMoveButton';
 
 const DocumentFormTemplate: React.FC<IDocumentFormItem> = (props) => {
   return (
@@ -41,10 +41,19 @@ const DocumentFormTemplate: React.FC<IDocumentFormItem> = (props) => {
       </div>
       <Blank height={'32px'} />
       <FlexBox>
-        <SubmitButton $style="negative" $maxWidth="160px">
+        <DocumentMoveButton
+          $style="negative"
+          $maxWidth="160px"
+          path={props.isRequired ? '../required/' : '../optional/'}
+        >
           ← 이전
-        </SubmitButton>
-        <SubmitButton $maxWidth="160px">다음 →</SubmitButton>
+        </DocumentMoveButton>
+        <DocumentMoveButton
+          $maxWidth="160px"
+          path={props.isRequired ? '../required/' : '../optional/'}
+        >
+          다음 →
+        </DocumentMoveButton>
       </FlexBox>
     </>
   );

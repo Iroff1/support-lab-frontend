@@ -1,11 +1,12 @@
 import Blank from '@components/common/Blank';
 import InputWithCheck from '@components/common/InputWithCheck';
-import SubmitButton from '@components/common/SubmitButton';
 import { DocumentTextBlock } from '@styles/doc/Document.style';
 import { useState } from 'react';
+import DocumentMoveButton from '../common/DocumentMoveButton';
 
 const DocumentTerms = () => {
   const [agree, setAgree] = useState(false);
+
   return (
     <>
       <h2>이용약관 및 개인정보 수집∙이용 동의</h2>
@@ -49,12 +50,13 @@ const DocumentTerms = () => {
       <InputWithCheck
         name="agree"
         handleClick={() => setAgree((prev) => !prev)}
+        $checked={agree}
       >
         안내 사항을 모두 확인하였으며, 서비스를 계속 이용하겠습니다.
       </InputWithCheck>
 
       <Blank width="100%" height="32px" />
-      <SubmitButton disabled={!agree}>다음</SubmitButton>
+      <DocumentMoveButton disabled={!agree}>다음</DocumentMoveButton>
     </>
   );
 };
