@@ -59,10 +59,10 @@ const AuthRegisterForm: React.FC<IAuthRegisterForm> = ({
               registerState.email.length === 0
                 ? ''
                 : checkList.emailConfirm === false
-                ? '중복된 이메일입니다.'
-                : checkList.email === true
-                ? '사용가능합니다.'
-                : '올바른 이메일을 입력해 주세요.'
+                ? checkList.email === true
+                  ? '중복된 이메일입니다.'
+                  : '올바른 이메일을 입력해 주세요.'
+                : checkList.email === true && '사용가능합니다.'
             }
           />
 

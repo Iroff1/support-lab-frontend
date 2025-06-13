@@ -6,9 +6,16 @@ export type IStringObj<T> = {
   [K in keyof T]: string;
 };
 
-export type IResponse<T = any> = {
+export interface IResponse<T = any> {
   code: string;
   status: string;
   message: string;
   body: T;
-};
+}
+
+export interface IResError {
+  code: string;
+  desc: string;
+  message: string;
+  timestamp: string;
+}

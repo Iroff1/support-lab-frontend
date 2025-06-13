@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import handleChangeField from '@utils/handleChangeField';
 import handleGetAuthCode from '@utils/handleGetAuthCode';
 import { usersCheckEmail, usersSignUp } from '@api/user';
-import { IBooleanObj, IResponse } from '@models/common.model';
+import { IBooleanObj } from '@models/common.model';
 import handleAuthCheck from '@utils/handleAuthCheck';
 import translateAxiosError from '@utils/translateAxiosError';
 import { StatusCodes } from 'http-status-codes';
@@ -67,10 +67,12 @@ const AuthRegisterFormContainer = () => {
    * @returns 이메일 중복 여부
    */
   const handleCheckEmail = async () => {
-    if (checkList.emailConfirm) return; // 이미 체크된 이메일인 경우 조회 안함
+    if (!checkList.email || checkList.emailConfirm) return;
+    // '이미 체크된 이메일'이거나 '양식에 맞지 않는 이메일'인 경우 조회 안함
     try {
       // TODO) 비동기 요청 (POST auth/email-check)
       const res = await usersCheckEmail(registerForm.email);
+      console.log(res.data);
       modifyCheckList('emailConfirm', !res.data.body.exists);
     } catch (e) {
       translateAxiosError(e);

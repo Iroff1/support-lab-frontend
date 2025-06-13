@@ -20,7 +20,7 @@ const useCheckList = <T extends object>(init: IBooleanObj<T>) => {
 
   useEffect(() => {
     setCheckResult(checkAllItems());
-    // console.log('checkList', checkList); // test code
+    console.log('checkList', checkList); // test code
   }, [checkList]);
   return { checkList, modifyCheckList, checkResult };
 };
