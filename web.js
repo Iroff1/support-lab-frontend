@@ -9,7 +9,7 @@ app.get('/', function (_, res) {
   res.sendFile(__dirname + '/dist/index.html');
 });
 
-app.get('/{*any}', function (_, res) {
+app.get('*', function (_, res) {
   res.sendFile(__dirname + '/dist/index.html');
 });
 
