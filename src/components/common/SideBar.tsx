@@ -68,6 +68,11 @@ const SideBar = () => {
               {item.list.map((item2, index2) => (
                 <li
                   key={index2}
+                  className={
+                    window.location.pathname === item.path + '/' + (index2 + 1)
+                      ? 'on'
+                      : ''
+                  }
                   onClick={() => {
                     naviagte({ pathname: item.path + '/' + (index2 + 1) });
                   }}

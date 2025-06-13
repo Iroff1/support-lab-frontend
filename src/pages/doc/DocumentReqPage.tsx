@@ -9,7 +9,7 @@ const DocumentReqPage = () => {
   useEffect(() => {
     if (id === undefined) navigate('1');
     else if (+id < 1 && Number.isInteger(+id)) navigate('../5');
-    else if (+id > 9 && Number.isInteger(+id)) navigate('../optional/1');
+    else if (+id > 10 && Number.isInteger(+id)) navigate('../optional/1');
   }, [id]);
 
   return (

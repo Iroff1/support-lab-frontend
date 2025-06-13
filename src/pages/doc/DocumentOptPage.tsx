@@ -8,13 +8,13 @@ const DocumentOptPage = () => {
 
   useEffect(() => {
     if (id === undefined) navigate('1');
-    else if (+id < 1 && Number.isInteger(+id)) navigate('../required/1');
+    else if (+id < 1 && Number.isInteger(+id)) navigate('../required/10'); // TODO) 숫자 10 말고 제대로 처리
   }, [id]);
 
   return (
     <>
       <DocumentFormTemplate
-        index={Number(id) + 9 || 1} // TODO) 숫자 9 말고 제대로 처리
+        index={Number(id) + 10 || 1} // TODO) 숫자 10 말고 제대로 처리
         isRequired={false}
         name="name"
         placeholder="이름"
