@@ -2,6 +2,7 @@ import UserModifyInfo from '@components/user/UserModifyInfo';
 import useCheckList from '@hooks/useCheckList';
 import useInit from '@hooks/useInit';
 import {
+  IConfirm,
   ILocalAuth,
   INewPassword,
   IRegister,
@@ -16,9 +17,7 @@ import handleGetAuthCode from '@utils/handleGetAuthCode';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-interface IUserModifyInfoState extends IRegister, INewPassword {
-  authConfirm: string;
-}
+interface IUserModifyInfoState extends IRegister, IConfirm, INewPassword {}
 
 export interface IUserModifyInfoProps {
   formState: IUserModifyInfoState;
@@ -35,12 +34,13 @@ export interface IUserModifyInfoProps {
   handleDeleteAccount: () => void;
 }
 
-interface IProps {
+const UserModifyInfoContainer = ({
+  auth,
+  switchPage,
+}: {
   auth: ILocalAuth | null;
   switchPage: () => void;
-}
-
-const UserModifyInfoContainer: React.FC<IProps> = ({ auth, switchPage }) => {
+}) => {
   // 변수 부
   const navigate = useNavigate();
   const [formState, setFormState] = useState<IUserModifyInfoState>({
@@ -48,6 +48,7 @@ const UserModifyInfoContainer: React.FC<IProps> = ({ auth, switchPage }) => {
     password: '',
     name: '',
     phone: '',
+    authCode: '',
     authConfirm: '',
     newPassword: '',
     newPasswordConfirm: '',
@@ -126,7 +127,6 @@ const UserModifyInfoContainer: React.FC<IProps> = ({ auth, switchPage }) => {
         name: auth?.name || '',
         phone: auth?.phone || '',
       }));
-      setMarketingState(auth.marketingAgreed);
     } else {
       alert('잘못된 접근입니다.');
       navigate('/auth');
