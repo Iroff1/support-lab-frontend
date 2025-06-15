@@ -1,6 +1,9 @@
+import { usersDeleteAuth } from '@api/user';
 import InputWithCheck from '@components/common/InputWithCheck';
 import SubmitButton from '@components/common/SubmitButton';
+import { useAppSelector } from '@store/index';
 import translateFontSize from '@utils/translateFontSize';
+import { StatusCodes } from 'http-status-codes';
 import { useState } from 'react';
 import styled, { css } from 'styled-components';
 
@@ -40,6 +43,18 @@ const UserDeleteAccountBlock = styled.div`
 
 const UserDeleteAccount = (props: { email: string }) => {
   const [isChecked, setIsChecked] = useState(false);
+  const accessToken = useAppSelector(({ auth }) => auth.token);
+
+  const handleDeleteAuth = async () => {
+    if (!accessToken) return;
+    try {
+      const res = await usersDeleteAuth(accessToken, ''); // TODO) 회원 비밀번호 추가
+      if (res.data.code === StatusCodes.OK + '') alert('탈퇴 완료.');
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   return (
     <Wrapper>
       <UserDeleteAccountBlock>
@@ -68,7 +83,7 @@ const UserDeleteAccount = (props: { email: string }) => {
         >
           <p>회원탈퇴 동의</p>
         </InputWithCheck>
-        <SubmitButton disabled={!isChecked} onClick={() => {}}>
+        <SubmitButton disabled={!isChecked} onClick={handleDeleteAuth}>
           회원탈퇴
         </SubmitButton>
       </UserDeleteAccountBlock>

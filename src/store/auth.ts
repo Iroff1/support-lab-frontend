@@ -1,5 +1,5 @@
 import { authLoginUser } from '@api/auth';
-import { usersDecryptToken } from '@api/user';
+import { usersGetAuth } from '@api/user';
 import { IAuth, ILocalAuth, ILogin } from '@models/auth.model';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import translateAxiosError from '@utils/translateAxiosError';
@@ -75,7 +75,7 @@ export const authDecryptTokenThunk = createAsyncThunk(
   'auth/decryptToken',
   async (token: string) => {
     try {
-      const res = await usersDecryptToken(token);
+      const res = await usersGetAuth(token);
       return res.data.body;
     } catch (e) {
       throw e;
