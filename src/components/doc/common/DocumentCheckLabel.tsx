@@ -1,5 +1,5 @@
-import palette from '@assets/colors';
 import { TMouseEventHandler } from '@models/input.model';
+import { CheckBox, IconChecked } from '@styles/common/CheckBox.style';
 import { useState } from 'react';
 import { css, styled } from 'styled-components';
 
@@ -11,7 +11,6 @@ interface IInputWithCheck {
 
 const CheckLabel = styled.label`
   display: flex;
-  align-items: center;
   gap: 8px;
   margin-top: 10px;
 
@@ -20,38 +19,7 @@ const CheckLabel = styled.label`
   }
 `;
 
-const CheckBox = styled.div<{ $checked: boolean }>`
-  width: 18px;
-  height: 18px;
-  aspect-ratio: 1/1;
-  border: 2px solid ${palette.black.B40};
-  border-radius: 4px;
-  position: relative;
-  transition: 0.2s ease border, 0.2s ease background-color;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  & > svg {
-    width: 12px;
-    height: 12px;
-    fill: ${palette.black.white};
-    opacity: 0;
-    transition: 0.2s ease opacity;
-  }
-
-  ${({ $checked }) =>
-    $checked &&
-    css`
-      background-color: ${palette.main.main};
-      border: 0px;
-      & > svg {
-        opacity: 1;
-      }
-    `}
-`;
-
-const DocumentRadioLabel: React.FC<IInputWithCheck> = ({
+const DocumentCheckLabel: React.FC<IInputWithCheck> = ({
   name,
   $placeholder,
   handleClick,
@@ -70,9 +38,7 @@ const DocumentRadioLabel: React.FC<IInputWithCheck> = ({
           }}
         />
         <CheckBox $checked={checked}>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-            <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
-          </svg>
+          <IconChecked />
         </CheckBox>
         <div>{$placeholder}</div>
       </CheckLabel>
@@ -80,4 +46,4 @@ const DocumentRadioLabel: React.FC<IInputWithCheck> = ({
   );
 };
 
-export default DocumentRadioLabel;
+export default DocumentCheckLabel;

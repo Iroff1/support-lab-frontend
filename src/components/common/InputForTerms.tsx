@@ -2,6 +2,7 @@ import palette from '@assets/colors';
 import useScroll from '@hooks/useScroll';
 import { ITerms } from '@models/auth.model';
 import { TMouseEventHandler } from '@models/input.model';
+import { IconChecked } from '@styles/common/CheckBox.style';
 import translateFontSize from '@utils/translateFontSize';
 import { useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
@@ -217,9 +218,7 @@ const InputForTerms: React.FC<IInputForterms> = ({
               defaultChecked={isChecked}
             />
             <CheckBox className="checkBox" $isChecked={isChecked}>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
-              </svg>
+              <IconChecked />
             </CheckBox>
             <h4>
               {isRequired === '필수' ? (

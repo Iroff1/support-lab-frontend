@@ -1,13 +1,13 @@
 import palette from '@assets/colors/index';
+import { ICON_RIGHT_ARROW } from '@assets/images/common';
 import { IInputWithCheck } from '@models/input.model';
+import { CheckBox, IconChecked } from '@styles/common/CheckBox.style';
 import { useState } from 'react';
-import styled from 'styled-components';
-
-const RIGHT_ARROW = require('@assets/images/common/icon_arrow_right.svg');
+import styled, { css } from 'styled-components';
 
 const InputWithCheckBlock = styled.label`
   width: 100%;
-  height: 26px;
+  min-height: 26px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -22,55 +22,44 @@ const PopupWrapper = styled.div`
   left: 0;
   z-index: 1000;
 `;
-const InputWrapper = styled.div`
+const InputWrapper = styled.div<{ $fontSize: string; $checked: boolean }>`
   height: 100%;
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   gap: 8px;
+
+  & > p {
+    color: ${palette.black.B100};
+    transition: 0.2s ease color;
+    font-size: ${({ $fontSize }) => $fontSize};
+    & > span {
+      font-size: ${({ $fontSize }) => $fontSize};
+    }
+  }
 
   &:hover {
     & > div {
-      border: 2px solid #444444;
+      ${({ $checked }) =>
+        !$checked &&
+        css`
+          border: 2px solid #444444;
+        `};
     }
-    & > span {
+    & > p {
       color: ${palette.black.B700};
     }
   }
 
-  & > input[type='checkbox'] {
-    display: none;
-
-    &:checked + div {
-      background-color: ${palette.main.main};
-      fill: ${palette.black.white};
-      border: 0px;
-      & + span {
+  ${({ $checked }) =>
+    $checked &&
+    css`
+      & > p {
         color: ${palette.black.B700};
       }
-    }
-  }
+    `};
 
-  & > span {
-    color: ${palette.black.B100};
-    transition: 0.2s ease color;
-  }
-`;
-const CheckBox = styled.div`
-  width: 18px;
-  height: 18px;
-  background-color: ${palette.black.white};
-  border: 2px solid #dedede;
-  border-radius: 4px;
-  transition: 0.2s ease border, 0.2s ease background-color, 0.2s ease fill;
-  fill: transparent;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  & > svg {
-    fill: ${palette.black.white};
-    width: 80%;
-    height: 80%;
+  & > input[type='checkbox'] {
+    display: none;
   }
 `;
 const DirectSection = styled.div`
@@ -99,9 +88,9 @@ const InputWithCheck = <T extends object>({
   required,
   popup,
   $checked = false,
+  $fontSize = '17px',
 }: IInputWithCheck<T>) => {
   const [isPopup, setIsPopup] = useState(false);
-
   const handlePopup = () => {
     setIsPopup((prev) => !prev);
   };
@@ -109,7 +98,7 @@ const InputWithCheck = <T extends object>({
   return (
     <>
       <InputWithCheckBlock>
-        <InputWrapper>
+        <InputWrapper $fontSize={$fontSize} $checked={$checked}>
           <input
             type="checkbox"
             name={name as string}
@@ -117,17 +106,15 @@ const InputWithCheck = <T extends object>({
             onClick={handleClick}
             defaultChecked={$checked}
           />
-          <CheckBox>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-              <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
-            </svg>
+          <CheckBox $checked={$checked}>
+            <IconChecked />
           </CheckBox>
-          <span>{children}</span>
+          <p>{children}</p>
         </InputWrapper>
 
         {useFor === 'auth' ? (
           <DirectSection onClick={handlePopup}>
-            <img src={RIGHT_ARROW} />
+            <img src={ICON_RIGHT_ARROW} />
           </DirectSection>
         ) : null}
       </InputWithCheckBlock>

@@ -28,7 +28,8 @@ export interface IInputWithCheck<T> extends IInput<T> {
   handleClick?: TMouseEventHandler<HTMLInputElement>; // input[type='checkout']를 위한 이벤트 콜백함수 속성
   handlePopup?: TMouseEventHandler<HTMLInputElement>;
   popup?: React.ReactNode | string;
-  $checked?: boolean;
+  $checked: boolean;
+  $fontSize?: string;
 }
 
 /** 버튼이 같이 있는 입력 컴포넌트용 interface */
