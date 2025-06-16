@@ -1,8 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import AuthLayout from '@layout/AuthLayout';
-import CustomerServiceLayout from '@layout/CustomerServiceLayout';
 import MainLayout from '@layout/MainLayout';
-import TermsLayout from '@layout/TermsLayout';
 import AuthFindEmailPage from '@pages/auth/AuthFindEmailPage';
 import AuthFindPasswordPage from '@pages/auth/AuthFindPasswordPage';
 import AuthLoginPage from '@pages/auth/AuthLoginPage';
@@ -32,7 +30,7 @@ const App = () => {
       </Route>
 
       {/* Terms Page */}
-      <Route path="/terms" element={<TermsLayout />}>
+      <Route path="/terms" element={<HeaderOnlyLayout />}>
         <Route path=":typeOfTerms" element={<TermsOfUsePage />} />
       </Route>
 
