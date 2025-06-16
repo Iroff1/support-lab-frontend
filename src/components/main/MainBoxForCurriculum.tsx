@@ -2,8 +2,8 @@ import styled, { css } from 'styled-components';
 import MessageBox from '../common/MessageBox';
 import translateFontSize from '@utils/translateFontSize';
 import palette from '@assets/colors/index';
+import { ICON_RIGHT_ARROW } from '@assets/images/common';
 
-const ICON_RIGHT_ARROW = require('@assets/images/common/icon_arrow_right.svg');
 const ICON_CURRICULAM = [
   require('@assets/images/main/icon_curriculam_1.svg'),
   require('@assets/images/main/icon_curriculam_2.svg'),
@@ -50,8 +50,9 @@ const CurriculumItem = styled.div`
   gap: 20px;
 
   img {
-    width: 48px;
-    heigth: 48px;
+    min-width: 48px;
+    max-height: 48px;
+    aspect-ratio: 1/1;
   }
 
   div {

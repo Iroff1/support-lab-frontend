@@ -26,7 +26,7 @@ const ActionButton = styled.div`
   cursor: pointer;
   img {
     width: 100%;
-    heigth: 100%;
+    height: 100%;
   }
   transition: 0.2s ease box-shadow, 0.2s ease transform;
   &:hover {

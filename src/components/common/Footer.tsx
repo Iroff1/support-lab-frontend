@@ -103,13 +103,13 @@ const Footer = () => {
 
         <SocialDirectBlock>
           <div>
-            <img src={ICON_BLOG} alt="" />
+            <img src={ICON_BLOG} alt="Blog" />
           </div>
           <div>
-            <img src={ICON_INSTA} alt="" />
+            <img src={ICON_INSTA} alt="Insta" />
           </div>
           <div>
-            <img src={ICON_YOUTUBE} alt="" />
+            <img src={ICON_YOUTUBE} alt="Youtube" />
           </div>
         </SocialDirectBlock>
       </FooterResponsiveBlock>

@@ -8,6 +8,7 @@ const TermsOfUseBlock = styled.div<{ isPopup: boolean }>`
   height: 100%;
   display: flex;
   background-color: ${palette.black.white};
+  padding: 40px 20px 20px 20px;
   ${({ isPopup }) =>
     isPopup &&
     css`
@@ -20,7 +21,6 @@ const ContentsBlock = styled.div`
   height: 100%;
   max-width: 726px;
   margin: 0 auto;
-  margin-top: 40px;
   display: flex;
   flex-direction: column;
   gap: 44px;

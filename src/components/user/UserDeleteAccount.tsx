@@ -80,6 +80,7 @@ const UserDeleteAccount = (props: { email: string }) => {
           handleClick={() => {
             setIsChecked((prev) => !prev);
           }}
+          $checked={isChecked}
         >
           <p>회원탈퇴 동의</p>
         </InputWithCheck>
