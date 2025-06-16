@@ -12,7 +12,6 @@ import { Link } from 'react-router-dom';
 
 const PaymentMainBox = () => {
   const auth = useAppSelector(({ auth }) => auth.auth);
-  const [toggleModal, setToggleModal] = useState(false);
   const [refundAgreed, setRefundAgreed] = useState(false);
   const [discount, setDiscount] = useState(0);
   const handleRefundAgreed = () => {
@@ -127,14 +126,7 @@ const PaymentMainBox = () => {
         <p className="label" onClick={handleRefundAgreed}>
           <span>[필수]</span> 환불 약관 전체 확인 및 동의
         </p>
-        <Link
-          to={'/terms/refund'}
-          target="_blank"
-          className="direct"
-          onClick={() => {
-            setToggleModal(true);
-          }}
-        >
+        <Link to={'/terms/refund'} target="_blank" className="direct">
           전체
           <img src={ICON_ARROW_RIGHT} alt=">" />
         </Link>
