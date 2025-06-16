@@ -1,6 +1,7 @@
 import Blank from '@components/common/Blank';
 import { productList } from '@consts/productList';
 import * as S from '@styles/product/ProductList.style';
+import { useNavigate } from 'react-router-dom';
 
 const CheckIcon = () => {
   return (
@@ -20,6 +21,7 @@ const CheckIcon = () => {
 };
 
 const ProductList = () => {
+  const navigate = useNavigate();
   return (
     <S.Wrapper>
       <S.ProductListBlock>
@@ -72,7 +74,13 @@ const ProductList = () => {
               </S.ListItemContent>
               <div className="buttonBox">
                 <S.ItemButton inverse>예시 보기</S.ItemButton>
-                <S.ItemButton>결제하기</S.ItemButton>
+                <S.ItemButton
+                  onClick={() => {
+                    navigate('../payment');
+                  }}
+                >
+                  결제하기
+                </S.ItemButton>
               </div>
             </S.ListItem>
           ))}

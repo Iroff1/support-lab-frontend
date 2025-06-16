@@ -15,12 +15,13 @@ import MainPage from '@pages/MainPage';
 import TermsOfUsePage from '@pages/TermsOfUsePage';
 import HeaderOnlyLayout from '@layout/HeaderOnlyLayout';
 import UserModifyInfoPage from '@pages/user/UserModifyInfoPage';
-import ProductListPage from '@pages/payment/PaymentMainPage';
+import ProductListPage from '@pages/product/ProductListPage';
 import NotFound from '@components/common/NotFound';
 import DocLayout from '@layout/DocLayout';
 import DocumentInitPage from '@pages/doc/DocumentInitPage';
 import DocumentReqPage from '@pages/doc/DocumentReqPage';
 import DocumentOptPage from '@pages/doc/DocumentOptPage';
+import PaymentMainBox from '@components/payment/PaymentMainBox';
 
 const App = () => {
   return (
@@ -45,7 +46,7 @@ const App = () => {
       </Route>
 
       {/* Customer Service Page */}
-      <Route path="/customerService" element={<CustomerServiceLayout />}>
+      <Route path="/customerService" element={<HeaderOnlyLayout />}>
         <Route path="supportBusinesses" element={<CSInfoListPage />} />
         <Route path="questions" element={<CSQuestionsPage />} />
         <Route path="inquire" element={<CSInquirementPage />} />
@@ -66,9 +67,14 @@ const App = () => {
         <Route path="optional/:id" element={<DocumentOptPage />} />
       </Route>
 
-      {/* Payment Service Page */}
+      {/* Product Service Page */}
       <Route path="/products" element={<HeaderOnlyLayout />}>
         <Route index element={<ProductListPage />} />
+      </Route>
+
+      {/* Payment Service Page */}
+      <Route path="/payment" element={<HeaderOnlyLayout />}>
+        <Route index element={<PaymentMainBox />} />
       </Route>
 
       {/* Not Found Page */}

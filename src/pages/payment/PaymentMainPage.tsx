@@ -1,6 +1,6 @@
-import ProductList from '@components/product/ProductList';
+import PaymentMainBox from '@components/payment/PaymentMainBox';
 
 const ProductListPage = () => {
-  return <ProductList />;
+  return <PaymentMainBox />;
 };
 export default ProductListPage;
