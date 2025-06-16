@@ -1,19 +1,20 @@
 import palette from '@assets/colors/index';
 import Floating from '@components/common/Floating';
 import translateFontSize from '@utils/translateFontSize';
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 const searchBtn = require('@assets/images/common/icon_search.png');
 
 const CSInfoListBlock = styled.div`
+  margin: 0 auto;
   max-width: 1076px;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0px 20px;
+  padding: 40px 20px 0 20px;
 `;
 
 const InfoListHeader = styled.div`
@@ -72,7 +73,7 @@ const InfoListSearchFilter = styled.div`
   gap: 10px;
 `;
 
-const FilterTag = styled.div`
+const FilterTag = styled.div<{ $toggle?: boolean }>`
   display: flex;
   padding: 8px 20px;
   justify-content: center;
@@ -87,6 +88,12 @@ const FilterTag = styled.div`
     color: ${palette.black.white};
     background-color: ${palette.main.main};
   }
+  ${({ $toggle }) =>
+    $toggle &&
+    css`
+      color: ${palette.black.white};
+      background-color: ${palette.main.main};
+    `}
 `;
 
 const InfoListBody = styled.div`
@@ -127,17 +134,19 @@ const InfoItem = styled.div`
     width: 100%;
     margin-top: 10px;
     overflow: hidden;
-    text-wrap: nowrap;
+    white-space: nowrap;
     text-overflow: ellipsis;
     ${css(translateFontSize('B_20'))}
   }
 `;
 
 const CSInfoList = () => {
+  const [searchParams] = useSearchParams();
+  const tag = searchParams.get('tag');
   const exList: string[] = Array.from(
     { length: 9 },
     () => '제목입니다. 글이 길어지면 점이 생깁니다.',
-  );
+  ); // test code
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -159,13 +168,13 @@ const CSInfoList = () => {
             </InfoListSearchForm>
 
             <InfoListSearchFilter>
-              <FilterTag>
+              <FilterTag $toggle={tag === null}>
                 <Link to={'?'}>#전체</Link>
               </FilterTag>
-              <FilterTag>
+              <FilterTag $toggle={tag === '1'}>
                 <Link to={'?tag=1'}>#지원사업</Link>
               </FilterTag>
-              <FilterTag>
+              <FilterTag $toggle={tag === '2'}>
                 <Link to={'?tag=2'}>#사업계획서</Link>
               </FilterTag>
             </InfoListSearchFilter>

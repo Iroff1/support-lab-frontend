@@ -16,7 +16,8 @@ const CSInquirementBlock = styled.div`
   max-width: 500px;
   width: 100%;
   min-width: 320px;
-  padding: 0 20px;
+  margin: 0 auto;
+  padding: 40px 20px 0 20px;
 `;
 
 const Header = styled.div`
