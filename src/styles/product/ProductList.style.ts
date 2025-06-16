@@ -94,6 +94,9 @@ export const ListItemContent = styled.div`
       }
     }
     &.price {
+      height: 30px;
+      display: flex;
+      align-items: center;
       font-size: 32px;
       font-weight: 300;
       & > span {

@@ -36,7 +36,9 @@ const ProductList = () => {
                 <div className="price">
                   {typeof product.price === 'number' ? (
                     <>
-                      {product.price}
+                      {product.price.toLocaleString('ko-KR', {
+                        maximumFractionDigits: 4,
+                      })}
                       <span> 원 (부가세 포함)</span>
                     </>
                   ) : (
