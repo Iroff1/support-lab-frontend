@@ -100,6 +100,9 @@ export const ListItemContent = styled.div`
       font-size: 32px;
       font-weight: 300;
       & > span {
+        position: relative;
+        top: 5px;
+        left: 4px;
         ${css(translateFontSize('R_14'))};
         color: ${palette.black.B300};
       }
