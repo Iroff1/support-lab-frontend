@@ -1,14 +1,17 @@
 import TermsOfUseBlock from '@components/terms/TermsOfPersonalInfo';
 import { TTypeOfTerms } from '@consts/termsForPage';
-import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const TermsOfUsePage: React.FC = () => {
   const { typeOfTerms } = useParams<{ typeOfTerms: TTypeOfTerms }>();
-  if (!typeOfTerms) return;
-
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!typeOfTerms) navigate('/');
+  }, []);
   return (
     <>
-      <TermsOfUseBlock type={typeOfTerms} />
+      <TermsOfUseBlock type={typeOfTerms ? typeOfTerms : 'personalInfo'} />
     </>
   );
 };
