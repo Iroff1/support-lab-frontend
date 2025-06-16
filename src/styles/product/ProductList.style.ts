@@ -4,6 +4,8 @@ import styled, { css } from 'styled-components';
 
 export const Wrapper = styled.div`
   width: 100%;
+  min-width: 320px;
+  padding: 0 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,7 +27,7 @@ export const ProductListBlock = styled.div`
   }
 `;
 
-export const ListBox = styled.ul`
+export const ListItemWrapper = styled.ul`
   margin-top: 40px;
   width: 100%;
   display: flex;
@@ -33,10 +35,10 @@ export const ListBox = styled.ul`
   flex-wrap: wrap;
   gap: 40px;
 `;
+
 export const ListItem = styled.li`
   max-width: 444px;
   width: 100%;
-  min-width: 320px;
   min-height: 612px;
   margin: 0 auto;
   /* margin-bottom: 40px; */
@@ -49,8 +51,8 @@ export const ListItem = styled.li`
   overflow: hidden;
   position: relative;
   padding-top: 82px;
-  padding-left: 32px;
-  padding-right: 32px;
+  padding-left: 31px;
+  padding-right: 31px;
   padding-bottom: 34px;
 
   & > .cardTag {
@@ -102,6 +104,40 @@ export const ListItemContent = styled.div`
     &.line {
       height: 1px;
       background-color: ${palette.black.B50};
+    }
+    &.contents {
+      width: 100%;
+      color: ${palette.black.B400};
+      & > .contentItem {
+        width: 100%;
+        display: flex;
+        /* align-items: center; */
+        position: relative;
+        gap: 4px;
+        & > svg {
+          width: 24px;
+          height: 24px;
+          aspect-ratio: 1/1;
+        }
+        & > .openEvent {
+          min-width: 76px;
+          max-height: 24px;
+          border-radius: 20px;
+          background-color: ${palette.main.B50};
+          color: ${palette.main.B200};
+          ${css(translateFontSize('SB_13'))};
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 2px 8px;
+        }
+      }
+    }
+    &.procedure {
+      color: ${palette.black.B400};
+      & > h4 {
+        ${css(translateFontSize('SB_17'))}
+      }
     }
   }
 `;
