@@ -21,7 +21,7 @@ const CoverBox = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
-  background-color: #33333320;
+  background-color: #00000090;
 `;
 
 const CoverBoxContent = styled.div`

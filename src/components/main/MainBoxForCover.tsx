@@ -21,7 +21,7 @@ const MainCoverBoxBlock = styled.div`
     gap: 20px;
 
     color: ${palette.black.white};
-    background-color: #00000050;
+    background-color: #00000090;
 
     & > .header {
       display: flex;
