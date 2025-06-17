@@ -90,10 +90,18 @@ const Footer = () => {
             주소: 경기도 김포시 양촌읍 양곡로 495, 6층 | 고객센터:
             0507-1402-3531 | 이메일: official@iroff.kr
             <br />
-            <Link to={'/terms/businessPlan'}>이용약관</Link> |{' '}
-            <Link to={'/terms/personalInfo'}>개인정보 수집 및 이용</Link> |{' '}
-            <Link to={'/terms/marketing'}>이벤트·혜택 정보 수신</Link> |{' '}
-            <Link to={''}>고객센터</Link>
+            <Link to={'/terms/businessPlan'} target="_blank">
+              이용약관
+            </Link>{' '}
+            |{' '}
+            <Link to={'/terms/personalInfo'} target="_blank">
+              개인정보 수집 및 이용
+            </Link>{' '}
+            |{' '}
+            <Link to={'/terms/marketing'} target="_blank">
+              이벤트·혜택 정보 수신
+            </Link>{' '}
+            | <Link to={'/customerService/inquire'}>고객센터</Link>
           </p>
         </CompanyInfoBlock>
 

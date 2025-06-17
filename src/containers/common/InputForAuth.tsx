@@ -81,7 +81,7 @@ const InputForAuth: React.FC<IInputForAuth> = ({
           다시 인증해 주세요.
         </span>
       ) : (
-        '휴대폰번호를 제대로 입력해 주세요.'
+        '휴대전화번호를 제대로 입력해 주세요.'
       ),
     );
   }, [checkList, isPhoneReady, timer]);
@@ -102,7 +102,7 @@ const InputForAuth: React.FC<IInputForAuth> = ({
         useFor={$theme === 'modify' ? 'modify' : 'auth'}
         name="phone"
         type="tel"
-        placeholder="휴대폰번호"
+        placeholder="휴대전화번호"
         value={translatePhoneNumber(phone)}
         disabled={checkList.phone || timer >= 0}
         onChange={(e) => {

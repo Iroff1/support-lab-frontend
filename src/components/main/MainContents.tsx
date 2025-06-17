@@ -88,7 +88,7 @@ const MainContents = () => {
         </ContentsWrapper1>
 
         <ContentsWrapper2>
-          <h2>지원사업연구소가 자신 있는 이유입니다.</h2>
+          <h2>플랜킷이 자신 있는 이유입니다.</h2>
           <MainBoxForMerit />
           <MainBoxForRecommand />
           <MainBoxForCurriculum />

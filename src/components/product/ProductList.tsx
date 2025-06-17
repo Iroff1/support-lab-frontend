@@ -58,7 +58,7 @@ const ProductList = () => {
                   {product.event ? (
                     <div className="contentItem">
                       <div className="openEvent">오픈 이벤트</div>
-                      <CheckIcon />
+                      {/* <CheckIcon /> */}
                       <p>{product.event}</p>
                     </div>
                   ) : null}

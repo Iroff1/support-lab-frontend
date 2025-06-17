@@ -4,7 +4,6 @@ import useCheckList from '@hooks/useCheckList';
 import { INewPassword } from '@models/auth.model';
 import checkValidation from '@utils/checkValidation';
 import handleChangeField from '@utils/handleChangeField';
-import translateAxiosError from '@utils/translateAxiosError';
 import { StatusCodes } from 'http-status-codes';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';

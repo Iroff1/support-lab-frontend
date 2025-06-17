@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const AuthHeaderLogoBlock = styled.div`
-  height: 300px;
+  height: 240px;
   aspect-ratio: 1/1;
   background: url(${LOGO_ENG.col}) center/cover no-repeat;
   cursor: pointer;

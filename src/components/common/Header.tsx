@@ -35,7 +35,7 @@ const Header: React.FC<IHeaderProps> = ({
 
         <HeaderNavBox>
           <HeaderNavBoxItem>
-            <Link to={'/documents'}>사업 계획서 작성</Link>
+            <Link to={'/documents'}>사업계획서 작성</Link>
           </HeaderNavBoxItem>
           <HeaderNavBoxItem>
             <Link to={'/products'}>요금제</Link>

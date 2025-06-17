@@ -4,6 +4,7 @@ import translateFontSize from '@utils/translateFontSize';
 import styled, { css } from 'styled-components';
 
 const AuthShowEmailBlock = styled.div`
+  padding-top: 80px;
   min-width: 500px;
   display: flex;
   flex-direction: column;

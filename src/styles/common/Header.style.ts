@@ -5,7 +5,7 @@ import Responsive from './Responsive.style';
 import { LOGO_ENG } from '@assets/images/logo';
 
 export const HeaderBlock = styled.div`
-  width: 100%;
+  width: 100vw;
   max-height: 64px;
   height: 64px;
   background-color: ${palette.black.white};
@@ -27,7 +27,7 @@ export const HeaderResponsiveBox = styled(Responsive)`
 `;
 
 export const HeaderLogoBox = styled.div`
-  min-width: 150px;
+  min-width: 180px;
   height: 100%;
   display: flex;
   justify-content: space-between;

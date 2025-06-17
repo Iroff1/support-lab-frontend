@@ -42,7 +42,7 @@ const DocumentPersonalInfo = () => {
         </p>
         <InputText<IDocumentPersonalInfo>
           name="companyName"
-          placeholder="지원사업연구소"
+          placeholder="플랜킷"
         />
       </DocumentInputBlock>
       <DocumentInputBlock>
