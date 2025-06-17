@@ -10,11 +10,7 @@ import SubmitButton from '@components/common/SubmitButton';
 import Caution from '@components/common/Caution';
 import AuthHeaderLogo from './AuthHeaderLogo';
 import { ILogin } from '@models/auth.model';
-import {
-  TChangeEventHandler,
-  TFormEventHandler,
-  TMouseEventHandler,
-} from '@models/input.model';
+import { TChangeEventHandler, TMouseEventHandler } from '@models/input.model';
 import { SerializedError } from '@reduxjs/toolkit';
 
 const LoginBody = styled.div`
@@ -49,6 +45,7 @@ const LoginFooter = styled.div`
     color: ${palette.black.B80};
     text-align: center;
     transition: 0.2s ease color;
+    word-break: keep-all;
     &:hover {
       color: ${palette.black.black};
     }
