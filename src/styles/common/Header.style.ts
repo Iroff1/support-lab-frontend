@@ -2,8 +2,7 @@ import palette from '@assets/colors';
 import translateFontSize from '@utils/translateFontSize';
 import styled, { css } from 'styled-components';
 import Responsive from './Responsive.style';
-
-const LOGO_HEADER = require('@assets/images/common/header_logo_pc.png');
+import { LOGO_ENG } from '@assets/images/logo';
 
 export const HeaderBlock = styled.div`
   width: 100%;
@@ -33,7 +32,7 @@ export const HeaderLogoBox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: url(${LOGO_HEADER}) center/cover no-repeat;
+  background: url(${LOGO_ENG.row}) center/cover no-repeat;
   cursor: pointer;
 `;
 
