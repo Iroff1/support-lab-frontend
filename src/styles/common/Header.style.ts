@@ -27,7 +27,7 @@ export const HeaderResponsiveBox = styled(Responsive)`
 `;
 
 export const HeaderLogoBox = styled.div`
-  min-width: 128px;
+  min-width: 150px;
   height: 100%;
   display: flex;
   justify-content: space-between;
