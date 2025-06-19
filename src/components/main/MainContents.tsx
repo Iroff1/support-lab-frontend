@@ -74,28 +74,26 @@ const ContentsWrapper2 = styled.div`
 const MainContents = () => {
   return (
     <>
-      <MainContentsBlock>
-        <MainBoxForCover />
+      <MainBoxForCover />
 
-        <ContentsWrapper1>
-          {/* max width 1032px */}
-          <div className="max1032">
-            <MainBoxForBriefing />
-            <MainBoxForAnalyze />
-          </div>
-          {/* max width 1176px */}
-          <MainBoxForExample />
-        </ContentsWrapper1>
+      <ContentsWrapper1>
+        {/* max width 1032px */}
+        <div className="max1032">
+          <MainBoxForBriefing />
+          <MainBoxForAnalyze />
+        </div>
+        {/* max width 1176px */}
+        <MainBoxForExample />
+      </ContentsWrapper1>
 
-        <ContentsWrapper2>
-          <h2>플랜킷이 자신 있는 이유입니다.</h2>
-          <MainBoxForMerit />
-          <MainBoxForRecommand />
-          <MainBoxForCurriculum />
-          <MainBoxForSolution />
-          <MainBoxForLastCover />
-        </ContentsWrapper2>
-      </MainContentsBlock>
+      <ContentsWrapper2>
+        <h2>플랜킷이 자신 있는 이유입니다.</h2>
+        <MainBoxForMerit />
+        <MainBoxForRecommand />
+        <MainBoxForCurriculum />
+        <MainBoxForSolution />
+        <MainBoxForLastCover />
+      </ContentsWrapper2>
 
       <Floating />
     </>

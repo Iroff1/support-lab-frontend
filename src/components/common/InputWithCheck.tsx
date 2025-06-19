@@ -1,5 +1,5 @@
 import palette from '@assets/colors/index';
-import { ICON_RIGHT_ARROW } from '@assets/images/common';
+import ICON_RIGHT_ARROW from '@assets/images/common/icon_arrow_right.svg';
 import { IInputWithCheck } from '@models/input.model';
 import { CheckBox, IconChecked } from '@styles/common/CheckBox.style';
 import { useState } from 'react';
