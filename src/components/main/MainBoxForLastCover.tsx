@@ -33,10 +33,14 @@ const CoverBoxContent = styled.div`
 
   h2 {
     ${css(translateFontSize('B_48'))}
-    text-wrap: wrap;
+    white-space: wrap;
   }
   p {
     ${css(translateFontSize('R_22'))}
+  }
+  h2,
+  p {
+    word-break: keep-all;
   }
 `;
 

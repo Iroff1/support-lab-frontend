@@ -42,6 +42,11 @@ const MainCoverBoxBlock = styled.div`
       text-align: center;
       ${css(translateFontSize('R_22'))}
     }
+
+    h2,
+    p {
+      word-break: keep-all;
+    }
   }
 `;
 
