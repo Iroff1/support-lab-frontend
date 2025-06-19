@@ -19,6 +19,7 @@ app.get('*', function (_, res) {
 });
 
 /** Server Start */
-app.listen(process.env.REACT_APP_PORT || 8001, () => {
+const PORT = process.env.REACT_APP_PORT || 8001;
+app.listen(PORT, () => {
   console.log(`server started on PORT ${PORT}`);
 });
