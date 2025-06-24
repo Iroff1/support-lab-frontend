@@ -55,7 +55,7 @@ const SocialDirectBlock = styled.div`
   display: flex;
   gap: 20px;
 
-  & > div {
+  & > a {
     width: 32px;
     height: 32px;
     padding: 2px;
@@ -84,8 +84,14 @@ const Footer = () => {
       <FooterResponsiveBlock>
         <CompanyInfoBlock>
           <p>
-            상호: 지원사업연구소 | 사업자등록번호: 680-09-02976 | 대표: 김민상 |
-            통신판매번호: 제 2025-경기김포-33호
+            상호: 지원사업연구소 | 사업자등록번호:{' '}
+            <Link
+              to={'https://www.ftc.go.kr/bizCommPop.do?wrkr_no=6800902976 '}
+              target="_blank"
+            >
+              680-09-02976
+            </Link>{' '}
+            | 대표: 김민상 | 통신판매번호: 제 2025-경기김포-33호
             <br />
             주소: 경기도 김포시 양촌읍 양곡로 495, 6층 | 고객센터:
             0507-1402-3531 | 이메일: official@iroff.kr
@@ -110,15 +116,15 @@ const Footer = () => {
         </CopyrightBlock>
 
         <SocialDirectBlock>
-          <div>
+          <a href="https://blog.naver.com/s_p_research" target="_blank">
             <img src={ICON_BLOG} alt="Blog" />
-          </div>
-          <div>
+          </a>
+          <a href="https://www.instagram.com/plankit_official" target="_blank">
             <img src={ICON_INSTA} alt="Insta" />
-          </div>
-          <div>
+          </a>
+          <a href="https://www.youtube.com/@plankit_official" target="_blank">
             <img src={ICON_YOUTUBE} alt="Youtube" />
-          </div>
+          </a>
         </SocialDirectBlock>
       </FooterResponsiveBlock>
     </FooterBlock>

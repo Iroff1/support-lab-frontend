@@ -1,4 +1,5 @@
 import palette from '@assets/colors/index';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const [FLOATING_CALL, FLOATING_KAKAO, FLOATING_UPPER] = [
@@ -36,6 +37,7 @@ const ActionButton = styled.div`
 `;
 
 const Floating = () => {
+  const navigate = useNavigate();
   const handleScrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -46,16 +48,21 @@ const Floating = () => {
   return (
     <FloatingBlock>
       <ActionButton style={{ backgroundColor: palette.system.green }}>
-        <img src={FLOATING_CALL} alt="" />
+        <img src={FLOATING_CALL} alt="phoneCall" />
       </ActionButton>
-      <ActionButton style={{ backgroundColor: '#FAE300' }}>
-        <img src={FLOATING_KAKAO} alt="" />
+      <ActionButton
+        style={{ backgroundColor: '#FAE300' }}
+        onClick={() => {
+          window.open('https://pf.kakao.com/_BqZCn', '_blank');
+        }}
+      >
+        <img src={FLOATING_KAKAO} alt="kakaoTalk" />
       </ActionButton>
       <ActionButton
         style={{ backgroundColor: palette.black.white }}
         onClick={handleScrollToTop}
       >
-        <img src={FLOATING_UPPER} alt="" />
+        <img src={FLOATING_UPPER} alt="upperButton" />
       </ActionButton>
     </FloatingBlock>
   );
