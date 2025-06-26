@@ -40,7 +40,7 @@ const ContentsWrapper1 = styled.div`
     flex-direction: column;
     gap: 100px;
     margin: 0 auto;
-    margin-bottom: 179.53px;
+    margin-bottom: 100px;
   }
 `;
 

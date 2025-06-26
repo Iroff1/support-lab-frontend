@@ -2,8 +2,7 @@ import styled, { css } from 'styled-components';
 import translateFontSize from '@utils/translateFontSize';
 import palette from '@assets/colors';
 import ConsultButton from '@components/common/ConsultButton';
-
-const IMAGE_LAST_COVER = require('@assets/images/main/image_cover_last.png');
+import IMAGE_LAST_COVER from '@assets/images/main/image_cover_last.png';
 
 const MainBoxForLastCoverBlock = styled.div`
   width: 100%;
@@ -21,7 +20,7 @@ const CoverBox = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
-  background-color: #00000090;
+  /* background-color: #00000090; */
 `;
 
 const CoverBoxContent = styled.div`

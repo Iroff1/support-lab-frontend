@@ -2,8 +2,7 @@ import palette from '@assets/colors/index';
 import ConsultButton from '@components/common/ConsultButton';
 import translateFontSize from '@utils/translateFontSize';
 import styled, { css } from 'styled-components';
-
-const IMAGE_COVER_MAIN = require('@assets/images/main/image_cover_main.jpg');
+import IMAGE_COVER_MAIN from '@assets/images/main/image_cover_main.jpg';
 
 const MainCoverBoxBlock = styled.div`
   width: 100%;
@@ -21,7 +20,7 @@ const MainCoverBoxBlock = styled.div`
     gap: 20px;
 
     color: ${palette.black.white};
-    background-color: #00000090;
+    /* background-color: #00000090; */
 
     & > .header {
       display: flex;

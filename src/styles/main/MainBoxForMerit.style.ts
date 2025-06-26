@@ -61,7 +61,7 @@ export const BoxUnified = styled.div`
 
 export const BoxSeperated = styled.div`
   width: 50%;
-  height: 511px;
+  /* height: 511px; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -88,9 +88,11 @@ export const BoxPost = styled.div`
   }
 
   @media (max-width: 768px) {
-    margin-top: 20px;
+    padding: 20px 20px;
+
     h2,
     p {
+      word-break: keep-all;
       display: flex;
       justify-content: center;
     }
@@ -120,7 +122,8 @@ export const BoxImage = styled.div`
   }
 
   &.wrap {
-    height: 100%;
+    height: 511px;
+    /* height: 100%; */
     justify-content: start;
     overflow: hidden;
     padding-top: 0px;

@@ -1,6 +1,6 @@
 import * as S from '@styles/main/MainBoxForMerit.style';
 import IMAGE_MERIT_1 from '@assets/images/main/image_merit_1.png';
-import IMAGE_MERIT_2 from '@assets/images/main/image_merit_2.jpg';
+import IMAGE_MERIT_2 from '@assets/images/main/image_merit_2.png';
 import IMAGE_MERIT_3 from '@assets/images/main/image_merit_3.gif';
 import IMAGE_MERIT_4 from '@assets/images/main/image_merit_4.jpg';
 
