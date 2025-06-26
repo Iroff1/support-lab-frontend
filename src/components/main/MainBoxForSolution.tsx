@@ -120,7 +120,7 @@ const MainBoxForSolution = () => {
             </ul>
           </SolutionItemContent>
 
-          <SolutionButton>자세히 보기</SolutionButton>
+          {/* <SolutionButton>자세히 보기</SolutionButton> */}
         </SolutionItem>
         <SolutionItem>
           <SolutionItemContent>
@@ -134,7 +134,7 @@ const MainBoxForSolution = () => {
               </li>
             </ul>
           </SolutionItemContent>
-          <SolutionButton>자세히 보기</SolutionButton>
+          {/* <SolutionButton>자세히 보기</SolutionButton> */}
         </SolutionItem>
         <SolutionItem>
           <SolutionItemContent>
@@ -145,7 +145,7 @@ const MainBoxForSolution = () => {
               <li>심사위원 입맛에 딱 맞는 PPT 자료 제작 가능</li>
             </ul>
           </SolutionItemContent>
-          <SolutionButton>자세히 보기</SolutionButton>
+          {/* <SolutionButton>자세히 보기</SolutionButton> */}
         </SolutionItem>
       </SolutionBoxBody>
     </MainBoxForSolutionBlock>

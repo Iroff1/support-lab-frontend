@@ -35,45 +35,45 @@ const App = () => {
       </Route>
 
       {/* Auth Page */}
-      <Route path="/auth" element={<AuthLayout />}>
+      {/* <Route path="/auth" element={<AuthLayout />}>
         <Route index element={<AuthLoginPage />} />
         <Route path="termsOfUse" element={<AuthTermsOfUsePage />} />
         <Route path="register" element={<AuthRegisterPage />} />
         <Route path="find/email" element={<AuthFindEmailPage />} />
         <Route path="find/password" element={<AuthFindPasswordPage />} />
-      </Route>
+      </Route> */}
 
       {/* Customer Service Page */}
-      <Route path="/customerService" element={<HeaderOnlyLayout />}>
+      {/* <Route path="/customerService" element={<HeaderOnlyLayout />}>
         <Route path="supportBusinesses" element={<CSInfoListPage />} />
         <Route path="questions" element={<CSQuestionsPage />} />
         <Route path="inquire" element={<CSInquirementPage />} />
-      </Route>
+      </Route> */}
 
       {/* User Service Page */}
-      <Route path="/user" element={<HeaderOnlyLayout />}>
+      {/* <Route path="/user" element={<HeaderOnlyLayout />}>
         <Route path="modifyInfo" element={<UserModifyInfoPage />} />
-      </Route>
+      </Route> */}
 
       {/* Document Service Page */}
-      <Route path="/documents" element={<DocLayout />}>
+      {/* <Route path="/documents" element={<DocLayout />}>
         <Route index element={<DocumentInitPage />} />
         <Route path=":id" element={<DocumentInitPage />} />
         <Route path="required/" element={<DocumentReqPage />} />
         <Route path="required/:id" element={<DocumentReqPage />} />
         <Route path="optional/" element={<DocumentOptPage />} />
         <Route path="optional/:id" element={<DocumentOptPage />} />
-      </Route>
+      </Route> */}
 
       {/* Product Service Page */}
-      <Route path="/products" element={<HeaderOnlyLayout />}>
+      {/* <Route path="/products" element={<HeaderOnlyLayout />}>
         <Route index element={<ProductListPage />} />
-      </Route>
+      </Route> */}
 
       {/* Payment Service Page */}
-      <Route path="/payment" element={<HeaderOnlyLayout />}>
+      {/* <Route path="/payment" element={<HeaderOnlyLayout />}>
         <Route index element={<PaymentMainBox />} />
-      </Route>
+      </Route> */}
 
       {/* Not Found Page */}
       <Route path="*" element={<NotFound />} />

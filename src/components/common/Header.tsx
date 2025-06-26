@@ -34,7 +34,7 @@ const Header: React.FC<IHeaderProps> = ({
         <HeaderLogoBox onClick={handleGoHome} />
 
         <HeaderNavBox>
-          <HeaderNavBoxItem>
+          {/* <HeaderNavBoxItem>
             <Link to={'/documents'}>사업계획서 작성</Link>
           </HeaderNavBoxItem>
           <HeaderNavBoxItem>
@@ -58,11 +58,11 @@ const Header: React.FC<IHeaderProps> = ({
 
           <HeaderNavBoxItem>
             <ConsultButton>무료 상담</ConsultButton>
-          </HeaderNavBoxItem>
+          </HeaderNavBoxItem> */}
         </HeaderNavBox>
 
         <HeaderAuthBox>
-          <HeaderAuthBoxButton onClick={handleLogin}>
+          {/* <HeaderAuthBoxButton onClick={handleLogin}>
             {auth ? (
               <>
                 <strong>{auth.name}</strong> 님
@@ -90,7 +90,7 @@ const Header: React.FC<IHeaderProps> = ({
                 </li>
               </ul>
             </HeaderDropDown>
-          ) : null}
+          ) : null} */}
         </HeaderAuthBox>
       </HeaderResponsiveBox>
     </HeaderBlock>

@@ -11,12 +11,6 @@ import MainBoxForRecommand from './MainBoxForRecommand';
 import MainBoxForLastCover from './MainBoxForLastCover';
 import MainBoxForSolution from './MainBoxForSolution';
 import palette from '@assets/colors';
-import Responsive from '@styles/common/Responsive.style';
-
-const MainContentsBlock = styled(Responsive)`
-  width: 100%;
-  padding: 0;
-`;
 
 /** 최대 너비가 지정된 컨텐츠를 감싸는 블럭 */
 const ContentsWrapper1 = styled.div`
