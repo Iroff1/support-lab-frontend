@@ -1,6 +1,7 @@
 import AuthTermsOfUse from '@components/auth/AuthTermsOfUse';
 import useInit from '@hooks/useInit';
 import { ITerms } from '@models/auth.model';
+import { TMouseEventHandler } from '@models/input.model';
 import { useAppDispatch, useAppSelector } from '@store/index';
 import { termsActions } from '@store/terms';
 import React, { useEffect, useState } from 'react';
@@ -14,13 +15,20 @@ const AuthTermsOfUseContainer = () => {
   const navigate = useNavigate();
 
   /** 한개 항목에 대해서 토글하는 핸들러 함수 */
-  const handleToggleOne = (name: keyof ITerms) => {
+  const handleToggleOne: TMouseEventHandler<HTMLInputElement> = (e) => {
+    const name = e.currentTarget.name as keyof ITerms;
     dispatch(termsActions.toggleOne(name));
   };
 
   /** 전체 항목에 대해서 토글하는 핸들러 함수 */
   const handleToggleAll = () => {
     dispatch(termsActions.toggleAll(!toggleAll));
+  };
+
+  /** 회원가입 입력 란으로 넘기는 핸들러 함수 */
+  const handleSubmit = () => {
+    if (terms.termsOfServiceAgreed && terms.privacyPolicyAgreed)
+      navigate('../register');
   };
 
   useEffect(() => {
@@ -41,12 +49,10 @@ const AuthTermsOfUseContainer = () => {
   return (
     <AuthTermsOfUse
       toggleAll={toggleAll}
-      termsOfUses={terms}
+      termsToRegister={terms}
       handleToggleOne={handleToggleOne}
       handleToggleAll={handleToggleAll}
-      handleSubmit={() => {
-        navigate('../register');
-      }}
+      handleSubmit={handleSubmit}
     />
   );
 };

@@ -1,5 +1,22 @@
-export const termsOfUses = {
-  termsOfUse: `제1조 목적
+import { ITerms } from '@models/auth.model';
+
+interface ITermToRegister {
+  header: string;
+  isRequired: boolean;
+  path: string;
+  contents: string;
+}
+
+type ITermsToRegister = {
+  [key in keyof ITerms]: ITermToRegister;
+};
+
+export const termsOfUses: ITermsToRegister = {
+  termsOfServiceAgreed: {
+    header: '이용약관',
+    isRequired: true,
+    path: '../terms/businessPlan',
+    contents: `제1조 목적
 본 이용약관은 “지원사업연구소”(이하 "회사")가 제공하는 각종 온라인 서비스(이하 "서비스")의 이용조건, 권리, 의무 및 책임사항 등을 규정함을 목적으로 합니다.
 ※ 본 약관은 회원가입 시 반드시 확인해야 하며, 회원 가입 첫 화면에 고지됩니다.
 
@@ -69,8 +86,13 @@ export const termsOfUses = {
 
 부칙
 본 약관은 2024년 12월 1일부터 시행합니다.`,
+  },
 
-  personalInfo: `제1조 목적
+  privacyPolicyAgreed: {
+    header: '개인 정보 수집 및 이용',
+    isRequired: true,
+    path: '../terms/personalInfo',
+    contents: `제1조 목적
 지원사업연구소(이하 "회사")는 「개인정보 보호법」 및 관련 법령에 따라 회원의 개인정보를 안전하게 보호하며, 아래와 같은 목적과 범위 내에서 수집·이용합니다. 본 동의서는 회사가 회원에게 제공하는 서비스를 위해 필요한 개인정보의 수집, 이용, 보관, 활용 범위를 안내하는 것입니다.
 
 제2조 수집하는 개인정보 항목
@@ -105,8 +127,12 @@ export const termsOfUses = {
 
 제5조 동의 거부 권리 및 불이익
 회원은 개인정보 수집 및 이용에 대한 동의를 거부할 수 있습니다. 단, 필수 항목에 대한 동의를 거부할 경우 회원가입 및 서비스 이용이 제한될 수 있습니다.`,
-
-  marketing: `제1조 목적
+  },
+  marketingAgreed: {
+    header: '이벤트・혜택 정보 수신',
+    isRequired: false,
+    path: '../terms/marketing',
+    contents: `제1조 목적
 지원사업연구소(이하 "회사")는 할인 혜택, 프로모션, 신규 서비스 출시 등 유익한 정보 제공을 위해 아래와 같이 이벤트 및 마케팅 정보를 수집·이용합니다.
 
 제2조 수집 항목
@@ -124,4 +150,5 @@ export const termsOfUses = {
 
 제5조 동의 거부 권리 및 불이익
 이벤트·마케팅 정보 수신 동의는 선택 사항입니다. 동의하지 않아도 회원가입 및 기본 서비스 이용에는 아무런 제한이 없습니다.`,
+  },
 };

@@ -5,7 +5,6 @@ import AuthHeaderLogo from './AuthHeaderLogo';
 import AuthTitleBox from './AuthTitleBox';
 import { ITerms } from '@models/auth.model';
 import SubmitButton from '@components/common/SubmitButton';
-import TermsOfUse from '@components/terms/TermsOfPersonalInfo';
 
 const AuthTermsOfUseBlock = styled.div`
   width: 100%;
@@ -24,13 +23,19 @@ const AuthTermsOfUseBlock = styled.div`
 
 interface IAuthTermsOfUse {
   toggleAll: boolean;
-  termsOfUses: ITerms;
-  handleToggleOne: (name: keyof ITerms) => void;
+  termsToRegister: ITerms;
+  handleToggleOne: (e: React.MouseEvent<HTMLInputElement>) => void;
   handleToggleAll: () => void;
   handleSubmit: () => void;
 }
 
-const AuthTermsOfUse: React.FC<IAuthTermsOfUse> = (props) => {
+const AuthTermsOfUse: React.FC<IAuthTermsOfUse> = ({
+  toggleAll,
+  termsToRegister,
+  handleSubmit,
+  handleToggleAll,
+  handleToggleOne,
+}) => {
   return (
     <>
       <AuthHeaderLogo />
@@ -41,66 +46,32 @@ const AuthTermsOfUse: React.FC<IAuthTermsOfUse> = (props) => {
           name="checkAll"
           header="전체 동의"
           contents="이벤트・혜택 정보 수신 (선택) 동의를 포함합니다."
-          isChecked={props.toggleAll}
-          onClick={props.handleToggleAll}
+          isChecked={toggleAll}
+          onClick={handleToggleAll}
         />
 
-        {/* [필수] 이용약관 */}
-        <InputForTerms
-          name="termsOfServiceAgreed"
-          header="이용약관"
-          isRequired="필수"
-          isWrapped={true}
-          contents={termsOfUses.termsOfUse}
-          isChecked={props.termsOfUses.termsOfServiceAgreed}
-          onClick={(e) => {
-            props.handleToggleOne(e.currentTarget.name as keyof ITerms);
-          }}
-          popup={<TermsOfUse type="businessPlan" isPopup={true} />}
-        />
-
-        {/* [필수] 개인정보 수집 및 이용 */}
-        <InputForTerms
-          name="privacyPolicyAgreed"
-          header="개인 정보 수집 및 이용"
-          isRequired="필수"
-          isWrapped={true}
-          contents={termsOfUses.personalInfo}
-          isChecked={props.termsOfUses.privacyPolicyAgreed}
-          onClick={(e) => {
-            props.handleToggleOne(e.currentTarget.name as keyof ITerms);
-          }}
-          popup={<TermsOfUse type="personalInfo" isPopup={true} />}
-        />
-
-        {/* [선택] 이벤트・혜택 정보 수신 */}
-        <InputForTerms
-          name="marketingAgreed"
-          header="이벤트・혜택 정보 수신"
-          isRequired="선택"
-          isWrapped={true}
-          contents={termsOfUses.marketing}
-          isChecked={props.termsOfUses.marketingAgreed}
-          onClick={(e) => {
-            props.handleToggleOne(e.currentTarget.name as keyof ITerms);
-          }}
-          popup={<TermsOfUse type="marketing" isPopup={true} />}
-        />
+        {Object.keys(termsOfUses).map((key, index) => (
+          <InputForTerms
+            key={index}
+            name={key as keyof ITerms}
+            header={termsOfUses[key as keyof ITerms].header}
+            isRequired={
+              termsOfUses[key as keyof ITerms].isRequired ? '필수' : '선택'
+            }
+            isWrapped={true}
+            contents={termsOfUses[key as keyof ITerms].contents}
+            isChecked={termsToRegister[key as keyof ITerms]}
+            onClick={handleToggleOne}
+            path={termsOfUses[key as keyof ITerms].path}
+          />
+        ))}
       </AuthTermsOfUseBlock>
       <SubmitButton
         disabled={
-          !(
-            props.termsOfUses.termsOfServiceAgreed &&
-            props.termsOfUses.privacyPolicyAgreed
-          )
+          !termsToRegister.termsOfServiceAgreed ||
+          !termsToRegister.privacyPolicyAgreed
         }
-        onClick={(e) => {
-          if (
-            props.termsOfUses.termsOfServiceAgreed &&
-            props.termsOfUses.privacyPolicyAgreed
-          )
-            props.handleSubmit();
-        }}
+        onClick={handleSubmit}
       >
         확인
       </SubmitButton>

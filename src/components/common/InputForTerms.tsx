@@ -169,7 +169,7 @@ interface IInputForterms {
   onClick?: TMouseEventHandler<HTMLInputElement>;
   header: string;
   contents: string;
-  popup?: React.ReactNode | string;
+  path?: string;
 }
 
 const InputForTerms: React.FC<IInputForterms> = ({
@@ -180,18 +180,17 @@ const InputForTerms: React.FC<IInputForterms> = ({
   contents,
   isWrapped,
   isChecked = false,
-  popup,
+  path = '',
 }) => {
   const { scrollState, handleScrollRef } = useScroll();
-  const [toggle, setToggle] = useState(false);
   const scrollBarRef = useRef<HTMLDivElement | null>(null);
   const paragraphRef = useRef<HTMLParagraphElement | null>(null);
 
   const scrollEvent = () => {
     handleScrollRef(paragraphRef, scrollBarRef.current!.clientHeight, 26);
   };
-  const handleToggle = () => {
-    setToggle((prev) => !prev);
+  const handleNewTab = () => {
+    window.open(path, '_blank');
   };
 
   useEffect(() => {
@@ -232,7 +231,7 @@ const InputForTerms: React.FC<IInputForterms> = ({
             </h4>
           </CheckBoxWrapper>
           {!isRequired ? null : (
-            <Direct className="direct" onClick={handleToggle}>
+            <Direct className="direct" onClick={handleNewTab}>
               전체
               <img src={ICON_ARROW_RIGHT} alt="→" />
             </Direct>
@@ -249,7 +248,6 @@ const InputForTerms: React.FC<IInputForterms> = ({
           )}
         </ContentsOfTerms>
       </InputForTermsBlock>
-      {toggle && <PopupWrapper onClick={handleToggle}>{popup}</PopupWrapper>}
     </>
   );
 };
