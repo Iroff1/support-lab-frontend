@@ -1,5 +1,4 @@
 import palette from '@assets/colors/index';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const [FLOATING_CALL, FLOATING_KAKAO, FLOATING_UPPER] = [
@@ -37,7 +36,6 @@ const ActionButton = styled.div`
 `;
 
 const Floating = () => {
-  const navigate = useNavigate();
   const handleScrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -45,9 +43,18 @@ const Floating = () => {
     });
   };
 
+  const handleCall = () => {
+    const callAnchor = document.createElement('a');
+    callAnchor.setAttribute('href', 'tel:0507-1402-3531');
+    callAnchor.click();
+  };
+
   return (
     <FloatingBlock>
-      <ActionButton style={{ backgroundColor: palette.system.green }}>
+      <ActionButton
+        style={{ backgroundColor: palette.system.green }}
+        onClick={handleCall}
+      >
         <img src={FLOATING_CALL} alt="phoneCall" />
       </ActionButton>
       <ActionButton
