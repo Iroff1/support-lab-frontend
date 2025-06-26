@@ -6,7 +6,6 @@ const CHECK_ICON = require('@assets/images/common/icon_check.png');
 const MainBoxForRecommendBlock = styled.div`
   width: 100%;
   max-width: 453px;
-  height: 285px;
   gap: 20px;
   display: flex;
   flex-direction: column;
