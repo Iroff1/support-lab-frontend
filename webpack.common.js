@@ -3,6 +3,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const SiteMapPlugin = require('sitemap-webpack-plugin').default;
+const dotenv = require('dotenv');
+dotenv.config();
 
 const paths = [
   { path: '/', lastmod: new Date().toISOString() },
@@ -71,6 +73,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './public/index.html',
       favicon: './public/favicon.png',
+      meta: {
+        'naver-site-veritication':
+          process.env.REACT_APP_NAVER_SITE_VERIFICATION,
+      },
     }),
     new Dotenv(),
     new SiteMapPlugin({ base: 'https://www.plankit.kr', paths }),

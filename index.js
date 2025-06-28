@@ -22,7 +22,7 @@ app.use(express.static(path.join(__dirname, 'dist')));
 app.get('/', function (_, res) {
   res.sendFile(__dirname + '/dist/index.html');
 });
-app.get('/site-map.xml', function (_, res) {
+app.get('/sitemap.xml', function (_, res) {
   const urls = STATIC_ROUTES.map(
     (route) => `
     <url>
