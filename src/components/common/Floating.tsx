@@ -1,4 +1,5 @@
 import palette from '@assets/colors/index';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const [FLOATING_CALL, FLOATING_KAKAO, FLOATING_UPPER] = [
@@ -17,12 +18,13 @@ const FloatingBlock = styled.div`
   gap: 20px;
 `;
 
-const ActionButton = styled.div`
+const ActionButton = styled.div<{ $backgroundColor: string }>`
   width: 60px;
   height: 60px;
   padding: 10px;
   border-radius: 24px;
   box-shadow: 0px 4px 10px 0px #00000040;
+  background-color: ${({ $backgroundColor }) => $backgroundColor};
   cursor: pointer;
   img {
     width: 100%;
@@ -49,16 +51,27 @@ const Floating = () => {
     callAnchor.click();
   };
 
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 425);
+
+  useEffect(() => {
+    window.addEventListener('resize', () => {
+      window.innerWidth <= 425 ? setIsMobile(true) : setIsMobile(false);
+    });
+  }, []);
+
   return (
     <FloatingBlock>
+      {isMobile ? (
+        <ActionButton
+          className="forMobile"
+          $backgroundColor={palette.system.green}
+          onClick={handleCall}
+        >
+          <img src={FLOATING_CALL} alt="phoneCall" />
+        </ActionButton>
+      ) : null}
       <ActionButton
-        style={{ backgroundColor: palette.system.green }}
-        onClick={handleCall}
-      >
-        <img src={FLOATING_CALL} alt="phoneCall" />
-      </ActionButton>
-      <ActionButton
-        style={{ backgroundColor: '#FAE300' }}
+        $backgroundColor={'#FAE300'}
         onClick={() => {
           window.open('https://pf.kakao.com/_BqZCn', '_blank');
         }}
@@ -66,7 +79,7 @@ const Floating = () => {
         <img src={FLOATING_KAKAO} alt="kakaoTalk" />
       </ActionButton>
       <ActionButton
-        style={{ backgroundColor: palette.black.white }}
+        $backgroundColor={palette.black.white}
         onClick={handleScrollToTop}
       >
         <img src={FLOATING_UPPER} alt="upperButton" />
