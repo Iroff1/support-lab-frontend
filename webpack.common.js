@@ -1,6 +1,16 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const SiteMapPlugin = require('sitemap-webpack-plugin').default;
+
+const paths = [
+  { path: '/', lastmod: new Date().toISOString() },
+  { path: '/terms', lastmod: new Date().toISOString() },
+  { path: '/customerService', lastmod: new Date().toISOString() },
+  { path: '/documents', lastmod: new Date().toISOString() },
+  { path: '/products', lastmod: new Date().toISOString() },
+];
 
 module.exports = {
   entry: './src/index.tsx',
@@ -63,6 +73,12 @@ module.exports = {
       favicon: './public/favicon.png',
     }),
     new Dotenv(),
+    new SiteMapPlugin({ base: 'https://www.plankit.kr', paths }),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'public/robots.txt', to: '.' }, // public 디렉토리 전체를 dist로 복사
+      ],
+    }),
   ],
   watchOptions: {
     poll: true,
