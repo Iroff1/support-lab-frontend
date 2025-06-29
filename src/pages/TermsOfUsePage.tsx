@@ -1,5 +1,5 @@
-import TermsOfUseBlock from '@components/terms/TermsOfPersonalInfo';
-import { TTypeOfTerms } from '@consts/termsForPage';
+import TermsOfUseBlock from '@components/terms/TermsOfUse';
+import { TTypeOfTerms } from '@models/terms.model';
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -11,7 +11,7 @@ const TermsOfUsePage: React.FC = () => {
   }, []);
   return (
     <>
-      <TermsOfUseBlock type={typeOfTerms ? typeOfTerms : 'personalInfo'} />
+      <TermsOfUseBlock type={typeOfTerms ? typeOfTerms : 'termsOfService'} />
     </>
   );
 };

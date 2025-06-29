@@ -3,7 +3,7 @@ import { termsOfUses } from '@consts/termsForRegister';
 import styled from 'styled-components';
 import AuthHeaderLogo from './AuthHeaderLogo';
 import AuthTitleBox from './AuthTitleBox';
-import { ITerms } from '@models/auth.model';
+import { ITermsForRegitster } from '@models/auth.model';
 import SubmitButton from '@components/common/SubmitButton';
 
 const AuthTermsOfUseBlock = styled.div`
@@ -23,7 +23,7 @@ const AuthTermsOfUseBlock = styled.div`
 
 interface IAuthTermsOfUse {
   toggleAll: boolean;
-  termsToRegister: ITerms;
+  termsToRegister: ITermsForRegitster;
   handleToggleOne: (e: React.MouseEvent<HTMLInputElement>) => void;
   handleToggleAll: () => void;
   handleSubmit: () => void;
@@ -53,16 +53,18 @@ const AuthTermsOfUse: React.FC<IAuthTermsOfUse> = ({
         {Object.keys(termsOfUses).map((key, index) => (
           <InputForTerms
             key={index}
-            name={key as keyof ITerms}
-            header={termsOfUses[key as keyof ITerms].header}
+            name={key as keyof ITermsForRegitster}
+            header={termsOfUses[key as keyof ITermsForRegitster].header}
             isRequired={
-              termsOfUses[key as keyof ITerms].isRequired ? '필수' : '선택'
+              termsOfUses[key as keyof ITermsForRegitster].isRequired
+                ? '필수'
+                : '선택'
             }
             isWrapped={true}
-            contents={termsOfUses[key as keyof ITerms].contents}
-            isChecked={termsToRegister[key as keyof ITerms]}
+            contents={termsOfUses[key as keyof ITermsForRegitster].contents}
+            isChecked={termsToRegister[key as keyof ITermsForRegitster]}
             onClick={handleToggleOne}
-            path={termsOfUses[key as keyof ITerms].path}
+            path={termsOfUses[key as keyof ITermsForRegitster].path}
           />
         ))}
       </AuthTermsOfUseBlock>

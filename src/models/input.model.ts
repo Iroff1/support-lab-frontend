@@ -27,7 +27,6 @@ export interface IInputWithCheck<T> extends IInput<T> {
   children: string | React.ReactNode; // 컴포넌트 내 input 태그 외 태그에 사용할 '문자열|자식' 컴포넌트 속성
   handleClick?: TMouseEventHandler<HTMLInputElement>; // input[type='checkout']를 위한 이벤트 콜백함수 속성
   handlePopup?: TMouseEventHandler<HTMLInputElement>;
-  popup?: React.ReactNode | string;
   $checked: boolean;
   $fontSize?: string;
 }

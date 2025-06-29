@@ -1,7 +1,7 @@
-import { ITerms } from '@models/auth.model';
+import { ITermsForRegitster } from '@models/auth.model';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState: ITerms = {
+const initialState: ITermsForRegitster = {
   termsOfServiceAgreed: false,
   privacyPolicyAgreed: false,
   marketingAgreed: false,
@@ -14,7 +14,10 @@ export const termsSlice = createSlice({
     initialState: (state) => {
       Object.assign(state, initialState);
     },
-    toggleOne: (state, { payload: name }: PayloadAction<keyof ITerms>) => {
+    toggleOne: (
+      state,
+      { payload: name }: PayloadAction<keyof ITermsForRegitster>,
+    ) => {
       state[name] = !state[name];
     },
     toggleAll: (state, { payload: toggle }: PayloadAction<boolean>) => {
@@ -22,7 +25,7 @@ export const termsSlice = createSlice({
         state,
         Object.keys(state).reduce(
           (acc, key) => ({ ...acc, [key]: toggle }), // 업데이트된 toggle 값 사용
-          {} as ITerms,
+          {} as ITermsForRegitster,
         ),
       );
     },

@@ -3,6 +3,7 @@ import translateFontSize from '@utils/translateFontSize';
 import palette from '@assets/colors/index';
 import { Link } from 'react-router-dom';
 import Responsive from '@styles/common/Responsive.style';
+import { TTypeOfTerms } from '@models/terms.model';
 
 const [ICON_BLOG, ICON_INSTA, ICON_YOUTUBE] = [
   require('@assets/images/common/icon_blog.png'),
@@ -78,6 +79,16 @@ const SocialDirectBlock = styled.div`
   }
 `;
 
+const AnchorToTerms: React.FC<{ to: TTypeOfTerms; children: string }> = (
+  props,
+) => {
+  return (
+    <a href={'/terms/' + props.to} target="_blank">
+      {props.children}
+    </a>
+  );
+};
+
 const Footer = () => {
   return (
     <FooterBlock>
@@ -96,17 +107,14 @@ const Footer = () => {
             주소: 경기도 김포시 양촌읍 양곡로 495, 6층 | 고객센터:
             0507-1402-3531 | 이메일: official@iroff.kr
             <br />
-            <Link to={'/terms/businessPlan'} target="_blank">
-              이용약관
-            </Link>{' '}
-            |{' '}
-            <Link to={'/terms/personalInfo'} target="_blank">
+            <AnchorToTerms to={'termsOfService'}>이용약관</AnchorToTerms> |{' '}
+            <AnchorToTerms to={'privacyPolicy'}>
               개인정보 수집 및 이용
-            </Link>{' '}
+            </AnchorToTerms>{' '}
             |{' '}
-            <Link to={'/terms/marketing'} target="_blank">
+            <AnchorToTerms to={'marketing'}>
               이벤트·혜택 정보 수신
-            </Link>{' '}
+            </AnchorToTerms>{' '}
             | <Link to={'/customerService/inquire'}>고객센터</Link>
           </p>
         </CompanyInfoBlock>

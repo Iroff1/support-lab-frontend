@@ -1,5 +1,5 @@
 import InputWithCheck from '@components/common/InputWithCheck';
-import TermsOfUse from '@components/terms/TermsOfPersonalInfo';
+import TermsOfUse from '@components/terms/TermsOfUse';
 import { regValid } from '@consts/reg';
 import InputForAuth from '@containers/common/InputForAuth';
 import InputPassword from '@containers/common/InputPassword';
@@ -128,7 +128,6 @@ const UserModifyInfo: React.FC<IUserModifyInfoProps> = (props) => {
                 required={false}
                 useFor="auth"
                 handleClick={props.handleMarketing}
-                popup={<TermsOfUse type="marketing" isPopup={true} />}
                 $checked={props.marketingState}
               >
                 마케팅 수신 동의

@@ -1,4 +1,4 @@
-import { ITerms } from '@models/auth.model';
+import { ITermsForRegitster } from '@models/auth.model';
 
 interface ITermToRegister {
   header: string;
@@ -8,7 +8,7 @@ interface ITermToRegister {
 }
 
 type ITermsToRegister = {
-  [key in keyof ITerms]: ITermToRegister;
+  [key in keyof ITermsForRegitster]: ITermToRegister;
 };
 
 export const termsOfUses: ITermsToRegister = {

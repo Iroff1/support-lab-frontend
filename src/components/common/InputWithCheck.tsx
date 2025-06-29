@@ -86,7 +86,6 @@ const InputWithCheck = <T extends object>({
   children,
   handleClick,
   required,
-  popup,
   $checked = false,
   $fontSize = '17px',
 }: IInputWithCheck<T>) => {
@@ -118,7 +117,6 @@ const InputWithCheck = <T extends object>({
           </DirectSection>
         ) : null}
       </InputWithCheckBlock>
-      {isPopup && <PopupWrapper onClick={handlePopup}>{popup}</PopupWrapper>}
     </>
   );
 };

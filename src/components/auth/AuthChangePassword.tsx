@@ -2,7 +2,7 @@ import React from 'react';
 import AuthTitleBox from './AuthTitleBox';
 import SubmitButton from '@components/common/SubmitButton';
 import AuthHeaderLogo from './AuthHeaderLogo';
-import { INewPassword } from '@models/auth.model';
+import { INewPasswordConfirm } from '@models/auth.model';
 import { IBooleanObj } from '@models/common.model';
 import { TChangeEventHandler } from '@models/input.model';
 import { styled } from 'styled-components';
@@ -22,8 +22,8 @@ const ChangeSubmit = styled.div`
 `;
 
 interface IAuthChangePassword {
-  formState: INewPassword;
-  checkList: IBooleanObj<INewPassword>;
+  formState: INewPasswordConfirm;
+  checkList: IBooleanObj<INewPasswordConfirm>;
   checkResult: boolean;
   handleChange: TChangeEventHandler<HTMLInputElement>;
   handleSubmit: () => Promise<void>;

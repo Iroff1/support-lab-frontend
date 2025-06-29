@@ -1,7 +1,7 @@
 import { usersModifyPassword, usersModifyPasswordReq } from '@api/user';
 import AuthChangePassword from '@components/auth/AuthChangePassword';
 import useCheckList from '@hooks/useCheckList';
-import { INewPassword } from '@models/auth.model';
+import { INewPasswordConfirm } from '@models/auth.model';
 import checkValidation from '@utils/checkValidation';
 import handleChangeField from '@utils/handleChangeField';
 import { StatusCodes } from 'http-status-codes';
@@ -12,12 +12,12 @@ const AuthChangePasswordContainer: React.FC<{ passwordToken: string }> = ({
   passwordToken,
 }) => {
   const navigate = useNavigate();
-  const [formState, setFormState] = useState<INewPassword>({
+  const [formState, setFormState] = useState<INewPasswordConfirm>({
     newPassword: '',
     newPasswordConfirm: '',
   });
   const { checkList, checkResult, modifyCheckList } =
-    useCheckList<INewPassword>({
+    useCheckList<INewPasswordConfirm>({
       newPassword: false,
       newPasswordConfirm: false,
     });

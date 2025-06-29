@@ -1,6 +1,6 @@
 import AuthTermsOfUse from '@components/auth/AuthTermsOfUse';
 import useInit from '@hooks/useInit';
-import { ITerms } from '@models/auth.model';
+import { ITermsForRegitster } from '@models/auth.model';
 import { TMouseEventHandler } from '@models/input.model';
 import { useAppDispatch, useAppSelector } from '@store/index';
 import { termsActions } from '@store/terms';
@@ -16,7 +16,7 @@ const AuthTermsOfUseContainer = () => {
 
   /** 한개 항목에 대해서 토글하는 핸들러 함수 */
   const handleToggleOne: TMouseEventHandler<HTMLInputElement> = (e) => {
-    const name = e.currentTarget.name as keyof ITerms;
+    const name = e.currentTarget.name as keyof ITermsForRegitster;
     dispatch(termsActions.toggleOne(name));
   };
 
@@ -39,9 +39,13 @@ const AuthTermsOfUseContainer = () => {
     dispatch(termsActions.initialState());
   }, [isInit]);
   useEffect(() => {
-    if (Object.keys(terms).every((key) => terms[key as keyof ITerms])) {
+    if (
+      Object.keys(terms).every((key) => terms[key as keyof ITermsForRegitster])
+    ) {
       setToggleAll(true);
-    } else if (!Object.keys(terms).every((key) => terms[key as keyof ITerms])) {
+    } else if (
+      !Object.keys(terms).every((key) => terms[key as keyof ITermsForRegitster])
+    ) {
       setToggleAll(false);
     }
   }, [terms]);

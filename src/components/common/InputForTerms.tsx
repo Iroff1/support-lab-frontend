@@ -1,6 +1,6 @@
 import palette from '@assets/colors';
 import useScroll from '@hooks/useScroll';
-import { ITerms } from '@models/auth.model';
+import { ITermsForRegitster } from '@models/auth.model';
 import { TMouseEventHandler } from '@models/input.model';
 import { IconChecked } from '@styles/common/CheckBox.style';
 import translateFontSize from '@utils/translateFontSize';
@@ -162,7 +162,7 @@ const PopupWrapper = styled.div`
 `;
 
 interface IInputForterms {
-  name: keyof ITerms | 'checkAll';
+  name: keyof ITermsForRegitster | 'checkAll';
   isRequired?: '필수' | '선택';
   isWrapped?: boolean;
   isChecked?: boolean;

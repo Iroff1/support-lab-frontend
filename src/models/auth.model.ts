@@ -29,14 +29,14 @@ export interface IRegister extends ILogin {
   phone: string;
 }
 /** 서버에 전송할 register 선택 데이터 인터페이스 */
-export interface ITerms {
+export interface ITermsForRegitster {
   termsOfServiceAgreed: boolean; // true 필수
   privacyPolicyAgreed: boolean; // true 필수
   marketingAgreed: boolean;
 }
 /** 서버에 전송할 register 데이터 인터페이스 */
-export interface IRegisterRequest extends IRegister, ITerms {}
-export interface IRegisterResponce extends IRegister, ITerms {
+export interface IRegisterRequest extends IRegister, ITermsForRegitster {}
+export interface IRegisterResponce extends IRegister, ITermsForRegitster {
   id: number;
   createdAt: string;
 }
@@ -51,12 +51,12 @@ export interface IRegisterCheck extends IBooleanObj<IRegisterState> {
   emailConfirm: boolean;
 }
 
-export interface INewPassword {
+export interface INewPasswordConfirm {
   newPassword: string;
   newPasswordConfirm: string;
 }
 
-export interface IConfirm {
+export interface IAuthConfirm {
   authCode: string;
   authConfirm: string;
 }

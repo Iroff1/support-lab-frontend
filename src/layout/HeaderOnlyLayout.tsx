@@ -5,7 +5,7 @@ import HeaderContainer from '@containers/common/HeaderContainer';
 const MainBlock = styled.div`
   width: 100%;
   min-height: 100%;
-  padding-top: 64px;
+  margin-top: 64px;
 `;
 
 const HeaderOnlyLayout = () => {

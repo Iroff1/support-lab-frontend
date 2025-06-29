@@ -1,20 +1,20 @@
 import React from 'react';
 import InputPassword from './InputPassword';
-import { INewPassword } from '@models/auth.model';
+import { INewPasswordConfirm } from '@models/auth.model';
 import { IBooleanObj } from '@models/common.model';
 import { TChangeEventHandler } from '@models/input.model';
 
 interface IInputChangePw {
   $theme: 'default' | 'modify';
   handleChange: TChangeEventHandler<HTMLInputElement>;
-  formState: INewPassword;
-  checkList: IBooleanObj<INewPassword>;
+  formState: INewPasswordConfirm;
+  checkList: IBooleanObj<INewPasswordConfirm>;
 }
 
 const InputChangePw: React.FC<IInputChangePw> = (props) => {
   return (
     <>
-      <InputPassword<INewPassword>
+      <InputPassword<INewPasswordConfirm>
         $theme={props.$theme}
         name="newPassword"
         placeholder="비밀번호"
@@ -25,7 +25,7 @@ const InputChangePw: React.FC<IInputChangePw> = (props) => {
           '8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해 주세요.'
         }
       />
-      <InputPassword<INewPassword>
+      <InputPassword<INewPasswordConfirm>
         $theme={props.$theme}
         name="newPasswordConfirm"
         placeholder="비밀번호 확인"

@@ -2,9 +2,9 @@ import UserModifyInfo from '@components/user/UserModifyInfo';
 import useCheckList from '@hooks/useCheckList';
 import useInit from '@hooks/useInit';
 import {
-  IConfirm,
+  IAuthConfirm,
   ILocalAuth,
-  INewPassword,
+  INewPasswordConfirm,
   IRegister,
   IRegisterCheck,
 } from '@models/auth.model';
@@ -17,11 +17,14 @@ import handleGetAuthCode from '@utils/handleGetAuthCode';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-interface IUserModifyInfoState extends IRegister, IConfirm, INewPassword {}
+interface IUserModifyInfoState
+  extends IRegister,
+    IAuthConfirm,
+    INewPasswordConfirm {}
 
 export interface IUserModifyInfoProps {
   formState: IUserModifyInfoState;
-  checkList: IBooleanObj<IRegisterCheck & INewPassword>;
+  checkList: IBooleanObj<IRegisterCheck & INewPasswordConfirm>;
   marketingState: boolean;
   handleAuthConfirm: () => Promise<void>;
   handleChange: TChangeEventHandler<HTMLInputElement>;
@@ -54,7 +57,7 @@ const UserModifyInfoContainer = ({
     newPasswordConfirm: '',
   });
   const { checkList, modifyCheckList } = useCheckList<
-    IRegisterCheck & INewPassword
+    IRegisterCheck & INewPasswordConfirm
   >({
     email: false,
     emailConfirm: false,
