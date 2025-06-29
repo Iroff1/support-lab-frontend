@@ -18,6 +18,14 @@ export const TableRow = styled.div`
     display: flex;
     flex-direction: column;
   }
+
+  @media screen and (max-width: 424px) {
+    flex-direction: column;
+    & > div {
+      border-left: 1px solid ${palette.black.B50};
+      border-right: 1px solid ${palette.black.B50};
+    }
+  }
 `;
 export const TableLeft = styled.div`
   min-width: 140px;
@@ -25,9 +33,13 @@ export const TableLeft = styled.div`
   background-color: ${palette.black.B20};
   display: flex;
   justify-content: flex-end;
-  padding-top: 14px;
-  padding-right: 19px;
+  padding: 14px 19px 0 0;
   ${css(translateFontSize('SB_17'))};
+
+  @media screen and (max-width: 424px) {
+    justify-content: center;
+    padding: 14px 0px 15px 0;
+  }
 `;
 export const TableRight = styled.div`
   width: 100%;
@@ -38,5 +50,9 @@ export const TableRight = styled.div`
 
   & > strong {
     ${css(translateFontSize('B_18'))};
+  }
+
+  @media screen and (max-width: 424px) {
+    padding: 12px 14px 10px 14px;
   }
 `;
