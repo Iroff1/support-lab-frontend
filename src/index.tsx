@@ -1,11 +1,11 @@
 import './index.css';
 import App from './App';
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router';
 import store from './store';
 import { Provider } from 'react-redux';
 import { authDecryptTokenThunk } from '@store/auth';
+import { HelmetProvider } from 'react-helmet-async';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -24,9 +24,11 @@ try {
 root.render(
   // <React.StrictMode>
   <Provider store={store}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <HelmetProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </HelmetProvider>
   </Provider>,
   // </React.StrictMode>,
 );

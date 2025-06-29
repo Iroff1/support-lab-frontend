@@ -83,6 +83,7 @@ module.exports = {
     new CopyWebpackPlugin({
       patterns: [
         { from: 'public/robots.txt', to: '.' }, // public 디렉토리 전체를 dist로 복사
+        { from: 'public/preview.png', to: '.' }, // public 디렉토리 전체를 dist로 복사
       ],
     }),
   ],
