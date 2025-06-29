@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 import MessageBox from '../common/MessageBox';
 import translateFontSize from '@utils/translateFontSize';
 import IMAGE_EXAMPLES from '@assets/images/main/image_examples.gif';
+import { useEffect, useState } from 'react';
 
 const MainBoxForBriefingBlock = styled.div`
   width: 100%;
@@ -33,6 +34,15 @@ const MainBoxForBriefingBlock = styled.div`
 
 /** 지원사업 연구소 서비스를 브리핑하는 내용을 담은 블럭 */
 const MainBoxForBriefing = () => {
+  const [query, setQuery] = useState(Date.now());
+
+  useEffect(() => {
+    const event = setInterval(() => {
+      setQuery(Date.now());
+    }, 4000);
+    return () => clearInterval(event);
+  }, []);
+
   return (
     <>
       <MessageBox>
@@ -56,7 +66,7 @@ const MainBoxForBriefing = () => {
         </MessageBox>
 
         <div className="imageBox">
-          <img src={IMAGE_EXAMPLES} alt="결과 예시 이미지" />
+          <img src={IMAGE_EXAMPLES + '?' + query} alt="결과 예시 이미지" />
         </div>
 
         <div className="imageFooter">
